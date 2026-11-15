@@ -18,11 +18,8 @@ runs:
       shell: bash
       run: rm bin/executables.txt
 
-    - name: Download schema-embed.json
+    - name: Download schema.json
       uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
       with:
-        # Use a pattern to avoid failing if the artifact doesn't exist
-        pattern: schema-embed.*
-        # Avoid creating directories for each artifact
-        merge-multiple: true
+        name: schema.json
         path: provider/cmd/pulumi-resource-openrouter
