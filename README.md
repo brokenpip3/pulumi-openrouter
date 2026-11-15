@@ -1,55 +1,43 @@
-# Openrouter Resource Provider
+# pulumi openrouter provider
 
-The Openrouter Resource Provider lets you manage [Openrouter](http://example.com) resources.
+Manage openrouter resources via this pulumi provider generated from the [TF](https://github.com/OpenRouterTeam/terraform-provider-openrouter) one.
 
-## Installing
+## Usage
 
-This package is available for several languages/platforms:
+### python
 
-### Node.js (JavaScript/TypeScript)
+This is a simple exaple with poetry, add the dependency in your `pyproject.toml`:
 
-To use from JavaScript or TypeScript in Node.js, install using either `npm`:
-
-```bash
-npm install @pulumi/openrouter
+```toml
+[tool.poetry.dependencies]
+pulumi-openrouter = { git = "https://github.com/brokenpip3/pulumi-openrouter.git", tag = "v0.2.1", subdirectory = "sdk/python" }
 ```
 
-or `yarn`:
+### other languages
 
-```bash
-yarn add @pulumi/openrouter
+add it to your language dependency manager (go.mod, npm, etc.) and import it in your code.
+
+## management key
+
+To use it you need a management key from openrouter: create a key on the [Management API Keys](https://openrouter.ai/settings/management-keys)
+page and save it as secret in your pulumi stack:
+
+```sh
+pulumi config set --secret openrouter:apiKey
 ```
 
-### Python
+## local development
 
-To use from Python, install using `pip`:
+From this provider repository you can use nix or mise:
 
-```bash
-pip install pulumi_openrouter
+```sh
+nix develop # or mise install
+git submodule update --init --recursive
+make provider_no_deps PROVIDER_VERSION=x.x.x
+./bin/pulumi-resource-openrouter
 ```
+Leave the plugin running and note the port it prints, in another terminal replace `41549` with that port:
 
-### Go
-
-To use from Go, use `go get` to grab the latest version of the library:
-
-```bash
-go get github.com/pulumi/pulumi-openrouter/sdk/go/...
+```sh
+PULUMI_DEBUG_PROVIDERS=openrouter:41549 pulumi preview
 ```
-
-### .NET
-
-To use from .NET, install using `dotnet add package`:
-
-```bash
-dotnet add package Pulumi.Openrouter
-```
-
-## Configuration
-
-The following configuration points are available for the `openrouter` provider:
-
-- `openrouter:region` (environment: `OPENROUTER_REGION`) - the region in which to deploy resources
-
-## Reference
-
-For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/openrouter/api-docs/).
