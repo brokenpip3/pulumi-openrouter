@@ -15,18 +15,19 @@
 package main
 
 import (
+	"context"
+
 	_ "embed"
 
-	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
+	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 
 	openrouter "github.com/brokenpip3/pulumi-openrouter/provider"
-	"github.com/brokenpip3/pulumi-openrouter/provider/pkg/version"
 )
 
 //go:embed schema.json
 var pulumiSchema []byte
 
 func main() {
-	// Modify the path to point to the new provider
-	tfbridge.Main("openrouter", version.Version, openrouter.Provider(), pulumiSchema)
+	tfbridge.Main(context.Background(), "openrouter", openrouter.Provider(),
+		tfbridge.ProviderMetadata{PackageSchema: pulumiSchema})
 }
