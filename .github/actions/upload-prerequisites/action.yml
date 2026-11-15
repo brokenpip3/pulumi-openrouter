@@ -15,9 +15,10 @@ runs:
         path: bin/*
         retention-days: 30
 
-    - name: Upload schema-embed.json
+    - name: Upload schema.json
       uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       with:
-        name: schema-embed.json
-        path: provider/cmd/pulumi-resource-openrouter/schema-embed.json
+        name: schema.json
+        path: provider/cmd/pulumi-resource-openrouter/schema.json
+        if-no-files-found: error
         retention-days: 30

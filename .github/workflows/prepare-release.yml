@@ -1,0 +1,76 @@
+name: Prepare release
+run-name: Prepare v${{ inputs.version }} from ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Provider version (major.minor.patch, without v)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  RELEASE_VERSION: ${{ inputs.version }}
+  PROVIDER_VERSION: ${{ inputs.version }}
+  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
+  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
+  PULUMI_PULUMI_ENABLE_JOURNALING: "true"
+  TF_APPEND_USER_AGENT: pulumi
+
+jobs:
+  prepare:
+    name: Generate provider and SDK review PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout selected source commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          # Used only by the final publication step to push a new branch.
+          persist-credentials: true
+
+      - name: Validate inputs and update Makefile version
+        run: python3 scripts/prepare-release.py prepare
+
+      - name: Setup mise
+        uses: jdx/mise-action@8d3b0ba20a9cea7b883d922ea958553c941ab082
+        env:
+          MISE_FETCH_REMOTE_VERSIONS_TIMEOUT: 30s
+        with:
+          version: 2026.10.21
+          add_shims_to_path: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cache_save: false
+
+      - name: Install project dependencies
+        run: mise deps install
+
+      - name: Prepare build workspace
+        run: |
+          make prepare_local_workspace
+          echo "$GITHUB_WORKSPACE/bin" >> "$GITHUB_PATH"
+
+      - name: Generate schema and tfgen
+        run: make tfgen
+
+      - name: Build provider
+        run: make provider
+
+      - name: Generate and build all SDKs
+        run: make build_sdks
+
+      - name: Test provider
+        run: make test_provider
+
+      - name: Open generated changes PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/prepare-release.py publish
