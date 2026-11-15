@@ -1,13 +1,13 @@
 {
-    "name": "@pulumi/xyz",
-    "version": "1.0.0-alpha.0+dev",
-    "description": "A Pulumi package for creating and managing xyz cloud resources.",
+    "name": "@pulumi/openrouter",
+    "version": "0.1.0",
+    "description": "A Pulumi package for creating and managing openrouter resources.",
     "keywords": [
-        "xyz",
+        "openrouter",
         "category/cloud"
     ],
     "homepage": "https://www.pulumi.com",
-    "repository": "https://github.com/pulumi/pulumi-xyz",
+    "repository": "https://github.com/brokenpip3/pulumi-openrouter",
     "license": "Apache-2.0",
     "scripts": {
         "build": "tsc"
@@ -21,7 +21,8 @@
     },
     "pulumi": {
         "resource": true,
-        "name": "xyz",
-        "version": "1.0.0-alpha.0+dev"
+        "name": "openrouter",
+        "version": "0.1.0",
+        "server": "github://api.github.com/brokenpip3/pulumi-openrouter"
     }
 }

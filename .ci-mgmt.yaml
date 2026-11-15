@@ -1,7 +1,7 @@
 # REQUIRED: provider is the name of the provider without the pulumi-prefix e.g. "aws".
-provider: xyz
+provider: openrouter
 # The name of the GitHub organization or username the repository lives in. Defaults to 'pulumi'
-organization: pulumi
+organization: brokenpip3
 # The external template only includes workflows relevant for non-Pulumi managed providers.
 template: external-bridged-provider
 # The name of the GitHub organisation or username where the upstream terraform provider lives.
@@ -32,7 +32,7 @@ publish:
 # Disables a pulumi-internal-only step for running create_docs_build during the release
 publishRegistry: false
 
-# Enables ESC for CI secrets. Optional.
+# CI workflows are repository-owned: preserve native-token auth, Linux runners,
+# disabled SDK publishing, and no repository_dispatch triggers when regenerating.
 esc:
-    enabled: true
-    environment: imports/github-secrets
+    enabled: false

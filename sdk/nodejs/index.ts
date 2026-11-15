@@ -5,28 +5,211 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export { GetDataSourceArgs, GetDataSourceResult, GetDataSourceOutputArgs } from "./getDataSource";
-export const getDataSource: typeof import("./getDataSource").getDataSource = null as any;
-export const getDataSourceOutput: typeof import("./getDataSource").getDataSourceOutput = null as any;
-utilities.lazyLoad(exports, ["getDataSource","getDataSourceOutput"], () => require("./getDataSource"));
+export { ApiKeyArgs, ApiKeyState } from "./apiKey";
+export type ApiKey = import("./apiKey").ApiKey;
+export const ApiKey: typeof import("./apiKey").ApiKey = null as any;
+utilities.lazyLoad(exports, ["ApiKey"], () => require("./apiKey"));
+
+export { ByokKeyArgs, ByokKeyState } from "./byokKey";
+export type ByokKey = import("./byokKey").ByokKey;
+export const ByokKey: typeof import("./byokKey").ByokKey = null as any;
+utilities.lazyLoad(exports, ["ByokKey"], () => require("./byokKey"));
+
+export { GetApiKeyArgs, GetApiKeyResult, GetApiKeyOutputArgs } from "./getApiKey";
+export const getApiKey: typeof import("./getApiKey").getApiKey = null as any;
+export const getApiKeyOutput: typeof import("./getApiKey").getApiKeyOutput = null as any;
+utilities.lazyLoad(exports, ["getApiKey","getApiKeyOutput"], () => require("./getApiKey"));
+
+export { GetApiKeysArgs, GetApiKeysResult, GetApiKeysOutputArgs } from "./getApiKeys";
+export const getApiKeys: typeof import("./getApiKeys").getApiKeys = null as any;
+export const getApiKeysOutput: typeof import("./getApiKeys").getApiKeysOutput = null as any;
+utilities.lazyLoad(exports, ["getApiKeys","getApiKeysOutput"], () => require("./getApiKeys"));
+
+export { GetByokKeyArgs, GetByokKeyResult, GetByokKeyOutputArgs } from "./getByokKey";
+export const getByokKey: typeof import("./getByokKey").getByokKey = null as any;
+export const getByokKeyOutput: typeof import("./getByokKey").getByokKeyOutput = null as any;
+utilities.lazyLoad(exports, ["getByokKey","getByokKeyOutput"], () => require("./getByokKey"));
+
+export { GetByokKeysArgs, GetByokKeysResult, GetByokKeysOutputArgs } from "./getByokKeys";
+export const getByokKeys: typeof import("./getByokKeys").getByokKeys = null as any;
+export const getByokKeysOutput: typeof import("./getByokKeys").getByokKeysOutput = null as any;
+utilities.lazyLoad(exports, ["getByokKeys","getByokKeysOutput"], () => require("./getByokKeys"));
+
+export { GetCreditsResult } from "./getCredits";
+export const getCredits: typeof import("./getCredits").getCredits = null as any;
+export const getCreditsOutput: typeof import("./getCredits").getCreditsOutput = null as any;
+utilities.lazyLoad(exports, ["getCredits","getCreditsOutput"], () => require("./getCredits"));
+
+export { GetGuardrailArgs, GetGuardrailResult, GetGuardrailOutputArgs } from "./getGuardrail";
+export const getGuardrail: typeof import("./getGuardrail").getGuardrail = null as any;
+export const getGuardrailOutput: typeof import("./getGuardrail").getGuardrailOutput = null as any;
+utilities.lazyLoad(exports, ["getGuardrail","getGuardrailOutput"], () => require("./getGuardrail"));
+
+export { GetGuardrailKeyAssignmentsArgs, GetGuardrailKeyAssignmentsResult, GetGuardrailKeyAssignmentsOutputArgs } from "./getGuardrailKeyAssignments";
+export const getGuardrailKeyAssignments: typeof import("./getGuardrailKeyAssignments").getGuardrailKeyAssignments = null as any;
+export const getGuardrailKeyAssignmentsOutput: typeof import("./getGuardrailKeyAssignments").getGuardrailKeyAssignmentsOutput = null as any;
+utilities.lazyLoad(exports, ["getGuardrailKeyAssignments","getGuardrailKeyAssignmentsOutput"], () => require("./getGuardrailKeyAssignments"));
+
+export { GetGuardrailMemberAssignmentsArgs, GetGuardrailMemberAssignmentsResult, GetGuardrailMemberAssignmentsOutputArgs } from "./getGuardrailMemberAssignments";
+export const getGuardrailMemberAssignments: typeof import("./getGuardrailMemberAssignments").getGuardrailMemberAssignments = null as any;
+export const getGuardrailMemberAssignmentsOutput: typeof import("./getGuardrailMemberAssignments").getGuardrailMemberAssignmentsOutput = null as any;
+utilities.lazyLoad(exports, ["getGuardrailMemberAssignments","getGuardrailMemberAssignmentsOutput"], () => require("./getGuardrailMemberAssignments"));
+
+export { GetGuardrailsArgs, GetGuardrailsResult, GetGuardrailsOutputArgs } from "./getGuardrails";
+export const getGuardrails: typeof import("./getGuardrails").getGuardrails = null as any;
+export const getGuardrailsOutput: typeof import("./getGuardrails").getGuardrailsOutput = null as any;
+utilities.lazyLoad(exports, ["getGuardrails","getGuardrailsOutput"], () => require("./getGuardrails"));
+
+export { GetModelArgs, GetModelResult, GetModelOutputArgs } from "./getModel";
+export const getModel: typeof import("./getModel").getModel = null as any;
+export const getModelOutput: typeof import("./getModel").getModelOutput = null as any;
+utilities.lazyLoad(exports, ["getModel","getModelOutput"], () => require("./getModel"));
+
+export { GetModelsArgs, GetModelsResult, GetModelsOutputArgs } from "./getModels";
+export const getModels: typeof import("./getModels").getModels = null as any;
+export const getModelsOutput: typeof import("./getModels").getModelsOutput = null as any;
+utilities.lazyLoad(exports, ["getModels","getModelsOutput"], () => require("./getModels"));
+
+export { GetObservabilityDestinationArgs, GetObservabilityDestinationResult, GetObservabilityDestinationOutputArgs } from "./getObservabilityDestination";
+export const getObservabilityDestination: typeof import("./getObservabilityDestination").getObservabilityDestination = null as any;
+export const getObservabilityDestinationOutput: typeof import("./getObservabilityDestination").getObservabilityDestinationOutput = null as any;
+utilities.lazyLoad(exports, ["getObservabilityDestination","getObservabilityDestinationOutput"], () => require("./getObservabilityDestination"));
+
+export { GetObservabilityDestinationsArgs, GetObservabilityDestinationsResult, GetObservabilityDestinationsOutputArgs } from "./getObservabilityDestinations";
+export const getObservabilityDestinations: typeof import("./getObservabilityDestinations").getObservabilityDestinations = null as any;
+export const getObservabilityDestinationsOutput: typeof import("./getObservabilityDestinations").getObservabilityDestinationsOutput = null as any;
+utilities.lazyLoad(exports, ["getObservabilityDestinations","getObservabilityDestinationsOutput"], () => require("./getObservabilityDestinations"));
+
+export { GetOrganizationMembersResult } from "./getOrganizationMembers";
+export const getOrganizationMembers: typeof import("./getOrganizationMembers").getOrganizationMembers = null as any;
+export const getOrganizationMembersOutput: typeof import("./getOrganizationMembers").getOrganizationMembersOutput = null as any;
+utilities.lazyLoad(exports, ["getOrganizationMembers","getOrganizationMembersOutput"], () => require("./getOrganizationMembers"));
+
+export { GetOrganizationSettingsResult } from "./getOrganizationSettings";
+export const getOrganizationSettings: typeof import("./getOrganizationSettings").getOrganizationSettings = null as any;
+export const getOrganizationSettingsOutput: typeof import("./getOrganizationSettings").getOrganizationSettingsOutput = null as any;
+utilities.lazyLoad(exports, ["getOrganizationSettings","getOrganizationSettingsOutput"], () => require("./getOrganizationSettings"));
+
+export { GetPresetArgs, GetPresetResult, GetPresetOutputArgs } from "./getPreset";
+export const getPreset: typeof import("./getPreset").getPreset = null as any;
+export const getPresetOutput: typeof import("./getPreset").getPresetOutput = null as any;
+utilities.lazyLoad(exports, ["getPreset","getPresetOutput"], () => require("./getPreset"));
+
+export { GetPresetsArgs, GetPresetsResult, GetPresetsOutputArgs } from "./getPresets";
+export const getPresets: typeof import("./getPresets").getPresets = null as any;
+export const getPresetsOutput: typeof import("./getPresets").getPresetsOutput = null as any;
+utilities.lazyLoad(exports, ["getPresets","getPresetsOutput"], () => require("./getPresets"));
+
+export { GetPrivateEndpointArgs, GetPrivateEndpointResult, GetPrivateEndpointOutputArgs } from "./getPrivateEndpoint";
+export const getPrivateEndpoint: typeof import("./getPrivateEndpoint").getPrivateEndpoint = null as any;
+export const getPrivateEndpointOutput: typeof import("./getPrivateEndpoint").getPrivateEndpointOutput = null as any;
+utilities.lazyLoad(exports, ["getPrivateEndpoint","getPrivateEndpointOutput"], () => require("./getPrivateEndpoint"));
+
+export { GetProvidersResult } from "./getProviders";
+export const getProviders: typeof import("./getProviders").getProviders = null as any;
+export const getProvidersOutput: typeof import("./getProviders").getProvidersOutput = null as any;
+utilities.lazyLoad(exports, ["getProviders","getProvidersOutput"], () => require("./getProviders"));
+
+export { GetScimGroupMappingArgs, GetScimGroupMappingResult, GetScimGroupMappingOutputArgs } from "./getScimGroupMapping";
+export const getScimGroupMapping: typeof import("./getScimGroupMapping").getScimGroupMapping = null as any;
+export const getScimGroupMappingOutput: typeof import("./getScimGroupMapping").getScimGroupMappingOutput = null as any;
+utilities.lazyLoad(exports, ["getScimGroupMapping","getScimGroupMappingOutput"], () => require("./getScimGroupMapping"));
+
+export { GetScimGroupsArgs, GetScimGroupsResult, GetScimGroupsOutputArgs } from "./getScimGroups";
+export const getScimGroups: typeof import("./getScimGroups").getScimGroups = null as any;
+export const getScimGroupsOutput: typeof import("./getScimGroups").getScimGroupsOutput = null as any;
+utilities.lazyLoad(exports, ["getScimGroups","getScimGroupsOutput"], () => require("./getScimGroups"));
+
+export { GetWorkspaceArgs, GetWorkspaceResult, GetWorkspaceOutputArgs } from "./getWorkspace";
+export const getWorkspace: typeof import("./getWorkspace").getWorkspace = null as any;
+export const getWorkspaceOutput: typeof import("./getWorkspace").getWorkspaceOutput = null as any;
+utilities.lazyLoad(exports, ["getWorkspace","getWorkspaceOutput"], () => require("./getWorkspace"));
+
+export { GetWorkspaceBudgetArgs, GetWorkspaceBudgetResult, GetWorkspaceBudgetOutputArgs } from "./getWorkspaceBudget";
+export const getWorkspaceBudget: typeof import("./getWorkspaceBudget").getWorkspaceBudget = null as any;
+export const getWorkspaceBudgetOutput: typeof import("./getWorkspaceBudget").getWorkspaceBudgetOutput = null as any;
+utilities.lazyLoad(exports, ["getWorkspaceBudget","getWorkspaceBudgetOutput"], () => require("./getWorkspaceBudget"));
+
+export { GetWorkspaceBudgetsArgs, GetWorkspaceBudgetsResult, GetWorkspaceBudgetsOutputArgs } from "./getWorkspaceBudgets";
+export const getWorkspaceBudgets: typeof import("./getWorkspaceBudgets").getWorkspaceBudgets = null as any;
+export const getWorkspaceBudgetsOutput: typeof import("./getWorkspaceBudgets").getWorkspaceBudgetsOutput = null as any;
+utilities.lazyLoad(exports, ["getWorkspaceBudgets","getWorkspaceBudgetsOutput"], () => require("./getWorkspaceBudgets"));
+
+export { GetWorkspaceMembersArgs, GetWorkspaceMembersResult, GetWorkspaceMembersOutputArgs } from "./getWorkspaceMembers";
+export const getWorkspaceMembers: typeof import("./getWorkspaceMembers").getWorkspaceMembers = null as any;
+export const getWorkspaceMembersOutput: typeof import("./getWorkspaceMembers").getWorkspaceMembersOutput = null as any;
+utilities.lazyLoad(exports, ["getWorkspaceMembers","getWorkspaceMembersOutput"], () => require("./getWorkspaceMembers"));
+
+export { GetWorkspacesResult } from "./getWorkspaces";
+export const getWorkspaces: typeof import("./getWorkspaces").getWorkspaces = null as any;
+export const getWorkspacesOutput: typeof import("./getWorkspaces").getWorkspacesOutput = null as any;
+utilities.lazyLoad(exports, ["getWorkspaces","getWorkspacesOutput"], () => require("./getWorkspaces"));
+
+export { GuardrailArgs, GuardrailState } from "./guardrail";
+export type Guardrail = import("./guardrail").Guardrail;
+export const Guardrail: typeof import("./guardrail").Guardrail = null as any;
+utilities.lazyLoad(exports, ["Guardrail"], () => require("./guardrail"));
+
+export { GuardrailKeyAssignmentArgs, GuardrailKeyAssignmentState } from "./guardrailKeyAssignment";
+export type GuardrailKeyAssignment = import("./guardrailKeyAssignment").GuardrailKeyAssignment;
+export const GuardrailKeyAssignment: typeof import("./guardrailKeyAssignment").GuardrailKeyAssignment = null as any;
+utilities.lazyLoad(exports, ["GuardrailKeyAssignment"], () => require("./guardrailKeyAssignment"));
+
+export { GuardrailMemberAssignmentArgs, GuardrailMemberAssignmentState } from "./guardrailMemberAssignment";
+export type GuardrailMemberAssignment = import("./guardrailMemberAssignment").GuardrailMemberAssignment;
+export const GuardrailMemberAssignment: typeof import("./guardrailMemberAssignment").GuardrailMemberAssignment = null as any;
+utilities.lazyLoad(exports, ["GuardrailMemberAssignment"], () => require("./guardrailMemberAssignment"));
+
+export { ObservabilityDestinationArgs, ObservabilityDestinationState } from "./observabilityDestination";
+export type ObservabilityDestination = import("./observabilityDestination").ObservabilityDestination;
+export const ObservabilityDestination: typeof import("./observabilityDestination").ObservabilityDestination = null as any;
+utilities.lazyLoad(exports, ["ObservabilityDestination"], () => require("./observabilityDestination"));
+
+export { OrganizationSettingsArgs, OrganizationSettingsState } from "./organizationSettings";
+export type OrganizationSettings = import("./organizationSettings").OrganizationSettings;
+export const OrganizationSettings: typeof import("./organizationSettings").OrganizationSettings = null as any;
+utilities.lazyLoad(exports, ["OrganizationSettings"], () => require("./organizationSettings"));
+
+export { PrivateEndpointArgs, PrivateEndpointState } from "./privateEndpoint";
+export type PrivateEndpoint = import("./privateEndpoint").PrivateEndpoint;
+export const PrivateEndpoint: typeof import("./privateEndpoint").PrivateEndpoint = null as any;
+utilities.lazyLoad(exports, ["PrivateEndpoint"], () => require("./privateEndpoint"));
 
 export * from "./provider";
 import { Provider } from "./provider";
 
-export { ResourceArgs, ResourceState } from "./resource";
-export type Resource = import("./resource").Resource;
-export const Resource: typeof import("./resource").Resource = null as any;
-utilities.lazyLoad(exports, ["Resource"], () => require("./resource"));
+export { ScimGroupMappingArgs, ScimGroupMappingState } from "./scimGroupMapping";
+export type ScimGroupMapping = import("./scimGroupMapping").ScimGroupMapping;
+export const ScimGroupMapping: typeof import("./scimGroupMapping").ScimGroupMapping = null as any;
+utilities.lazyLoad(exports, ["ScimGroupMapping"], () => require("./scimGroupMapping"));
+
+export { WorkspaceArgs, WorkspaceState } from "./workspace";
+export type Workspace = import("./workspace").Workspace;
+export const Workspace: typeof import("./workspace").Workspace = null as any;
+utilities.lazyLoad(exports, ["Workspace"], () => require("./workspace"));
+
+export { WorkspaceBudgetArgs, WorkspaceBudgetState } from "./workspaceBudget";
+export type WorkspaceBudget = import("./workspaceBudget").WorkspaceBudget;
+export const WorkspaceBudget: typeof import("./workspaceBudget").WorkspaceBudget = null as any;
+utilities.lazyLoad(exports, ["WorkspaceBudget"], () => require("./workspaceBudget"));
+
+export { WorkspaceDefaultGuardrailArgs, WorkspaceDefaultGuardrailState } from "./workspaceDefaultGuardrail";
+export type WorkspaceDefaultGuardrail = import("./workspaceDefaultGuardrail").WorkspaceDefaultGuardrail;
+export const WorkspaceDefaultGuardrail: typeof import("./workspaceDefaultGuardrail").WorkspaceDefaultGuardrail = null as any;
+utilities.lazyLoad(exports, ["WorkspaceDefaultGuardrail"], () => require("./workspaceDefaultGuardrail"));
+
+export { WorkspaceMemberArgs, WorkspaceMemberState } from "./workspaceMember";
+export type WorkspaceMember = import("./workspaceMember").WorkspaceMember;
+export const WorkspaceMember: typeof import("./workspaceMember").WorkspaceMember = null as any;
+utilities.lazyLoad(exports, ["WorkspaceMember"], () => require("./workspaceMember"));
 
 
 // Export sub-modules:
 import * as config from "./config";
-import * as region from "./region";
 import * as types from "./types";
 
 export {
     config,
-    region,
     types,
 };
 
@@ -34,18 +217,54 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "xyz:index/resource:Resource":
-                return new Resource(name, <any>undefined, { urn })
+            case "openrouter:index/apiKey:ApiKey":
+                return new ApiKey(name, <any>undefined, { urn })
+            case "openrouter:index/byokKey:ByokKey":
+                return new ByokKey(name, <any>undefined, { urn })
+            case "openrouter:index/guardrail:Guardrail":
+                return new Guardrail(name, <any>undefined, { urn })
+            case "openrouter:index/guardrailKeyAssignment:GuardrailKeyAssignment":
+                return new GuardrailKeyAssignment(name, <any>undefined, { urn })
+            case "openrouter:index/guardrailMemberAssignment:GuardrailMemberAssignment":
+                return new GuardrailMemberAssignment(name, <any>undefined, { urn })
+            case "openrouter:index/observabilityDestination:ObservabilityDestination":
+                return new ObservabilityDestination(name, <any>undefined, { urn })
+            case "openrouter:index/organizationSettings:OrganizationSettings":
+                return new OrganizationSettings(name, <any>undefined, { urn })
+            case "openrouter:index/privateEndpoint:PrivateEndpoint":
+                return new PrivateEndpoint(name, <any>undefined, { urn })
+            case "openrouter:index/scimGroupMapping:ScimGroupMapping":
+                return new ScimGroupMapping(name, <any>undefined, { urn })
+            case "openrouter:index/workspace:Workspace":
+                return new Workspace(name, <any>undefined, { urn })
+            case "openrouter:index/workspaceBudget:WorkspaceBudget":
+                return new WorkspaceBudget(name, <any>undefined, { urn })
+            case "openrouter:index/workspaceDefaultGuardrail:WorkspaceDefaultGuardrail":
+                return new WorkspaceDefaultGuardrail(name, <any>undefined, { urn })
+            case "openrouter:index/workspaceMember:WorkspaceMember":
+                return new WorkspaceMember(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("xyz", "index/resource", _module)
-pulumi.runtime.registerResourcePackage("xyz", {
+pulumi.runtime.registerResourceModule("openrouter", "index/apiKey", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/byokKey", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/guardrail", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/guardrailKeyAssignment", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/guardrailMemberAssignment", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/observabilityDestination", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/organizationSettings", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/privateEndpoint", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/scimGroupMapping", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/workspace", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/workspaceBudget", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/workspaceDefaultGuardrail", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/workspaceMember", _module)
+pulumi.runtime.registerResourcePackage("openrouter", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
-        if (type !== "pulumi:providers:xyz") {
+        if (type !== "pulumi:providers:openrouter") {
             throw new Error(`unknown provider type ${type}`);
         }
         return new Provider(name, <any>undefined, { urn });

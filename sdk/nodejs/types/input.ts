@@ -4,5 +4,1927 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
-import * as enums from "../types/enums";
 
+export interface ApiKeyExternal {
+    /**
+     * Optional partner-supplied API key with a minimum length of 32 characters and sufficient entropy. Stored as a SHA-256 hash and never returned. Requires replacement if changed.
+     */
+    apiKey?: pulumi.Input<string | undefined>;
+    /**
+     * Partner's external user identifier for attribution: 1 to 512 characters after surrounding whitespace is trimmed, well-formed Unicode, no NUL. For organization keys outside HIPAA workspaces, the value is registered as an external user if it does not exist yet, and the key is linked to it. Requires replacement if changed.
+     */
+    user: pulumi.Input<string>;
+}
+
+export interface GuardrailContentFilter {
+    /**
+     * Action taken when the pattern matches. Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action?: pulumi.Input<string | undefined>;
+    /**
+     * Whether inference applies this pattern. False for a pattern saved before pattern validation that is too complex to run safely; it is kept but skipped until replaced.
+     */
+    isEnforced?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional label used in redaction placeholders or error messages
+     */
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * A regex pattern to match against request content. Not Null
+     */
+    pattern?: pulumi.Input<string | undefined>;
+}
+
+export interface GuardrailContentFilterBuiltin {
+    /**
+     * Action taken when the builtin filter triggers. Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action?: pulumi.Input<string | undefined>;
+    /**
+     * Deprecated: labels are system-assigned and cannot be set by the caller. Accepted for backward compatibility but silently ignored.
+     *
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * Which message roles to scan for prompt injection. Only applies to the regex-prompt-injection builtin. Defaults to all_messages. must be one of ["userOnly", "allMessages"]
+     */
+    scanScope?: pulumi.Input<string | undefined>;
+    /**
+     * The builtin filter identifier. Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+     */
+    slug?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationArize {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationArizeConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationArizeFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationArizeConfig {
+    apiKey?: pulumi.Input<string | undefined>;
+    baseUrl?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    /**
+     * The name of the tracing project in Arize AX
+     */
+    modelId?: pulumi.Input<string | undefined>;
+    spaceKey?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationArizeFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationArizeFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationArizeFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationArizeFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationArizeFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationArizeFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationArizeFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationBraintrust {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationBraintrustConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationBraintrustFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationBraintrustConfig {
+    apiKey?: pulumi.Input<string | undefined>;
+    baseUrl?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    projectId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationBraintrustFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationBraintrustFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationBraintrustFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationBraintrustFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationBraintrustFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationBraintrustFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationBraintrustFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationClickhouse {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationClickhouseConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationClickhouseFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationClickhouseConfig {
+    database?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    host?: pulumi.Input<string | undefined>;
+    password?: pulumi.Input<string | undefined>;
+    /**
+     * Send the cacheWriteTokens column (schema v2). Turn this on after the table has that column. Default: false
+     */
+    shouldIncludeCacheWriteTokens?: pulumi.Input<boolean | undefined>;
+    table?: pulumi.Input<string | undefined>;
+    /**
+     * If you have not set a specific username in ClickHouse, simply type in 'default' below.
+     */
+    username?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationClickhouseFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationClickhouseFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationClickhouseFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationClickhouseFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationClickhouseFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationClickhouseFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationClickhouseFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationDatadog {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationDatadogConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationDatadogFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationDatadogConfig {
+    /**
+     * Datadog API key must have LLM Observability permissions. Create at:
+     */
+    apiKey?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    /**
+     * Name to identify your application in Datadog LLM Observability
+     */
+    mlApp?: pulumi.Input<string | undefined>;
+    /**
+     * Datadog API URL for your region (e.g., https://api.datadoghq.com, https://api.us3.datadoghq.com, https://api.us5.datadoghq.com, https://api.datadoghq.eu)
+     */
+    url?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationDatadogFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationDatadogFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationDatadogFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationDatadogFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationDatadogFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationDatadogFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationDatadogFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationFilterRules {
+    /**
+     * Default: true
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationFilterRulesGroup>[]>;
+}
+
+export interface ObservabilityDestinationFilterRulesGroup {
+    /**
+     * Default: "and"; must be one of ["and", "or"]
+     */
+    logic?: pulumi.Input<string | undefined>;
+    rules: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationFilterRulesGroupRule>[]>;
+}
+
+export interface ObservabilityDestinationFilterRulesGroupRule {
+    /**
+     * must be one of ["model", "provider", "sessionId", "userId", "apiKeyName", "finishReason", "input", "output", "totalCost", "totalTokens", "promptTokens", "completionTokens"]
+     */
+    field: pulumi.Input<string>;
+    /**
+     * must be one of ["equals", "notEquals", "contains", "notContains", "regex", "startsWith", "endsWith", "gt", "lt", "gte", "lte", "exists", "notExists"]
+     */
+    operator: pulumi.Input<string>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationGrafana {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationGrafanaConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationGrafanaFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationGrafanaConfig {
+    apiKey?: pulumi.Input<string | undefined>;
+    baseUrl?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    instanceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationGrafanaFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationGrafanaFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationGrafanaFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationGrafanaFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationGrafanaFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationGrafanaFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationGrafanaFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationLangfuse {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationLangfuseConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationLangfuseFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationLangfuseConfig {
+    baseUrl?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    publicKey?: pulumi.Input<string | undefined>;
+    secretKey?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationLangfuseFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationLangfuseFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationLangfuseFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationLangfuseFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationLangfuseFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationLangfuseFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationLangfuseFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationLangsmith {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationLangsmithConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationLangsmithFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationLangsmithConfig {
+    apiKey?: pulumi.Input<string | undefined>;
+    endpoint?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    /**
+     * The name for this project, such as pr-openrouter-demo. Defaults to "main" if not set.
+     */
+    project?: pulumi.Input<string | undefined>;
+    /**
+     * Required for org-scoped API keys. Find this in your LangSmith workspace settings.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationLangsmithFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationLangsmithFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationLangsmithFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationLangsmithFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationLangsmithFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationLangsmithFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationLangsmithFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationNewrelic {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationNewrelicConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationNewrelicFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationNewrelicConfig {
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    licenseKey?: pulumi.Input<string | undefined>;
+    region?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationNewrelicFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationNewrelicFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationNewrelicFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationNewrelicFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationNewrelicFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationNewrelicFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationNewrelicFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationOpik {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationOpikConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationOpikFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationOpikConfig {
+    apiKey?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    projectName?: pulumi.Input<string | undefined>;
+    workspace?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationOpikFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationOpikFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationOpikFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationOpikFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationOpikFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationOpikFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationOpikFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationOtelCollector {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationOtelCollectorConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationOtelCollectorFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationOtelCollectorConfig {
+    endpoint?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers as a JSON object. For Axiom, use {"Authorization": "Bearer xaat-xxx", "X-Axiom-Dataset": "your-dataset"}
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    /**
+     * OTLP/HTTP metrics URL. Required when `shouldSendMetrics` (Send OTLP metrics) is true; ignored otherwise.
+     */
+    metricsEndpoint?: pulumi.Input<string | undefined>;
+    /**
+     * Also send OTLP metrics for each delivered generation to the metrics endpoint, with the same headers. Default: false
+     */
+    shouldSendMetrics?: pulumi.Input<boolean | undefined>;
+}
+
+export interface ObservabilityDestinationOtelCollectorFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationOtelCollectorFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationOtelCollectorFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationOtelCollectorFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationOtelCollectorFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationOtelCollectorFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationOtelCollectorFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationPosthog {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationPosthogConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationPosthogFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationPosthogConfig {
+    apiKey?: pulumi.Input<string | undefined>;
+    endpoint?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+}
+
+export interface ObservabilityDestinationPosthogFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationPosthogFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationPosthogFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationPosthogFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationPosthogFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationPosthogFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationPosthogFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationRamp {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationRampConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationRampFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationRampConfig {
+    /**
+     * Generate this in your Ramp integration settings.
+     */
+    apiKey?: pulumi.Input<string | undefined>;
+    baseUrl?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to Ramp.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+}
+
+export interface ObservabilityDestinationRampFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationRampFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationRampFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationRampFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationRampFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationRampFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationRampFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationS3 {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationS3Config | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationS3FilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationS3Config {
+    accessKeyId?: pulumi.Input<string | undefined>;
+    /**
+     * IAM role: OpenRouter assumes a role in your AWS account with short-lived STS credentials, so you don't share long-lived keys. Default: "accessKeys"
+     */
+    authMode?: pulumi.Input<string | undefined>;
+    bucketName?: pulumi.Input<string | undefined>;
+    /**
+     * Only for S3-compatible services like Cloudflare R2 (https://account-id.r2.cloudflarestorage.com) or MinIO. Leave blank for standard AWS S3.
+     */
+    endpoint?: pulumi.Input<string | undefined>;
+    /**
+     * Generated by OpenRouter when you save. Require it as sts:ExternalId in your role's trust policy.
+     */
+    externalId?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    /**
+     * Template for S3 object path. The filename ({traceId}-{timestamp}.json) is automatically appended. Available variables: {prefix}, {date}, {year}, {month}, {day}, {apiKeyName}
+     */
+    pathTemplate?: pulumi.Input<string | undefined>;
+    prefix?: pulumi.Input<string | undefined>;
+    /**
+     * The object storage service that hosts the bucket. AWS S3 supports IAM role authentication; the other providers use access keys.
+     */
+    provider?: pulumi.Input<string | undefined>;
+    /**
+     * Required for IAM role authentication. With access keys, AWS S3 detects the bucket region when you leave this blank.
+     */
+    region?: pulumi.Input<string | undefined>;
+    /**
+     * The IAM role in your account that OpenRouter assumes. Its trust policy must allow sts:AssumeRole from arn:aws:iam::536697249728:role/openrouter-broadcast-exporter and require the external ID below, and its permissions must allow s3:PutObject on the bucket and prefix (plus kms:GenerateDataKey for SSE-KMS buckets).
+     */
+    roleArn?: pulumi.Input<string | undefined>;
+    secretAccessKey?: pulumi.Input<string | undefined>;
+    sessionToken?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationS3FilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationS3FilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationS3FilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationS3FilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationS3FilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationS3FilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationS3FilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationSentry {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationSentryConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationSentryFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationSentryConfig {
+    dsn?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    otlpEndpoint?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationSentryFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationSentryFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationSentryFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationSentryFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationSentryFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationSentryFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationSentryFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationSnowflake {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationSnowflakeConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationSnowflakeFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationSnowflakeConfig {
+    account?: pulumi.Input<string | undefined>;
+    database?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    schema?: pulumi.Input<string | undefined>;
+    /**
+     * Send the cacheWriteTokens column (schema v2). Turn this on after the table has that column. Default: false
+     */
+    shouldIncludeCacheWriteTokens?: pulumi.Input<boolean | undefined>;
+    table?: pulumi.Input<string | undefined>;
+    token?: pulumi.Input<string | undefined>;
+    warehouse?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationSnowflakeFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationSnowflakeFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationSnowflakeFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationSnowflakeFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationSnowflakeFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationSnowflakeFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationSnowflakeFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationWeave {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationWeaveConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationWeaveFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationWeaveConfig {
+    apiKey?: pulumi.Input<string | undefined>;
+    baseUrl?: pulumi.Input<string | undefined>;
+    entity?: pulumi.Input<string | undefined>;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    project?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationWeaveFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationWeaveFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationWeaveFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationWeaveFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationWeaveFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationWeaveFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationWeaveFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationWebhook {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost?: pulumi.Input<boolean | undefined>;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext?: pulumi.Input<boolean | undefined>;
+    config?: pulumi.Input<inputs.ObservabilityDestinationWebhookConfig | undefined>;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt?: pulumi.Input<string | undefined>;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules?: pulumi.Input<inputs.ObservabilityDestinationWebhookFilterRules | undefined>;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * Human-readable name for the destination.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode?: pulumi.Input<boolean | undefined>;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate?: pulumi.Input<number | undefined>;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationWebhookConfig {
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    method?: pulumi.Input<string | undefined>;
+    url?: pulumi.Input<string | undefined>;
+}
+
+export interface ObservabilityDestinationWebhookFilterRules {
+    enabled?: pulumi.Input<boolean | undefined>;
+    groups?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationWebhookFilterRulesGroup>[] | undefined>;
+}
+
+export interface ObservabilityDestinationWebhookFilterRulesGroup {
+    logic?: pulumi.Input<string | undefined>;
+    rules?: pulumi.Input<pulumi.Input<inputs.ObservabilityDestinationWebhookFilterRulesGroupRule>[] | undefined>;
+}
+
+export interface ObservabilityDestinationWebhookFilterRulesGroupRule {
+    field?: pulumi.Input<string | undefined>;
+    operator?: pulumi.Input<string | undefined>;
+    value?: pulumi.Input<inputs.ObservabilityDestinationWebhookFilterRulesGroupRuleValue | undefined>;
+}
+
+export interface ObservabilityDestinationWebhookFilterRulesGroupRuleValue {
+    number?: pulumi.Input<number | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface PrivateEndpointActivate {
+    /**
+     * Workspace whose BYOK credential is used for the live validation call. The workspace must belong to your account.
+     */
+    workspaceId: pulumi.Input<string>;
+}
+
+export interface PrivateEndpointPricing {
+    /**
+     * USD per cache-read prompt token, as a decimal string. When omitted, inherited from the public endpoint of the same model and provider: scaled by its cache-read to prompt ratio, or left at the pricing strategy default when it publishes no cache-read rate. Required when there is no such endpoint and the provider bills cache reads.
+     */
+    cacheRead?: pulumi.Input<string | undefined>;
+    /**
+     * USD per cache-write prompt token, as a decimal string. When omitted, inherited from the public endpoint of the same model and provider: scaled by its cache-write to prompt ratio, or left at the pricing strategy default when it publishes no cache-write rate. Required when there is no such endpoint and the provider bills cache writes.
+     */
+    cacheWrite?: pulumi.Input<string | undefined>;
+    /**
+     * USD per completion token, as a decimal string. Not Null
+     */
+    completion?: pulumi.Input<string | undefined>;
+    /**
+     * USD per prompt token, as a decimal string. Not Null
+     */
+    prompt?: pulumi.Input<string | undefined>;
+}
+
+export interface PrivateEndpointSettings {
+    completions?: pulumi.Input<inputs.PrivateEndpointSettingsCompletions | undefined>;
+    /**
+     * Longest prompt plus completion, in tokens. `null` means the model default applies.
+     */
+    contextLength?: pulumi.Input<number | undefined>;
+    /**
+     * Request parameters the upstream rejects even though the model supports them; requests using one do not route here. Cannot name a tested parameter.
+     */
+    excludedParameters?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    inputs?: pulumi.Input<inputs.PrivateEndpointSettingsInputs | undefined>;
+    /**
+     * Longest completion the upstream returns, in tokens. `null` means the model default applies.
+     */
+    maxCompletionTokens?: pulumi.Input<number | undefined>;
+    /**
+     * Longest prompt, in tokens. `null` means no cap below the context length. Cannot exceed `contextLength`, or the model context length while `contextLength` is `null`.
+     */
+    maxPromptTokens?: pulumi.Input<number | undefined>;
+    /**
+     * Weight precision the deployment runs at; `unknown` when not stated. must be one of ["int4", "int8", "fp4", "mxfp4", "nvfp4", "fp6", "fp8", "mxfp8", "fp16", "bf16", "fp32", "unknown"]
+     */
+    quantization?: pulumi.Input<string | undefined>;
+    reasoning?: pulumi.Input<inputs.PrivateEndpointSettingsReasoning | undefined>;
+    toolChoice?: pulumi.Input<inputs.PrivateEndpointSettingsToolChoice | undefined>;
+}
+
+export interface PrivateEndpointSettingsCompletions {
+    /**
+     * Serves `/chat/completions`. `null` means the endpoint uses the provider default.
+     */
+    chat?: pulumi.Input<boolean | undefined>;
+    /**
+     * Serves `/completions`. `null` means the endpoint uses the provider default.
+     */
+    text?: pulumi.Input<boolean | undefined>;
+}
+
+export interface PrivateEndpointSettingsInputs {
+    /**
+     * Accepts audio input. `null` means the endpoint uses the provider default.
+     */
+    audio?: pulumi.Input<boolean | undefined>;
+    /**
+     * Accepts base64 file data. `null` means the endpoint uses the provider default.
+     */
+    base64Files?: pulumi.Input<boolean | undefined>;
+    /**
+     * Accepts base64 image data. `null` means the endpoint uses the provider default.
+     */
+    base64Images?: pulumi.Input<boolean | undefined>;
+    /**
+     * Accepts file URLs. `null` means the endpoint uses the provider default.
+     */
+    fileUrls?: pulumi.Input<boolean | undefined>;
+    /**
+     * Accepts image URLs. `null` means the endpoint uses the provider default.
+     */
+    imageUrls?: pulumi.Input<boolean | undefined>;
+}
+
+export interface PrivateEndpointSettingsReasoning {
+    /**
+     * Where the upstream puts reasoning tokens in its response: `reasoning` and `reasoning-content` are response fields, `content-string` is inline in the message, `none` returns no reasoning. `null` means the endpoint uses the provider default. must be one of ["content-string", "reasoning-content", "reasoning", "none"]
+     */
+    returnMechanism?: pulumi.Input<string | undefined>;
+    /**
+     * Whether requests with `reasoning` route to this endpoint.
+     */
+    supported?: pulumi.Input<boolean | undefined>;
+}
+
+export interface PrivateEndpointSettingsToolChoice {
+    /**
+     * Accepts `tool_choice: "auto"`.
+     */
+    auto?: pulumi.Input<boolean | undefined>;
+    /**
+     * Accepts a named function in `toolChoice`.
+     */
+    function?: pulumi.Input<boolean | undefined>;
+    /**
+     * Accepts `tool_choice: "none"`.
+     */
+    none?: pulumi.Input<boolean | undefined>;
+    /**
+     * Accepts `tool_choice: "required"`.
+     */
+    required?: pulumi.Input<boolean | undefined>;
+}
+
+export interface WorkspaceDefaultGuardrailContentFilter {
+    /**
+     * Action taken when the pattern matches. Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action?: pulumi.Input<string | undefined>;
+    /**
+     * Whether inference applies this pattern. False for a pattern saved before pattern validation that is too complex to run safely; it is kept but skipped until replaced.
+     */
+    isEnforced?: pulumi.Input<boolean | undefined>;
+    /**
+     * Optional label used in redaction placeholders or error messages
+     */
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * A regex pattern to match against request content. Not Null
+     */
+    pattern?: pulumi.Input<string | undefined>;
+}
+
+export interface WorkspaceDefaultGuardrailContentFilterBuiltin {
+    /**
+     * Action taken when the builtin filter triggers. Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action?: pulumi.Input<string | undefined>;
+    /**
+     * Deprecated: labels are system-assigned and cannot be set by the caller. Accepted for backward compatibility but silently ignored.
+     *
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * Which message roles to scan for prompt injection. Only applies to the regex-prompt-injection builtin. Defaults to all_messages. must be one of ["userOnly", "allMessages"]
+     */
+    scanScope?: pulumi.Input<string | undefined>;
+    /**
+     * The builtin filter identifier. Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+     */
+    slug?: pulumi.Input<string | undefined>;
+}
