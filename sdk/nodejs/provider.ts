@@ -2,20 +2,17 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputs from "./types/input";
-import * as outputs from "./types/output";
-import * as enums from "./types/enums";
 import * as utilities from "./utilities";
 
 /**
- * The provider type for the xyz package. By default, resources use package-wide configuration
+ * The provider type for the openrouter package. By default, resources use package-wide configuration
  * settings, however an explicit `Provider` instance may be created and passed during resource
  * construction to achieve fine-grained programmatic control over provider settings. See the
  * [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
  */
 export class Provider extends pulumi.ProviderResource {
     /** @internal */
-    public static readonly __pulumiType = 'xyz';
+    public static readonly __pulumiType = 'openrouter';
 
     /**
      * Returns true if the given object is an instance of Provider.  This is designed to work even
@@ -29,9 +26,25 @@ export class Provider extends pulumi.ProviderResource {
     }
 
     /**
-     * A region which should be used.
+     * API key as bearer token in Authorization header. Configurable via environment variable `OPENROUTER_MANAGEMENT_KEY`.
      */
-    declare public readonly region: pulumi.Output<enums.region.Region | undefined>;
+    declare public readonly apiKey: pulumi.Output<string | undefined>;
+    /**
+     * ID of the organization's Workload Identity Federation policy that acts as a management key. Required with `oidcToken` or `oidcTokenFile`. Configurable via environment variable `OPENROUTER_FEDERATION_POLICY_ID`.
+     */
+    declare public readonly federationPolicyId: pulumi.Output<string | undefined>;
+    /**
+     * OIDC token issued to this workload (for example a GitLab `idTokens` JWT), exchanged for a short-lived management token through Workload Identity Federation. Use with `federationPolicyId` instead of `apiKey`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN`.
+     */
+    declare public readonly oidcToken: pulumi.Output<string | undefined>;
+    /**
+     * Path to a file holding the workload's OIDC token. The file is reread on every exchange, so a rotated token is picked up. Alternative to `oidcToken`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN_FILE`.
+     */
+    declare public readonly oidcTokenFile: pulumi.Output<string | undefined>;
+    /**
+     * Server URL (defaults to https://openrouter.ai/api/v1)
+     */
+    declare public readonly serverUrl: pulumi.Output<string | undefined>;
 
     /**
      * Create a Provider resource with the given unique name, arguments, and options.
@@ -44,9 +57,15 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["region"] = args?.region;
+            resourceInputs["apiKey"] = args?.apiKey ? pulumi.secret(args.apiKey) : undefined;
+            resourceInputs["federationPolicyId"] = args?.federationPolicyId;
+            resourceInputs["oidcToken"] = args?.oidcToken ? pulumi.secret(args.oidcToken) : undefined;
+            resourceInputs["oidcTokenFile"] = args?.oidcTokenFile;
+            resourceInputs["serverUrl"] = args?.serverUrl;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["apiKey", "oidcToken"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
     }
 
@@ -54,7 +73,7 @@ export class Provider extends pulumi.ProviderResource {
      * This function returns a Terraform config object with terraform-namecased keys,to be used with the Terraform Module Provider.
      */
     terraformConfig(): pulumi.Output<Provider.TerraformConfigResult> {
-        return pulumi.runtime.call("pulumi:providers:xyz/terraformConfig", {
+        return pulumi.runtime.call("pulumi:providers:openrouter/terraformConfig", {
             "__self__": this,
         }, this);
     }
@@ -65,9 +84,25 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     /**
-     * A region which should be used.
+     * API key as bearer token in Authorization header. Configurable via environment variable `OPENROUTER_MANAGEMENT_KEY`.
      */
-    region?: pulumi.Input<enums.region.Region | undefined>;
+    apiKey?: pulumi.Input<string | undefined>;
+    /**
+     * ID of the organization's Workload Identity Federation policy that acts as a management key. Required with `oidcToken` or `oidcTokenFile`. Configurable via environment variable `OPENROUTER_FEDERATION_POLICY_ID`.
+     */
+    federationPolicyId?: pulumi.Input<string | undefined>;
+    /**
+     * OIDC token issued to this workload (for example a GitLab `idTokens` JWT), exchanged for a short-lived management token through Workload Identity Federation. Use with `federationPolicyId` instead of `apiKey`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN`.
+     */
+    oidcToken?: pulumi.Input<string | undefined>;
+    /**
+     * Path to a file holding the workload's OIDC token. The file is reread on every exchange, so a rotated token is picked up. Alternative to `oidcToken`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN_FILE`.
+     */
+    oidcTokenFile?: pulumi.Input<string | undefined>;
+    /**
+     * Server URL (defaults to https://openrouter.ai/api/v1)
+     */
+    serverUrl?: pulumi.Input<string | undefined>;
 }
 
 export namespace Provider {

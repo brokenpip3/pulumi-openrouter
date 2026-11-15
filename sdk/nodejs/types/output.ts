@@ -4,5 +4,6784 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
-import * as enums from "../types/enums";
+
+export interface ApiKeyExternal {
+    /**
+     * Optional partner-supplied API key with a minimum length of 32 characters and sufficient entropy. Stored as a SHA-256 hash and never returned. Requires replacement if changed.
+     */
+    apiKey?: string;
+    /**
+     * Partner's external user identifier for attribution: 1 to 512 characters after surrounding whitespace is trimmed, well-formed Unicode, no NUL. For organization keys outside HIPAA workspaces, the value is registered as an external user if it does not exist yet, and the key is linked to it. Requires replacement if changed.
+     */
+    user: string;
+}
+
+export interface GetApiKeysData {
+    /**
+     * Total external BYOK usage (in USD) for the API key
+     */
+    byokUsage: number;
+    /**
+     * External BYOK usage (in USD) for the current UTC day
+     */
+    byokUsageDaily: number;
+    /**
+     * External BYOK usage (in USD) for current UTC month
+     */
+    byokUsageMonthly: number;
+    /**
+     * External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
+     */
+    byokUsageWeekly: number;
+    /**
+     * ISO 8601 timestamp of when the API key was created
+     */
+    createdAt: string;
+    /**
+     * The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
+     */
+    creatorUserId: string;
+    /**
+     * Whether the API key is disabled
+     */
+    disabled: boolean;
+    /**
+     * ISO 8601 UTC timestamp when the API key expires, or null if no expiration
+     */
+    expiresAt: string;
+    /**
+     * Partner's end-user identifier used for attribution.
+     */
+    externalUser: string;
+    /**
+     * Unique hash identifier for the API key
+     */
+    hash: string;
+    /**
+     * Whether to include external BYOK usage in the credit limit
+     */
+    includeByokInLimit: boolean;
+    /**
+     * Human-readable label for the API key
+     */
+    label: string;
+    /**
+     * ISO 8601 UTC timestamp of the most recent usage recorded for the API key, or null if no usage has been recorded since the end of 2025
+     */
+    lastUsedAt: string;
+    /**
+     * Spending limit for the API key in USD
+     */
+    limit: number;
+    /**
+     * Remaining spending limit in USD
+     */
+    limitRemaining: number;
+    /**
+     * Type of limit reset for the API key
+     */
+    limitReset: string;
+    /**
+     * Name of the API key
+     */
+    name: string;
+    /**
+     * ISO 8601 timestamp of when the API key was last updated
+     */
+    updatedAt: string;
+    /**
+     * Total OpenRouter credit usage (in USD) for the API key
+     */
+    usage: number;
+    /**
+     * OpenRouter credit usage (in USD) for the current UTC day
+     */
+    usageDaily: number;
+    /**
+     * OpenRouter credit usage (in USD) for the current UTC month
+     */
+    usageMonthly: number;
+    /**
+     * OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
+     */
+    usageWeekly: number;
+    /**
+     * The workspace ID this API key belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetByokKeysData {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) that may use this credential. `null` means no restriction. Keys newly added to a credential pinned to a workspace must be in that workspace; a listed key that has since moved to another workspace stays listed.
+     */
+    allowedApiKeyHashes: string[];
+    /**
+     * Optional allowlist of model slugs this credential may be used for. `null` means no restriction.
+     */
+    allowedModels: string[];
+    /**
+     * Optional allowlist of user IDs that may use this credential. `null` means no restriction.
+     */
+    allowedUserIds: string[];
+    /**
+     * ISO timestamp of when the credential was created.
+     */
+    createdAt: string;
+    /**
+     * Your declaration of the data region in which the upstream provider account behind this credential processes requests, used for routing eligibility on OpenRouter's regional hosts. `null` means undeclared and `global` is behaviorally identical: the credential follows the region OpenRouter records for the endpoint. `europe` or `us` lets requests to `eu.openrouter.ai` or `us.openrouter.ai` use this credential for that provider (private endpoints, endpoints pinned to another cloud region, cross-region inference profiles and video models are excluded). Self-declared and not verified by OpenRouter. For OpenAI and Fireworks the region comes from the key material (a `{"apiKey": ..., "region": ...}` key), so the value must match the key's region. Among other providers, Azure accepts `europe` or `us` and Anthropic accepts `us` only.
+     */
+    declaredRegion: string;
+    /**
+     * Your declaration of whether the upstream provider account behind this credential has zero data retention (ZDR). `null` inherits OpenRouter's data policy for the provider's endpoint; `true` declares the account ZDR so requests that require ZDR may route to this credential even when the shared endpoint retains data; `false` declares it non-ZDR so such requests never route to it. Self-declared and not verified by OpenRouter.
+     */
+    declaredZdr: boolean;
+    /**
+     * Whether this credential is currently disabled.
+     */
+    disabled: boolean;
+    /**
+     * Stable public identifier for this BYOK credential.
+     */
+    id: string;
+    /**
+     * Whether OpenRouter's shared endpoints on this provider are removed for every model, including models outside `allowedModels` and after all of your keys for the provider fail. The provider is skipped instead of spending OpenRouter credits. Only valid on non-fallback credentials.
+     */
+    isByokOnly: boolean;
+    /**
+     * Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried. Cannot be combined with `isByokOnly`.
+     */
+    isFallback: boolean;
+    /**
+     * Whether OpenRouter's shared endpoints on this provider are removed for the models this credential applies to (its `allowedModels`, or every model when `null`). Requests for those models run only on your keys; models outside the allowlist may still fall back to shared capacity on this provider.
+     */
+    isRequired: boolean;
+    /**
+     * Short masked snippet of the key (e.g. the first/last few characters) used to identify it in the UI.
+     */
+    label: string;
+    /**
+     * Optional human-readable name for the credential.
+     */
+    name: string;
+    /**
+     * The upstream provider this credential authenticates against, as a lowercase slug (e.g. `openai`, `anthropic`, `amazon-bedrock`).
+     */
+    providerSlug: string;
+    /**
+     * Position within the provider — credentials are tried in ascending sort order.
+     */
+    sortOrder: number;
+    /**
+     * The workspace this credential is scoped to, or `null` when it is global — usable across every workspace in the account. A `null` value does not mean the default workspace.
+     */
+    workspaceId: string;
+}
+
+export interface GetCreditsData {
+    /**
+     * Total credits purchased
+     */
+    totalCredits: number;
+    /**
+     * Total credits used
+     */
+    totalUsage: number;
+}
+
+export interface GetGuardrailContentFilter {
+    /**
+     * Action taken when the pattern matches
+     */
+    action: string;
+    /**
+     * Whether inference applies this pattern. False for a pattern saved before pattern validation that is too complex to run safely; it is kept but skipped until replaced.
+     */
+    isEnforced: boolean;
+    /**
+     * Optional label used in redaction placeholders or error messages
+     */
+    label: string;
+    /**
+     * A regex pattern to match against request content
+     */
+    pattern: string;
+}
+
+export interface GetGuardrailContentFilterBuiltin {
+    /**
+     * Action taken when the builtin filter triggers
+     */
+    action: string;
+    /**
+     * Read-only, system-assigned redaction placeholder derived from the slug (e.g. "[EMAIL]", "[PHONE]"). Not settable by the caller.
+     */
+    label: string;
+    /**
+     * Which message roles to scan for prompt injection. Only applies to the regex-prompt-injection builtin. Defaults to all_messages.
+     */
+    scanScope: string;
+    /**
+     * The builtin filter identifier
+     */
+    slug: string;
+}
+
+export interface GetGuardrailKeyAssignmentsData {
+    /**
+     * User ID of who made the assignment
+     */
+    assignedBy: string;
+    /**
+     * ISO 8601 timestamp of when the assignment was created
+     */
+    createdAt: string;
+    /**
+     * ID of the guardrail
+     */
+    guardrailId: string;
+    /**
+     * Unique identifier for the assignment
+     */
+    id: string;
+    /**
+     * Hash of the assigned API key
+     */
+    keyHash: string;
+    /**
+     * Label of the API key
+     */
+    keyLabel: string;
+    /**
+     * Name of the API key
+     */
+    keyName: string;
+}
+
+export interface GetGuardrailMemberAssignmentsData {
+    /**
+     * User ID of who made the assignment
+     */
+    assignedBy: string;
+    /**
+     * ISO 8601 timestamp of when the assignment was created
+     */
+    createdAt: string;
+    /**
+     * ID of the guardrail
+     */
+    guardrailId: string;
+    /**
+     * Unique identifier for the assignment
+     */
+    id: string;
+    /**
+     * Organization ID
+     */
+    organizationId: string;
+    /**
+     * Clerk user ID of the assigned member
+     */
+    userId: string;
+}
+
+export interface GetGuardrailsData {
+    /**
+     * Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
+     */
+    allowSafetyRetentionGoogle: boolean;
+    /**
+     * Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
+     */
+    allowSafetyRetentionOther: boolean;
+    /**
+     * Data regions through which requests governed by this guardrail must arrive. `global` is https://openrouter.ai, `europe` is https://eu.openrouter.ai, and `us` is https://us.openrouter.ai. Requests arriving through any other region are rejected. `null` leaves the ingress region unrestricted. When several guardrails apply (workspace default, member, API key), the effective regions are the intersection of every non-null value.
+     */
+    allowedDataRegions: string[];
+    /**
+     * Array of model canonicalSlugs (immutable identifiers)
+     */
+    allowedModels: string[];
+    /**
+     * List of allowed provider IDs
+     */
+    allowedProviders: string[];
+    /**
+     * Builtin content filters applied to requests. Includes PII detectors and the regex-based prompt injection detector.
+     */
+    contentFilterBuiltins: outputs.GetGuardrailsDataContentFilterBuiltin[];
+    /**
+     * Custom regex content filters applied to request messages
+     */
+    contentFilters: outputs.GetGuardrailsDataContentFilter[];
+    /**
+     * ISO 8601 timestamp of when the guardrail was created
+     */
+    createdAt: string;
+    /**
+     * Description of the guardrail
+     */
+    description: string;
+    /**
+     * Whether this guardrail allows free endpoints that publish prompts.
+     */
+    enableFreeModelPublication: boolean;
+    /**
+     * Whether this guardrail allows free endpoints that train on request data.
+     */
+    enableFreeModelTraining: boolean;
+    /**
+     * Whether this guardrail allows paid endpoints that train on request data.
+     */
+    enablePaidModelTraining: boolean;
+    /**
+     * Whether coding harnesses list only their vendor's own models: Codex lists OpenAI models and Claude Code and Claude Desktop list Anthropic models. Affects only the model list those harnesses request from GET /models; a model the client names directly is still routed. Any true across the workspace default, member, and API key guardrails applies.
+     */
+    enforceFirstPartyHarnessModels: boolean;
+    /**
+     * Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, enforce_zdr_xai, and enforceZdrOther instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
+     *
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
+    enforceZdr: boolean;
+    /**
+     * Whether to enforce zero data retention for Anthropic models. Falls back to enforceZdr when not provided.
+     */
+    enforceZdrAnthropic: boolean;
+    /**
+     * Whether to enforce zero data retention for Google models. Falls back to enforceZdr when not provided.
+     */
+    enforceZdrGoogle: boolean;
+    /**
+     * Whether to enforce zero data retention for OpenAI models. Falls back to enforceZdr when not provided.
+     */
+    enforceZdrOpenai: boolean;
+    /**
+     * Whether to enforce zero data retention for models that are not from Anthropic, OpenAI, Google, or xAI. Falls back to enforceZdr when not provided.
+     */
+    enforceZdrOther: boolean;
+    /**
+     * Whether to enforce zero data retention for xAI models. Falls back to enforceZdr when not provided.
+     */
+    enforceZdrXai: boolean;
+    /**
+     * Unique identifier for the guardrail
+     */
+    id: string;
+    /**
+     * Array of model canonicalSlugs to exclude from routing
+     */
+    ignoredModels: string[];
+    /**
+     * List of provider IDs to exclude from routing
+     */
+    ignoredProviders: string[];
+    /**
+     * Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+     */
+    includeByokInBudgets: boolean;
+    /**
+     * Spending limit in USD
+     */
+    limitUsd: number;
+    /**
+     * Name of the guardrail
+     */
+    name: string;
+    /**
+     * Interval at which the limit resets (daily, weekly, monthly)
+     */
+    resetInterval: string;
+    /**
+     * ISO 8601 timestamp of when the guardrail was last updated
+     */
+    updatedAt: string;
+    /**
+     * The workspace this guardrail belongs to, or `null` for an unscoped legacy guardrail predating workspaces. Workspace membership organizes the guardrail; it does not apply the guardrail to the workspace's traffic. A `null` value does not mean the default workspace, and does not apply the guardrail across every workspace.
+     */
+    workspaceId: string;
+}
+
+export interface GetGuardrailsDataContentFilter {
+    /**
+     * Action taken when the pattern matches
+     */
+    action: string;
+    /**
+     * Whether inference applies this pattern. False for a pattern saved before pattern validation that is too complex to run safely; it is kept but skipped until replaced.
+     */
+    isEnforced: boolean;
+    /**
+     * Optional label used in redaction placeholders or error messages
+     */
+    label: string;
+    /**
+     * A regex pattern to match against request content
+     */
+    pattern: string;
+}
+
+export interface GetGuardrailsDataContentFilterBuiltin {
+    /**
+     * Action taken when the builtin filter triggers
+     */
+    action: string;
+    /**
+     * Read-only, system-assigned redaction placeholder derived from the slug (e.g. "[EMAIL]", "[PHONE]"). Not settable by the caller.
+     */
+    label: string;
+    /**
+     * Which message roles to scan for prompt injection. Only applies to the regex-prompt-injection builtin. Defaults to all_messages.
+     */
+    scanScope: string;
+    /**
+     * The builtin filter identifier
+     */
+    slug: string;
+}
+
+export interface GetModelData {
+    /**
+     * Concrete model targeted by this tilde-latest alias, when applicable
+     */
+    aliasTarget: outputs.GetModelDataAliasTarget;
+    /**
+     * Model architecture information
+     */
+    architecture: outputs.GetModelDataArchitecture;
+    /**
+     * Third-party benchmark rankings for this model. Omitted when no benchmark data is available.
+     */
+    benchmarks: outputs.GetModelDataBenchmarks;
+    /**
+     * Canonical slug for the model
+     */
+    canonicalSlug: string;
+    /**
+     * Maximum context length in tokens
+     */
+    contextLength: number;
+    /**
+     * Unix timestamp of when the model was created
+     */
+    created: number;
+    /**
+     * Default parameters for this model
+     */
+    defaultParameters: outputs.GetModelDataDefaultParameters;
+    /**
+     * Description of the model
+     */
+    description: string;
+    /**
+     * Request API paths that serve this model, derived from the same modality and adapter rules the routers use. A model served only through an alpha surface lists only that path.
+     */
+    endpoints: string[];
+    /**
+     * The date after which the model may be removed. ISO 8601 date string (YYYY-MM-DD) or null if no expiration.
+     */
+    expirationDate: string;
+    /**
+     * Hugging Face model identifier, if applicable
+     */
+    huggingFaceId: string;
+    /**
+     * Unique identifier for the model
+     */
+    id: string;
+    /**
+     * The date up to which the model was trained on data. ISO 8601 date string (YYYY-MM-DD) or null if unknown.
+     */
+    knowledgeCutoff: string;
+    /**
+     * Related API endpoints and resources for this model.
+     */
+    links: outputs.GetModelDataLinks;
+    /**
+     * Display name of the model
+     */
+    name: string;
+    /**
+     * Per-request token limits
+     */
+    perRequestLimits: outputs.GetModelDataPerRequestLimits;
+    /**
+     * Pricing information for the model
+     */
+    pricing: outputs.GetModelDataPricing;
+    /**
+     * Reasoning effort configuration. Omitted for non-reasoning models and dynamic router models.
+     */
+    reasoning: outputs.GetModelDataReasoning;
+    /**
+     * List of supported parameters for this model
+     */
+    supportedParameters: string[];
+    /**
+     * List of supported voice identifiers for TTS models. Null for non-TTS models.
+     */
+    supportedVoices: string[];
+    /**
+     * Information about the top provider for this model
+     */
+    topProvider: outputs.GetModelDataTopProvider;
+}
+
+export interface GetModelDataAliasTarget {
+    /**
+     * Human-readable name of the concrete model targeted by this alias
+     */
+    name: string;
+    /**
+     * Routable model ID of the concrete target, matching that model row's id
+     */
+    slug: string;
+}
+
+export interface GetModelDataArchitecture {
+    /**
+     * Supported input modalities
+     */
+    inputModalities: string[];
+    /**
+     * Instruction format type
+     */
+    instructType: string;
+    /**
+     * Primary modality of the model
+     */
+    modality: string;
+    /**
+     * Supported output modalities
+     */
+    outputModalities: string[];
+    /**
+     * Tokenizer type used by the model
+     */
+    tokenizer: string;
+}
+
+export interface GetModelDataBenchmarks {
+    /**
+     * Artificial Analysis benchmark index scores.
+     */
+    artificialAnalysis: outputs.GetModelDataBenchmarksArtificialAnalysis;
+    /**
+     * Design Arena ELO rankings across arena+category pairs.
+     */
+    designArenas: outputs.GetModelDataBenchmarksDesignArena[];
+}
+
+export interface GetModelDataBenchmarksArtificialAnalysis {
+    /**
+     * Artificial Analysis Agentic Index score
+     */
+    agenticIndex: number;
+    /**
+     * Artificial Analysis Coding Index score
+     */
+    codingIndex: number;
+    /**
+     * Artificial Analysis Intelligence Index score
+     */
+    intelligenceIndex: number;
+}
+
+export interface GetModelDataBenchmarksDesignArena {
+    /**
+     * Arena type (e.g. models, builders, agents)
+     */
+    arena: string;
+    /**
+     * Category within the arena (e.g. website, gamedev, uicomponent)
+     */
+    category: string;
+    /**
+     * ELO rating from head-to-head arena battles
+     */
+    elo: number;
+    /**
+     * Rank position within this arena+category among models available on OpenRouter (1 = highest ELO)
+     */
+    rank: number;
+    /**
+     * Win rate percentage in arena battles
+     */
+    winRate: number;
+}
+
+export interface GetModelDataDefaultParameters {
+    frequencyPenalty: number;
+    presencePenalty: number;
+    repetitionPenalty: number;
+    temperature: number;
+    topK: number;
+    topP: number;
+}
+
+export interface GetModelDataLinks {
+    /**
+     * URL for the model details/endpoints API
+     */
+    details: string;
+}
+
+export interface GetModelDataPerRequestLimits {
+    /**
+     * Maximum completion tokens per request
+     */
+    completionTokens: number;
+    /**
+     * Maximum prompt tokens per request
+     */
+    promptTokens: number;
+}
+
+export interface GetModelDataPricing {
+    /**
+     * Price in USD per audio input token
+     */
+    audio: string;
+    /**
+     * Price in USD per audio output token
+     */
+    audioOutput: string;
+    /**
+     * Price in USD per token for completion (output) generation
+     */
+    completion: string;
+    /**
+     * Fractional discount applied to this endpoint's pricing; the price is multiplied by (1 - discount) (0 = no discount, 1 = free)
+     */
+    discount: number;
+    /**
+     * Price in USD per input image
+     */
+    image: string;
+    /**
+     * Price in USD per output image
+     */
+    imageOutput: string;
+    /**
+     * Price in USD per image token
+     */
+    imageToken: string;
+    /**
+     * Price in USD per cached audio input token
+     */
+    inputAudioCache: string;
+    /**
+     * Price in USD per cached input token (read)
+     */
+    inputCacheRead: string;
+    /**
+     * Price per cache-write token, in USD per token. For providers with multiple cache TTLs (e.g. Anthropic), this is the default (5-minute) cache-write rate.
+     */
+    inputCacheWrite: string;
+    /**
+     * Price per 1-hour cache-write token, in USD per token. Only present for providers that price an extended (1-hour) cache TTL separately, such as Anthropic.
+     */
+    inputCacheWrite1h: string;
+    /**
+     * Price in USD per internal reasoning token
+     */
+    internalReasoning: string;
+    /**
+     * Conditional overrides of the base pricing (e.g. long-context or time-based pricing). An entry applies when all of its condition fields (e.g. min_prompt_tokens, or the utc_start/utc_end time window) match the request; among applicable entries, later entries win per key; price keys absent from an entry inherit the base price. The top-level pricing keys always reflect the price that applies under default conditions.
+     */
+    overrides: outputs.GetModelDataPricingOverride[];
+    /**
+     * Price in USD per token for prompt (input) processing
+     */
+    prompt: string;
+    /**
+     * Price in USD per request
+     */
+    request: string;
+    /**
+     * Price in USD per web search
+     */
+    webSearch: string;
+}
+
+export interface GetModelDataPricingOverride {
+    /**
+     * Overridden price in USD per audio input token
+     */
+    audio: string;
+    /**
+     * Overridden price in USD per token for completion (output) generation
+     */
+    completion: string;
+    /**
+     * Overridden price in USD per cached audio input token
+     */
+    inputAudioCache: string;
+    /**
+     * Overridden price in USD per cached input token (read)
+     */
+    inputCacheRead: string;
+    /**
+     * Overridden price in USD per cache-write token
+     */
+    inputCacheWrite: string;
+    /**
+     * Overridden price in USD per 1-hour cache-write token
+     */
+    inputCacheWrite1h: string;
+    /**
+     * Condition: the entry applies when the total prompt tokens of a request are strictly greater than this threshold
+     */
+    minPromptTokens: number;
+    /**
+     * Overridden price in USD per token for prompt (input) processing
+     */
+    prompt: string;
+    /**
+     * Condition: UTC weekdays the entry applies on, evaluated at the request instant. Scopes the utc_start/utc_end window (or, without a window, the whole UTC day) to the listed days. Absent means every day.
+     */
+    utcDays: string[];
+    /**
+     * Condition: exclusive end of a daily UTC time window as an HHMM clock number (e.g. 400 = 04:00)
+     */
+    utcEnd: number;
+    /**
+     * Condition: inclusive start of a daily UTC time window as an HHMM clock number (e.g. 100 = 01:00, 1030 = 10:30). The entry applies while the current UTC time is inside the half-open window [utc_start, utc_end), which may wrap past midnight (utc_start > utc_end).
+     */
+    utcStart: number;
+}
+
+export interface GetModelDataReasoning {
+    defaultEffort: string;
+    /**
+     * Default reasoning enabled state when the client does not set `reasoning.enabled`.
+     */
+    defaultEnabled: boolean;
+    /**
+     * When true, reasoning cannot be disabled and effort "none" is rejected.
+     */
+    mandatory: boolean;
+    /**
+     * Allowed reasoning effort values for this model, in descending effort order (highest first). Null means no allowlist — all gateway effort values are accepted.
+     */
+    supportedEfforts: string[];
+    /**
+     * Present and `true` when the model accepts `reasoning.max_tokens` in requests (Anthropic-style) instead of or in addition to `reasoning.effort`. Omitted otherwise.
+     */
+    supportsMaxTokens: boolean;
+}
+
+export interface GetModelDataTopProvider {
+    /**
+     * Context length from the top provider
+     */
+    contextLength: number;
+    /**
+     * Whether the top provider moderates content
+     */
+    isModerated: boolean;
+    /**
+     * Maximum completion tokens from the top provider. Input and output tokens share the context window, so the effective maximum output for a request is further limited by the context remaining after input tokens.
+     */
+    maxCompletionTokens: number;
+}
+
+export interface GetModelsData {
+    /**
+     * Concrete model targeted by this tilde-latest alias, when applicable
+     */
+    aliasTarget: outputs.GetModelsDataAliasTarget;
+    /**
+     * Model architecture information
+     */
+    architecture: outputs.GetModelsDataArchitecture;
+    /**
+     * Third-party benchmark rankings for this model. Omitted when no benchmark data is available.
+     */
+    benchmarks: outputs.GetModelsDataBenchmarks;
+    /**
+     * Canonical slug for the model
+     */
+    canonicalSlug: string;
+    /**
+     * Maximum context length in tokens
+     */
+    contextLength: number;
+    /**
+     * Unix timestamp of when the model was created
+     */
+    created: number;
+    /**
+     * Default parameters for this model
+     */
+    defaultParameters: outputs.GetModelsDataDefaultParameters;
+    /**
+     * Description of the model
+     */
+    description: string;
+    /**
+     * Request API paths that serve this model, derived from the same modality and adapter rules the routers use. A model served only through an alpha surface lists only that path.
+     */
+    endpoints: string[];
+    /**
+     * The date after which the model may be removed. ISO 8601 date string (YYYY-MM-DD) or null if no expiration.
+     */
+    expirationDate: string;
+    /**
+     * Hugging Face model identifier, if applicable
+     */
+    huggingFaceId: string;
+    /**
+     * Unique identifier for the model
+     */
+    id: string;
+    /**
+     * The date up to which the model was trained on data. ISO 8601 date string (YYYY-MM-DD) or null if unknown.
+     */
+    knowledgeCutoff: string;
+    /**
+     * Related API endpoints and resources for this model.
+     */
+    links: outputs.GetModelsDataLinks;
+    /**
+     * Display name of the model
+     */
+    name: string;
+    /**
+     * Per-request token limits
+     */
+    perRequestLimits: outputs.GetModelsDataPerRequestLimits;
+    /**
+     * Pricing information for the model
+     */
+    pricing: outputs.GetModelsDataPricing;
+    /**
+     * Reasoning effort configuration. Omitted for non-reasoning models and dynamic router models.
+     */
+    reasoning: outputs.GetModelsDataReasoning;
+    /**
+     * List of supported parameters for this model
+     */
+    supportedParameters: string[];
+    /**
+     * List of supported voice identifiers for TTS models. Null for non-TTS models.
+     */
+    supportedVoices: string[];
+    /**
+     * Information about the top provider for this model
+     */
+    topProvider: outputs.GetModelsDataTopProvider;
+}
+
+export interface GetModelsDataAliasTarget {
+    /**
+     * Human-readable name of the concrete model targeted by this alias
+     */
+    name: string;
+    /**
+     * Routable model ID of the concrete target, matching that model row's id
+     */
+    slug: string;
+}
+
+export interface GetModelsDataArchitecture {
+    /**
+     * Supported input modalities
+     */
+    inputModalities: string[];
+    /**
+     * Instruction format type
+     */
+    instructType: string;
+    /**
+     * Primary modality of the model
+     */
+    modality: string;
+    /**
+     * Supported output modalities
+     */
+    outputModalities: string[];
+    /**
+     * Tokenizer type used by the model
+     */
+    tokenizer: string;
+}
+
+export interface GetModelsDataBenchmarks {
+    /**
+     * Artificial Analysis benchmark index scores.
+     */
+    artificialAnalysis: outputs.GetModelsDataBenchmarksArtificialAnalysis;
+    /**
+     * Design Arena ELO rankings across arena+category pairs.
+     */
+    designArenas: outputs.GetModelsDataBenchmarksDesignArena[];
+}
+
+export interface GetModelsDataBenchmarksArtificialAnalysis {
+    /**
+     * Artificial Analysis Agentic Index score
+     */
+    agenticIndex: number;
+    /**
+     * Artificial Analysis Coding Index score
+     */
+    codingIndex: number;
+    /**
+     * Artificial Analysis Intelligence Index score
+     */
+    intelligenceIndex: number;
+}
+
+export interface GetModelsDataBenchmarksDesignArena {
+    /**
+     * Arena type (e.g. models, builders, agents)
+     */
+    arena: string;
+    /**
+     * Category within the arena (e.g. website, gamedev, uicomponent)
+     */
+    category: string;
+    /**
+     * ELO rating from head-to-head arena battles
+     */
+    elo: number;
+    /**
+     * Rank position within this arena+category among models available on OpenRouter (1 = highest ELO)
+     */
+    rank: number;
+    /**
+     * Win rate percentage in arena battles
+     */
+    winRate: number;
+}
+
+export interface GetModelsDataDefaultParameters {
+    frequencyPenalty: number;
+    presencePenalty: number;
+    repetitionPenalty: number;
+    temperature: number;
+    topK: number;
+    topP: number;
+}
+
+export interface GetModelsDataLinks {
+    /**
+     * URL for the model details/endpoints API
+     */
+    details: string;
+}
+
+export interface GetModelsDataPerRequestLimits {
+    /**
+     * Maximum completion tokens per request
+     */
+    completionTokens: number;
+    /**
+     * Maximum prompt tokens per request
+     */
+    promptTokens: number;
+}
+
+export interface GetModelsDataPricing {
+    /**
+     * Price in USD per audio input token
+     */
+    audio: string;
+    /**
+     * Price in USD per audio output token
+     */
+    audioOutput: string;
+    /**
+     * Price in USD per token for completion (output) generation
+     */
+    completion: string;
+    /**
+     * Fractional discount applied to this endpoint's pricing; the price is multiplied by (1 - discount) (0 = no discount, 1 = free)
+     */
+    discount: number;
+    /**
+     * Price in USD per input image
+     */
+    image: string;
+    /**
+     * Price in USD per output image
+     */
+    imageOutput: string;
+    /**
+     * Price in USD per image token
+     */
+    imageToken: string;
+    /**
+     * Price in USD per cached audio input token
+     */
+    inputAudioCache: string;
+    /**
+     * Price in USD per cached input token (read)
+     */
+    inputCacheRead: string;
+    /**
+     * Price per cache-write token, in USD per token. For providers with multiple cache TTLs (e.g. Anthropic), this is the default (5-minute) cache-write rate.
+     */
+    inputCacheWrite: string;
+    /**
+     * Price per 1-hour cache-write token, in USD per token. Only present for providers that price an extended (1-hour) cache TTL separately, such as Anthropic.
+     */
+    inputCacheWrite1h: string;
+    /**
+     * Price in USD per internal reasoning token
+     */
+    internalReasoning: string;
+    /**
+     * Conditional overrides of the base pricing (e.g. long-context or time-based pricing). An entry applies when all of its condition fields (e.g. min_prompt_tokens, or the utc_start/utc_end time window) match the request; among applicable entries, later entries win per key; price keys absent from an entry inherit the base price. The top-level pricing keys always reflect the price that applies under default conditions.
+     */
+    overrides: outputs.GetModelsDataPricingOverride[];
+    /**
+     * Price in USD per token for prompt (input) processing
+     */
+    prompt: string;
+    /**
+     * Price in USD per request
+     */
+    request: string;
+    /**
+     * Price in USD per web search
+     */
+    webSearch: string;
+}
+
+export interface GetModelsDataPricingOverride {
+    /**
+     * Overridden price in USD per audio input token
+     */
+    audio: string;
+    /**
+     * Overridden price in USD per token for completion (output) generation
+     */
+    completion: string;
+    /**
+     * Overridden price in USD per cached audio input token
+     */
+    inputAudioCache: string;
+    /**
+     * Overridden price in USD per cached input token (read)
+     */
+    inputCacheRead: string;
+    /**
+     * Overridden price in USD per cache-write token
+     */
+    inputCacheWrite: string;
+    /**
+     * Overridden price in USD per 1-hour cache-write token
+     */
+    inputCacheWrite1h: string;
+    /**
+     * Condition: the entry applies when the total prompt tokens of a request are strictly greater than this threshold
+     */
+    minPromptTokens: number;
+    /**
+     * Overridden price in USD per token for prompt (input) processing
+     */
+    prompt: string;
+    /**
+     * Condition: UTC weekdays the entry applies on, evaluated at the request instant. Scopes the utc_start/utc_end window (or, without a window, the whole UTC day) to the listed days. Absent means every day.
+     */
+    utcDays: string[];
+    /**
+     * Condition: exclusive end of a daily UTC time window as an HHMM clock number (e.g. 400 = 04:00)
+     */
+    utcEnd: number;
+    /**
+     * Condition: inclusive start of a daily UTC time window as an HHMM clock number (e.g. 100 = 01:00, 1030 = 10:30). The entry applies while the current UTC time is inside the half-open window [utc_start, utc_end), which may wrap past midnight (utc_start > utc_end).
+     */
+    utcStart: number;
+}
+
+export interface GetModelsDataReasoning {
+    defaultEffort: string;
+    /**
+     * Default reasoning enabled state when the client does not set `reasoning.enabled`.
+     */
+    defaultEnabled: boolean;
+    /**
+     * When true, reasoning cannot be disabled and effort "none" is rejected.
+     */
+    mandatory: boolean;
+    /**
+     * Allowed reasoning effort values for this model, in descending effort order (highest first). Null means no allowlist — all gateway effort values are accepted.
+     */
+    supportedEfforts: string[];
+    /**
+     * Present and `true` when the model accepts `reasoning.max_tokens` in requests (Anthropic-style) instead of or in addition to `reasoning.effort`. Omitted otherwise.
+     */
+    supportsMaxTokens: boolean;
+}
+
+export interface GetModelsDataTopProvider {
+    /**
+     * Context length from the top provider
+     */
+    contextLength: number;
+    /**
+     * Whether the top provider moderates content
+     */
+    isModerated: boolean;
+    /**
+     * Maximum completion tokens from the top provider. Input and output tokens share the context window, so the effective maximum output for a request is further limited by the context remaining after input tokens.
+     */
+    maxCompletionTokens: number;
+}
+
+export interface GetModelsLinks {
+    /**
+     * URL for the next page of results, or null if this is the last page
+     */
+    next: string;
+}
+
+export interface GetObservabilityDestinationArize {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationArizeConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationArizeFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationArizeConfig {
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * The name of the tracing project in Arize AX
+     */
+    modelId: string;
+    spaceKey: string;
+}
+
+export interface GetObservabilityDestinationArizeFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationArizeFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationArizeFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationArizeFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationArizeFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationArizeFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationArizeFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationBraintrust {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationBraintrustConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationBraintrustFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationBraintrustConfig {
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    projectId: string;
+}
+
+export interface GetObservabilityDestinationBraintrustFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationBraintrustFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationBraintrustFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationBraintrustFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationBraintrustFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationBraintrustFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationBraintrustFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationClickhouse {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationClickhouseConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationClickhouseFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationClickhouseConfig {
+    database: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    host: string;
+    password: string;
+    /**
+     * Send the cacheWriteTokens column (schema v2). Turn this on after the table has that column.
+     */
+    shouldIncludeCacheWriteTokens: boolean;
+    table: string;
+    /**
+     * If you have not set a specific username in ClickHouse, simply type in 'default' below.
+     */
+    username: string;
+}
+
+export interface GetObservabilityDestinationClickhouseFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationClickhouseFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationClickhouseFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationClickhouseFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationClickhouseFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationClickhouseFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationClickhouseFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationDatadog {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationDatadogConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationDatadogFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationDatadogConfig {
+    /**
+     * Datadog API key must have LLM Observability permissions. Create at:
+     */
+    apiKey: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * Name to identify your application in Datadog LLM Observability
+     */
+    mlApp: string;
+    /**
+     * Datadog API URL for your region (e.g., https://api.datadoghq.com, https://api.us3.datadoghq.com, https://api.us5.datadoghq.com, https://api.datadoghq.eu)
+     */
+    url: string;
+}
+
+export interface GetObservabilityDestinationDatadogFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationDatadogFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationDatadogFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationDatadogFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationDatadogFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationDatadogFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationDatadogFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationGrafana {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationGrafanaConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationGrafanaFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationGrafanaConfig {
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    instanceId: string;
+}
+
+export interface GetObservabilityDestinationGrafanaFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationGrafanaFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationGrafanaFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationGrafanaFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationGrafanaFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationGrafanaFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationGrafanaFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationLangfuse {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationLangfuseConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationLangfuseFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationLangfuseConfig {
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    publicKey: string;
+    secretKey: string;
+}
+
+export interface GetObservabilityDestinationLangfuseFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationLangfuseFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationLangfuseFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationLangfuseFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationLangfuseFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationLangfuseFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationLangfuseFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationLangsmith {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationLangsmithConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationLangsmithFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationLangsmithConfig {
+    apiKey: string;
+    endpoint: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * The name for this project, such as pr-openrouter-demo. Defaults to "main" if not set.
+     */
+    project: string;
+    /**
+     * Required for org-scoped API keys. Find this in your LangSmith workspace settings.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationLangsmithFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationLangsmithFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationLangsmithFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationLangsmithFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationLangsmithFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationLangsmithFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationLangsmithFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationNewrelic {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationNewrelicConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationNewrelicFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationNewrelicConfig {
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    licenseKey: string;
+    region: string;
+}
+
+export interface GetObservabilityDestinationNewrelicFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationNewrelicFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationNewrelicFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationNewrelicFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationNewrelicFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationNewrelicFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationNewrelicFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationOpik {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationOpikConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationOpikFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationOpikConfig {
+    apiKey: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    projectName: string;
+    workspace: string;
+}
+
+export interface GetObservabilityDestinationOpikFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationOpikFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationOpikFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationOpikFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationOpikFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationOpikFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationOpikFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationOtelCollector {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationOtelCollectorConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationOtelCollectorFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationOtelCollectorConfig {
+    endpoint: string;
+    /**
+     * Custom HTTP headers as a JSON object. For Axiom, use {"Authorization": "Bearer xaat-xxx", "X-Axiom-Dataset": "your-dataset"}
+     */
+    headers: {[key: string]: string};
+    /**
+     * OTLP/HTTP metrics URL. Required when `shouldSendMetrics` (Send OTLP metrics) is true; ignored otherwise.
+     */
+    metricsEndpoint: string;
+    /**
+     * Also send OTLP metrics for each delivered generation to the metrics endpoint, with the same headers.
+     */
+    shouldSendMetrics: boolean;
+}
+
+export interface GetObservabilityDestinationOtelCollectorFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationOtelCollectorFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationOtelCollectorFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationOtelCollectorFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationOtelCollectorFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationOtelCollectorFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationOtelCollectorFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationPosthog {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationPosthogConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationPosthogFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationPosthogConfig {
+    apiKey: string;
+    endpoint: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+}
+
+export interface GetObservabilityDestinationPosthogFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationPosthogFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationPosthogFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationPosthogFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationPosthogFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationPosthogFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationPosthogFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationRamp {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationRampConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationRampFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationRampConfig {
+    /**
+     * Generate this in your Ramp integration settings.
+     */
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to Ramp.
+     */
+    headers: {[key: string]: string};
+}
+
+export interface GetObservabilityDestinationRampFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationRampFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationRampFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationRampFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationRampFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationRampFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationRampFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationS3 {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationS3Config;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationS3FilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationS3Config {
+    accessKeyId: string;
+    /**
+     * IAM role: OpenRouter assumes a role in your AWS account with short-lived STS credentials, so you don't share long-lived keys.
+     */
+    authMode: string;
+    bucketName: string;
+    /**
+     * Only for S3-compatible services like Cloudflare R2 (https://account-id.r2.cloudflarestorage.com) or MinIO. Leave blank for standard AWS S3.
+     */
+    endpoint: string;
+    /**
+     * Generated by OpenRouter when you save. Require it as sts:ExternalId in your role's trust policy.
+     */
+    externalId: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * Template for S3 object path. The filename ({traceId}-{timestamp}.json) is automatically appended. Available variables: {prefix}, {date}, {year}, {month}, {day}, {apiKeyName}
+     */
+    pathTemplate: string;
+    prefix: string;
+    /**
+     * The object storage service that hosts the bucket. AWS S3 supports IAM role authentication; the other providers use access keys.
+     */
+    provider: string;
+    /**
+     * Required for IAM role authentication. With access keys, AWS S3 detects the bucket region when you leave this blank.
+     */
+    region: string;
+    /**
+     * The IAM role in your account that OpenRouter assumes. Its trust policy must allow sts:AssumeRole from arn:aws:iam::536697249728:role/openrouter-broadcast-exporter and require the external ID below, and its permissions must allow s3:PutObject on the bucket and prefix (plus kms:GenerateDataKey for SSE-KMS buckets).
+     */
+    roleArn: string;
+    secretAccessKey: string;
+    sessionToken: string;
+}
+
+export interface GetObservabilityDestinationS3FilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationS3FilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationS3FilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationS3FilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationS3FilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationS3FilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationS3FilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationSentry {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationSentryConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationSentryFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationSentryConfig {
+    dsn: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    otlpEndpoint: string;
+}
+
+export interface GetObservabilityDestinationSentryFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationSentryFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationSentryFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationSentryFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationSentryFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationSentryFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationSentryFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationSnowflake {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationSnowflakeConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationSnowflakeFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationSnowflakeConfig {
+    account: string;
+    database: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    schema: string;
+    /**
+     * Send the cacheWriteTokens column (schema v2). Turn this on after the table has that column.
+     */
+    shouldIncludeCacheWriteTokens: boolean;
+    table: string;
+    token: string;
+    warehouse: string;
+}
+
+export interface GetObservabilityDestinationSnowflakeFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationSnowflakeFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationSnowflakeFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationSnowflakeFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationSnowflakeFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationSnowflakeFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationSnowflakeFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationWeave {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationWeaveConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationWeaveFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationWeaveConfig {
+    apiKey: string;
+    baseUrl: string;
+    entity: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    project: string;
+}
+
+export interface GetObservabilityDestinationWeaveFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationWeaveFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationWeaveFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationWeaveFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationWeaveFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationWeaveFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationWeaveFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationWebhook {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationWebhookConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationWebhookFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationWebhookConfig {
+    headers: {[key: string]: string};
+    method: string;
+    url: string;
+}
+
+export interface GetObservabilityDestinationWebhookFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationWebhookFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationWebhookFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationWebhookFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationWebhookFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationWebhookFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationWebhookFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsData {
+    arize: outputs.GetObservabilityDestinationsDataArize;
+    braintrust: outputs.GetObservabilityDestinationsDataBraintrust;
+    clickhouse: outputs.GetObservabilityDestinationsDataClickhouse;
+    datadog: outputs.GetObservabilityDestinationsDataDatadog;
+    grafana: outputs.GetObservabilityDestinationsDataGrafana;
+    langfuse: outputs.GetObservabilityDestinationsDataLangfuse;
+    langsmith: outputs.GetObservabilityDestinationsDataLangsmith;
+    newrelic: outputs.GetObservabilityDestinationsDataNewrelic;
+    opik: outputs.GetObservabilityDestinationsDataOpik;
+    otelCollector: outputs.GetObservabilityDestinationsDataOtelCollector;
+    posthog: outputs.GetObservabilityDestinationsDataPosthog;
+    ramp: outputs.GetObservabilityDestinationsDataRamp;
+    s3: outputs.GetObservabilityDestinationsDataS3;
+    sentry: outputs.GetObservabilityDestinationsDataSentry;
+    snowflake: outputs.GetObservabilityDestinationsDataSnowflake;
+    weave: outputs.GetObservabilityDestinationsDataWeave;
+    webhook: outputs.GetObservabilityDestinationsDataWebhook;
+}
+
+export interface GetObservabilityDestinationsDataArize {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataArizeConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataArizeFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataArizeConfig {
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * The name of the tracing project in Arize AX
+     */
+    modelId: string;
+    spaceKey: string;
+}
+
+export interface GetObservabilityDestinationsDataArizeFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataArizeFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataArizeFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataArizeFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataArizeFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataArizeFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataArizeFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataBraintrust {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataBraintrustConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataBraintrustFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataBraintrustConfig {
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    projectId: string;
+}
+
+export interface GetObservabilityDestinationsDataBraintrustFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataBraintrustFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataBraintrustFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataBraintrustFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataBraintrustFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataBraintrustFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataBraintrustFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataClickhouse {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataClickhouseConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataClickhouseFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataClickhouseConfig {
+    database: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    host: string;
+    password: string;
+    /**
+     * Send the cacheWriteTokens column (schema v2). Turn this on after the table has that column.
+     */
+    shouldIncludeCacheWriteTokens: boolean;
+    table: string;
+    /**
+     * If you have not set a specific username in ClickHouse, simply type in 'default' below.
+     */
+    username: string;
+}
+
+export interface GetObservabilityDestinationsDataClickhouseFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataClickhouseFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataClickhouseFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataClickhouseFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataClickhouseFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataClickhouseFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataClickhouseFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataDatadog {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataDatadogConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataDatadogFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataDatadogConfig {
+    /**
+     * Datadog API key must have LLM Observability permissions. Create at:
+     */
+    apiKey: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * Name to identify your application in Datadog LLM Observability
+     */
+    mlApp: string;
+    /**
+     * Datadog API URL for your region (e.g., https://api.datadoghq.com, https://api.us3.datadoghq.com, https://api.us5.datadoghq.com, https://api.datadoghq.eu)
+     */
+    url: string;
+}
+
+export interface GetObservabilityDestinationsDataDatadogFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataDatadogFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataDatadogFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataDatadogFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataDatadogFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataDatadogFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataDatadogFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataGrafana {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataGrafanaConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataGrafanaFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataGrafanaConfig {
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    instanceId: string;
+}
+
+export interface GetObservabilityDestinationsDataGrafanaFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataGrafanaFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataGrafanaFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataGrafanaFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataGrafanaFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataGrafanaFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataGrafanaFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataLangfuse {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataLangfuseConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataLangfuseFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataLangfuseConfig {
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    publicKey: string;
+    secretKey: string;
+}
+
+export interface GetObservabilityDestinationsDataLangfuseFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataLangfuseFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataLangfuseFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataLangfuseFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataLangfuseFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataLangfuseFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataLangfuseFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataLangsmith {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataLangsmithConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataLangsmithFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataLangsmithConfig {
+    apiKey: string;
+    endpoint: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * The name for this project, such as pr-openrouter-demo. Defaults to "main" if not set.
+     */
+    project: string;
+    /**
+     * Required for org-scoped API keys. Find this in your LangSmith workspace settings.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataLangsmithFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataLangsmithFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataLangsmithFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataLangsmithFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataLangsmithFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataLangsmithFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataLangsmithFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataNewrelic {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataNewrelicConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataNewrelicFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataNewrelicConfig {
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    licenseKey: string;
+    region: string;
+}
+
+export interface GetObservabilityDestinationsDataNewrelicFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataNewrelicFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataNewrelicFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataNewrelicFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataNewrelicFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataNewrelicFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataNewrelicFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataOpik {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataOpikConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataOpikFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataOpikConfig {
+    apiKey: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    projectName: string;
+    workspace: string;
+}
+
+export interface GetObservabilityDestinationsDataOpikFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataOpikFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataOpikFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataOpikFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataOpikFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataOpikFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataOpikFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataOtelCollector {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataOtelCollectorConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataOtelCollectorFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataOtelCollectorConfig {
+    endpoint: string;
+    /**
+     * Custom HTTP headers as a JSON object. For Axiom, use {"Authorization": "Bearer xaat-xxx", "X-Axiom-Dataset": "your-dataset"}
+     */
+    headers: {[key: string]: string};
+    /**
+     * OTLP/HTTP metrics URL. Required when `shouldSendMetrics` (Send OTLP metrics) is true; ignored otherwise.
+     */
+    metricsEndpoint: string;
+    /**
+     * Also send OTLP metrics for each delivered generation to the metrics endpoint, with the same headers.
+     */
+    shouldSendMetrics: boolean;
+}
+
+export interface GetObservabilityDestinationsDataOtelCollectorFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataOtelCollectorFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataOtelCollectorFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataOtelCollectorFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataOtelCollectorFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataOtelCollectorFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataOtelCollectorFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataPosthog {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataPosthogConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataPosthogFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataPosthogConfig {
+    apiKey: string;
+    endpoint: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+}
+
+export interface GetObservabilityDestinationsDataPosthogFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataPosthogFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataPosthogFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataPosthogFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataPosthogFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataPosthogFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataPosthogFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataRamp {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataRampConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataRampFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataRampConfig {
+    /**
+     * Generate this in your Ramp integration settings.
+     */
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to Ramp.
+     */
+    headers: {[key: string]: string};
+}
+
+export interface GetObservabilityDestinationsDataRampFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataRampFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataRampFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataRampFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataRampFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataRampFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataRampFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataS3 {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataS3Config;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataS3FilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataS3Config {
+    accessKeyId: string;
+    /**
+     * IAM role: OpenRouter assumes a role in your AWS account with short-lived STS credentials, so you don't share long-lived keys.
+     */
+    authMode: string;
+    bucketName: string;
+    /**
+     * Only for S3-compatible services like Cloudflare R2 (https://account-id.r2.cloudflarestorage.com) or MinIO. Leave blank for standard AWS S3.
+     */
+    endpoint: string;
+    /**
+     * Generated by OpenRouter when you save. Require it as sts:ExternalId in your role's trust policy.
+     */
+    externalId: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * Template for S3 object path. The filename ({traceId}-{timestamp}.json) is automatically appended. Available variables: {prefix}, {date}, {year}, {month}, {day}, {apiKeyName}
+     */
+    pathTemplate: string;
+    prefix: string;
+    /**
+     * The object storage service that hosts the bucket. AWS S3 supports IAM role authentication; the other providers use access keys.
+     */
+    provider: string;
+    /**
+     * Required for IAM role authentication. With access keys, AWS S3 detects the bucket region when you leave this blank.
+     */
+    region: string;
+    /**
+     * The IAM role in your account that OpenRouter assumes. Its trust policy must allow sts:AssumeRole from arn:aws:iam::536697249728:role/openrouter-broadcast-exporter and require the external ID below, and its permissions must allow s3:PutObject on the bucket and prefix (plus kms:GenerateDataKey for SSE-KMS buckets).
+     */
+    roleArn: string;
+    secretAccessKey: string;
+    sessionToken: string;
+}
+
+export interface GetObservabilityDestinationsDataS3FilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataS3FilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataS3FilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataS3FilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataS3FilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataS3FilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataS3FilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataSentry {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataSentryConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataSentryFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataSentryConfig {
+    dsn: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    otlpEndpoint: string;
+}
+
+export interface GetObservabilityDestinationsDataSentryFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataSentryFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataSentryFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataSentryFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataSentryFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataSentryFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataSentryFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataSnowflake {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataSnowflakeConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataSnowflakeFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataSnowflakeConfig {
+    account: string;
+    database: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    schema: string;
+    /**
+     * Send the cacheWriteTokens column (schema v2). Turn this on after the table has that column.
+     */
+    shouldIncludeCacheWriteTokens: boolean;
+    table: string;
+    token: string;
+    warehouse: string;
+}
+
+export interface GetObservabilityDestinationsDataSnowflakeFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataSnowflakeFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataSnowflakeFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataSnowflakeFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataSnowflakeFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataSnowflakeFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataSnowflakeFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataWeave {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataWeaveConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataWeaveFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataWeaveConfig {
+    apiKey: string;
+    baseUrl: string;
+    entity: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    project: string;
+}
+
+export interface GetObservabilityDestinationsDataWeaveFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataWeaveFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataWeaveFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataWeaveFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataWeaveFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataWeaveFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataWeaveFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetObservabilityDestinationsDataWebhook {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.GetObservabilityDestinationsDataWebhookConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.GetObservabilityDestinationsDataWebhookFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface GetObservabilityDestinationsDataWebhookConfig {
+    headers: {[key: string]: string};
+    method: string;
+    url: string;
+}
+
+export interface GetObservabilityDestinationsDataWebhookFilterRules {
+    enabled: boolean;
+    groups: outputs.GetObservabilityDestinationsDataWebhookFilterRulesGroup[];
+}
+
+export interface GetObservabilityDestinationsDataWebhookFilterRulesGroup {
+    logic: string;
+    rules: outputs.GetObservabilityDestinationsDataWebhookFilterRulesGroupRule[];
+}
+
+export interface GetObservabilityDestinationsDataWebhookFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.GetObservabilityDestinationsDataWebhookFilterRulesGroupRuleValue;
+}
+
+export interface GetObservabilityDestinationsDataWebhookFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface GetOrganizationMembersData {
+    /**
+     * Email address of the member
+     */
+    email: string;
+    /**
+     * First name of the member
+     */
+    firstName: string;
+    /**
+     * User ID of the organization member
+     */
+    id: string;
+    /**
+     * Last name of the member
+     */
+    lastName: string;
+    /**
+     * Role of the member in the organization. `org:viewer` is coming soon and not yet available. Once launched, it has read-only organization access: it can view organization settings, billing and workspaces but not change them. Workspace roles can still grant write access in specific workspaces.
+     */
+    role: string;
+}
+
+export interface GetPresetData {
+    createdAt: string;
+    creatorUserId: string;
+    description: string;
+    /**
+     * A specific version of a preset, containing config and optional system prompt.
+     */
+    designatedVersion: outputs.GetPresetDataDesignatedVersion;
+    designatedVersionId: string;
+    id: string;
+    name: string;
+    slug: string;
+    /**
+     * The status of a preset.
+     */
+    status: string;
+    statusUpdatedAt: string;
+    updatedAt: string;
+    workspaceId: string;
+}
+
+export interface GetPresetDataDesignatedVersion {
+    config: {[key: string]: string};
+    createdAt: string;
+    creatorId: string;
+    id: string;
+    presetId: string;
+    systemPrompt: string;
+    updatedAt: string;
+    version: number;
+}
+
+export interface GetPresetsData {
+    createdAt: string;
+    creatorUserId: string;
+    description: string;
+    designatedVersionId: string;
+    id: string;
+    name: string;
+    slug: string;
+    /**
+     * The status of a preset.
+     */
+    status: string;
+    statusUpdatedAt: string;
+    updatedAt: string;
+    workspaceId: string;
+}
+
+export interface GetPrivateEndpointPricing {
+    /**
+     * USD per cache-read prompt token, as a decimal string. When omitted, inherited from the public endpoint of the same model and provider: scaled by its cache-read to prompt ratio, or left at the pricing strategy default when it publishes no cache-read rate. Required when there is no such endpoint and the provider bills cache reads.
+     */
+    cacheRead: string;
+    /**
+     * USD per cache-write prompt token, as a decimal string. When omitted, inherited from the public endpoint of the same model and provider: scaled by its cache-write to prompt ratio, or left at the pricing strategy default when it publishes no cache-write rate. Required when there is no such endpoint and the provider bills cache writes.
+     */
+    cacheWrite: string;
+    /**
+     * USD per completion token, as a decimal string.
+     */
+    completion: string;
+    /**
+     * USD per prompt token, as a decimal string.
+     */
+    prompt: string;
+}
+
+export interface GetPrivateEndpointSettings {
+    completions: outputs.GetPrivateEndpointSettingsCompletions;
+    /**
+     * Longest prompt plus completion, in tokens, or `null` to keep the model default.
+     */
+    contextLength: number;
+    /**
+     * Request parameters the upstream rejects even though the model supports them; requests using one do not route here. Cannot name a tested parameter.
+     */
+    excludedParameters: string[];
+    inputs: outputs.GetPrivateEndpointSettingsInputs;
+    /**
+     * Longest completion the upstream returns, in tokens, or `null` to keep the model default.
+     */
+    maxCompletionTokens: number;
+    /**
+     * Longest prompt, in tokens, or `null` for no cap below the context length. Cannot exceed `contextLength`, or the model context length while `contextLength` is `null`.
+     */
+    maxPromptTokens: number;
+    /**
+     * Weight precision the deployment runs at; `unknown` when not stated.
+     */
+    quantization: string;
+    reasoning: outputs.GetPrivateEndpointSettingsReasoning;
+    toolChoice: outputs.GetPrivateEndpointSettingsToolChoice;
+}
+
+export interface GetPrivateEndpointSettingsCompletions {
+    /**
+     * Serves `/chat/completions`; `null` uses the provider default.
+     */
+    chat: boolean;
+    /**
+     * Serves `/completions`; `null` uses the provider default.
+     */
+    text: boolean;
+}
+
+export interface GetPrivateEndpointSettingsInputs {
+    /**
+     * Accepts audio input. `null` keeps the provider default.
+     */
+    audio: boolean;
+    /**
+     * Accepts base64 file data. `null` keeps the provider default.
+     */
+    base64Files: boolean;
+    /**
+     * Accepts base64 image data. `null` keeps the provider default.
+     */
+    base64Images: boolean;
+    /**
+     * Accepts file URLs. `null` keeps the provider default.
+     */
+    fileUrls: boolean;
+    /**
+     * Accepts image URLs. `null` keeps the provider default.
+     */
+    imageUrls: boolean;
+}
+
+export interface GetPrivateEndpointSettingsReasoning {
+    /**
+     * Where the upstream puts reasoning tokens in its response: `reasoning` and `reasoning-content` are response fields, `content-string` is inline in the message, `none` returns no reasoning. `null` uses the provider default.
+     */
+    returnMechanism: string;
+    /**
+     * Whether requests with `reasoning` route to this endpoint.
+     */
+    supported: boolean;
+}
+
+export interface GetPrivateEndpointSettingsToolChoice {
+    /**
+     * Accepts `tool_choice: "auto"`.
+     */
+    auto: boolean;
+    /**
+     * Accepts a named function in `toolChoice`.
+     */
+    function: boolean;
+    /**
+     * Accepts `tool_choice: "none"`.
+     */
+    none: boolean;
+    /**
+     * Accepts `tool_choice: "required"`.
+     */
+    required: boolean;
+}
+
+export interface GetProvidersData {
+    /**
+     * ISO 3166-1 Alpha-2 country codes of the provider datacenter locations
+     */
+    datacenters: string[];
+    /**
+     * ISO 3166-1 Alpha-2 country code of the provider headquarters
+     */
+    headquarters: string;
+    /**
+     * Display name of the provider
+     */
+    name: string;
+    /**
+     * URL to the provider's privacy policy
+     */
+    privacyPolicyUrl: string;
+    /**
+     * URL-friendly identifier for the provider
+     */
+    slug: string;
+    /**
+     * URL to the provider's status page
+     */
+    statusPageUrl: string;
+    /**
+     * URL to the provider's terms of service
+     */
+    termsOfServiceUrl: string;
+}
+
+export interface GetScimGroupsData {
+    createdAt: string;
+    displayName: string;
+    externalId: string;
+    id: string;
+    organizationId: string;
+    updatedAt: string;
+}
+
+export interface GetWorkspaceBudgetsData {
+    /**
+     * ISO 8601 timestamp of when the budget was created
+     */
+    createdAt: string;
+    /**
+     * Unique identifier for the budget
+     */
+    id: string;
+    /**
+     * Spending limit in USD for this interval
+     */
+    limitUsd: number;
+    /**
+     * Interval at which spend resets. Null means a lifetime (one-time) budget.
+     */
+    resetInterval: string;
+    /**
+     * ISO 8601 timestamp of when the budget was last updated
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace the budget belongs to
+     */
+    workspaceId: string;
+}
+
+export interface GetWorkspaceMembersData {
+    /**
+     * ISO 8601 timestamp of when the membership was created
+     */
+    createdAt: string;
+    /**
+     * Unique identifier for the workspace membership
+     */
+    id: string;
+    /**
+     * Role of the member in the workspace. `viewer` and `restrictedViewer` are read-only: `viewer` can view the whole workspace, and `restrictedViewer` can view only their own activity.
+     */
+    role: string;
+    /**
+     * Clerk user ID of the member
+     */
+    userId: string;
+    /**
+     * ID of the workspace
+     */
+    workspaceId: string;
+}
+
+export interface GetWorkspacesData {
+    /**
+     * ISO 8601 timestamp of when the workspace was created
+     */
+    createdAt: string;
+    /**
+     * User ID of the workspace creator
+     */
+    createdBy: string;
+    /**
+     * Deterministic ID derived from the workspace ID. The default guardrail is materialized when its configuration is first written.
+     */
+    defaultGuardrailId: string;
+    /**
+     * Default image model for this workspace
+     */
+    defaultImageModel: string;
+    /**
+     * Default provider sort preference (price, throughput, latency, exacto)
+     */
+    defaultProviderSort: string;
+    /**
+     * Default text model for this workspace
+     */
+    defaultTextModel: string;
+    /**
+     * Description of the workspace
+     */
+    description: string;
+    /**
+     * OpenRouter server tools (e.g. openrouter:web_search) that requests in this workspace may not invoke. Null means no tools are disabled.
+     */
+    disabledServerTools: string[];
+    /**
+     * Unique identifier for the workspace
+     */
+    id: string;
+    /**
+     * Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+     */
+    includeByokInBudgets: boolean;
+    /**
+     * Optional array of API key IDs to filter I/O logging. Null means all keys are logged.
+     */
+    ioLoggingApiKeyIds: number[];
+    /**
+     * Sampling rate for I/O logging (0.0001-1). 1 means 100% of requests are logged.
+     */
+    ioLoggingSamplingRate: number;
+    /**
+     * Whether data discount logging is enabled for this workspace
+     */
+    isDataDiscountLoggingEnabled: boolean;
+    /**
+     * Whether broadcast is enabled for this workspace
+     */
+    isObservabilityBroadcastEnabled: boolean;
+    /**
+     * Whether private logging is enabled for this workspace
+     */
+    isObservabilityIoLoggingEnabled: boolean;
+    /**
+     * Name of the workspace
+     */
+    name: string;
+    /**
+     * URL-friendly slug for the workspace
+     */
+    slug: string;
+    /**
+     * ISO 8601 timestamp of when the workspace was last updated
+     */
+    updatedAt: string;
+}
+
+export interface GuardrailContentFilter {
+    /**
+     * Action taken when the pattern matches. Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action: string;
+    /**
+     * Whether inference applies this pattern. False for a pattern saved before pattern validation that is too complex to run safely; it is kept but skipped until replaced.
+     */
+    isEnforced: boolean;
+    /**
+     * Optional label used in redaction placeholders or error messages
+     */
+    label: string;
+    /**
+     * A regex pattern to match against request content. Not Null
+     */
+    pattern: string;
+}
+
+export interface GuardrailContentFilterBuiltin {
+    /**
+     * Action taken when the builtin filter triggers. Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action: string;
+    /**
+     * Deprecated: labels are system-assigned and cannot be set by the caller. Accepted for backward compatibility but silently ignored.
+     *
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
+    label: string;
+    /**
+     * Which message roles to scan for prompt injection. Only applies to the regex-prompt-injection builtin. Defaults to all_messages. must be one of ["userOnly", "allMessages"]
+     */
+    scanScope: string;
+    /**
+     * The builtin filter identifier. Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+     */
+    slug: string;
+}
+
+export interface ObservabilityDestinationArize {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationArizeConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationArizeFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationArizeConfig {
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * The name of the tracing project in Arize AX
+     */
+    modelId: string;
+    spaceKey: string;
+}
+
+export interface ObservabilityDestinationArizeFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationArizeFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationArizeFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationArizeFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationArizeFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationArizeFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationArizeFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationBraintrust {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationBraintrustConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationBraintrustFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationBraintrustConfig {
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    projectId: string;
+}
+
+export interface ObservabilityDestinationBraintrustFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationBraintrustFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationBraintrustFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationBraintrustFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationBraintrustFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationBraintrustFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationBraintrustFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationClickhouse {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationClickhouseConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationClickhouseFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationClickhouseConfig {
+    database: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    host: string;
+    password: string;
+    /**
+     * Send the cacheWriteTokens column (schema v2). Turn this on after the table has that column. Default: false
+     */
+    shouldIncludeCacheWriteTokens: boolean;
+    table: string;
+    /**
+     * If you have not set a specific username in ClickHouse, simply type in 'default' below.
+     */
+    username: string;
+}
+
+export interface ObservabilityDestinationClickhouseFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationClickhouseFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationClickhouseFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationClickhouseFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationClickhouseFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationClickhouseFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationClickhouseFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationDatadog {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationDatadogConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationDatadogFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationDatadogConfig {
+    /**
+     * Datadog API key must have LLM Observability permissions. Create at:
+     */
+    apiKey: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * Name to identify your application in Datadog LLM Observability
+     */
+    mlApp: string;
+    /**
+     * Datadog API URL for your region (e.g., https://api.datadoghq.com, https://api.us3.datadoghq.com, https://api.us5.datadoghq.com, https://api.datadoghq.eu)
+     */
+    url: string;
+}
+
+export interface ObservabilityDestinationDatadogFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationDatadogFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationDatadogFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationDatadogFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationDatadogFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationDatadogFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationDatadogFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationFilterRules {
+    /**
+     * Default: true
+     */
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationFilterRulesGroup {
+    /**
+     * Default: "and"; must be one of ["and", "or"]
+     */
+    logic: string;
+    rules: outputs.ObservabilityDestinationFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationFilterRulesGroupRule {
+    /**
+     * must be one of ["model", "provider", "sessionId", "userId", "apiKeyName", "finishReason", "input", "output", "totalCost", "totalTokens", "promptTokens", "completionTokens"]
+     */
+    field: string;
+    /**
+     * must be one of ["equals", "notEquals", "contains", "notContains", "regex", "startsWith", "endsWith", "gt", "lt", "gte", "lte", "exists", "notExists"]
+     */
+    operator: string;
+    value?: outputs.ObservabilityDestinationFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationFilterRulesGroupRuleValue {
+    number?: number;
+    str?: string;
+}
+
+export interface ObservabilityDestinationGrafana {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationGrafanaConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationGrafanaFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationGrafanaConfig {
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    instanceId: string;
+}
+
+export interface ObservabilityDestinationGrafanaFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationGrafanaFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationGrafanaFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationGrafanaFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationGrafanaFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationGrafanaFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationGrafanaFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationLangfuse {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationLangfuseConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationLangfuseFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationLangfuseConfig {
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    publicKey: string;
+    secretKey: string;
+}
+
+export interface ObservabilityDestinationLangfuseFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationLangfuseFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationLangfuseFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationLangfuseFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationLangfuseFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationLangfuseFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationLangfuseFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationLangsmith {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationLangsmithConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationLangsmithFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationLangsmithConfig {
+    apiKey: string;
+    endpoint: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * The name for this project, such as pr-openrouter-demo. Defaults to "main" if not set.
+     */
+    project: string;
+    /**
+     * Required for org-scoped API keys. Find this in your LangSmith workspace settings.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationLangsmithFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationLangsmithFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationLangsmithFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationLangsmithFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationLangsmithFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationLangsmithFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationLangsmithFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationNewrelic {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationNewrelicConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationNewrelicFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationNewrelicConfig {
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    licenseKey: string;
+    region: string;
+}
+
+export interface ObservabilityDestinationNewrelicFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationNewrelicFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationNewrelicFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationNewrelicFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationNewrelicFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationNewrelicFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationNewrelicFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationOpik {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationOpikConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationOpikFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationOpikConfig {
+    apiKey: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    projectName: string;
+    workspace: string;
+}
+
+export interface ObservabilityDestinationOpikFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationOpikFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationOpikFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationOpikFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationOpikFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationOpikFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationOpikFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationOtelCollector {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationOtelCollectorConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationOtelCollectorFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationOtelCollectorConfig {
+    endpoint: string;
+    /**
+     * Custom HTTP headers as a JSON object. For Axiom, use {"Authorization": "Bearer xaat-xxx", "X-Axiom-Dataset": "your-dataset"}
+     */
+    headers: {[key: string]: string};
+    /**
+     * OTLP/HTTP metrics URL. Required when `shouldSendMetrics` (Send OTLP metrics) is true; ignored otherwise.
+     */
+    metricsEndpoint: string;
+    /**
+     * Also send OTLP metrics for each delivered generation to the metrics endpoint, with the same headers. Default: false
+     */
+    shouldSendMetrics: boolean;
+}
+
+export interface ObservabilityDestinationOtelCollectorFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationOtelCollectorFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationOtelCollectorFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationOtelCollectorFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationOtelCollectorFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationOtelCollectorFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationOtelCollectorFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationPosthog {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationPosthogConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationPosthogFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationPosthogConfig {
+    apiKey: string;
+    endpoint: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+}
+
+export interface ObservabilityDestinationPosthogFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationPosthogFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationPosthogFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationPosthogFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationPosthogFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationPosthogFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationPosthogFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationRamp {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationRampConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationRampFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationRampConfig {
+    /**
+     * Generate this in your Ramp integration settings.
+     */
+    apiKey: string;
+    baseUrl: string;
+    /**
+     * Custom HTTP headers to include in requests to Ramp.
+     */
+    headers: {[key: string]: string};
+}
+
+export interface ObservabilityDestinationRampFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationRampFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationRampFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationRampFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationRampFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationRampFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationRampFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationS3 {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationS3Config;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationS3FilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationS3Config {
+    accessKeyId: string;
+    /**
+     * IAM role: OpenRouter assumes a role in your AWS account with short-lived STS credentials, so you don't share long-lived keys. Default: "accessKeys"
+     */
+    authMode: string;
+    bucketName: string;
+    /**
+     * Only for S3-compatible services like Cloudflare R2 (https://account-id.r2.cloudflarestorage.com) or MinIO. Leave blank for standard AWS S3.
+     */
+    endpoint: string;
+    /**
+     * Generated by OpenRouter when you save. Require it as sts:ExternalId in your role's trust policy.
+     */
+    externalId: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    /**
+     * Template for S3 object path. The filename ({traceId}-{timestamp}.json) is automatically appended. Available variables: {prefix}, {date}, {year}, {month}, {day}, {apiKeyName}
+     */
+    pathTemplate: string;
+    prefix: string;
+    /**
+     * The object storage service that hosts the bucket. AWS S3 supports IAM role authentication; the other providers use access keys.
+     */
+    provider: string;
+    /**
+     * Required for IAM role authentication. With access keys, AWS S3 detects the bucket region when you leave this blank.
+     */
+    region: string;
+    /**
+     * The IAM role in your account that OpenRouter assumes. Its trust policy must allow sts:AssumeRole from arn:aws:iam::536697249728:role/openrouter-broadcast-exporter and require the external ID below, and its permissions must allow s3:PutObject on the bucket and prefix (plus kms:GenerateDataKey for SSE-KMS buckets).
+     */
+    roleArn: string;
+    secretAccessKey: string;
+    sessionToken: string;
+}
+
+export interface ObservabilityDestinationS3FilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationS3FilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationS3FilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationS3FilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationS3FilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationS3FilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationS3FilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationSentry {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationSentryConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationSentryFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationSentryConfig {
+    dsn: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    otlpEndpoint: string;
+}
+
+export interface ObservabilityDestinationSentryFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationSentryFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationSentryFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationSentryFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationSentryFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationSentryFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationSentryFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationSnowflake {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationSnowflakeConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationSnowflakeFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationSnowflakeConfig {
+    account: string;
+    database: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    schema: string;
+    /**
+     * Send the cacheWriteTokens column (schema v2). Turn this on after the table has that column. Default: false
+     */
+    shouldIncludeCacheWriteTokens: boolean;
+    table: string;
+    token: string;
+    warehouse: string;
+}
+
+export interface ObservabilityDestinationSnowflakeFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationSnowflakeFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationSnowflakeFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationSnowflakeFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationSnowflakeFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationSnowflakeFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationSnowflakeFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationWeave {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationWeaveConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationWeaveFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationWeaveConfig {
+    apiKey: string;
+    baseUrl: string;
+    entity: string;
+    /**
+     * Custom HTTP headers to include in requests to this destination.
+     */
+    headers: {[key: string]: string};
+    project: string;
+}
+
+export interface ObservabilityDestinationWeaveFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationWeaveFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationWeaveFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationWeaveFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationWeaveFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationWeaveFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationWeaveFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface ObservabilityDestinationWebhook {
+    /**
+     * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
+     */
+    apiKeyHashes: string[];
+    /**
+     * When true, include cost and billing generation metadata.
+     */
+    broadcastGenerationCost: boolean;
+    /**
+     * Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+     */
+    broadcastGenerationCostAllocation: boolean;
+    /**
+     * When true, include identity generation metadata.
+     */
+    broadcastGenerationIdentity: boolean;
+    /**
+     * When true, include request-context generation metadata.
+     */
+    broadcastGenerationRequestContext: boolean;
+    config: outputs.ObservabilityDestinationWebhookConfig;
+    /**
+     * ISO timestamp of when the destination was created.
+     */
+    createdAt: string;
+    /**
+     * Whether this destination is currently enabled.
+     */
+    enabled: boolean;
+    /**
+     * Optional structured filter rules controlling which events are forwarded.
+     */
+    filterRules: outputs.ObservabilityDestinationWebhookFilterRules;
+    /**
+     * Stable public identifier for this destination.
+     */
+    id: string;
+    /**
+     * Human-readable name for the destination.
+     */
+    name: string;
+    /**
+     * When true, request/response bodies are not forwarded to this destination — only metadata.
+     */
+    privacyMode: boolean;
+    /**
+     * Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+     */
+    regions: string[];
+    /**
+     * Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
+     */
+    samplingRate: number;
+    /**
+     * ISO timestamp of when the destination was last updated.
+     */
+    updatedAt: string;
+    /**
+     * ID of the workspace this destination belongs to.
+     */
+    workspaceId: string;
+}
+
+export interface ObservabilityDestinationWebhookConfig {
+    headers: {[key: string]: string};
+    method: string;
+    url: string;
+}
+
+export interface ObservabilityDestinationWebhookFilterRules {
+    enabled: boolean;
+    groups: outputs.ObservabilityDestinationWebhookFilterRulesGroup[];
+}
+
+export interface ObservabilityDestinationWebhookFilterRulesGroup {
+    logic: string;
+    rules: outputs.ObservabilityDestinationWebhookFilterRulesGroupRule[];
+}
+
+export interface ObservabilityDestinationWebhookFilterRulesGroupRule {
+    field: string;
+    operator: string;
+    value: outputs.ObservabilityDestinationWebhookFilterRulesGroupRuleValue;
+}
+
+export interface ObservabilityDestinationWebhookFilterRulesGroupRuleValue {
+    number: number;
+    str: string;
+}
+
+export interface PrivateEndpointActivate {
+    /**
+     * Workspace whose BYOK credential is used for the live validation call. The workspace must belong to your account.
+     */
+    workspaceId: string;
+}
+
+export interface PrivateEndpointPricing {
+    /**
+     * USD per cache-read prompt token, as a decimal string. When omitted, inherited from the public endpoint of the same model and provider: scaled by its cache-read to prompt ratio, or left at the pricing strategy default when it publishes no cache-read rate. Required when there is no such endpoint and the provider bills cache reads.
+     */
+    cacheRead: string;
+    /**
+     * USD per cache-write prompt token, as a decimal string. When omitted, inherited from the public endpoint of the same model and provider: scaled by its cache-write to prompt ratio, or left at the pricing strategy default when it publishes no cache-write rate. Required when there is no such endpoint and the provider bills cache writes.
+     */
+    cacheWrite: string;
+    /**
+     * USD per completion token, as a decimal string. Not Null
+     */
+    completion: string;
+    /**
+     * USD per prompt token, as a decimal string. Not Null
+     */
+    prompt: string;
+}
+
+export interface PrivateEndpointSettings {
+    completions: outputs.PrivateEndpointSettingsCompletions;
+    /**
+     * Longest prompt plus completion, in tokens. `null` means the model default applies.
+     */
+    contextLength: number;
+    /**
+     * Request parameters the upstream rejects even though the model supports them; requests using one do not route here. Cannot name a tested parameter.
+     */
+    excludedParameters: string[];
+    inputs: outputs.PrivateEndpointSettingsInputs;
+    /**
+     * Longest completion the upstream returns, in tokens. `null` means the model default applies.
+     */
+    maxCompletionTokens: number;
+    /**
+     * Longest prompt, in tokens. `null` means no cap below the context length. Cannot exceed `contextLength`, or the model context length while `contextLength` is `null`.
+     */
+    maxPromptTokens: number;
+    /**
+     * Weight precision the deployment runs at; `unknown` when not stated. must be one of ["int4", "int8", "fp4", "mxfp4", "nvfp4", "fp6", "fp8", "mxfp8", "fp16", "bf16", "fp32", "unknown"]
+     */
+    quantization: string;
+    reasoning: outputs.PrivateEndpointSettingsReasoning;
+    toolChoice: outputs.PrivateEndpointSettingsToolChoice;
+}
+
+export interface PrivateEndpointSettingsCompletions {
+    /**
+     * Serves `/chat/completions`. `null` means the endpoint uses the provider default.
+     */
+    chat: boolean;
+    /**
+     * Serves `/completions`. `null` means the endpoint uses the provider default.
+     */
+    text: boolean;
+}
+
+export interface PrivateEndpointSettingsInputs {
+    /**
+     * Accepts audio input. `null` means the endpoint uses the provider default.
+     */
+    audio: boolean;
+    /**
+     * Accepts base64 file data. `null` means the endpoint uses the provider default.
+     */
+    base64Files: boolean;
+    /**
+     * Accepts base64 image data. `null` means the endpoint uses the provider default.
+     */
+    base64Images: boolean;
+    /**
+     * Accepts file URLs. `null` means the endpoint uses the provider default.
+     */
+    fileUrls: boolean;
+    /**
+     * Accepts image URLs. `null` means the endpoint uses the provider default.
+     */
+    imageUrls: boolean;
+}
+
+export interface PrivateEndpointSettingsReasoning {
+    /**
+     * Where the upstream puts reasoning tokens in its response: `reasoning` and `reasoning-content` are response fields, `content-string` is inline in the message, `none` returns no reasoning. `null` means the endpoint uses the provider default. must be one of ["content-string", "reasoning-content", "reasoning", "none"]
+     */
+    returnMechanism: string;
+    /**
+     * Whether requests with `reasoning` route to this endpoint.
+     */
+    supported: boolean;
+}
+
+export interface PrivateEndpointSettingsToolChoice {
+    /**
+     * Accepts `tool_choice: "auto"`.
+     */
+    auto: boolean;
+    /**
+     * Accepts a named function in `toolChoice`.
+     */
+    function: boolean;
+    /**
+     * Accepts `tool_choice: "none"`.
+     */
+    none: boolean;
+    /**
+     * Accepts `tool_choice: "required"`.
+     */
+    required: boolean;
+}
+
+export interface WorkspaceDefaultGuardrailContentFilter {
+    /**
+     * Action taken when the pattern matches. Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action: string;
+    /**
+     * Whether inference applies this pattern. False for a pattern saved before pattern validation that is too complex to run safely; it is kept but skipped until replaced.
+     */
+    isEnforced: boolean;
+    /**
+     * Optional label used in redaction placeholders or error messages
+     */
+    label: string;
+    /**
+     * A regex pattern to match against request content. Not Null
+     */
+    pattern: string;
+}
+
+export interface WorkspaceDefaultGuardrailContentFilterBuiltin {
+    /**
+     * Action taken when the builtin filter triggers. Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action: string;
+    /**
+     * Deprecated: labels are system-assigned and cannot be set by the caller. Accepted for backward compatibility but silently ignored.
+     *
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
+    label: string;
+    /**
+     * Which message roles to scan for prompt injection. Only applies to the regex-prompt-injection builtin. Defaults to all_messages. must be one of ["userOnly", "allMessages"]
+     */
+    scanScope: string;
+    /**
+     * The builtin filter identifier. Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+     */
+    slug: string;
+}
 

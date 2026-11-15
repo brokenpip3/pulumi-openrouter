@@ -1,0 +1,1765 @@
+{
+    "auto-aliasing": {
+        "resources": {
+            "openrouter_api_key": {
+                "current": "openrouter:index/apiKey:ApiKey"
+            },
+            "openrouter_byok_key": {
+                "current": "openrouter:index/byokKey:ByokKey",
+                "fields": {
+                    "allowed_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_models": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_user_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrail": {
+                "current": "openrouter:index/guardrail:Guardrail",
+                "fields": {
+                    "allowed_data_regions": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_models": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_providers": {
+                        "maxItemsOne": false
+                    },
+                    "content_filter_builtins": {
+                        "maxItemsOne": false
+                    },
+                    "content_filters": {
+                        "maxItemsOne": false
+                    },
+                    "ignored_models": {
+                        "maxItemsOne": false
+                    },
+                    "ignored_providers": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrail_key_assignment": {
+                "current": "openrouter:index/guardrailKeyAssignment:GuardrailKeyAssignment"
+            },
+            "openrouter_guardrail_member_assignment": {
+                "current": "openrouter:index/guardrailMemberAssignment:GuardrailMemberAssignment"
+            },
+            "openrouter_observability_destination": {
+                "current": "openrouter:index/observabilityDestination:ObservabilityDestination",
+                "fields": {
+                    "api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "arize": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "braintrust": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "clickhouse": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "datadog": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "filter_rules": {
+                        "fields": {
+                            "groups": {
+                                "maxItemsOne": false,
+                                "elem": {
+                                    "fields": {
+                                        "rules": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "grafana": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "langfuse": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "langsmith": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "newrelic": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "opik": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "otel_collector": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "posthog": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "ramp": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "regions": {
+                        "maxItemsOne": false
+                    },
+                    "s3": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "sentry": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "snowflake": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "weave": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "webhook": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    }
+                }
+            },
+            "openrouter_organization_settings": {
+                "current": "openrouter:index/organizationSettings:OrganizationSettings"
+            },
+            "openrouter_private_endpoint": {
+                "current": "openrouter:index/privateEndpoint:PrivateEndpoint",
+                "fields": {
+                    "declared_parameters": {
+                        "maxItemsOne": false
+                    },
+                    "settings": {
+                        "fields": {
+                            "excluded_parameters": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "tested_parameters": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_scim_group_mapping": {
+                "current": "openrouter:index/scimGroupMapping:ScimGroupMapping"
+            },
+            "openrouter_workspace": {
+                "current": "openrouter:index/workspace:Workspace",
+                "fields": {
+                    "disabled_server_tools": {
+                        "maxItemsOne": false
+                    },
+                    "io_logging_api_key_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_workspace_budget": {
+                "current": "openrouter:index/workspaceBudget:WorkspaceBudget"
+            },
+            "openrouter_workspace_default_guardrail": {
+                "current": "openrouter:index/workspaceDefaultGuardrail:WorkspaceDefaultGuardrail",
+                "fields": {
+                    "allowed_data_regions": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_models": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_providers": {
+                        "maxItemsOne": false
+                    },
+                    "content_filter_builtins": {
+                        "maxItemsOne": false
+                    },
+                    "content_filters": {
+                        "maxItemsOne": false
+                    },
+                    "ignored_models": {
+                        "maxItemsOne": false
+                    },
+                    "ignored_providers": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_workspace_member": {
+                "current": "openrouter:index/workspaceMember:WorkspaceMember"
+            }
+        },
+        "datasources": {
+            "openrouter_api_key": {
+                "current": "openrouter:index/getApiKey:getApiKey"
+            },
+            "openrouter_api_keys": {
+                "current": "openrouter:index/getApiKeys:getApiKeys",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_byok_key": {
+                "current": "openrouter:index/getByokKey:getByokKey",
+                "fields": {
+                    "allowed_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_models": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_user_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_byok_keys": {
+                "current": "openrouter:index/getByokKeys:getByokKeys",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "allowed_api_key_hashes": {
+                                    "maxItemsOne": false
+                                },
+                                "allowed_models": {
+                                    "maxItemsOne": false
+                                },
+                                "allowed_user_ids": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "openrouter_credits": {
+                "current": "openrouter:index/getCredits:getCredits"
+            },
+            "openrouter_guardrail": {
+                "current": "openrouter:index/getGuardrail:getGuardrail",
+                "fields": {
+                    "allowed_data_regions": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_models": {
+                        "maxItemsOne": false
+                    },
+                    "allowed_providers": {
+                        "maxItemsOne": false
+                    },
+                    "content_filter_builtins": {
+                        "maxItemsOne": false
+                    },
+                    "content_filters": {
+                        "maxItemsOne": false
+                    },
+                    "ignored_models": {
+                        "maxItemsOne": false
+                    },
+                    "ignored_providers": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrail_key_assignments": {
+                "current": "openrouter:index/getGuardrailKeyAssignments:getGuardrailKeyAssignments",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrail_member_assignments": {
+                "current": "openrouter:index/getGuardrailMemberAssignments:getGuardrailMemberAssignments",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrails": {
+                "current": "openrouter:index/getGuardrails:getGuardrails",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "allowed_data_regions": {
+                                    "maxItemsOne": false
+                                },
+                                "allowed_models": {
+                                    "maxItemsOne": false
+                                },
+                                "allowed_providers": {
+                                    "maxItemsOne": false
+                                },
+                                "content_filter_builtins": {
+                                    "maxItemsOne": false
+                                },
+                                "content_filters": {
+                                    "maxItemsOne": false
+                                },
+                                "ignored_models": {
+                                    "maxItemsOne": false
+                                },
+                                "ignored_providers": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "openrouter_model": {
+                "current": "openrouter:index/getModel:getModel",
+                "fields": {
+                    "data": {
+                        "fields": {
+                            "architecture": {
+                                "fields": {
+                                    "input_modalities": {
+                                        "maxItemsOne": false
+                                    },
+                                    "output_modalities": {
+                                        "maxItemsOne": false
+                                    }
+                                }
+                            },
+                            "benchmarks": {
+                                "fields": {
+                                    "design_arena": {
+                                        "maxItemsOne": false
+                                    }
+                                }
+                            },
+                            "endpoints": {
+                                "maxItemsOne": false
+                            },
+                            "pricing": {
+                                "fields": {
+                                    "overrides": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "utc_days": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "reasoning": {
+                                "fields": {
+                                    "supported_efforts": {
+                                        "maxItemsOne": false
+                                    }
+                                }
+                            },
+                            "supported_parameters": {
+                                "maxItemsOne": false
+                            },
+                            "supported_voices": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    }
+                }
+            },
+            "openrouter_models": {
+                "current": "openrouter:index/getModels:getModels",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "architecture": {
+                                    "fields": {
+                                        "input_modalities": {
+                                            "maxItemsOne": false
+                                        },
+                                        "output_modalities": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "benchmarks": {
+                                    "fields": {
+                                        "design_arena": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "endpoints": {
+                                    "maxItemsOne": false
+                                },
+                                "pricing": {
+                                    "fields": {
+                                        "overrides": {
+                                            "maxItemsOne": false,
+                                            "elem": {
+                                                "fields": {
+                                                    "utc_days": {
+                                                        "maxItemsOne": false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "reasoning": {
+                                    "fields": {
+                                        "supported_efforts": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "supported_parameters": {
+                                    "maxItemsOne": false
+                                },
+                                "supported_voices": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "openrouter_observability_destination": {
+                "current": "openrouter:index/getObservabilityDestination:getObservabilityDestination",
+                "fields": {
+                    "arize": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "braintrust": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "clickhouse": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "datadog": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "grafana": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "langfuse": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "langsmith": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "newrelic": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "opik": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "otel_collector": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "posthog": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "ramp": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "s3": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "sentry": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "snowflake": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "weave": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "webhook": {
+                        "fields": {
+                            "api_key_hashes": {
+                                "maxItemsOne": false
+                            },
+                            "filter_rules": {
+                                "fields": {
+                                    "groups": {
+                                        "maxItemsOne": false,
+                                        "elem": {
+                                            "fields": {
+                                                "rules": {
+                                                    "maxItemsOne": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "regions": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    }
+                }
+            },
+            "openrouter_observability_destinations": {
+                "current": "openrouter:index/getObservabilityDestinations:getObservabilityDestinations",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "arize": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "braintrust": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "clickhouse": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "datadog": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "grafana": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "langfuse": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "langsmith": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "newrelic": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "opik": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "otel_collector": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "posthog": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "ramp": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "s3": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "sentry": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "snowflake": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "weave": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                },
+                                "webhook": {
+                                    "fields": {
+                                        "api_key_hashes": {
+                                            "maxItemsOne": false
+                                        },
+                                        "filter_rules": {
+                                            "fields": {
+                                                "groups": {
+                                                    "maxItemsOne": false,
+                                                    "elem": {
+                                                        "fields": {
+                                                            "rules": {
+                                                                "maxItemsOne": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "regions": {
+                                            "maxItemsOne": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "openrouter_organization_members": {
+                "current": "openrouter:index/getOrganizationMembers:getOrganizationMembers",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_organization_settings": {
+                "current": "openrouter:index/getOrganizationSettings:getOrganizationSettings"
+            },
+            "openrouter_preset": {
+                "current": "openrouter:index/getPreset:getPreset"
+            },
+            "openrouter_presets": {
+                "current": "openrouter:index/getPresets:getPresets",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_private_endpoint": {
+                "current": "openrouter:index/getPrivateEndpoint:getPrivateEndpoint",
+                "fields": {
+                    "declared_parameters": {
+                        "maxItemsOne": false
+                    },
+                    "settings": {
+                        "fields": {
+                            "excluded_parameters": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "tested_parameters": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_providers": {
+                "current": "openrouter:index/getProviders:getProviders",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "datacenters": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "openrouter_scim_group_mapping": {
+                "current": "openrouter:index/getScimGroupMapping:getScimGroupMapping"
+            },
+            "openrouter_scim_groups": {
+                "current": "openrouter:index/getScimGroups:getScimGroups",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_workspace": {
+                "current": "openrouter:index/getWorkspace:getWorkspace",
+                "fields": {
+                    "disabled_server_tools": {
+                        "maxItemsOne": false
+                    },
+                    "io_logging_api_key_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_workspace_budget": {
+                "current": "openrouter:index/getWorkspaceBudget:getWorkspaceBudget"
+            },
+            "openrouter_workspace_budgets": {
+                "current": "openrouter:index/getWorkspaceBudgets:getWorkspaceBudgets",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_workspace_members": {
+                "current": "openrouter:index/getWorkspaceMembers:getWorkspaceMembers",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_workspaces": {
+                "current": "openrouter:index/getWorkspaces:getWorkspaces",
+                "fields": {
+                    "data": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "disabled_server_tools": {
+                                    "maxItemsOne": false
+                                },
+                                "io_logging_api_key_ids": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "auto-settings": {},
+    "default-resource-schema-fixups": {
+        "resources": {
+            "openrouter_api_key": {
+                "computeID": {
+                    "kind": "missing"
+                }
+            },
+            "openrouter_byok_key": {},
+            "openrouter_guardrail": {},
+            "openrouter_guardrail_key_assignment": {},
+            "openrouter_guardrail_member_assignment": {},
+            "openrouter_observability_destination": {},
+            "openrouter_organization_settings": {},
+            "openrouter_private_endpoint": {},
+            "openrouter_scim_group_mapping": {},
+            "openrouter_workspace": {},
+            "openrouter_workspace_budget": {},
+            "openrouter_workspace_default_guardrail": {},
+            "openrouter_workspace_member": {}
+        }
+    }
+}

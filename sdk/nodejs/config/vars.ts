@@ -2,21 +2,62 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputs from "../types/input";
-import * as outputs from "../types/output";
-import * as enums from "../types/enums";
 import * as utilities from "../utilities";
 
 declare var exports: any;
-const __config = new pulumi.Config("xyz");
+const __config = new pulumi.Config("openrouter");
 
 /**
- * A region which should be used.
+ * API key as bearer token in Authorization header. Configurable via environment variable `OPENROUTER_MANAGEMENT_KEY`.
  */
-export declare const region: enums.region.Region | undefined;
-Object.defineProperty(exports, "region", {
+export declare const apiKey: string | undefined;
+Object.defineProperty(exports, "apiKey", {
     get() {
-        return __config.getObject<enums.region.Region>("region");
+        return __config.get("apiKey");
+    },
+    enumerable: true,
+});
+
+/**
+ * ID of the organization's Workload Identity Federation policy that acts as a management key. Required with `oidcToken` or `oidcTokenFile`. Configurable via environment variable `OPENROUTER_FEDERATION_POLICY_ID`.
+ */
+export declare const federationPolicyId: string | undefined;
+Object.defineProperty(exports, "federationPolicyId", {
+    get() {
+        return __config.get("federationPolicyId");
+    },
+    enumerable: true,
+});
+
+/**
+ * OIDC token issued to this workload (for example a GitLab `idTokens` JWT), exchanged for a short-lived management token through Workload Identity Federation. Use with `federationPolicyId` instead of `apiKey`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN`.
+ */
+export declare const oidcToken: string | undefined;
+Object.defineProperty(exports, "oidcToken", {
+    get() {
+        return __config.get("oidcToken");
+    },
+    enumerable: true,
+});
+
+/**
+ * Path to a file holding the workload's OIDC token. The file is reread on every exchange, so a rotated token is picked up. Alternative to `oidcToken`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN_FILE`.
+ */
+export declare const oidcTokenFile: string | undefined;
+Object.defineProperty(exports, "oidcTokenFile", {
+    get() {
+        return __config.get("oidcTokenFile");
+    },
+    enumerable: true,
+});
+
+/**
+ * Server URL (defaults to https://openrouter.ai/api/v1)
+ */
+export declare const serverUrl: string | undefined;
+Object.defineProperty(exports, "serverUrl", {
+    get() {
+        return __config.get("serverUrl");
     },
     enumerable: true,
 });

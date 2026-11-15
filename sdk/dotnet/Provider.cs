@@ -7,22 +7,46 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Xyz
+namespace Pulumi.Openrouter
 {
     /// <summary>
-    /// The provider type for the xyz package. By default, resources use package-wide configuration
+    /// The provider type for the openrouter package. By default, resources use package-wide configuration
     /// settings, however an explicit `Provider` instance may be created and passed during resource
     /// construction to achieve fine-grained programmatic control over provider settings. See the
     /// [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
     /// </summary>
-    [XyzResourceType("pulumi:providers:xyz")]
+    [OpenrouterResourceType("pulumi:providers:openrouter")]
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
-        /// A region which should be used.
+        /// API key as bearer token in Authorization header. Configurable via environment variable `OPENROUTER_MANAGEMENT_KEY`.
         /// </summary>
-        [Output("region")]
-        public Output<string?> Region { get; private set; } = null!;
+        [Output("apiKey")]
+        public Output<string?> ApiKey { get; private set; } = null!;
+
+        /// <summary>
+        /// ID of the organization's Workload Identity Federation policy that acts as a management key. Required with `OidcToken` or `OidcTokenFile`. Configurable via environment variable `OPENROUTER_FEDERATION_POLICY_ID`.
+        /// </summary>
+        [Output("federationPolicyId")]
+        public Output<string?> FederationPolicyId { get; private set; } = null!;
+
+        /// <summary>
+        /// OIDC token issued to this workload (for example a GitLab `IdTokens` JWT), exchanged for a short-lived management token through Workload Identity Federation. Use with `FederationPolicyId` instead of `ApiKey`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN`.
+        /// </summary>
+        [Output("oidcToken")]
+        public Output<string?> OidcToken { get; private set; } = null!;
+
+        /// <summary>
+        /// Path to a file holding the workload's OIDC token. The file is reread on every exchange, so a rotated token is picked up. Alternative to `OidcToken`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN_FILE`.
+        /// </summary>
+        [Output("oidcTokenFile")]
+        public Output<string?> OidcTokenFile { get; private set; } = null!;
+
+        /// <summary>
+        /// Server URL (defaults to https://openrouter.ai/api/v1)
+        /// </summary>
+        [Output("serverUrl")]
+        public Output<string?> ServerUrl { get; private set; } = null!;
 
 
         /// <summary>
@@ -33,7 +57,7 @@ namespace Pulumi.Xyz
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
-            : base("xyz", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
+            : base("openrouter", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
 
@@ -42,6 +66,12 @@ namespace Pulumi.Xyz
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "github://api.github.com/brokenpip3/pulumi-openrouter",
+                AdditionalSecretOutputs =
+                {
+                    "apiKey",
+                    "oidcToken",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -53,16 +83,60 @@ namespace Pulumi.Xyz
         /// This function returns a Terraform config object with terraform-namecased keys,to be used with the Terraform Module Provider.
         /// </summary>
         public global::Pulumi.Output<ProviderTerraformConfigResult> TerraformConfig()
-            => global::Pulumi.Deployment.Instance.Call<ProviderTerraformConfigResult>("pulumi:providers:xyz/terraformConfig", CallArgs.Empty, this);
+            => global::Pulumi.Deployment.Instance.Call<ProviderTerraformConfigResult>("pulumi:providers:openrouter/terraformConfig", CallArgs.Empty, this);
     }
 
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
+        [Input("apiKey")]
+        private Input<string>? _apiKey;
+
         /// <summary>
-        /// A region which should be used.
+        /// API key as bearer token in Authorization header. Configurable via environment variable `OPENROUTER_MANAGEMENT_KEY`.
         /// </summary>
-        [Input("region", json: true)]
-        public Input<Pulumi.Xyz.Region.Region>? Region { get; set; }
+        public Input<string>? ApiKey
+        {
+            get => _apiKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _apiKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// ID of the organization's Workload Identity Federation policy that acts as a management key. Required with `OidcToken` or `OidcTokenFile`. Configurable via environment variable `OPENROUTER_FEDERATION_POLICY_ID`.
+        /// </summary>
+        [Input("federationPolicyId")]
+        public Input<string>? FederationPolicyId { get; set; }
+
+        [Input("oidcToken")]
+        private Input<string>? _oidcToken;
+
+        /// <summary>
+        /// OIDC token issued to this workload (for example a GitLab `IdTokens` JWT), exchanged for a short-lived management token through Workload Identity Federation. Use with `FederationPolicyId` instead of `ApiKey`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN`.
+        /// </summary>
+        public Input<string>? OidcToken
+        {
+            get => _oidcToken;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _oidcToken = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// Path to a file holding the workload's OIDC token. The file is reread on every exchange, so a rotated token is picked up. Alternative to `OidcToken`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN_FILE`.
+        /// </summary>
+        [Input("oidcTokenFile")]
+        public Input<string>? OidcTokenFile { get; set; }
+
+        /// <summary>
+        /// Server URL (defaults to https://openrouter.ai/api/v1)
+        /// </summary>
+        [Input("serverUrl")]
+        public Input<string>? ServerUrl { get; set; }
 
         public ProviderArgs()
         {

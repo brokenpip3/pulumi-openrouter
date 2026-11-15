@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.Xyz
+namespace Pulumi.Openrouter
 {
     public static class Config
     {
@@ -30,16 +30,56 @@ namespace Pulumi.Xyz
             }
         }
 
-        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("xyz");
+        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("openrouter");
 
-        private static readonly __Value<Pulumi.Xyz.Region.Region?> _region = new __Value<Pulumi.Xyz.Region.Region?>(() => __config.GetObject<Pulumi.Xyz.Region.Region>("region"));
+        private static readonly __Value<string?> _apiKey = new __Value<string?>(() => __config.Get("apiKey"));
         /// <summary>
-        /// A region which should be used.
+        /// API key as bearer token in Authorization header. Configurable via environment variable `OPENROUTER_MANAGEMENT_KEY`.
         /// </summary>
-        public static Pulumi.Xyz.Region.Region? Region
+        public static string? ApiKey
         {
-            get => _region.Get();
-            set => _region.Set(value);
+            get => _apiKey.Get();
+            set => _apiKey.Set(value);
+        }
+
+        private static readonly __Value<string?> _federationPolicyId = new __Value<string?>(() => __config.Get("federationPolicyId"));
+        /// <summary>
+        /// ID of the organization's Workload Identity Federation policy that acts as a management key. Required with `OidcToken` or `OidcTokenFile`. Configurable via environment variable `OPENROUTER_FEDERATION_POLICY_ID`.
+        /// </summary>
+        public static string? FederationPolicyId
+        {
+            get => _federationPolicyId.Get();
+            set => _federationPolicyId.Set(value);
+        }
+
+        private static readonly __Value<string?> _oidcToken = new __Value<string?>(() => __config.Get("oidcToken"));
+        /// <summary>
+        /// OIDC token issued to this workload (for example a GitLab `IdTokens` JWT), exchanged for a short-lived management token through Workload Identity Federation. Use with `FederationPolicyId` instead of `ApiKey`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN`.
+        /// </summary>
+        public static string? OidcToken
+        {
+            get => _oidcToken.Get();
+            set => _oidcToken.Set(value);
+        }
+
+        private static readonly __Value<string?> _oidcTokenFile = new __Value<string?>(() => __config.Get("oidcTokenFile"));
+        /// <summary>
+        /// Path to a file holding the workload's OIDC token. The file is reread on every exchange, so a rotated token is picked up. Alternative to `OidcToken`. Configurable via environment variable `OPENROUTER_OIDC_TOKEN_FILE`.
+        /// </summary>
+        public static string? OidcTokenFile
+        {
+            get => _oidcTokenFile.Get();
+            set => _oidcTokenFile.Set(value);
+        }
+
+        private static readonly __Value<string?> _serverUrl = new __Value<string?>(() => __config.Get("serverUrl"));
+        /// <summary>
+        /// Server URL (defaults to https://openrouter.ai/api/v1)
+        /// </summary>
+        public static string? ServerUrl
+        {
+            get => _serverUrl.Get();
+            set => _serverUrl.Set(value);
         }
 
     }
