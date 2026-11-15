@@ -21,10 +21,12 @@ import (
 	_ "embed"
 
 	"github.com/OpenRouterTeam/terraform-provider-openrouter/shim"
-	"github.com/brokenpip3/pulumi-openrouter/provider/pkg/version"
+
 	pf "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
+
+	"github.com/brokenpip3/pulumi-openrouter/provider/pkg/version"
 )
 
 // all of the token components used below.

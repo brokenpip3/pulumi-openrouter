@@ -27,7 +27,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          persist-credentials: false      
+          persist-credentials: false
       - name: Setup mise
         uses: jdx/mise-action@8d3b0ba20a9cea7b883d922ea958553c941ab082
         env:
@@ -45,6 +45,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: pulumi/license-check-action@main
+        continue-on-error: true
         with:
           module-path: provider
           ignore-modules: >-

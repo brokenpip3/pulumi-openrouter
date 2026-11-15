@@ -97,7 +97,14 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BASE_BRANCH: ${{ inputs.default_branch }}
       run: |
-        schema-tools compare -r github://api.github.com/brokenpip3 -p openrouter -o "$BASE_BRANCH" --new-path=provider/cmd/pulumi-resource-openrouter/schema.json > "$RUNNER_TEMP/schema-check-report.md"
+        schema_path=provider/cmd/pulumi-resource-openrouter/schema.json
+        git fetch --no-tags --no-recurse-submodules --depth=1 origin "$BASE_BRANCH"
+        if git cat-file -e "FETCH_HEAD:$schema_path"; then
+          git show "FETCH_HEAD:$schema_path" > "$RUNNER_TEMP/base-schema.json"
+          schema-tools compare --old-path="$RUNNER_TEMP/base-schema.json" --new-path="$schema_path" > "$RUNNER_TEMP/schema-check-report.md"
+        else
+          echo "No OpenRouter schema exists on the base branch yet; skipping the initial schema comparison." > "$RUNNER_TEMP/schema-check-report.md"
+        fi
         cat >> "$RUNNER_TEMP/schema-check-report.md" <<'EOF'
 
         Maintainer note: consult the [runbook](https://github.com/pulumi/platform-providers-team/blob/main/playbooks/tf-provider-updating.md) for dealing with any breaking changes.
