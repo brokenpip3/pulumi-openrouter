@@ -1,10 +1,10 @@
-# pulumi openrouter provider
+# Openrouter pulumi provider
 
 Manage openrouter resources via this pulumi provider generated from the [TF](https://github.com/OpenRouterTeam/terraform-provider-openrouter) one.
 
 ## Usage
 
-### python
+### Python
 
 This is a simple exaple with poetry, add the dependency in your `pyproject.toml`:
 
@@ -13,11 +13,11 @@ This is a simple exaple with poetry, add the dependency in your `pyproject.toml`
 pulumi-openrouter = { git = "https://github.com/brokenpip3/pulumi-openrouter.git", tag = "v0.2.1", subdirectory = "sdk/python" }
 ```
 
-### other languages
+### Other languages
 
 add it to your language dependency manager (go.mod, npm, etc.) and import it in your code.
 
-## management key
+## Management key
 
 To use it you need a management key from openrouter: create a key on the [Management API Keys](https://openrouter.ai/settings/management-keys)
 page and save it as secret in your pulumi stack:
@@ -26,7 +26,7 @@ page and save it as secret in your pulumi stack:
 pulumi config set --secret openrouter:apiKey
 ```
 
-## local development
+## Local development
 
 From this provider repository you can use nix or mise:
 
