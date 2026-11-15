@@ -101,7 +101,7 @@ jobs:
         git fetch --no-tags --no-recurse-submodules --depth=1 origin "$BASE_BRANCH"
         if git cat-file -e "FETCH_HEAD:$schema_path"; then
           git show "FETCH_HEAD:$schema_path" > "$RUNNER_TEMP/base-schema.json"
-          schema-tools compare --old-path="$RUNNER_TEMP/base-schema.json" --new-path="$schema_path" > "$RUNNER_TEMP/schema-check-report.md"
+          schema-tools compare --provider=openrouter --old-path="$RUNNER_TEMP/base-schema.json" --new-path="$schema_path" > "$RUNNER_TEMP/schema-check-report.md"
         else
           echo "No OpenRouter schema exists on the base branch yet; skipping the initial schema comparison." > "$RUNNER_TEMP/schema-check-report.md"
         fi
