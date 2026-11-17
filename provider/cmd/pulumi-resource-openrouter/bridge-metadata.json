@@ -50,6 +50,149 @@
             "openrouter_guardrail_member_assignment": {
                 "current": "openrouter:index/guardrailMemberAssignment:GuardrailMemberAssignment"
             },
+            "openrouter_guardrail_policy_budget": {
+                "current": "openrouter:index/guardrailPolicyBudget:GuardrailPolicyBudget",
+                "fields": {
+                    "api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_member_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrail_policy_model_availability": {
+                "current": "openrouter:index/guardrailPolicyModelAvailability:GuardrailPolicyModelAvailability",
+                "fields": {
+                    "api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "config": {
+                        "fields": {
+                            "allowed_data_regions": {
+                                "maxItemsOne": false
+                            },
+                            "allowed_models": {
+                                "maxItemsOne": false
+                            },
+                            "allowed_providers": {
+                                "maxItemsOne": false
+                            },
+                            "ignored_models": {
+                                "maxItemsOne": false
+                            },
+                            "ignored_providers": {
+                                "maxItemsOne": false
+                            },
+                            "platform_banned_authors": {
+                                "maxItemsOne": false
+                            },
+                            "platform_banned_models": {
+                                "maxItemsOne": false
+                            },
+                            "platform_banned_providers": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_member_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrail_policy_moderation": {
+                "current": "openrouter:index/guardrailPolicyModeration:GuardrailPolicyModeration",
+                "fields": {
+                    "api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "config": {
+                        "fields": {
+                            "armor": {
+                                "fields": {
+                                    "classifier_context": {
+                                        "fields": {
+                                            "auto_mode": {
+                                                "fields": {
+                                                    "allow": {
+                                                        "maxItemsOne": false
+                                                    },
+                                                    "environment": {
+                                                        "maxItemsOne": false
+                                                    },
+                                                    "hard_deny": {
+                                                        "maxItemsOne": false
+                                                    },
+                                                    "soft_deny": {
+                                                        "maxItemsOne": false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "content_filter_builtins": {
+                                "maxItemsOne": false
+                            },
+                            "content_filter_patterns": {
+                                "maxItemsOne": false
+                            },
+                            "content_filters": {
+                                "maxItemsOne": false
+                            },
+                            "pii_filters": {
+                                "maxItemsOne": false
+                            },
+                            "platform_image_moderated_providers": {
+                                "maxItemsOne": false
+                            },
+                            "platform_moderated_providers": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_member_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "openrouter_observability_destination": {
                 "current": "openrouter:index/observabilityDestination:ObservabilityDestination",
                 "fields": {
@@ -639,6 +782,149 @@
                 "current": "openrouter:index/getGuardrailMemberAssignments:getGuardrailMemberAssignments",
                 "fields": {
                     "data": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrail_policy_budget": {
+                "current": "openrouter:index/getGuardrailPolicyBudget:getGuardrailPolicyBudget",
+                "fields": {
+                    "api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_member_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrail_policy_model_availability": {
+                "current": "openrouter:index/getGuardrailPolicyModelAvailability:getGuardrailPolicyModelAvailability",
+                "fields": {
+                    "api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "config": {
+                        "fields": {
+                            "allowed_data_regions": {
+                                "maxItemsOne": false
+                            },
+                            "allowed_models": {
+                                "maxItemsOne": false
+                            },
+                            "allowed_providers": {
+                                "maxItemsOne": false
+                            },
+                            "ignored_models": {
+                                "maxItemsOne": false
+                            },
+                            "ignored_providers": {
+                                "maxItemsOne": false
+                            },
+                            "platform_banned_authors": {
+                                "maxItemsOne": false
+                            },
+                            "platform_banned_models": {
+                                "maxItemsOne": false
+                            },
+                            "platform_banned_providers": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_member_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "openrouter_guardrail_policy_moderation": {
+                "current": "openrouter:index/getGuardrailPolicyModeration:getGuardrailPolicyModeration",
+                "fields": {
+                    "api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "config": {
+                        "fields": {
+                            "armor": {
+                                "fields": {
+                                    "classifier_context": {
+                                        "fields": {
+                                            "auto_mode": {
+                                                "fields": {
+                                                    "allow": {
+                                                        "maxItemsOne": false
+                                                    },
+                                                    "environment": {
+                                                        "maxItemsOne": false
+                                                    },
+                                                    "hard_deny": {
+                                                        "maxItemsOne": false
+                                                    },
+                                                    "soft_deny": {
+                                                        "maxItemsOne": false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "content_filter_builtins": {
+                                "maxItemsOne": false
+                            },
+                            "content_filter_patterns": {
+                                "maxItemsOne": false
+                            },
+                            "content_filters": {
+                                "maxItemsOne": false
+                            },
+                            "pii_filters": {
+                                "maxItemsOne": false
+                            },
+                            "platform_image_moderated_providers": {
+                                "maxItemsOne": false
+                            },
+                            "platform_moderated_providers": {
+                                "maxItemsOne": false
+                            }
+                        }
+                    },
+                    "member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "opted_out_member_ids": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_api_key_hashes": {
+                        "maxItemsOne": false
+                    },
+                    "overridden_member_ids": {
                         "maxItemsOne": false
                     }
                 }
@@ -1752,6 +2038,9 @@
             "openrouter_guardrail": {},
             "openrouter_guardrail_key_assignment": {},
             "openrouter_guardrail_member_assignment": {},
+            "openrouter_guardrail_policy_budget": {},
+            "openrouter_guardrail_policy_model_availability": {},
+            "openrouter_guardrail_policy_moderation": {},
             "openrouter_observability_destination": {},
             "openrouter_organization_settings": {},
             "openrouter_private_endpoint": {},
