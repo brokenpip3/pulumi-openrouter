@@ -21,6 +21,40 @@ __all__ = [
     'GuardrailContentFilterArgsDict',
     'GuardrailContentFilterBuiltinArgs',
     'GuardrailContentFilterBuiltinArgsDict',
+    'GuardrailPolicyBudgetConfigArgs',
+    'GuardrailPolicyBudgetConfigArgsDict',
+    'GuardrailPolicyModelAvailabilityConfigArgs',
+    'GuardrailPolicyModelAvailabilityConfigArgsDict',
+    'GuardrailPolicyModerationConfigArgs',
+    'GuardrailPolicyModerationConfigArgsDict',
+    'GuardrailPolicyModerationConfigArmorArgs',
+    'GuardrailPolicyModerationConfigArmorArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgsDict',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs',
+    'GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgsDict',
+    'GuardrailPolicyModerationConfigContentFilterArgs',
+    'GuardrailPolicyModerationConfigContentFilterArgsDict',
+    'GuardrailPolicyModerationConfigContentFilterBuiltinArgs',
+    'GuardrailPolicyModerationConfigContentFilterBuiltinArgsDict',
+    'GuardrailPolicyModerationConfigPiiFilterArgs',
+    'GuardrailPolicyModerationConfigPiiFilterArgsDict',
     'ObservabilityDestinationArizeArgs',
     'ObservabilityDestinationArizeArgsDict',
     'ObservabilityDestinationArizeConfigArgs',
@@ -481,6 +515,1410 @@ class GuardrailContentFilterBuiltinArgs:
     @slug.setter
     def slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "slug", value)
+
+
+class GuardrailPolicyBudgetConfigArgsDict(TypedDict):
+    include_byok_in_budgets: pulumi.Input[_builtins.bool]
+    """
+    Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+    """
+    limit_usd: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Spending limit in USD. Must be provided together with `reset_interval`: a request that sets only one of the two is rejected with a 400.
+    """
+    reset_interval: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+    """
+
+@pulumi.input_type
+class GuardrailPolicyBudgetConfigArgs:
+    def __init__(__self__, *,
+                 include_byok_in_budgets: pulumi.Input[_builtins.bool],
+                 limit_usd: pulumi.Input[Optional[_builtins.float]] = None,
+                 reset_interval: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.bool] include_byok_in_budgets: Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+        :param pulumi.Input[_builtins.float] limit_usd: Spending limit in USD. Must be provided together with `reset_interval`: a request that sets only one of the two is rejected with a 400.
+        :param pulumi.Input[_builtins.str] reset_interval: Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+        """
+        pulumi.set(__self__, "include_byok_in_budgets", include_byok_in_budgets)
+        if limit_usd is not None:
+            pulumi.set(__self__, "limit_usd", limit_usd)
+        if reset_interval is not None:
+            pulumi.set(__self__, "reset_interval", reset_interval)
+
+    @_builtins.property
+    @pulumi.getter(name="includeByokInBudgets")
+    def include_byok_in_budgets(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+        """
+        return pulumi.get(self, "include_byok_in_budgets")
+
+    @include_byok_in_budgets.setter
+    def include_byok_in_budgets(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "include_byok_in_budgets", value)
+
+    @_builtins.property
+    @pulumi.getter(name="limitUsd")
+    def limit_usd(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Spending limit in USD. Must be provided together with `reset_interval`: a request that sets only one of the two is rejected with a 400.
+        """
+        return pulumi.get(self, "limit_usd")
+
+    @limit_usd.setter
+    def limit_usd(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "limit_usd", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resetInterval")
+    def reset_interval(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+        """
+        return pulumi.get(self, "reset_interval")
+
+    @reset_interval.setter
+    def reset_interval(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "reset_interval", value)
+
+
+class GuardrailPolicyModelAvailabilityConfigArgsDict(TypedDict):
+    allow_safety_retention_google: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    allow_safety_retention_other: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    allowed_data_regions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    allowed_models: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    allowed_providers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    enable_free_model_publication: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    enable_free_model_training: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    enable_paid_model_training: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    enforce_first_party_harness_models: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    enforce_zdr: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    enforce_zdr_anthropic: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    enforce_zdr_google: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    enforce_zdr_openai: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    enforce_zdr_other: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    enforce_zdr_xai: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    ignored_models: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    ignored_providers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    platform_banned_authors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    platform_banned_models: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    platform_banned_providers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    require_eu_data_region: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+
+@pulumi.input_type
+class GuardrailPolicyModelAvailabilityConfigArgs:
+    def __init__(__self__, *,
+                 allow_safety_retention_google: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allow_safety_retention_other: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allowed_data_regions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 allowed_models: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 allowed_providers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 enable_free_model_publication: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_free_model_training: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_paid_model_training: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enforce_first_party_harness_models: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enforce_zdr: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enforce_zdr_anthropic: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enforce_zdr_google: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enforce_zdr_openai: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enforce_zdr_other: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enforce_zdr_xai: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ignored_models: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 ignored_providers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 platform_banned_authors: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 platform_banned_models: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 platform_banned_providers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 require_eu_data_region: pulumi.Input[Optional[_builtins.bool]] = None):
+        if allow_safety_retention_google is not None:
+            pulumi.set(__self__, "allow_safety_retention_google", allow_safety_retention_google)
+        if allow_safety_retention_other is not None:
+            pulumi.set(__self__, "allow_safety_retention_other", allow_safety_retention_other)
+        if allowed_data_regions is not None:
+            pulumi.set(__self__, "allowed_data_regions", allowed_data_regions)
+        if allowed_models is not None:
+            pulumi.set(__self__, "allowed_models", allowed_models)
+        if allowed_providers is not None:
+            pulumi.set(__self__, "allowed_providers", allowed_providers)
+        if enable_free_model_publication is not None:
+            pulumi.set(__self__, "enable_free_model_publication", enable_free_model_publication)
+        if enable_free_model_training is not None:
+            pulumi.set(__self__, "enable_free_model_training", enable_free_model_training)
+        if enable_paid_model_training is not None:
+            pulumi.set(__self__, "enable_paid_model_training", enable_paid_model_training)
+        if enforce_first_party_harness_models is not None:
+            pulumi.set(__self__, "enforce_first_party_harness_models", enforce_first_party_harness_models)
+        if enforce_zdr is not None:
+            pulumi.set(__self__, "enforce_zdr", enforce_zdr)
+        if enforce_zdr_anthropic is not None:
+            pulumi.set(__self__, "enforce_zdr_anthropic", enforce_zdr_anthropic)
+        if enforce_zdr_google is not None:
+            pulumi.set(__self__, "enforce_zdr_google", enforce_zdr_google)
+        if enforce_zdr_openai is not None:
+            pulumi.set(__self__, "enforce_zdr_openai", enforce_zdr_openai)
+        if enforce_zdr_other is not None:
+            pulumi.set(__self__, "enforce_zdr_other", enforce_zdr_other)
+        if enforce_zdr_xai is not None:
+            pulumi.set(__self__, "enforce_zdr_xai", enforce_zdr_xai)
+        if ignored_models is not None:
+            pulumi.set(__self__, "ignored_models", ignored_models)
+        if ignored_providers is not None:
+            pulumi.set(__self__, "ignored_providers", ignored_providers)
+        if platform_banned_authors is not None:
+            pulumi.set(__self__, "platform_banned_authors", platform_banned_authors)
+        if platform_banned_models is not None:
+            pulumi.set(__self__, "platform_banned_models", platform_banned_models)
+        if platform_banned_providers is not None:
+            pulumi.set(__self__, "platform_banned_providers", platform_banned_providers)
+        if require_eu_data_region is not None:
+            pulumi.set(__self__, "require_eu_data_region", require_eu_data_region)
+
+    @_builtins.property
+    @pulumi.getter(name="allowSafetyRetentionGoogle")
+    def allow_safety_retention_google(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "allow_safety_retention_google")
+
+    @allow_safety_retention_google.setter
+    def allow_safety_retention_google(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "allow_safety_retention_google", value)
+
+    @_builtins.property
+    @pulumi.getter(name="allowSafetyRetentionOther")
+    def allow_safety_retention_other(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "allow_safety_retention_other")
+
+    @allow_safety_retention_other.setter
+    def allow_safety_retention_other(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "allow_safety_retention_other", value)
+
+    @_builtins.property
+    @pulumi.getter(name="allowedDataRegions")
+    def allowed_data_regions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "allowed_data_regions")
+
+    @allowed_data_regions.setter
+    def allowed_data_regions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "allowed_data_regions", value)
+
+    @_builtins.property
+    @pulumi.getter(name="allowedModels")
+    def allowed_models(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "allowed_models")
+
+    @allowed_models.setter
+    def allowed_models(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "allowed_models", value)
+
+    @_builtins.property
+    @pulumi.getter(name="allowedProviders")
+    def allowed_providers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "allowed_providers")
+
+    @allowed_providers.setter
+    def allowed_providers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "allowed_providers", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enableFreeModelPublication")
+    def enable_free_model_publication(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enable_free_model_publication")
+
+    @enable_free_model_publication.setter
+    def enable_free_model_publication(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enable_free_model_publication", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enableFreeModelTraining")
+    def enable_free_model_training(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enable_free_model_training")
+
+    @enable_free_model_training.setter
+    def enable_free_model_training(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enable_free_model_training", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enablePaidModelTraining")
+    def enable_paid_model_training(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enable_paid_model_training")
+
+    @enable_paid_model_training.setter
+    def enable_paid_model_training(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enable_paid_model_training", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enforceFirstPartyHarnessModels")
+    def enforce_first_party_harness_models(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enforce_first_party_harness_models")
+
+    @enforce_first_party_harness_models.setter
+    def enforce_first_party_harness_models(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enforce_first_party_harness_models", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enforceZdr")
+    def enforce_zdr(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enforce_zdr")
+
+    @enforce_zdr.setter
+    def enforce_zdr(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enforce_zdr", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enforceZdrAnthropic")
+    def enforce_zdr_anthropic(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enforce_zdr_anthropic")
+
+    @enforce_zdr_anthropic.setter
+    def enforce_zdr_anthropic(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enforce_zdr_anthropic", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enforceZdrGoogle")
+    def enforce_zdr_google(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enforce_zdr_google")
+
+    @enforce_zdr_google.setter
+    def enforce_zdr_google(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enforce_zdr_google", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enforceZdrOpenai")
+    def enforce_zdr_openai(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enforce_zdr_openai")
+
+    @enforce_zdr_openai.setter
+    def enforce_zdr_openai(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enforce_zdr_openai", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enforceZdrOther")
+    def enforce_zdr_other(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enforce_zdr_other")
+
+    @enforce_zdr_other.setter
+    def enforce_zdr_other(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enforce_zdr_other", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enforceZdrXai")
+    def enforce_zdr_xai(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enforce_zdr_xai")
+
+    @enforce_zdr_xai.setter
+    def enforce_zdr_xai(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enforce_zdr_xai", value)
+
+    @_builtins.property
+    @pulumi.getter(name="ignoredModels")
+    def ignored_models(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "ignored_models")
+
+    @ignored_models.setter
+    def ignored_models(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "ignored_models", value)
+
+    @_builtins.property
+    @pulumi.getter(name="ignoredProviders")
+    def ignored_providers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "ignored_providers")
+
+    @ignored_providers.setter
+    def ignored_providers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "ignored_providers", value)
+
+    @_builtins.property
+    @pulumi.getter(name="platformBannedAuthors")
+    def platform_banned_authors(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "platform_banned_authors")
+
+    @platform_banned_authors.setter
+    def platform_banned_authors(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "platform_banned_authors", value)
+
+    @_builtins.property
+    @pulumi.getter(name="platformBannedModels")
+    def platform_banned_models(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "platform_banned_models")
+
+    @platform_banned_models.setter
+    def platform_banned_models(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "platform_banned_models", value)
+
+    @_builtins.property
+    @pulumi.getter(name="platformBannedProviders")
+    def platform_banned_providers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "platform_banned_providers")
+
+    @platform_banned_providers.setter
+    def platform_banned_providers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "platform_banned_providers", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requireEuDataRegion")
+    def require_eu_data_region(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "require_eu_data_region")
+
+    @require_eu_data_region.setter
+    def require_eu_data_region(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "require_eu_data_region", value)
+
+
+class GuardrailPolicyModerationConfigArgsDict(TypedDict):
+    armor: NotRequired[pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorArgsDict']]]
+    broadcast_model_armor_flagged_requests: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    content_filter_blocks_requests: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    content_filter_builtins: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigContentFilterBuiltinArgsDict']]]]]
+    content_filter_patterns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    content_filters: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigContentFilterArgsDict']]]]]
+    enable_model_armor_injection_protection: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    lakera_injection_protection_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    must be one of ["block", "flag"]
+    """
+    model_armor_injection_confidence_level: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    must be one of ["low", "medium", "high"]
+    """
+    model_armor_injection_protection_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    must be one of ["block", "flag"]
+    """
+    pii_filters: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigPiiFilterArgsDict']]]]]
+    platform_image_moderated_providers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    platform_moderated_providers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArgs:
+    def __init__(__self__, *,
+                 armor: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorArgs']] = None,
+                 broadcast_model_armor_flagged_requests: pulumi.Input[Optional[_builtins.bool]] = None,
+                 content_filter_blocks_requests: pulumi.Input[Optional[_builtins.bool]] = None,
+                 content_filter_builtins: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigContentFilterBuiltinArgs']]]] = None,
+                 content_filter_patterns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 content_filters: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigContentFilterArgs']]]] = None,
+                 enable_model_armor_injection_protection: pulumi.Input[Optional[_builtins.bool]] = None,
+                 lakera_injection_protection_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 model_armor_injection_confidence_level: pulumi.Input[Optional[_builtins.str]] = None,
+                 model_armor_injection_protection_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 pii_filters: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigPiiFilterArgs']]]] = None,
+                 platform_image_moderated_providers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 platform_moderated_providers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] lakera_injection_protection_mode: must be one of ["block", "flag"]
+        :param pulumi.Input[_builtins.str] model_armor_injection_confidence_level: must be one of ["low", "medium", "high"]
+        :param pulumi.Input[_builtins.str] model_armor_injection_protection_mode: must be one of ["block", "flag"]
+        """
+        if armor is not None:
+            pulumi.set(__self__, "armor", armor)
+        if broadcast_model_armor_flagged_requests is not None:
+            pulumi.set(__self__, "broadcast_model_armor_flagged_requests", broadcast_model_armor_flagged_requests)
+        if content_filter_blocks_requests is not None:
+            pulumi.set(__self__, "content_filter_blocks_requests", content_filter_blocks_requests)
+        if content_filter_builtins is not None:
+            pulumi.set(__self__, "content_filter_builtins", content_filter_builtins)
+        if content_filter_patterns is not None:
+            pulumi.set(__self__, "content_filter_patterns", content_filter_patterns)
+        if content_filters is not None:
+            pulumi.set(__self__, "content_filters", content_filters)
+        if enable_model_armor_injection_protection is not None:
+            pulumi.set(__self__, "enable_model_armor_injection_protection", enable_model_armor_injection_protection)
+        if lakera_injection_protection_mode is not None:
+            pulumi.set(__self__, "lakera_injection_protection_mode", lakera_injection_protection_mode)
+        if model_armor_injection_confidence_level is not None:
+            pulumi.set(__self__, "model_armor_injection_confidence_level", model_armor_injection_confidence_level)
+        if model_armor_injection_protection_mode is not None:
+            pulumi.set(__self__, "model_armor_injection_protection_mode", model_armor_injection_protection_mode)
+        if pii_filters is not None:
+            pulumi.set(__self__, "pii_filters", pii_filters)
+        if platform_image_moderated_providers is not None:
+            pulumi.set(__self__, "platform_image_moderated_providers", platform_image_moderated_providers)
+        if platform_moderated_providers is not None:
+            pulumi.set(__self__, "platform_moderated_providers", platform_moderated_providers)
+
+    @_builtins.property
+    @pulumi.getter
+    def armor(self) -> pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorArgs']]:
+        return pulumi.get(self, "armor")
+
+    @armor.setter
+    def armor(self, value: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorArgs']]):
+        pulumi.set(self, "armor", value)
+
+    @_builtins.property
+    @pulumi.getter(name="broadcastModelArmorFlaggedRequests")
+    def broadcast_model_armor_flagged_requests(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "broadcast_model_armor_flagged_requests")
+
+    @broadcast_model_armor_flagged_requests.setter
+    def broadcast_model_armor_flagged_requests(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "broadcast_model_armor_flagged_requests", value)
+
+    @_builtins.property
+    @pulumi.getter(name="contentFilterBlocksRequests")
+    def content_filter_blocks_requests(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "content_filter_blocks_requests")
+
+    @content_filter_blocks_requests.setter
+    def content_filter_blocks_requests(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "content_filter_blocks_requests", value)
+
+    @_builtins.property
+    @pulumi.getter(name="contentFilterBuiltins")
+    def content_filter_builtins(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigContentFilterBuiltinArgs']]]]:
+        return pulumi.get(self, "content_filter_builtins")
+
+    @content_filter_builtins.setter
+    def content_filter_builtins(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigContentFilterBuiltinArgs']]]]):
+        pulumi.set(self, "content_filter_builtins", value)
+
+    @_builtins.property
+    @pulumi.getter(name="contentFilterPatterns")
+    def content_filter_patterns(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "content_filter_patterns")
+
+    @content_filter_patterns.setter
+    def content_filter_patterns(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "content_filter_patterns", value)
+
+    @_builtins.property
+    @pulumi.getter(name="contentFilters")
+    def content_filters(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigContentFilterArgs']]]]:
+        return pulumi.get(self, "content_filters")
+
+    @content_filters.setter
+    def content_filters(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigContentFilterArgs']]]]):
+        pulumi.set(self, "content_filters", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enableModelArmorInjectionProtection")
+    def enable_model_armor_injection_protection(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "enable_model_armor_injection_protection")
+
+    @enable_model_armor_injection_protection.setter
+    def enable_model_armor_injection_protection(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "enable_model_armor_injection_protection", value)
+
+    @_builtins.property
+    @pulumi.getter(name="lakeraInjectionProtectionMode")
+    def lakera_injection_protection_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        must be one of ["block", "flag"]
+        """
+        return pulumi.get(self, "lakera_injection_protection_mode")
+
+    @lakera_injection_protection_mode.setter
+    def lakera_injection_protection_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "lakera_injection_protection_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="modelArmorInjectionConfidenceLevel")
+    def model_armor_injection_confidence_level(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        must be one of ["low", "medium", "high"]
+        """
+        return pulumi.get(self, "model_armor_injection_confidence_level")
+
+    @model_armor_injection_confidence_level.setter
+    def model_armor_injection_confidence_level(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "model_armor_injection_confidence_level", value)
+
+    @_builtins.property
+    @pulumi.getter(name="modelArmorInjectionProtectionMode")
+    def model_armor_injection_protection_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        must be one of ["block", "flag"]
+        """
+        return pulumi.get(self, "model_armor_injection_protection_mode")
+
+    @model_armor_injection_protection_mode.setter
+    def model_armor_injection_protection_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "model_armor_injection_protection_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="piiFilters")
+    def pii_filters(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigPiiFilterArgs']]]]:
+        return pulumi.get(self, "pii_filters")
+
+    @pii_filters.setter
+    def pii_filters(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigPiiFilterArgs']]]]):
+        pulumi.set(self, "pii_filters", value)
+
+    @_builtins.property
+    @pulumi.getter(name="platformImageModeratedProviders")
+    def platform_image_moderated_providers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "platform_image_moderated_providers")
+
+    @platform_image_moderated_providers.setter
+    def platform_image_moderated_providers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "platform_image_moderated_providers", value)
+
+    @_builtins.property
+    @pulumi.getter(name="platformModeratedProviders")
+    def platform_moderated_providers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "platform_moderated_providers")
+
+    @platform_moderated_providers.setter
+    def platform_moderated_providers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "platform_moderated_providers", value)
+
+
+class GuardrailPolicyModerationConfigArmorArgsDict(TypedDict):
+    classifier_context: NotRequired[pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextArgsDict']]]
+    """
+    The Armor context: Claude Code's `classifier_context` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+    """
+    mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `on_error`. Default `enforce`. must be one of ["enforce", "audit"]
+    """
+    on_error: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+    """
+    use_cc_style_default_rules: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+    """
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorArgs:
+    def __init__(__self__, *,
+                 classifier_context: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextArgs']] = None,
+                 mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 on_error: pulumi.Input[Optional[_builtins.str]] = None,
+                 use_cc_style_default_rules: pulumi.Input[Optional[_builtins.bool]] = None):
+        """
+        :param pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextArgs'] classifier_context: The Armor context: Claude Code's `classifier_context` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+        :param pulumi.Input[_builtins.str] mode: `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `on_error`. Default `enforce`. must be one of ["enforce", "audit"]
+        :param pulumi.Input[_builtins.str] on_error: When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+        :param pulumi.Input[_builtins.bool] use_cc_style_default_rules: Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+        """
+        if classifier_context is not None:
+            pulumi.set(__self__, "classifier_context", classifier_context)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if on_error is not None:
+            pulumi.set(__self__, "on_error", on_error)
+        if use_cc_style_default_rules is not None:
+            pulumi.set(__self__, "use_cc_style_default_rules", use_cc_style_default_rules)
+
+    @_builtins.property
+    @pulumi.getter(name="classifierContext")
+    def classifier_context(self) -> pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextArgs']]:
+        """
+        The Armor context: Claude Code's `classifier_context` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+        """
+        return pulumi.get(self, "classifier_context")
+
+    @classifier_context.setter
+    def classifier_context(self, value: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextArgs']]):
+        pulumi.set(self, "classifier_context", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `on_error`. Default `enforce`. must be one of ["enforce", "audit"]
+        """
+        return pulumi.get(self, "mode")
+
+    @mode.setter
+    def mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="onError")
+    def on_error(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+        """
+        return pulumi.get(self, "on_error")
+
+    @on_error.setter
+    def on_error(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "on_error", value)
+
+    @_builtins.property
+    @pulumi.getter(name="useCcStyleDefaultRules")
+    def use_cc_style_default_rules(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+        """
+        return pulumi.get(self, "use_cc_style_default_rules")
+
+    @use_cc_style_default_rules.setter
+    def use_cc_style_default_rules(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "use_cc_style_default_rules", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextArgsDict(TypedDict):
+    additional_properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    auto_mode: NotRequired[pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgsDict']]]
+    v: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Not Null
+    """
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextArgs:
+    def __init__(__self__, *,
+                 additional_properties: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 auto_mode: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs']] = None,
+                 v: pulumi.Input[Optional[_builtins.float]] = None):
+        """
+        :param pulumi.Input[_builtins.float] v: Not Null
+        """
+        if additional_properties is not None:
+            pulumi.set(__self__, "additional_properties", additional_properties)
+        if auto_mode is not None:
+            pulumi.set(__self__, "auto_mode", auto_mode)
+        if v is not None:
+            pulumi.set(__self__, "v", v)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalProperties")
+    def additional_properties(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "additional_properties")
+
+    @additional_properties.setter
+    def additional_properties(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_properties", value)
+
+    @_builtins.property
+    @pulumi.getter(name="autoMode")
+    def auto_mode(self) -> pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs']]:
+        return pulumi.get(self, "auto_mode")
+
+    @auto_mode.setter
+    def auto_mode(self, value: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs']]):
+        pulumi.set(self, "auto_mode", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def v(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Not Null
+        """
+        return pulumi.get(self, "v")
+
+    @v.setter
+    def v(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "v", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgsDict(TypedDict):
+    allows: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgsDict']]]]]
+    environments: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgsDict']]]]]
+    hard_denies: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgsDict']]]]]
+    soft_denies: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgsDict']]]]]
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs:
+    def __init__(__self__, *,
+                 allows: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs']]]] = None,
+                 environments: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs']]]] = None,
+                 hard_denies: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs']]]] = None,
+                 soft_denies: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs']]]] = None):
+        if allows is not None:
+            pulumi.set(__self__, "allows", allows)
+        if environments is not None:
+            pulumi.set(__self__, "environments", environments)
+        if hard_denies is not None:
+            pulumi.set(__self__, "hard_denies", hard_denies)
+        if soft_denies is not None:
+            pulumi.set(__self__, "soft_denies", soft_denies)
+
+    @_builtins.property
+    @pulumi.getter
+    def allows(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs']]]]:
+        return pulumi.get(self, "allows")
+
+    @allows.setter
+    def allows(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs']]]]):
+        pulumi.set(self, "allows", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def environments(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs']]]]:
+        return pulumi.get(self, "environments")
+
+    @environments.setter
+    def environments(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs']]]]):
+        pulumi.set(self, "environments", value)
+
+    @_builtins.property
+    @pulumi.getter(name="hardDenies")
+    def hard_denies(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs']]]]:
+        return pulumi.get(self, "hard_denies")
+
+    @hard_denies.setter
+    def hard_denies(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs']]]]):
+        pulumi.set(self, "hard_denies", value)
+
+    @_builtins.property
+    @pulumi.getter(name="softDenies")
+    def soft_denies(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs']]]]:
+        return pulumi.get(self, "soft_denies")
+
+    @soft_denies.setter
+    def soft_denies(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs']]]]):
+        pulumi.set(self, "soft_denies", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgsDict(TypedDict):
+    armor_rule: NotRequired[pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgsDict']]]
+    str: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs:
+    def __init__(__self__, *,
+                 armor_rule: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs']] = None,
+                 str: pulumi.Input[Optional[_builtins.str]] = None):
+        if armor_rule is not None:
+            pulumi.set(__self__, "armor_rule", armor_rule)
+        if str is not None:
+            pulumi.set(__self__, "str", str)
+
+    @_builtins.property
+    @pulumi.getter(name="armorRule")
+    def armor_rule(self) -> pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs']]:
+        return pulumi.get(self, "armor_rule")
+
+    @armor_rule.setter
+    def armor_rule(self, value: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs']]):
+        pulumi.set(self, "armor_rule", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def str(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "str")
+
+    @str.setter
+    def str(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "str", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgsDict(TypedDict):
+    id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+    """
+    instructions: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    What the rule matches, written for the classifier. Not Null
+    """
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Display name shown in verdict explanations; defaults to the id.
+    """
+    threshold: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+    """
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs:
+    def __init__(__self__, *,
+                 id: pulumi.Input[Optional[_builtins.str]] = None,
+                 instructions: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 threshold: pulumi.Input[Optional[_builtins.float]] = None):
+        """
+        :param pulumi.Input[_builtins.str] id: Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+        :param pulumi.Input[_builtins.str] instructions: What the rule matches, written for the classifier. Not Null
+        :param pulumi.Input[_builtins.str] name: Display name shown in verdict explanations; defaults to the id.
+        :param pulumi.Input[_builtins.float] threshold: Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+        """
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if instructions is not None:
+            pulumi.set(__self__, "instructions", instructions)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if threshold is not None:
+            pulumi.set(__self__, "threshold", threshold)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+        """
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def instructions(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        What the rule matches, written for the classifier. Not Null
+        """
+        return pulumi.get(self, "instructions")
+
+    @instructions.setter
+    def instructions(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "instructions", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Display name shown in verdict explanations; defaults to the id.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def threshold(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+        """
+        return pulumi.get(self, "threshold")
+
+    @threshold.setter
+    def threshold(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "threshold", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgsDict(TypedDict):
+    armor_environment_entry: NotRequired[pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgsDict']]]
+    str: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs:
+    def __init__(__self__, *,
+                 armor_environment_entry: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs']] = None,
+                 str: pulumi.Input[Optional[_builtins.str]] = None):
+        if armor_environment_entry is not None:
+            pulumi.set(__self__, "armor_environment_entry", armor_environment_entry)
+        if str is not None:
+            pulumi.set(__self__, "str", str)
+
+    @_builtins.property
+    @pulumi.getter(name="armorEnvironmentEntry")
+    def armor_environment_entry(self) -> pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs']]:
+        return pulumi.get(self, "armor_environment_entry")
+
+    @armor_environment_entry.setter
+    def armor_environment_entry(self, value: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs']]):
+        pulumi.set(self, "armor_environment_entry", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def str(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "str")
+
+    @str.setter
+    def str(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "str", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgsDict(TypedDict):
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Not Null
+    """
+    value: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Not Null
+    """
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 value: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] name: Not Null
+        :param pulumi.Input[_builtins.str] value: Not Null
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Not Null
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Not Null
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgsDict(TypedDict):
+    armor_rule: NotRequired[pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgsDict']]]
+    str: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs:
+    def __init__(__self__, *,
+                 armor_rule: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs']] = None,
+                 str: pulumi.Input[Optional[_builtins.str]] = None):
+        if armor_rule is not None:
+            pulumi.set(__self__, "armor_rule", armor_rule)
+        if str is not None:
+            pulumi.set(__self__, "str", str)
+
+    @_builtins.property
+    @pulumi.getter(name="armorRule")
+    def armor_rule(self) -> pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs']]:
+        return pulumi.get(self, "armor_rule")
+
+    @armor_rule.setter
+    def armor_rule(self, value: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs']]):
+        pulumi.set(self, "armor_rule", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def str(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "str")
+
+    @str.setter
+    def str(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "str", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgsDict(TypedDict):
+    id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+    """
+    instructions: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    What the rule matches, written for the classifier. Not Null
+    """
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Display name shown in verdict explanations; defaults to the id.
+    """
+    threshold: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+    """
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs:
+    def __init__(__self__, *,
+                 id: pulumi.Input[Optional[_builtins.str]] = None,
+                 instructions: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 threshold: pulumi.Input[Optional[_builtins.float]] = None):
+        """
+        :param pulumi.Input[_builtins.str] id: Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+        :param pulumi.Input[_builtins.str] instructions: What the rule matches, written for the classifier. Not Null
+        :param pulumi.Input[_builtins.str] name: Display name shown in verdict explanations; defaults to the id.
+        :param pulumi.Input[_builtins.float] threshold: Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+        """
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if instructions is not None:
+            pulumi.set(__self__, "instructions", instructions)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if threshold is not None:
+            pulumi.set(__self__, "threshold", threshold)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+        """
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def instructions(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        What the rule matches, written for the classifier. Not Null
+        """
+        return pulumi.get(self, "instructions")
+
+    @instructions.setter
+    def instructions(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "instructions", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Display name shown in verdict explanations; defaults to the id.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def threshold(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+        """
+        return pulumi.get(self, "threshold")
+
+    @threshold.setter
+    def threshold(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "threshold", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgsDict(TypedDict):
+    armor_rule: NotRequired[pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgsDict']]]
+    str: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs:
+    def __init__(__self__, *,
+                 armor_rule: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs']] = None,
+                 str: pulumi.Input[Optional[_builtins.str]] = None):
+        if armor_rule is not None:
+            pulumi.set(__self__, "armor_rule", armor_rule)
+        if str is not None:
+            pulumi.set(__self__, "str", str)
+
+    @_builtins.property
+    @pulumi.getter(name="armorRule")
+    def armor_rule(self) -> pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs']]:
+        return pulumi.get(self, "armor_rule")
+
+    @armor_rule.setter
+    def armor_rule(self, value: pulumi.Input[Optional['GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs']]):
+        pulumi.set(self, "armor_rule", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def str(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "str")
+
+    @str.setter
+    def str(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "str", value)
+
+
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgsDict(TypedDict):
+    id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+    """
+    instructions: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    What the rule matches, written for the classifier. Not Null
+    """
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Display name shown in verdict explanations; defaults to the id.
+    """
+    threshold: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+    """
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs:
+    def __init__(__self__, *,
+                 id: pulumi.Input[Optional[_builtins.str]] = None,
+                 instructions: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 threshold: pulumi.Input[Optional[_builtins.float]] = None):
+        """
+        :param pulumi.Input[_builtins.str] id: Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+        :param pulumi.Input[_builtins.str] instructions: What the rule matches, written for the classifier. Not Null
+        :param pulumi.Input[_builtins.str] name: Display name shown in verdict explanations; defaults to the id.
+        :param pulumi.Input[_builtins.float] threshold: Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+        """
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if instructions is not None:
+            pulumi.set(__self__, "instructions", instructions)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if threshold is not None:
+            pulumi.set(__self__, "threshold", threshold)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+        """
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def instructions(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        What the rule matches, written for the classifier. Not Null
+        """
+        return pulumi.get(self, "instructions")
+
+    @instructions.setter
+    def instructions(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "instructions", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Display name shown in verdict explanations; defaults to the id.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def threshold(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+        """
+        return pulumi.get(self, "threshold")
+
+    @threshold.setter
+    def threshold(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "threshold", value)
+
+
+class GuardrailPolicyModerationConfigContentFilterArgsDict(TypedDict):
+    action: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Not Null; must be one of ["redact", "block", "flag"]
+    """
+    label: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    pattern: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Not Null
+    """
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigContentFilterArgs:
+    def __init__(__self__, *,
+                 action: pulumi.Input[Optional[_builtins.str]] = None,
+                 label: pulumi.Input[Optional[_builtins.str]] = None,
+                 pattern: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] action: Not Null; must be one of ["redact", "block", "flag"]
+        :param pulumi.Input[_builtins.str] pattern: Not Null
+        """
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+        if pattern is not None:
+            pulumi.set(__self__, "pattern", pattern)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Not Null; must be one of ["redact", "block", "flag"]
+        """
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "action", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "label")
+
+    @label.setter
+    def label(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "label", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def pattern(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Not Null
+        """
+        return pulumi.get(self, "pattern")
+
+    @pattern.setter
+    def pattern(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "pattern", value)
+
+
+class GuardrailPolicyModerationConfigContentFilterBuiltinArgsDict(TypedDict):
+    action: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Not Null; must be one of ["redact", "block", "flag"]
+    """
+    label: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    scan_scope: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    must be one of ["user_only", "all_messages"]
+    """
+    slug: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+    """
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigContentFilterBuiltinArgs:
+    def __init__(__self__, *,
+                 action: pulumi.Input[Optional[_builtins.str]] = None,
+                 label: pulumi.Input[Optional[_builtins.str]] = None,
+                 scan_scope: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] action: Not Null; must be one of ["redact", "block", "flag"]
+        :param pulumi.Input[_builtins.str] scan_scope: must be one of ["user_only", "all_messages"]
+        :param pulumi.Input[_builtins.str] slug: Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+        """
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if label is not None:
+            pulumi.set(__self__, "label", label)
+        if scan_scope is not None:
+            pulumi.set(__self__, "scan_scope", scan_scope)
+        if slug is not None:
+            pulumi.set(__self__, "slug", slug)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Not Null; must be one of ["redact", "block", "flag"]
+        """
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "action", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def label(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "label")
+
+    @label.setter
+    def label(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "label", value)
+
+    @_builtins.property
+    @pulumi.getter(name="scanScope")
+    def scan_scope(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        must be one of ["user_only", "all_messages"]
+        """
+        return pulumi.get(self, "scan_scope")
+
+    @scan_scope.setter
+    def scan_scope(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "scan_scope", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def slug(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+        """
+        return pulumi.get(self, "slug")
+
+    @slug.setter
+    def slug(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "slug", value)
+
+
+class GuardrailPolicyModerationConfigPiiFilterArgsDict(TypedDict):
+    action: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Not Null; must be one of ["redact", "block", "flag"]
+    """
+    entity_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Not Null
+    """
+    score_threshold: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+
+@pulumi.input_type
+class GuardrailPolicyModerationConfigPiiFilterArgs:
+    def __init__(__self__, *,
+                 action: pulumi.Input[Optional[_builtins.str]] = None,
+                 entity_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 score_threshold: pulumi.Input[Optional[_builtins.float]] = None):
+        """
+        :param pulumi.Input[_builtins.str] action: Not Null; must be one of ["redact", "block", "flag"]
+        :param pulumi.Input[_builtins.str] entity_type: Not Null
+        """
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if entity_type is not None:
+            pulumi.set(__self__, "entity_type", entity_type)
+        if score_threshold is not None:
+            pulumi.set(__self__, "score_threshold", score_threshold)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Not Null; must be one of ["redact", "block", "flag"]
+        """
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "action", value)
+
+    @_builtins.property
+    @pulumi.getter(name="entityType")
+    def entity_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Not Null
+        """
+        return pulumi.get(self, "entity_type")
+
+    @entity_type.setter
+    def entity_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "entity_type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="scoreThreshold")
+    def score_threshold(self) -> pulumi.Input[Optional[_builtins.float]]:
+        return pulumi.get(self, "score_threshold")
+
+    @score_threshold.setter
+    def score_threshold(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "score_threshold", value)
 
 
 class ObservabilityDestinationArizeArgsDict(TypedDict):

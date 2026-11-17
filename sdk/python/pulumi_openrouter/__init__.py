@@ -16,6 +16,9 @@ from .get_credits import *
 from .get_guardrail import *
 from .get_guardrail_key_assignments import *
 from .get_guardrail_member_assignments import *
+from .get_guardrail_policy_budget import *
+from .get_guardrail_policy_model_availability import *
+from .get_guardrail_policy_moderation import *
 from .get_guardrails import *
 from .get_model import *
 from .get_models import *
@@ -37,6 +40,9 @@ from .get_workspaces import *
 from .guardrail import *
 from .guardrail_key_assignment import *
 from .guardrail_member_assignment import *
+from .guardrail_policy_budget import *
+from .guardrail_policy_model_availability import *
+from .guardrail_policy_moderation import *
 from .observability_destination import *
 from .organization_settings import *
 from .private_endpoint import *
@@ -97,6 +103,30 @@ _utilities.register(
   "fqn": "pulumi_openrouter",
   "classes": {
    "openrouter:index/guardrailMemberAssignment:GuardrailMemberAssignment": "GuardrailMemberAssignment"
+  }
+ },
+ {
+  "pkg": "openrouter",
+  "mod": "index/guardrailPolicyBudget",
+  "fqn": "pulumi_openrouter",
+  "classes": {
+   "openrouter:index/guardrailPolicyBudget:GuardrailPolicyBudget": "GuardrailPolicyBudget"
+  }
+ },
+ {
+  "pkg": "openrouter",
+  "mod": "index/guardrailPolicyModelAvailability",
+  "fqn": "pulumi_openrouter",
+  "classes": {
+   "openrouter:index/guardrailPolicyModelAvailability:GuardrailPolicyModelAvailability": "GuardrailPolicyModelAvailability"
+  }
+ },
+ {
+  "pkg": "openrouter",
+  "mod": "index/guardrailPolicyModeration",
+  "fqn": "pulumi_openrouter",
+  "classes": {
+   "openrouter:index/guardrailPolicyModeration:GuardrailPolicyModeration": "GuardrailPolicyModeration"
   }
  },
  {

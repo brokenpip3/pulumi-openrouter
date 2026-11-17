@@ -56,6 +56,233 @@ export interface GuardrailContentFilterBuiltin {
     slug?: pulumi.Input<string | undefined>;
 }
 
+export interface GuardrailPolicyBudgetConfig {
+    /**
+     * Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+     */
+    includeByokInBudgets: pulumi.Input<boolean>;
+    /**
+     * Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+     */
+    limitUsd?: pulumi.Input<number | undefined>;
+    /**
+     * Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+     */
+    resetInterval?: pulumi.Input<string | undefined>;
+}
+
+export interface GuardrailPolicyModelAvailabilityConfig {
+    allowSafetyRetentionGoogle?: pulumi.Input<boolean | undefined>;
+    allowSafetyRetentionOther?: pulumi.Input<boolean | undefined>;
+    allowedDataRegions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    allowedModels?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    allowedProviders?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    enableFreeModelPublication?: pulumi.Input<boolean | undefined>;
+    enableFreeModelTraining?: pulumi.Input<boolean | undefined>;
+    enablePaidModelTraining?: pulumi.Input<boolean | undefined>;
+    enforceFirstPartyHarnessModels?: pulumi.Input<boolean | undefined>;
+    enforceZdr?: pulumi.Input<boolean | undefined>;
+    enforceZdrAnthropic?: pulumi.Input<boolean | undefined>;
+    enforceZdrGoogle?: pulumi.Input<boolean | undefined>;
+    enforceZdrOpenai?: pulumi.Input<boolean | undefined>;
+    enforceZdrOther?: pulumi.Input<boolean | undefined>;
+    enforceZdrXai?: pulumi.Input<boolean | undefined>;
+    ignoredModels?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    ignoredProviders?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    platformBannedAuthors?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    platformBannedModels?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    platformBannedProviders?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    requireEuDataRegion?: pulumi.Input<boolean | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfig {
+    armor?: pulumi.Input<inputs.GuardrailPolicyModerationConfigArmor | undefined>;
+    broadcastModelArmorFlaggedRequests?: pulumi.Input<boolean | undefined>;
+    contentFilterBlocksRequests?: pulumi.Input<boolean | undefined>;
+    contentFilterBuiltins?: pulumi.Input<pulumi.Input<inputs.GuardrailPolicyModerationConfigContentFilterBuiltin>[] | undefined>;
+    contentFilterPatterns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    contentFilters?: pulumi.Input<pulumi.Input<inputs.GuardrailPolicyModerationConfigContentFilter>[] | undefined>;
+    enableModelArmorInjectionProtection?: pulumi.Input<boolean | undefined>;
+    /**
+     * must be one of ["block", "flag"]
+     */
+    lakeraInjectionProtectionMode?: pulumi.Input<string | undefined>;
+    /**
+     * must be one of ["low", "medium", "high"]
+     */
+    modelArmorInjectionConfidenceLevel?: pulumi.Input<string | undefined>;
+    /**
+     * must be one of ["block", "flag"]
+     */
+    modelArmorInjectionProtectionMode?: pulumi.Input<string | undefined>;
+    piiFilters?: pulumi.Input<pulumi.Input<inputs.GuardrailPolicyModerationConfigPiiFilter>[] | undefined>;
+    platformImageModeratedProviders?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    platformModeratedProviders?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmor {
+    /**
+     * The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+     */
+    classifierContext?: pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContext | undefined>;
+    /**
+     * `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`. must be one of ["enforce", "audit"]
+     */
+    mode?: pulumi.Input<string | undefined>;
+    /**
+     * When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+     */
+    onError?: pulumi.Input<string | undefined>;
+    /**
+     * Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+     */
+    useCcStyleDefaultRules?: pulumi.Input<boolean | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContext {
+    additionalProperties?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+    autoMode?: pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContextAutoMode | undefined>;
+    /**
+     * Not Null
+     */
+    v?: pulumi.Input<number | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContextAutoMode {
+    allows?: pulumi.Input<pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow>[] | undefined>;
+    environments?: pulumi.Input<pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment>[] | undefined>;
+    hardDenies?: pulumi.Input<pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny>[] | undefined>;
+    softDenies?: pulumi.Input<pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny>[] | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow {
+    armorRule?: pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule {
+    /**
+     * Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * What the rule matches, written for the classifier. Not Null
+     */
+    instructions?: pulumi.Input<string | undefined>;
+    /**
+     * Display name shown in verdict explanations; defaults to the id.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+     */
+    threshold?: pulumi.Input<number | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment {
+    armorEnvironmentEntry?: pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry {
+    /**
+     * Not Null
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * Not Null
+     */
+    value?: pulumi.Input<string | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny {
+    armorRule?: pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule {
+    /**
+     * Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * What the rule matches, written for the classifier. Not Null
+     */
+    instructions?: pulumi.Input<string | undefined>;
+    /**
+     * Display name shown in verdict explanations; defaults to the id.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+     */
+    threshold?: pulumi.Input<number | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny {
+    armorRule?: pulumi.Input<inputs.GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule | undefined>;
+    str?: pulumi.Input<string | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule {
+    /**
+     * Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+     */
+    id?: pulumi.Input<string | undefined>;
+    /**
+     * What the rule matches, written for the classifier. Not Null
+     */
+    instructions?: pulumi.Input<string | undefined>;
+    /**
+     * Display name shown in verdict explanations; defaults to the id.
+     */
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+     */
+    threshold?: pulumi.Input<number | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigContentFilter {
+    /**
+     * Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action?: pulumi.Input<string | undefined>;
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * Not Null
+     */
+    pattern?: pulumi.Input<string | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigContentFilterBuiltin {
+    /**
+     * Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action?: pulumi.Input<string | undefined>;
+    label?: pulumi.Input<string | undefined>;
+    /**
+     * must be one of ["userOnly", "allMessages"]
+     */
+    scanScope?: pulumi.Input<string | undefined>;
+    /**
+     * Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+     */
+    slug?: pulumi.Input<string | undefined>;
+}
+
+export interface GuardrailPolicyModerationConfigPiiFilter {
+    /**
+     * Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action?: pulumi.Input<string | undefined>;
+    /**
+     * Not Null
+     */
+    entityType?: pulumi.Input<string | undefined>;
+    scoreThreshold?: pulumi.Input<number | undefined>;
+}
+
 export interface ObservabilityDestinationArize {
     /**
      * Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
