@@ -423,6 +423,3017 @@ func (o GuardrailContentFilterBuiltinArrayOutput) Index(i pulumi.IntInput) Guard
 	}).(GuardrailContentFilterBuiltinOutput)
 }
 
+type GuardrailPolicyBudgetConfig struct {
+	// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+	IncludeByokInBudgets bool `pulumi:"includeByokInBudgets"`
+	// Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+	LimitUsd *float64 `pulumi:"limitUsd"`
+	// Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+	ResetInterval *string `pulumi:"resetInterval"`
+}
+
+// GuardrailPolicyBudgetConfigInput is an input type that accepts GuardrailPolicyBudgetConfigArgs and GuardrailPolicyBudgetConfigOutput values.
+// You can construct a concrete instance of `GuardrailPolicyBudgetConfigInput` via:
+//
+//	GuardrailPolicyBudgetConfigArgs{...}
+type GuardrailPolicyBudgetConfigInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyBudgetConfigOutput() GuardrailPolicyBudgetConfigOutput
+	ToGuardrailPolicyBudgetConfigOutputWithContext(context.Context) GuardrailPolicyBudgetConfigOutput
+}
+
+type GuardrailPolicyBudgetConfigArgs struct {
+	// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+	IncludeByokInBudgets pulumi.BoolInput `pulumi:"includeByokInBudgets"`
+	// Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+	LimitUsd pulumi.Float64PtrInput `pulumi:"limitUsd"`
+	// Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+	ResetInterval pulumi.StringPtrInput `pulumi:"resetInterval"`
+}
+
+func (GuardrailPolicyBudgetConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyBudgetConfig)(nil)).Elem()
+}
+
+func (i GuardrailPolicyBudgetConfigArgs) ToGuardrailPolicyBudgetConfigOutput() GuardrailPolicyBudgetConfigOutput {
+	return i.ToGuardrailPolicyBudgetConfigOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyBudgetConfigArgs) ToGuardrailPolicyBudgetConfigOutputWithContext(ctx context.Context) GuardrailPolicyBudgetConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyBudgetConfigOutput)
+}
+
+func (i GuardrailPolicyBudgetConfigArgs) ToGuardrailPolicyBudgetConfigPtrOutput() GuardrailPolicyBudgetConfigPtrOutput {
+	return i.ToGuardrailPolicyBudgetConfigPtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyBudgetConfigArgs) ToGuardrailPolicyBudgetConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyBudgetConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyBudgetConfigOutput).ToGuardrailPolicyBudgetConfigPtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyBudgetConfigPtrInput is an input type that accepts GuardrailPolicyBudgetConfigArgs, GuardrailPolicyBudgetConfigPtr and GuardrailPolicyBudgetConfigPtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyBudgetConfigPtrInput` via:
+//
+//	        GuardrailPolicyBudgetConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyBudgetConfigPtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyBudgetConfigPtrOutput() GuardrailPolicyBudgetConfigPtrOutput
+	ToGuardrailPolicyBudgetConfigPtrOutputWithContext(context.Context) GuardrailPolicyBudgetConfigPtrOutput
+}
+
+type guardrailPolicyBudgetConfigPtrType GuardrailPolicyBudgetConfigArgs
+
+func GuardrailPolicyBudgetConfigPtr(v *GuardrailPolicyBudgetConfigArgs) GuardrailPolicyBudgetConfigPtrInput {
+	return (*guardrailPolicyBudgetConfigPtrType)(v)
+}
+
+func (*guardrailPolicyBudgetConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyBudgetConfig)(nil)).Elem()
+}
+
+func (i *guardrailPolicyBudgetConfigPtrType) ToGuardrailPolicyBudgetConfigPtrOutput() GuardrailPolicyBudgetConfigPtrOutput {
+	return i.ToGuardrailPolicyBudgetConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyBudgetConfigPtrType) ToGuardrailPolicyBudgetConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyBudgetConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyBudgetConfigPtrOutput)
+}
+
+type GuardrailPolicyBudgetConfigOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyBudgetConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyBudgetConfig)(nil)).Elem()
+}
+
+func (o GuardrailPolicyBudgetConfigOutput) ToGuardrailPolicyBudgetConfigOutput() GuardrailPolicyBudgetConfigOutput {
+	return o
+}
+
+func (o GuardrailPolicyBudgetConfigOutput) ToGuardrailPolicyBudgetConfigOutputWithContext(ctx context.Context) GuardrailPolicyBudgetConfigOutput {
+	return o
+}
+
+func (o GuardrailPolicyBudgetConfigOutput) ToGuardrailPolicyBudgetConfigPtrOutput() GuardrailPolicyBudgetConfigPtrOutput {
+	return o.ToGuardrailPolicyBudgetConfigPtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyBudgetConfigOutput) ToGuardrailPolicyBudgetConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyBudgetConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyBudgetConfig) *GuardrailPolicyBudgetConfig {
+		return &v
+	}).(GuardrailPolicyBudgetConfigPtrOutput)
+}
+
+// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+func (o GuardrailPolicyBudgetConfigOutput) IncludeByokInBudgets() pulumi.BoolOutput {
+	return o.ApplyT(func(v GuardrailPolicyBudgetConfig) bool { return v.IncludeByokInBudgets }).(pulumi.BoolOutput)
+}
+
+// Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+func (o GuardrailPolicyBudgetConfigOutput) LimitUsd() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyBudgetConfig) *float64 { return v.LimitUsd }).(pulumi.Float64PtrOutput)
+}
+
+// Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+func (o GuardrailPolicyBudgetConfigOutput) ResetInterval() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyBudgetConfig) *string { return v.ResetInterval }).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyBudgetConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyBudgetConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyBudgetConfig)(nil)).Elem()
+}
+
+func (o GuardrailPolicyBudgetConfigPtrOutput) ToGuardrailPolicyBudgetConfigPtrOutput() GuardrailPolicyBudgetConfigPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyBudgetConfigPtrOutput) ToGuardrailPolicyBudgetConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyBudgetConfigPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyBudgetConfigPtrOutput) Elem() GuardrailPolicyBudgetConfigOutput {
+	return o.ApplyT(func(v *GuardrailPolicyBudgetConfig) GuardrailPolicyBudgetConfig {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyBudgetConfig
+		return ret
+	}).(GuardrailPolicyBudgetConfigOutput)
+}
+
+// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+func (o GuardrailPolicyBudgetConfigPtrOutput) IncludeByokInBudgets() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyBudgetConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.IncludeByokInBudgets
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+func (o GuardrailPolicyBudgetConfigPtrOutput) LimitUsd() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyBudgetConfig) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.LimitUsd
+	}).(pulumi.Float64PtrOutput)
+}
+
+// Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+func (o GuardrailPolicyBudgetConfigPtrOutput) ResetInterval() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyBudgetConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ResetInterval
+	}).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyModelAvailabilityConfig struct {
+	AllowSafetyRetentionGoogle     *bool    `pulumi:"allowSafetyRetentionGoogle"`
+	AllowSafetyRetentionOther      *bool    `pulumi:"allowSafetyRetentionOther"`
+	AllowedDataRegions             []string `pulumi:"allowedDataRegions"`
+	AllowedModels                  []string `pulumi:"allowedModels"`
+	AllowedProviders               []string `pulumi:"allowedProviders"`
+	EnableFreeModelPublication     *bool    `pulumi:"enableFreeModelPublication"`
+	EnableFreeModelTraining        *bool    `pulumi:"enableFreeModelTraining"`
+	EnablePaidModelTraining        *bool    `pulumi:"enablePaidModelTraining"`
+	EnforceFirstPartyHarnessModels *bool    `pulumi:"enforceFirstPartyHarnessModels"`
+	EnforceZdr                     *bool    `pulumi:"enforceZdr"`
+	EnforceZdrAnthropic            *bool    `pulumi:"enforceZdrAnthropic"`
+	EnforceZdrGoogle               *bool    `pulumi:"enforceZdrGoogle"`
+	EnforceZdrOpenai               *bool    `pulumi:"enforceZdrOpenai"`
+	EnforceZdrOther                *bool    `pulumi:"enforceZdrOther"`
+	EnforceZdrXai                  *bool    `pulumi:"enforceZdrXai"`
+	IgnoredModels                  []string `pulumi:"ignoredModels"`
+	IgnoredProviders               []string `pulumi:"ignoredProviders"`
+	PlatformBannedAuthors          []string `pulumi:"platformBannedAuthors"`
+	PlatformBannedModels           []string `pulumi:"platformBannedModels"`
+	PlatformBannedProviders        []string `pulumi:"platformBannedProviders"`
+	RequireEuDataRegion            *bool    `pulumi:"requireEuDataRegion"`
+}
+
+// GuardrailPolicyModelAvailabilityConfigInput is an input type that accepts GuardrailPolicyModelAvailabilityConfigArgs and GuardrailPolicyModelAvailabilityConfigOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModelAvailabilityConfigInput` via:
+//
+//	GuardrailPolicyModelAvailabilityConfigArgs{...}
+type GuardrailPolicyModelAvailabilityConfigInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModelAvailabilityConfigOutput() GuardrailPolicyModelAvailabilityConfigOutput
+	ToGuardrailPolicyModelAvailabilityConfigOutputWithContext(context.Context) GuardrailPolicyModelAvailabilityConfigOutput
+}
+
+type GuardrailPolicyModelAvailabilityConfigArgs struct {
+	AllowSafetyRetentionGoogle     pulumi.BoolPtrInput     `pulumi:"allowSafetyRetentionGoogle"`
+	AllowSafetyRetentionOther      pulumi.BoolPtrInput     `pulumi:"allowSafetyRetentionOther"`
+	AllowedDataRegions             pulumi.StringArrayInput `pulumi:"allowedDataRegions"`
+	AllowedModels                  pulumi.StringArrayInput `pulumi:"allowedModels"`
+	AllowedProviders               pulumi.StringArrayInput `pulumi:"allowedProviders"`
+	EnableFreeModelPublication     pulumi.BoolPtrInput     `pulumi:"enableFreeModelPublication"`
+	EnableFreeModelTraining        pulumi.BoolPtrInput     `pulumi:"enableFreeModelTraining"`
+	EnablePaidModelTraining        pulumi.BoolPtrInput     `pulumi:"enablePaidModelTraining"`
+	EnforceFirstPartyHarnessModels pulumi.BoolPtrInput     `pulumi:"enforceFirstPartyHarnessModels"`
+	EnforceZdr                     pulumi.BoolPtrInput     `pulumi:"enforceZdr"`
+	EnforceZdrAnthropic            pulumi.BoolPtrInput     `pulumi:"enforceZdrAnthropic"`
+	EnforceZdrGoogle               pulumi.BoolPtrInput     `pulumi:"enforceZdrGoogle"`
+	EnforceZdrOpenai               pulumi.BoolPtrInput     `pulumi:"enforceZdrOpenai"`
+	EnforceZdrOther                pulumi.BoolPtrInput     `pulumi:"enforceZdrOther"`
+	EnforceZdrXai                  pulumi.BoolPtrInput     `pulumi:"enforceZdrXai"`
+	IgnoredModels                  pulumi.StringArrayInput `pulumi:"ignoredModels"`
+	IgnoredProviders               pulumi.StringArrayInput `pulumi:"ignoredProviders"`
+	PlatformBannedAuthors          pulumi.StringArrayInput `pulumi:"platformBannedAuthors"`
+	PlatformBannedModels           pulumi.StringArrayInput `pulumi:"platformBannedModels"`
+	PlatformBannedProviders        pulumi.StringArrayInput `pulumi:"platformBannedProviders"`
+	RequireEuDataRegion            pulumi.BoolPtrInput     `pulumi:"requireEuDataRegion"`
+}
+
+func (GuardrailPolicyModelAvailabilityConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModelAvailabilityConfig)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModelAvailabilityConfigArgs) ToGuardrailPolicyModelAvailabilityConfigOutput() GuardrailPolicyModelAvailabilityConfigOutput {
+	return i.ToGuardrailPolicyModelAvailabilityConfigOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModelAvailabilityConfigArgs) ToGuardrailPolicyModelAvailabilityConfigOutputWithContext(ctx context.Context) GuardrailPolicyModelAvailabilityConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModelAvailabilityConfigOutput)
+}
+
+func (i GuardrailPolicyModelAvailabilityConfigArgs) ToGuardrailPolicyModelAvailabilityConfigPtrOutput() GuardrailPolicyModelAvailabilityConfigPtrOutput {
+	return i.ToGuardrailPolicyModelAvailabilityConfigPtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModelAvailabilityConfigArgs) ToGuardrailPolicyModelAvailabilityConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyModelAvailabilityConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModelAvailabilityConfigOutput).ToGuardrailPolicyModelAvailabilityConfigPtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyModelAvailabilityConfigPtrInput is an input type that accepts GuardrailPolicyModelAvailabilityConfigArgs, GuardrailPolicyModelAvailabilityConfigPtr and GuardrailPolicyModelAvailabilityConfigPtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModelAvailabilityConfigPtrInput` via:
+//
+//	        GuardrailPolicyModelAvailabilityConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyModelAvailabilityConfigPtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModelAvailabilityConfigPtrOutput() GuardrailPolicyModelAvailabilityConfigPtrOutput
+	ToGuardrailPolicyModelAvailabilityConfigPtrOutputWithContext(context.Context) GuardrailPolicyModelAvailabilityConfigPtrOutput
+}
+
+type guardrailPolicyModelAvailabilityConfigPtrType GuardrailPolicyModelAvailabilityConfigArgs
+
+func GuardrailPolicyModelAvailabilityConfigPtr(v *GuardrailPolicyModelAvailabilityConfigArgs) GuardrailPolicyModelAvailabilityConfigPtrInput {
+	return (*guardrailPolicyModelAvailabilityConfigPtrType)(v)
+}
+
+func (*guardrailPolicyModelAvailabilityConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModelAvailabilityConfig)(nil)).Elem()
+}
+
+func (i *guardrailPolicyModelAvailabilityConfigPtrType) ToGuardrailPolicyModelAvailabilityConfigPtrOutput() GuardrailPolicyModelAvailabilityConfigPtrOutput {
+	return i.ToGuardrailPolicyModelAvailabilityConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyModelAvailabilityConfigPtrType) ToGuardrailPolicyModelAvailabilityConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyModelAvailabilityConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModelAvailabilityConfigPtrOutput)
+}
+
+type GuardrailPolicyModelAvailabilityConfigOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModelAvailabilityConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModelAvailabilityConfig)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) ToGuardrailPolicyModelAvailabilityConfigOutput() GuardrailPolicyModelAvailabilityConfigOutput {
+	return o
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) ToGuardrailPolicyModelAvailabilityConfigOutputWithContext(ctx context.Context) GuardrailPolicyModelAvailabilityConfigOutput {
+	return o
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) ToGuardrailPolicyModelAvailabilityConfigPtrOutput() GuardrailPolicyModelAvailabilityConfigPtrOutput {
+	return o.ToGuardrailPolicyModelAvailabilityConfigPtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) ToGuardrailPolicyModelAvailabilityConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyModelAvailabilityConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyModelAvailabilityConfig) *GuardrailPolicyModelAvailabilityConfig {
+		return &v
+	}).(GuardrailPolicyModelAvailabilityConfigPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) AllowSafetyRetentionGoogle() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.AllowSafetyRetentionGoogle }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) AllowSafetyRetentionOther() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.AllowSafetyRetentionOther }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) AllowedDataRegions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) []string { return v.AllowedDataRegions }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) AllowedModels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) []string { return v.AllowedModels }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) AllowedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) []string { return v.AllowedProviders }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnableFreeModelPublication() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnableFreeModelPublication }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnableFreeModelTraining() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnableFreeModelTraining }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnablePaidModelTraining() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnablePaidModelTraining }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnforceFirstPartyHarnessModels() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnforceFirstPartyHarnessModels }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnforceZdr() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnforceZdr }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrAnthropic() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnforceZdrAnthropic }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrGoogle() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnforceZdrGoogle }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrOpenai() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnforceZdrOpenai }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrOther() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnforceZdrOther }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrXai() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.EnforceZdrXai }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) IgnoredModels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) []string { return v.IgnoredModels }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) IgnoredProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) []string { return v.IgnoredProviders }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) PlatformBannedAuthors() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) []string { return v.PlatformBannedAuthors }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) PlatformBannedModels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) []string { return v.PlatformBannedModels }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) PlatformBannedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) []string { return v.PlatformBannedProviders }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigOutput) RequireEuDataRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModelAvailabilityConfig) *bool { return v.RequireEuDataRegion }).(pulumi.BoolPtrOutput)
+}
+
+type GuardrailPolicyModelAvailabilityConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModelAvailabilityConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModelAvailabilityConfig)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) ToGuardrailPolicyModelAvailabilityConfigPtrOutput() GuardrailPolicyModelAvailabilityConfigPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) ToGuardrailPolicyModelAvailabilityConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyModelAvailabilityConfigPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) Elem() GuardrailPolicyModelAvailabilityConfigOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) GuardrailPolicyModelAvailabilityConfig {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyModelAvailabilityConfig
+		return ret
+	}).(GuardrailPolicyModelAvailabilityConfigOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) AllowSafetyRetentionGoogle() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AllowSafetyRetentionGoogle
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) AllowSafetyRetentionOther() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AllowSafetyRetentionOther
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) AllowedDataRegions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedDataRegions
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) AllowedModels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedModels
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) AllowedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedProviders
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnableFreeModelPublication() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnableFreeModelPublication
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnableFreeModelTraining() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnableFreeModelTraining
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnablePaidModelTraining() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnablePaidModelTraining
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnforceFirstPartyHarnessModels() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnforceFirstPartyHarnessModels
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnforceZdr() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnforceZdr
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnforceZdrAnthropic() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnforceZdrAnthropic
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnforceZdrGoogle() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnforceZdrGoogle
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnforceZdrOpenai() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnforceZdrOpenai
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnforceZdrOther() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnforceZdrOther
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) EnforceZdrXai() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnforceZdrXai
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) IgnoredModels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.IgnoredModels
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) IgnoredProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.IgnoredProviders
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) PlatformBannedAuthors() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.PlatformBannedAuthors
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) PlatformBannedModels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.PlatformBannedModels
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) PlatformBannedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.PlatformBannedProviders
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModelAvailabilityConfigPtrOutput) RequireEuDataRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModelAvailabilityConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.RequireEuDataRegion
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GuardrailPolicyModerationConfig struct {
+	Armor                               *GuardrailPolicyModerationConfigArmor                 `pulumi:"armor"`
+	BroadcastModelArmorFlaggedRequests  *bool                                                 `pulumi:"broadcastModelArmorFlaggedRequests"`
+	ContentFilterBlocksRequests         *bool                                                 `pulumi:"contentFilterBlocksRequests"`
+	ContentFilterBuiltins               []GuardrailPolicyModerationConfigContentFilterBuiltin `pulumi:"contentFilterBuiltins"`
+	ContentFilterPatterns               []string                                              `pulumi:"contentFilterPatterns"`
+	ContentFilters                      []GuardrailPolicyModerationConfigContentFilter        `pulumi:"contentFilters"`
+	EnableModelArmorInjectionProtection *bool                                                 `pulumi:"enableModelArmorInjectionProtection"`
+	// must be one of ["block", "flag"]
+	LakeraInjectionProtectionMode *string `pulumi:"lakeraInjectionProtectionMode"`
+	// must be one of ["low", "medium", "high"]
+	ModelArmorInjectionConfidenceLevel *string `pulumi:"modelArmorInjectionConfidenceLevel"`
+	// must be one of ["block", "flag"]
+	ModelArmorInjectionProtectionMode *string                                    `pulumi:"modelArmorInjectionProtectionMode"`
+	PiiFilters                        []GuardrailPolicyModerationConfigPiiFilter `pulumi:"piiFilters"`
+	PlatformImageModeratedProviders   []string                                   `pulumi:"platformImageModeratedProviders"`
+	PlatformModeratedProviders        []string                                   `pulumi:"platformModeratedProviders"`
+}
+
+// GuardrailPolicyModerationConfigInput is an input type that accepts GuardrailPolicyModerationConfigArgs and GuardrailPolicyModerationConfigOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigInput` via:
+//
+//	GuardrailPolicyModerationConfigArgs{...}
+type GuardrailPolicyModerationConfigInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigOutput() GuardrailPolicyModerationConfigOutput
+	ToGuardrailPolicyModerationConfigOutputWithContext(context.Context) GuardrailPolicyModerationConfigOutput
+}
+
+type GuardrailPolicyModerationConfigArgs struct {
+	Armor                               GuardrailPolicyModerationConfigArmorPtrInput                  `pulumi:"armor"`
+	BroadcastModelArmorFlaggedRequests  pulumi.BoolPtrInput                                           `pulumi:"broadcastModelArmorFlaggedRequests"`
+	ContentFilterBlocksRequests         pulumi.BoolPtrInput                                           `pulumi:"contentFilterBlocksRequests"`
+	ContentFilterBuiltins               GuardrailPolicyModerationConfigContentFilterBuiltinArrayInput `pulumi:"contentFilterBuiltins"`
+	ContentFilterPatterns               pulumi.StringArrayInput                                       `pulumi:"contentFilterPatterns"`
+	ContentFilters                      GuardrailPolicyModerationConfigContentFilterArrayInput        `pulumi:"contentFilters"`
+	EnableModelArmorInjectionProtection pulumi.BoolPtrInput                                           `pulumi:"enableModelArmorInjectionProtection"`
+	// must be one of ["block", "flag"]
+	LakeraInjectionProtectionMode pulumi.StringPtrInput `pulumi:"lakeraInjectionProtectionMode"`
+	// must be one of ["low", "medium", "high"]
+	ModelArmorInjectionConfidenceLevel pulumi.StringPtrInput `pulumi:"modelArmorInjectionConfidenceLevel"`
+	// must be one of ["block", "flag"]
+	ModelArmorInjectionProtectionMode pulumi.StringPtrInput                              `pulumi:"modelArmorInjectionProtectionMode"`
+	PiiFilters                        GuardrailPolicyModerationConfigPiiFilterArrayInput `pulumi:"piiFilters"`
+	PlatformImageModeratedProviders   pulumi.StringArrayInput                            `pulumi:"platformImageModeratedProviders"`
+	PlatformModeratedProviders        pulumi.StringArrayInput                            `pulumi:"platformModeratedProviders"`
+}
+
+func (GuardrailPolicyModerationConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfig)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArgs) ToGuardrailPolicyModerationConfigOutput() GuardrailPolicyModerationConfigOutput {
+	return i.ToGuardrailPolicyModerationConfigOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArgs) ToGuardrailPolicyModerationConfigOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigOutput)
+}
+
+func (i GuardrailPolicyModerationConfigArgs) ToGuardrailPolicyModerationConfigPtrOutput() GuardrailPolicyModerationConfigPtrOutput {
+	return i.ToGuardrailPolicyModerationConfigPtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArgs) ToGuardrailPolicyModerationConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigOutput).ToGuardrailPolicyModerationConfigPtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyModerationConfigPtrInput is an input type that accepts GuardrailPolicyModerationConfigArgs, GuardrailPolicyModerationConfigPtr and GuardrailPolicyModerationConfigPtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigPtrInput` via:
+//
+//	        GuardrailPolicyModerationConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyModerationConfigPtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigPtrOutput() GuardrailPolicyModerationConfigPtrOutput
+	ToGuardrailPolicyModerationConfigPtrOutputWithContext(context.Context) GuardrailPolicyModerationConfigPtrOutput
+}
+
+type guardrailPolicyModerationConfigPtrType GuardrailPolicyModerationConfigArgs
+
+func GuardrailPolicyModerationConfigPtr(v *GuardrailPolicyModerationConfigArgs) GuardrailPolicyModerationConfigPtrInput {
+	return (*guardrailPolicyModerationConfigPtrType)(v)
+}
+
+func (*guardrailPolicyModerationConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfig)(nil)).Elem()
+}
+
+func (i *guardrailPolicyModerationConfigPtrType) ToGuardrailPolicyModerationConfigPtrOutput() GuardrailPolicyModerationConfigPtrOutput {
+	return i.ToGuardrailPolicyModerationConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyModerationConfigPtrType) ToGuardrailPolicyModerationConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfig)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigOutput) ToGuardrailPolicyModerationConfigOutput() GuardrailPolicyModerationConfigOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigOutput) ToGuardrailPolicyModerationConfigOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigOutput) ToGuardrailPolicyModerationConfigPtrOutput() GuardrailPolicyModerationConfigPtrOutput {
+	return o.ToGuardrailPolicyModerationConfigPtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyModerationConfigOutput) ToGuardrailPolicyModerationConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyModerationConfig) *GuardrailPolicyModerationConfig {
+		return &v
+	}).(GuardrailPolicyModerationConfigPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) Armor() GuardrailPolicyModerationConfigArmorPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) *GuardrailPolicyModerationConfigArmor { return v.Armor }).(GuardrailPolicyModerationConfigArmorPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) BroadcastModelArmorFlaggedRequests() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) *bool { return v.BroadcastModelArmorFlaggedRequests }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) ContentFilterBlocksRequests() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) *bool { return v.ContentFilterBlocksRequests }).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) ContentFilterBuiltins() GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) []GuardrailPolicyModerationConfigContentFilterBuiltin {
+		return v.ContentFilterBuiltins
+	}).(GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) ContentFilterPatterns() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) []string { return v.ContentFilterPatterns }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) ContentFilters() GuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) []GuardrailPolicyModerationConfigContentFilter {
+		return v.ContentFilters
+	}).(GuardrailPolicyModerationConfigContentFilterArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) EnableModelArmorInjectionProtection() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) *bool { return v.EnableModelArmorInjectionProtection }).(pulumi.BoolPtrOutput)
+}
+
+// must be one of ["block", "flag"]
+func (o GuardrailPolicyModerationConfigOutput) LakeraInjectionProtectionMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) *string { return v.LakeraInjectionProtectionMode }).(pulumi.StringPtrOutput)
+}
+
+// must be one of ["low", "medium", "high"]
+func (o GuardrailPolicyModerationConfigOutput) ModelArmorInjectionConfidenceLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) *string { return v.ModelArmorInjectionConfidenceLevel }).(pulumi.StringPtrOutput)
+}
+
+// must be one of ["block", "flag"]
+func (o GuardrailPolicyModerationConfigOutput) ModelArmorInjectionProtectionMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) *string { return v.ModelArmorInjectionProtectionMode }).(pulumi.StringPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) PiiFilters() GuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) []GuardrailPolicyModerationConfigPiiFilter {
+		return v.PiiFilters
+	}).(GuardrailPolicyModerationConfigPiiFilterArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) PlatformImageModeratedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) []string { return v.PlatformImageModeratedProviders }).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigOutput) PlatformModeratedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfig) []string { return v.PlatformModeratedProviders }).(pulumi.StringArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfig)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) ToGuardrailPolicyModerationConfigPtrOutput() GuardrailPolicyModerationConfigPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) ToGuardrailPolicyModerationConfigPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) Elem() GuardrailPolicyModerationConfigOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) GuardrailPolicyModerationConfig {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyModerationConfig
+		return ret
+	}).(GuardrailPolicyModerationConfigOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) Armor() GuardrailPolicyModerationConfigArmorPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) *GuardrailPolicyModerationConfigArmor {
+		if v == nil {
+			return nil
+		}
+		return v.Armor
+	}).(GuardrailPolicyModerationConfigArmorPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) BroadcastModelArmorFlaggedRequests() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BroadcastModelArmorFlaggedRequests
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) ContentFilterBlocksRequests() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ContentFilterBlocksRequests
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) ContentFilterBuiltins() GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) []GuardrailPolicyModerationConfigContentFilterBuiltin {
+		if v == nil {
+			return nil
+		}
+		return v.ContentFilterBuiltins
+	}).(GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) ContentFilterPatterns() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ContentFilterPatterns
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) ContentFilters() GuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) []GuardrailPolicyModerationConfigContentFilter {
+		if v == nil {
+			return nil
+		}
+		return v.ContentFilters
+	}).(GuardrailPolicyModerationConfigContentFilterArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) EnableModelArmorInjectionProtection() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnableModelArmorInjectionProtection
+	}).(pulumi.BoolPtrOutput)
+}
+
+// must be one of ["block", "flag"]
+func (o GuardrailPolicyModerationConfigPtrOutput) LakeraInjectionProtectionMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LakeraInjectionProtectionMode
+	}).(pulumi.StringPtrOutput)
+}
+
+// must be one of ["low", "medium", "high"]
+func (o GuardrailPolicyModerationConfigPtrOutput) ModelArmorInjectionConfidenceLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ModelArmorInjectionConfidenceLevel
+	}).(pulumi.StringPtrOutput)
+}
+
+// must be one of ["block", "flag"]
+func (o GuardrailPolicyModerationConfigPtrOutput) ModelArmorInjectionProtectionMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ModelArmorInjectionProtectionMode
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) PiiFilters() GuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) []GuardrailPolicyModerationConfigPiiFilter {
+		if v == nil {
+			return nil
+		}
+		return v.PiiFilters
+	}).(GuardrailPolicyModerationConfigPiiFilterArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) PlatformImageModeratedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.PlatformImageModeratedProviders
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPtrOutput) PlatformModeratedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfig) []string {
+		if v == nil {
+			return nil
+		}
+		return v.PlatformModeratedProviders
+	}).(pulumi.StringArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigArmor struct {
+	// The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+	ClassifierContext *GuardrailPolicyModerationConfigArmorClassifierContext `pulumi:"classifierContext"`
+	// `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`. must be one of ["enforce", "audit"]
+	Mode *string `pulumi:"mode"`
+	// When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+	OnError *string `pulumi:"onError"`
+	// Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+	UseCcStyleDefaultRules *bool `pulumi:"useCcStyleDefaultRules"`
+}
+
+// GuardrailPolicyModerationConfigArmorInput is an input type that accepts GuardrailPolicyModerationConfigArmorArgs and GuardrailPolicyModerationConfigArmorOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorArgs{...}
+type GuardrailPolicyModerationConfigArmorInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorOutput() GuardrailPolicyModerationConfigArmorOutput
+	ToGuardrailPolicyModerationConfigArmorOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorOutput
+}
+
+type GuardrailPolicyModerationConfigArmorArgs struct {
+	// The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+	ClassifierContext GuardrailPolicyModerationConfigArmorClassifierContextPtrInput `pulumi:"classifierContext"`
+	// `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`. must be one of ["enforce", "audit"]
+	Mode pulumi.StringPtrInput `pulumi:"mode"`
+	// When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+	OnError pulumi.StringPtrInput `pulumi:"onError"`
+	// Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+	UseCcStyleDefaultRules pulumi.BoolPtrInput `pulumi:"useCcStyleDefaultRules"`
+}
+
+func (GuardrailPolicyModerationConfigArmorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmor)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorArgs) ToGuardrailPolicyModerationConfigArmorOutput() GuardrailPolicyModerationConfigArmorOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorArgs) ToGuardrailPolicyModerationConfigArmorOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorOutput)
+}
+
+func (i GuardrailPolicyModerationConfigArmorArgs) ToGuardrailPolicyModerationConfigArmorPtrOutput() GuardrailPolicyModerationConfigArmorPtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorPtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorArgs) ToGuardrailPolicyModerationConfigArmorPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorOutput).ToGuardrailPolicyModerationConfigArmorPtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyModerationConfigArmorPtrInput is an input type that accepts GuardrailPolicyModerationConfigArmorArgs, GuardrailPolicyModerationConfigArmorPtr and GuardrailPolicyModerationConfigArmorPtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorPtrInput` via:
+//
+//	        GuardrailPolicyModerationConfigArmorArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyModerationConfigArmorPtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorPtrOutput() GuardrailPolicyModerationConfigArmorPtrOutput
+	ToGuardrailPolicyModerationConfigArmorPtrOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorPtrOutput
+}
+
+type guardrailPolicyModerationConfigArmorPtrType GuardrailPolicyModerationConfigArmorArgs
+
+func GuardrailPolicyModerationConfigArmorPtr(v *GuardrailPolicyModerationConfigArmorArgs) GuardrailPolicyModerationConfigArmorPtrInput {
+	return (*guardrailPolicyModerationConfigArmorPtrType)(v)
+}
+
+func (*guardrailPolicyModerationConfigArmorPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmor)(nil)).Elem()
+}
+
+func (i *guardrailPolicyModerationConfigArmorPtrType) ToGuardrailPolicyModerationConfigArmorPtrOutput() GuardrailPolicyModerationConfigArmorPtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorPtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyModerationConfigArmorPtrType) ToGuardrailPolicyModerationConfigArmorPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmor)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorOutput) ToGuardrailPolicyModerationConfigArmorOutput() GuardrailPolicyModerationConfigArmorOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorOutput) ToGuardrailPolicyModerationConfigArmorOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorOutput) ToGuardrailPolicyModerationConfigArmorPtrOutput() GuardrailPolicyModerationConfigArmorPtrOutput {
+	return o.ToGuardrailPolicyModerationConfigArmorPtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyModerationConfigArmorOutput) ToGuardrailPolicyModerationConfigArmorPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyModerationConfigArmor) *GuardrailPolicyModerationConfigArmor {
+		return &v
+	}).(GuardrailPolicyModerationConfigArmorPtrOutput)
+}
+
+// The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+func (o GuardrailPolicyModerationConfigArmorOutput) ClassifierContext() GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmor) *GuardrailPolicyModerationConfigArmorClassifierContext {
+		return v.ClassifierContext
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput)
+}
+
+// `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`. must be one of ["enforce", "audit"]
+func (o GuardrailPolicyModerationConfigArmorOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmor) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
+// When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+func (o GuardrailPolicyModerationConfigArmorOutput) OnError() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmor) *string { return v.OnError }).(pulumi.StringPtrOutput)
+}
+
+// Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+func (o GuardrailPolicyModerationConfigArmorOutput) UseCcStyleDefaultRules() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmor) *bool { return v.UseCcStyleDefaultRules }).(pulumi.BoolPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorPtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmor)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorPtrOutput) ToGuardrailPolicyModerationConfigArmorPtrOutput() GuardrailPolicyModerationConfigArmorPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorPtrOutput) ToGuardrailPolicyModerationConfigArmorPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorPtrOutput) Elem() GuardrailPolicyModerationConfigArmorOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmor) GuardrailPolicyModerationConfigArmor {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyModerationConfigArmor
+		return ret
+	}).(GuardrailPolicyModerationConfigArmorOutput)
+}
+
+// The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+func (o GuardrailPolicyModerationConfigArmorPtrOutput) ClassifierContext() GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmor) *GuardrailPolicyModerationConfigArmorClassifierContext {
+		if v == nil {
+			return nil
+		}
+		return v.ClassifierContext
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput)
+}
+
+// `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`. must be one of ["enforce", "audit"]
+func (o GuardrailPolicyModerationConfigArmorPtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmor) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
+}
+
+// When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+func (o GuardrailPolicyModerationConfigArmorPtrOutput) OnError() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmor) *string {
+		if v == nil {
+			return nil
+		}
+		return v.OnError
+	}).(pulumi.StringPtrOutput)
+}
+
+// Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+func (o GuardrailPolicyModerationConfigArmorPtrOutput) UseCcStyleDefaultRules() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmor) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UseCcStyleDefaultRules
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContext struct {
+	AdditionalProperties map[string]string                                              `pulumi:"additionalProperties"`
+	AutoMode             *GuardrailPolicyModerationConfigArmorClassifierContextAutoMode `pulumi:"autoMode"`
+	// Not Null
+	V *float64 `pulumi:"v"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextArgs and GuardrailPolicyModerationConfigArmorClassifierContextOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextOutput() GuardrailPolicyModerationConfigArmorClassifierContextOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextArgs struct {
+	AdditionalProperties pulumi.StringMapInput                                                 `pulumi:"additionalProperties"`
+	AutoMode             GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrInput `pulumi:"autoMode"`
+	// Not Null
+	V pulumi.Float64PtrInput `pulumi:"v"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContext)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextOutput() GuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextOutput)
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextOutput).ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextPtrInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextArgs, GuardrailPolicyModerationConfigArmorClassifierContextPtr and GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextPtrInput` via:
+//
+//	        GuardrailPolicyModerationConfigArmorClassifierContextArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyModerationConfigArmorClassifierContextPtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput
+}
+
+type guardrailPolicyModerationConfigArmorClassifierContextPtrType GuardrailPolicyModerationConfigArmorClassifierContextArgs
+
+func GuardrailPolicyModerationConfigArmorClassifierContextPtr(v *GuardrailPolicyModerationConfigArmorClassifierContextArgs) GuardrailPolicyModerationConfigArmorClassifierContextPtrInput {
+	return (*guardrailPolicyModerationConfigArmorClassifierContextPtrType)(v)
+}
+
+func (*guardrailPolicyModerationConfigArmorClassifierContextPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContext)(nil)).Elem()
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextPtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextPtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContext)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextOutput() GuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return o.ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyModerationConfigArmorClassifierContext) *GuardrailPolicyModerationConfigArmorClassifierContext {
+		return &v
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextOutput) AdditionalProperties() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContext) map[string]string {
+		return v.AdditionalProperties
+	}).(pulumi.StringMapOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextOutput) AutoMode() GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContext) *GuardrailPolicyModerationConfigArmorClassifierContextAutoMode {
+		return v.AutoMode
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput)
+}
+
+// Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextOutput) V() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContext) *float64 { return v.V }).(pulumi.Float64PtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContext)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput) Elem() GuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContext) GuardrailPolicyModerationConfigArmorClassifierContext {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyModerationConfigArmorClassifierContext
+		return ret
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput) AdditionalProperties() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContext) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalProperties
+	}).(pulumi.StringMapOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput) AutoMode() GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContext) *GuardrailPolicyModerationConfigArmorClassifierContextAutoMode {
+		if v == nil {
+			return nil
+		}
+		return v.AutoMode
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput)
+}
+
+// Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput) V() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContext) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.V
+	}).(pulumi.Float64PtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoMode struct {
+	Allows       []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow       `pulumi:"allows"`
+	Environments []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment `pulumi:"environments"`
+	HardDenies   []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny    `pulumi:"hardDenies"`
+	SoftDenies   []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny    `pulumi:"softDenies"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs struct {
+	Allows       GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput       `pulumi:"allows"`
+	Environments GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput `pulumi:"environments"`
+	HardDenies   GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput    `pulumi:"hardDenies"`
+	SoftDenies   GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput    `pulumi:"softDenies"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoMode)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput)
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput).ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs, GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtr and GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrInput` via:
+//
+//	        GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput
+}
+
+type guardrailPolicyModerationConfigArmorClassifierContextAutoModePtrType GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs
+
+func GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtr(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs) GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrInput {
+	return (*guardrailPolicyModerationConfigArmorClassifierContextAutoModePtrType)(v)
+}
+
+func (*guardrailPolicyModerationConfigArmorClassifierContextAutoModePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoMode)(nil)).Elem()
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModePtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModePtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoMode)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return o.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) *GuardrailPolicyModerationConfigArmorClassifierContextAutoMode {
+		return &v
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) Allows() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow {
+		return v.Allows
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) Environments() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment {
+		return v.Environments
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) HardDenies() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny {
+		return v.HardDenies
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) SoftDenies() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny {
+		return v.SoftDenies
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoMode)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput) Elem() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) GuardrailPolicyModerationConfigArmorClassifierContextAutoMode {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyModerationConfigArmorClassifierContextAutoMode
+		return ret
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput) Allows() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow {
+		if v == nil {
+			return nil
+		}
+		return v.Allows
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput) Environments() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment {
+		if v == nil {
+			return nil
+		}
+		return v.Environments
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput) HardDenies() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny {
+		if v == nil {
+			return nil
+		}
+		return v.HardDenies
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput) SoftDenies() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny {
+		if v == nil {
+			return nil
+		}
+		return v.SoftDenies
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow struct {
+	ArmorRule *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule `pulumi:"armorRule"`
+	Str       *string                                                                      `pulumi:"str"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs struct {
+	ArmorRule GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrInput `pulumi:"armorRule"`
+	Str       pulumi.StringPtrInput                                                               `pulumi:"str"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray{ GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs{...} }
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) ArmorRule() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow) *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule {
+		return v.ArmorRule
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) Str() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow) *string { return v.Str }).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput) Index(i pulumi.IntInput) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow {
+		return vs[0].([]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)[vs[1].(int)]
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+	Id *string `pulumi:"id"`
+	// What the rule matches, written for the classifier. Not Null
+	Instructions *string `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name *string `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold *float64 `pulumi:"threshold"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// What the rule matches, written for the classifier. Not Null
+	Instructions pulumi.StringPtrInput `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold pulumi.Float64PtrInput `pulumi:"threshold"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput)
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput).ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs, GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtr and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrInput` via:
+//
+//	        GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput
+}
+
+type guardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrType GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs
+
+func GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtr(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrInput {
+	return (*guardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrType)(v)
+}
+
+func (*guardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule)(nil)).Elem()
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput {
+	return o.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule {
+		return &v
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput)
+}
+
+// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) *string {
+		return v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// What the rule matches, written for the classifier. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) Instructions() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) *string {
+		return v.Instructions
+	}).(pulumi.StringPtrOutput)
+}
+
+// Display name shown in verdict explanations; defaults to the id.
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) *string {
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) *float64 {
+		return v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput) Elem() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule
+		return ret
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput)
+}
+
+// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// What the rule matches, written for the classifier. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput) Instructions() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Instructions
+	}).(pulumi.StringPtrOutput)
+}
+
+// Display name shown in verdict explanations; defaults to the id.
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment struct {
+	ArmorEnvironmentEntry *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry `pulumi:"armorEnvironmentEntry"`
+	Str                   *string                                                                                        `pulumi:"str"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs struct {
+	ArmorEnvironmentEntry GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrInput `pulumi:"armorEnvironmentEntry"`
+	Str                   pulumi.StringPtrInput                                                                                 `pulumi:"str"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray{ GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs{...} }
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) ArmorEnvironmentEntry() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment) *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry {
+		return v.ArmorEnvironmentEntry
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) Str() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment) *string { return v.Str }).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput) Index(i pulumi.IntInput) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment {
+		return vs[0].([]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)[vs[1].(int)]
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry struct {
+	// Not Null
+	Name *string `pulumi:"name"`
+	// Not Null
+	Value *string `pulumi:"value"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs struct {
+	// Not Null
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Not Null
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput)
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput).ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs, GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtr and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrInput` via:
+//
+//	        GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput
+}
+
+type guardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrType GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs
+
+func GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtr(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrInput {
+	return (*guardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrType)(v)
+}
+
+func (*guardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry)(nil)).Elem()
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput {
+	return o.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry) *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry {
+		return &v
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput)
+}
+
+// Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry) *string {
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry) *string {
+		return v.Value
+	}).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput) Elem() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry
+		return ret
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput)
+}
+
+// Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Value
+	}).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny struct {
+	ArmorRule *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule `pulumi:"armorRule"`
+	Str       *string                                                                         `pulumi:"str"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs struct {
+	ArmorRule GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrInput `pulumi:"armorRule"`
+	Str       pulumi.StringPtrInput                                                                  `pulumi:"str"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray{ GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs{...} }
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) ArmorRule() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny) *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule {
+		return v.ArmorRule
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) Str() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny) *string { return v.Str }).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput) Index(i pulumi.IntInput) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny {
+		return vs[0].([]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)[vs[1].(int)]
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+	Id *string `pulumi:"id"`
+	// What the rule matches, written for the classifier. Not Null
+	Instructions *string `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name *string `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold *float64 `pulumi:"threshold"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// What the rule matches, written for the classifier. Not Null
+	Instructions pulumi.StringPtrInput `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold pulumi.Float64PtrInput `pulumi:"threshold"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput)
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput).ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs, GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtr and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrInput` via:
+//
+//	        GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput
+}
+
+type guardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrType GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs
+
+func GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtr(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrInput {
+	return (*guardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrType)(v)
+}
+
+func (*guardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule)(nil)).Elem()
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput {
+	return o.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule {
+		return &v
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput)
+}
+
+// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) *string {
+		return v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// What the rule matches, written for the classifier. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) Instructions() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) *string {
+		return v.Instructions
+	}).(pulumi.StringPtrOutput)
+}
+
+// Display name shown in verdict explanations; defaults to the id.
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) *string {
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) *float64 {
+		return v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput) Elem() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule
+		return ret
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput)
+}
+
+// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// What the rule matches, written for the classifier. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput) Instructions() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Instructions
+	}).(pulumi.StringPtrOutput)
+}
+
+// Display name shown in verdict explanations; defaults to the id.
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny struct {
+	ArmorRule *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule `pulumi:"armorRule"`
+	Str       *string                                                                         `pulumi:"str"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs struct {
+	ArmorRule GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrInput `pulumi:"armorRule"`
+	Str       pulumi.StringPtrInput                                                                  `pulumi:"str"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray{ GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs{...} }
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray []GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) ArmorRule() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny) *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule {
+		return v.ArmorRule
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) Str() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny) *string { return v.Str }).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput) Index(i pulumi.IntInput) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny {
+		return vs[0].([]GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)[vs[1].(int)]
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+	Id *string `pulumi:"id"`
+	// What the rule matches, written for the classifier. Not Null
+	Instructions *string `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name *string `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold *float64 `pulumi:"threshold"`
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleInput` via:
+//
+//	GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs{...}
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// What the rule matches, written for the classifier. Not Null
+	Instructions pulumi.StringPtrInput `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold pulumi.Float64PtrInput `pulumi:"threshold"`
+}
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput)
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput).ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutputWithContext(ctx)
+}
+
+// GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrInput is an input type that accepts GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs, GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtr and GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrInput` via:
+//
+//	        GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput
+	ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutputWithContext(context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput
+}
+
+type guardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrType GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs
+
+func GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtr(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrInput {
+	return (*guardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrType)(v)
+}
+
+func (*guardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule)(nil)).Elem()
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput {
+	return i.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutputWithContext(context.Background())
+}
+
+func (i *guardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrType) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput {
+	return o.ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutputWithContext(context.Background())
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule {
+		return &v
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput)
+}
+
+// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) *string {
+		return v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// What the rule matches, written for the classifier. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) Instructions() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) *string {
+		return v.Instructions
+	}).(pulumi.StringPtrOutput)
+}
+
+// Display name shown in verdict explanations; defaults to the id.
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) *string {
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) *float64 {
+		return v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
+type GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput) ToGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput) Elem() GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule {
+		if v != nil {
+			return *v
+		}
+		var ret GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule
+		return ret
+	}).(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput)
+}
+
+// Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// What the rule matches, written for the classifier. Not Null
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput) Instructions() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Instructions
+	}).(pulumi.StringPtrOutput)
+}
+
+// Display name shown in verdict explanations; defaults to the id.
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+func (o GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput) Threshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) *float64 {
+		if v == nil {
+			return nil
+		}
+		return v.Threshold
+	}).(pulumi.Float64PtrOutput)
+}
+
+type GuardrailPolicyModerationConfigContentFilter struct {
+	// Not Null; must be one of ["redact", "block", "flag"]
+	Action *string `pulumi:"action"`
+	Label  *string `pulumi:"label"`
+	// Not Null
+	Pattern *string `pulumi:"pattern"`
+}
+
+// GuardrailPolicyModerationConfigContentFilterInput is an input type that accepts GuardrailPolicyModerationConfigContentFilterArgs and GuardrailPolicyModerationConfigContentFilterOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigContentFilterInput` via:
+//
+//	GuardrailPolicyModerationConfigContentFilterArgs{...}
+type GuardrailPolicyModerationConfigContentFilterInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigContentFilterOutput() GuardrailPolicyModerationConfigContentFilterOutput
+	ToGuardrailPolicyModerationConfigContentFilterOutputWithContext(context.Context) GuardrailPolicyModerationConfigContentFilterOutput
+}
+
+type GuardrailPolicyModerationConfigContentFilterArgs struct {
+	// Not Null; must be one of ["redact", "block", "flag"]
+	Action pulumi.StringPtrInput `pulumi:"action"`
+	Label  pulumi.StringPtrInput `pulumi:"label"`
+	// Not Null
+	Pattern pulumi.StringPtrInput `pulumi:"pattern"`
+}
+
+func (GuardrailPolicyModerationConfigContentFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigContentFilter)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigContentFilterArgs) ToGuardrailPolicyModerationConfigContentFilterOutput() GuardrailPolicyModerationConfigContentFilterOutput {
+	return i.ToGuardrailPolicyModerationConfigContentFilterOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigContentFilterArgs) ToGuardrailPolicyModerationConfigContentFilterOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigContentFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigContentFilterOutput)
+}
+
+// GuardrailPolicyModerationConfigContentFilterArrayInput is an input type that accepts GuardrailPolicyModerationConfigContentFilterArray and GuardrailPolicyModerationConfigContentFilterArrayOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigContentFilterArrayInput` via:
+//
+//	GuardrailPolicyModerationConfigContentFilterArray{ GuardrailPolicyModerationConfigContentFilterArgs{...} }
+type GuardrailPolicyModerationConfigContentFilterArrayInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigContentFilterArrayOutput() GuardrailPolicyModerationConfigContentFilterArrayOutput
+	ToGuardrailPolicyModerationConfigContentFilterArrayOutputWithContext(context.Context) GuardrailPolicyModerationConfigContentFilterArrayOutput
+}
+
+type GuardrailPolicyModerationConfigContentFilterArray []GuardrailPolicyModerationConfigContentFilterInput
+
+func (GuardrailPolicyModerationConfigContentFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigContentFilter)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigContentFilterArray) ToGuardrailPolicyModerationConfigContentFilterArrayOutput() GuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return i.ToGuardrailPolicyModerationConfigContentFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigContentFilterArray) ToGuardrailPolicyModerationConfigContentFilterArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigContentFilterArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigContentFilterOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigContentFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigContentFilter)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterOutput) ToGuardrailPolicyModerationConfigContentFilterOutput() GuardrailPolicyModerationConfigContentFilterOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterOutput) ToGuardrailPolicyModerationConfigContentFilterOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigContentFilterOutput {
+	return o
+}
+
+// Not Null; must be one of ["redact", "block", "flag"]
+func (o GuardrailPolicyModerationConfigContentFilterOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigContentFilter) *string { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigContentFilter) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+// Not Null
+func (o GuardrailPolicyModerationConfigContentFilterOutput) Pattern() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigContentFilter) *string { return v.Pattern }).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigContentFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigContentFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigContentFilter)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterArrayOutput) ToGuardrailPolicyModerationConfigContentFilterArrayOutput() GuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterArrayOutput) ToGuardrailPolicyModerationConfigContentFilterArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterArrayOutput) Index(i pulumi.IntInput) GuardrailPolicyModerationConfigContentFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GuardrailPolicyModerationConfigContentFilter {
+		return vs[0].([]GuardrailPolicyModerationConfigContentFilter)[vs[1].(int)]
+	}).(GuardrailPolicyModerationConfigContentFilterOutput)
+}
+
+type GuardrailPolicyModerationConfigContentFilterBuiltin struct {
+	// Not Null; must be one of ["redact", "block", "flag"]
+	Action *string `pulumi:"action"`
+	Label  *string `pulumi:"label"`
+	// must be one of ["userOnly", "allMessages"]
+	ScanScope *string `pulumi:"scanScope"`
+	// Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+	Slug *string `pulumi:"slug"`
+}
+
+// GuardrailPolicyModerationConfigContentFilterBuiltinInput is an input type that accepts GuardrailPolicyModerationConfigContentFilterBuiltinArgs and GuardrailPolicyModerationConfigContentFilterBuiltinOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigContentFilterBuiltinInput` via:
+//
+//	GuardrailPolicyModerationConfigContentFilterBuiltinArgs{...}
+type GuardrailPolicyModerationConfigContentFilterBuiltinInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigContentFilterBuiltinOutput() GuardrailPolicyModerationConfigContentFilterBuiltinOutput
+	ToGuardrailPolicyModerationConfigContentFilterBuiltinOutputWithContext(context.Context) GuardrailPolicyModerationConfigContentFilterBuiltinOutput
+}
+
+type GuardrailPolicyModerationConfigContentFilterBuiltinArgs struct {
+	// Not Null; must be one of ["redact", "block", "flag"]
+	Action pulumi.StringPtrInput `pulumi:"action"`
+	Label  pulumi.StringPtrInput `pulumi:"label"`
+	// must be one of ["userOnly", "allMessages"]
+	ScanScope pulumi.StringPtrInput `pulumi:"scanScope"`
+	// Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+	Slug pulumi.StringPtrInput `pulumi:"slug"`
+}
+
+func (GuardrailPolicyModerationConfigContentFilterBuiltinArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigContentFilterBuiltin)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigContentFilterBuiltinArgs) ToGuardrailPolicyModerationConfigContentFilterBuiltinOutput() GuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return i.ToGuardrailPolicyModerationConfigContentFilterBuiltinOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigContentFilterBuiltinArgs) ToGuardrailPolicyModerationConfigContentFilterBuiltinOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigContentFilterBuiltinOutput)
+}
+
+// GuardrailPolicyModerationConfigContentFilterBuiltinArrayInput is an input type that accepts GuardrailPolicyModerationConfigContentFilterBuiltinArray and GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigContentFilterBuiltinArrayInput` via:
+//
+//	GuardrailPolicyModerationConfigContentFilterBuiltinArray{ GuardrailPolicyModerationConfigContentFilterBuiltinArgs{...} }
+type GuardrailPolicyModerationConfigContentFilterBuiltinArrayInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput() GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput
+	ToGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutputWithContext(context.Context) GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput
+}
+
+type GuardrailPolicyModerationConfigContentFilterBuiltinArray []GuardrailPolicyModerationConfigContentFilterBuiltinInput
+
+func (GuardrailPolicyModerationConfigContentFilterBuiltinArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigContentFilterBuiltin)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigContentFilterBuiltinArray) ToGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput() GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return i.ToGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigContentFilterBuiltinArray) ToGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigContentFilterBuiltinOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigContentFilterBuiltinOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigContentFilterBuiltin)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterBuiltinOutput) ToGuardrailPolicyModerationConfigContentFilterBuiltinOutput() GuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterBuiltinOutput) ToGuardrailPolicyModerationConfigContentFilterBuiltinOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return o
+}
+
+// Not Null; must be one of ["redact", "block", "flag"]
+func (o GuardrailPolicyModerationConfigContentFilterBuiltinOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigContentFilterBuiltin) *string { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterBuiltinOutput) Label() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigContentFilterBuiltin) *string { return v.Label }).(pulumi.StringPtrOutput)
+}
+
+// must be one of ["userOnly", "allMessages"]
+func (o GuardrailPolicyModerationConfigContentFilterBuiltinOutput) ScanScope() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigContentFilterBuiltin) *string { return v.ScanScope }).(pulumi.StringPtrOutput)
+}
+
+// Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+func (o GuardrailPolicyModerationConfigContentFilterBuiltinOutput) Slug() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigContentFilterBuiltin) *string { return v.Slug }).(pulumi.StringPtrOutput)
+}
+
+type GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigContentFilterBuiltin)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput) ToGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput() GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput) ToGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput) Index(i pulumi.IntInput) GuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GuardrailPolicyModerationConfigContentFilterBuiltin {
+		return vs[0].([]GuardrailPolicyModerationConfigContentFilterBuiltin)[vs[1].(int)]
+	}).(GuardrailPolicyModerationConfigContentFilterBuiltinOutput)
+}
+
+type GuardrailPolicyModerationConfigPiiFilter struct {
+	// Not Null; must be one of ["redact", "block", "flag"]
+	Action *string `pulumi:"action"`
+	// Not Null
+	EntityType     *string  `pulumi:"entityType"`
+	ScoreThreshold *float64 `pulumi:"scoreThreshold"`
+}
+
+// GuardrailPolicyModerationConfigPiiFilterInput is an input type that accepts GuardrailPolicyModerationConfigPiiFilterArgs and GuardrailPolicyModerationConfigPiiFilterOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigPiiFilterInput` via:
+//
+//	GuardrailPolicyModerationConfigPiiFilterArgs{...}
+type GuardrailPolicyModerationConfigPiiFilterInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigPiiFilterOutput() GuardrailPolicyModerationConfigPiiFilterOutput
+	ToGuardrailPolicyModerationConfigPiiFilterOutputWithContext(context.Context) GuardrailPolicyModerationConfigPiiFilterOutput
+}
+
+type GuardrailPolicyModerationConfigPiiFilterArgs struct {
+	// Not Null; must be one of ["redact", "block", "flag"]
+	Action pulumi.StringPtrInput `pulumi:"action"`
+	// Not Null
+	EntityType     pulumi.StringPtrInput  `pulumi:"entityType"`
+	ScoreThreshold pulumi.Float64PtrInput `pulumi:"scoreThreshold"`
+}
+
+func (GuardrailPolicyModerationConfigPiiFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigPiiFilter)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigPiiFilterArgs) ToGuardrailPolicyModerationConfigPiiFilterOutput() GuardrailPolicyModerationConfigPiiFilterOutput {
+	return i.ToGuardrailPolicyModerationConfigPiiFilterOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigPiiFilterArgs) ToGuardrailPolicyModerationConfigPiiFilterOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigPiiFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigPiiFilterOutput)
+}
+
+// GuardrailPolicyModerationConfigPiiFilterArrayInput is an input type that accepts GuardrailPolicyModerationConfigPiiFilterArray and GuardrailPolicyModerationConfigPiiFilterArrayOutput values.
+// You can construct a concrete instance of `GuardrailPolicyModerationConfigPiiFilterArrayInput` via:
+//
+//	GuardrailPolicyModerationConfigPiiFilterArray{ GuardrailPolicyModerationConfigPiiFilterArgs{...} }
+type GuardrailPolicyModerationConfigPiiFilterArrayInput interface {
+	pulumi.Input
+
+	ToGuardrailPolicyModerationConfigPiiFilterArrayOutput() GuardrailPolicyModerationConfigPiiFilterArrayOutput
+	ToGuardrailPolicyModerationConfigPiiFilterArrayOutputWithContext(context.Context) GuardrailPolicyModerationConfigPiiFilterArrayOutput
+}
+
+type GuardrailPolicyModerationConfigPiiFilterArray []GuardrailPolicyModerationConfigPiiFilterInput
+
+func (GuardrailPolicyModerationConfigPiiFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigPiiFilter)(nil)).Elem()
+}
+
+func (i GuardrailPolicyModerationConfigPiiFilterArray) ToGuardrailPolicyModerationConfigPiiFilterArrayOutput() GuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return i.ToGuardrailPolicyModerationConfigPiiFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GuardrailPolicyModerationConfigPiiFilterArray) ToGuardrailPolicyModerationConfigPiiFilterArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuardrailPolicyModerationConfigPiiFilterArrayOutput)
+}
+
+type GuardrailPolicyModerationConfigPiiFilterOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigPiiFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuardrailPolicyModerationConfigPiiFilter)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigPiiFilterOutput) ToGuardrailPolicyModerationConfigPiiFilterOutput() GuardrailPolicyModerationConfigPiiFilterOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigPiiFilterOutput) ToGuardrailPolicyModerationConfigPiiFilterOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigPiiFilterOutput {
+	return o
+}
+
+// Not Null; must be one of ["redact", "block", "flag"]
+func (o GuardrailPolicyModerationConfigPiiFilterOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigPiiFilter) *string { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+// Not Null
+func (o GuardrailPolicyModerationConfigPiiFilterOutput) EntityType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigPiiFilter) *string { return v.EntityType }).(pulumi.StringPtrOutput)
+}
+
+func (o GuardrailPolicyModerationConfigPiiFilterOutput) ScoreThreshold() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GuardrailPolicyModerationConfigPiiFilter) *float64 { return v.ScoreThreshold }).(pulumi.Float64PtrOutput)
+}
+
+type GuardrailPolicyModerationConfigPiiFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GuardrailPolicyModerationConfigPiiFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GuardrailPolicyModerationConfigPiiFilter)(nil)).Elem()
+}
+
+func (o GuardrailPolicyModerationConfigPiiFilterArrayOutput) ToGuardrailPolicyModerationConfigPiiFilterArrayOutput() GuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigPiiFilterArrayOutput) ToGuardrailPolicyModerationConfigPiiFilterArrayOutputWithContext(ctx context.Context) GuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return o
+}
+
+func (o GuardrailPolicyModerationConfigPiiFilterArrayOutput) Index(i pulumi.IntInput) GuardrailPolicyModerationConfigPiiFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GuardrailPolicyModerationConfigPiiFilter {
+		return vs[0].([]GuardrailPolicyModerationConfigPiiFilter)[vs[1].(int)]
+	}).(GuardrailPolicyModerationConfigPiiFilterOutput)
+}
+
 type ObservabilityDestinationArize struct {
 	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
 	ApiKeyHashes []string `pulumi:"apiKeyHashes"`
@@ -22792,6 +25803,1647 @@ func (o GetGuardrailMemberAssignmentsDataArrayOutput) Index(i pulumi.IntInput) G
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetGuardrailMemberAssignmentsData {
 		return vs[0].([]GetGuardrailMemberAssignmentsData)[vs[1].(int)]
 	}).(GetGuardrailMemberAssignmentsDataOutput)
+}
+
+type GetGuardrailPolicyBudgetConfig struct {
+	// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+	IncludeByokInBudgets bool `pulumi:"includeByokInBudgets"`
+	// Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+	LimitUsd float64 `pulumi:"limitUsd"`
+	// Interval at which the limit resets (daily, weekly, monthly)
+	ResetInterval string `pulumi:"resetInterval"`
+}
+
+// GetGuardrailPolicyBudgetConfigInput is an input type that accepts GetGuardrailPolicyBudgetConfigArgs and GetGuardrailPolicyBudgetConfigOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyBudgetConfigInput` via:
+//
+//	GetGuardrailPolicyBudgetConfigArgs{...}
+type GetGuardrailPolicyBudgetConfigInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyBudgetConfigOutput() GetGuardrailPolicyBudgetConfigOutput
+	ToGetGuardrailPolicyBudgetConfigOutputWithContext(context.Context) GetGuardrailPolicyBudgetConfigOutput
+}
+
+type GetGuardrailPolicyBudgetConfigArgs struct {
+	// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+	IncludeByokInBudgets pulumi.BoolInput `pulumi:"includeByokInBudgets"`
+	// Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+	LimitUsd pulumi.Float64Input `pulumi:"limitUsd"`
+	// Interval at which the limit resets (daily, weekly, monthly)
+	ResetInterval pulumi.StringInput `pulumi:"resetInterval"`
+}
+
+func (GetGuardrailPolicyBudgetConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyBudgetConfig)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyBudgetConfigArgs) ToGetGuardrailPolicyBudgetConfigOutput() GetGuardrailPolicyBudgetConfigOutput {
+	return i.ToGetGuardrailPolicyBudgetConfigOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyBudgetConfigArgs) ToGetGuardrailPolicyBudgetConfigOutputWithContext(ctx context.Context) GetGuardrailPolicyBudgetConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyBudgetConfigOutput)
+}
+
+type GetGuardrailPolicyBudgetConfigOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyBudgetConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyBudgetConfig)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyBudgetConfigOutput) ToGetGuardrailPolicyBudgetConfigOutput() GetGuardrailPolicyBudgetConfigOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyBudgetConfigOutput) ToGetGuardrailPolicyBudgetConfigOutputWithContext(ctx context.Context) GetGuardrailPolicyBudgetConfigOutput {
+	return o
+}
+
+// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+func (o GetGuardrailPolicyBudgetConfigOutput) IncludeByokInBudgets() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyBudgetConfig) bool { return v.IncludeByokInBudgets }).(pulumi.BoolOutput)
+}
+
+// Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+func (o GetGuardrailPolicyBudgetConfigOutput) LimitUsd() pulumi.Float64Output {
+	return o.ApplyT(func(v GetGuardrailPolicyBudgetConfig) float64 { return v.LimitUsd }).(pulumi.Float64Output)
+}
+
+// Interval at which the limit resets (daily, weekly, monthly)
+func (o GetGuardrailPolicyBudgetConfigOutput) ResetInterval() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyBudgetConfig) string { return v.ResetInterval }).(pulumi.StringOutput)
+}
+
+type GetGuardrailPolicyModelAvailabilityConfig struct {
+	AllowSafetyRetentionGoogle     bool     `pulumi:"allowSafetyRetentionGoogle"`
+	AllowSafetyRetentionOther      bool     `pulumi:"allowSafetyRetentionOther"`
+	AllowedDataRegions             []string `pulumi:"allowedDataRegions"`
+	AllowedModels                  []string `pulumi:"allowedModels"`
+	AllowedProviders               []string `pulumi:"allowedProviders"`
+	EnableFreeModelPublication     bool     `pulumi:"enableFreeModelPublication"`
+	EnableFreeModelTraining        bool     `pulumi:"enableFreeModelTraining"`
+	EnablePaidModelTraining        bool     `pulumi:"enablePaidModelTraining"`
+	EnforceFirstPartyHarnessModels bool     `pulumi:"enforceFirstPartyHarnessModels"`
+	EnforceZdr                     bool     `pulumi:"enforceZdr"`
+	EnforceZdrAnthropic            bool     `pulumi:"enforceZdrAnthropic"`
+	EnforceZdrGoogle               bool     `pulumi:"enforceZdrGoogle"`
+	EnforceZdrOpenai               bool     `pulumi:"enforceZdrOpenai"`
+	EnforceZdrOther                bool     `pulumi:"enforceZdrOther"`
+	EnforceZdrXai                  bool     `pulumi:"enforceZdrXai"`
+	IgnoredModels                  []string `pulumi:"ignoredModels"`
+	IgnoredProviders               []string `pulumi:"ignoredProviders"`
+	PlatformBannedAuthors          []string `pulumi:"platformBannedAuthors"`
+	PlatformBannedModels           []string `pulumi:"platformBannedModels"`
+	PlatformBannedProviders        []string `pulumi:"platformBannedProviders"`
+	RequireEuDataRegion            bool     `pulumi:"requireEuDataRegion"`
+}
+
+// GetGuardrailPolicyModelAvailabilityConfigInput is an input type that accepts GetGuardrailPolicyModelAvailabilityConfigArgs and GetGuardrailPolicyModelAvailabilityConfigOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModelAvailabilityConfigInput` via:
+//
+//	GetGuardrailPolicyModelAvailabilityConfigArgs{...}
+type GetGuardrailPolicyModelAvailabilityConfigInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModelAvailabilityConfigOutput() GetGuardrailPolicyModelAvailabilityConfigOutput
+	ToGetGuardrailPolicyModelAvailabilityConfigOutputWithContext(context.Context) GetGuardrailPolicyModelAvailabilityConfigOutput
+}
+
+type GetGuardrailPolicyModelAvailabilityConfigArgs struct {
+	AllowSafetyRetentionGoogle     pulumi.BoolInput        `pulumi:"allowSafetyRetentionGoogle"`
+	AllowSafetyRetentionOther      pulumi.BoolInput        `pulumi:"allowSafetyRetentionOther"`
+	AllowedDataRegions             pulumi.StringArrayInput `pulumi:"allowedDataRegions"`
+	AllowedModels                  pulumi.StringArrayInput `pulumi:"allowedModels"`
+	AllowedProviders               pulumi.StringArrayInput `pulumi:"allowedProviders"`
+	EnableFreeModelPublication     pulumi.BoolInput        `pulumi:"enableFreeModelPublication"`
+	EnableFreeModelTraining        pulumi.BoolInput        `pulumi:"enableFreeModelTraining"`
+	EnablePaidModelTraining        pulumi.BoolInput        `pulumi:"enablePaidModelTraining"`
+	EnforceFirstPartyHarnessModels pulumi.BoolInput        `pulumi:"enforceFirstPartyHarnessModels"`
+	EnforceZdr                     pulumi.BoolInput        `pulumi:"enforceZdr"`
+	EnforceZdrAnthropic            pulumi.BoolInput        `pulumi:"enforceZdrAnthropic"`
+	EnforceZdrGoogle               pulumi.BoolInput        `pulumi:"enforceZdrGoogle"`
+	EnforceZdrOpenai               pulumi.BoolInput        `pulumi:"enforceZdrOpenai"`
+	EnforceZdrOther                pulumi.BoolInput        `pulumi:"enforceZdrOther"`
+	EnforceZdrXai                  pulumi.BoolInput        `pulumi:"enforceZdrXai"`
+	IgnoredModels                  pulumi.StringArrayInput `pulumi:"ignoredModels"`
+	IgnoredProviders               pulumi.StringArrayInput `pulumi:"ignoredProviders"`
+	PlatformBannedAuthors          pulumi.StringArrayInput `pulumi:"platformBannedAuthors"`
+	PlatformBannedModels           pulumi.StringArrayInput `pulumi:"platformBannedModels"`
+	PlatformBannedProviders        pulumi.StringArrayInput `pulumi:"platformBannedProviders"`
+	RequireEuDataRegion            pulumi.BoolInput        `pulumi:"requireEuDataRegion"`
+}
+
+func (GetGuardrailPolicyModelAvailabilityConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModelAvailabilityConfig)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModelAvailabilityConfigArgs) ToGetGuardrailPolicyModelAvailabilityConfigOutput() GetGuardrailPolicyModelAvailabilityConfigOutput {
+	return i.ToGetGuardrailPolicyModelAvailabilityConfigOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModelAvailabilityConfigArgs) ToGetGuardrailPolicyModelAvailabilityConfigOutputWithContext(ctx context.Context) GetGuardrailPolicyModelAvailabilityConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModelAvailabilityConfigOutput)
+}
+
+type GetGuardrailPolicyModelAvailabilityConfigOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModelAvailabilityConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModelAvailabilityConfig)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) ToGetGuardrailPolicyModelAvailabilityConfigOutput() GetGuardrailPolicyModelAvailabilityConfigOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) ToGetGuardrailPolicyModelAvailabilityConfigOutputWithContext(ctx context.Context) GetGuardrailPolicyModelAvailabilityConfigOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) AllowSafetyRetentionGoogle() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.AllowSafetyRetentionGoogle }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) AllowSafetyRetentionOther() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.AllowSafetyRetentionOther }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) AllowedDataRegions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) []string { return v.AllowedDataRegions }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) AllowedModels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) []string { return v.AllowedModels }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) AllowedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) []string { return v.AllowedProviders }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnableFreeModelPublication() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnableFreeModelPublication }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnableFreeModelTraining() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnableFreeModelTraining }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnablePaidModelTraining() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnablePaidModelTraining }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnforceFirstPartyHarnessModels() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnforceFirstPartyHarnessModels }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnforceZdr() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnforceZdr }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrAnthropic() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnforceZdrAnthropic }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrGoogle() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnforceZdrGoogle }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrOpenai() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnforceZdrOpenai }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrOther() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnforceZdrOther }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) EnforceZdrXai() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.EnforceZdrXai }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) IgnoredModels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) []string { return v.IgnoredModels }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) IgnoredProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) []string { return v.IgnoredProviders }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) PlatformBannedAuthors() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) []string { return v.PlatformBannedAuthors }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) PlatformBannedModels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) []string { return v.PlatformBannedModels }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) PlatformBannedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) []string { return v.PlatformBannedProviders }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModelAvailabilityConfigOutput) RequireEuDataRegion() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModelAvailabilityConfig) bool { return v.RequireEuDataRegion }).(pulumi.BoolOutput)
+}
+
+type GetGuardrailPolicyModerationConfig struct {
+	Armor                               GetGuardrailPolicyModerationConfigArmor                  `pulumi:"armor"`
+	BroadcastModelArmorFlaggedRequests  bool                                                     `pulumi:"broadcastModelArmorFlaggedRequests"`
+	ContentFilterBlocksRequests         bool                                                     `pulumi:"contentFilterBlocksRequests"`
+	ContentFilterBuiltins               []GetGuardrailPolicyModerationConfigContentFilterBuiltin `pulumi:"contentFilterBuiltins"`
+	ContentFilterPatterns               []string                                                 `pulumi:"contentFilterPatterns"`
+	ContentFilters                      []GetGuardrailPolicyModerationConfigContentFilter        `pulumi:"contentFilters"`
+	EnableModelArmorInjectionProtection bool                                                     `pulumi:"enableModelArmorInjectionProtection"`
+	LakeraInjectionProtectionMode       string                                                   `pulumi:"lakeraInjectionProtectionMode"`
+	ModelArmorInjectionConfidenceLevel  string                                                   `pulumi:"modelArmorInjectionConfidenceLevel"`
+	ModelArmorInjectionProtectionMode   string                                                   `pulumi:"modelArmorInjectionProtectionMode"`
+	PiiFilters                          []GetGuardrailPolicyModerationConfigPiiFilter            `pulumi:"piiFilters"`
+	PlatformImageModeratedProviders     []string                                                 `pulumi:"platformImageModeratedProviders"`
+	PlatformModeratedProviders          []string                                                 `pulumi:"platformModeratedProviders"`
+}
+
+// GetGuardrailPolicyModerationConfigInput is an input type that accepts GetGuardrailPolicyModerationConfigArgs and GetGuardrailPolicyModerationConfigOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArgs{...}
+type GetGuardrailPolicyModerationConfigInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigOutput() GetGuardrailPolicyModerationConfigOutput
+	ToGetGuardrailPolicyModerationConfigOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigOutput
+}
+
+type GetGuardrailPolicyModerationConfigArgs struct {
+	Armor                               GetGuardrailPolicyModerationConfigArmorInput                     `pulumi:"armor"`
+	BroadcastModelArmorFlaggedRequests  pulumi.BoolInput                                                 `pulumi:"broadcastModelArmorFlaggedRequests"`
+	ContentFilterBlocksRequests         pulumi.BoolInput                                                 `pulumi:"contentFilterBlocksRequests"`
+	ContentFilterBuiltins               GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayInput `pulumi:"contentFilterBuiltins"`
+	ContentFilterPatterns               pulumi.StringArrayInput                                          `pulumi:"contentFilterPatterns"`
+	ContentFilters                      GetGuardrailPolicyModerationConfigContentFilterArrayInput        `pulumi:"contentFilters"`
+	EnableModelArmorInjectionProtection pulumi.BoolInput                                                 `pulumi:"enableModelArmorInjectionProtection"`
+	LakeraInjectionProtectionMode       pulumi.StringInput                                               `pulumi:"lakeraInjectionProtectionMode"`
+	ModelArmorInjectionConfidenceLevel  pulumi.StringInput                                               `pulumi:"modelArmorInjectionConfidenceLevel"`
+	ModelArmorInjectionProtectionMode   pulumi.StringInput                                               `pulumi:"modelArmorInjectionProtectionMode"`
+	PiiFilters                          GetGuardrailPolicyModerationConfigPiiFilterArrayInput            `pulumi:"piiFilters"`
+	PlatformImageModeratedProviders     pulumi.StringArrayInput                                          `pulumi:"platformImageModeratedProviders"`
+	PlatformModeratedProviders          pulumi.StringArrayInput                                          `pulumi:"platformModeratedProviders"`
+}
+
+func (GetGuardrailPolicyModerationConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfig)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArgs) ToGetGuardrailPolicyModerationConfigOutput() GetGuardrailPolicyModerationConfigOutput {
+	return i.ToGetGuardrailPolicyModerationConfigOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArgs) ToGetGuardrailPolicyModerationConfigOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigOutput)
+}
+
+type GetGuardrailPolicyModerationConfigOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfig)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) ToGetGuardrailPolicyModerationConfigOutput() GetGuardrailPolicyModerationConfigOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) ToGetGuardrailPolicyModerationConfigOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) Armor() GetGuardrailPolicyModerationConfigArmorOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) GetGuardrailPolicyModerationConfigArmor { return v.Armor }).(GetGuardrailPolicyModerationConfigArmorOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) BroadcastModelArmorFlaggedRequests() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) bool { return v.BroadcastModelArmorFlaggedRequests }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) ContentFilterBlocksRequests() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) bool { return v.ContentFilterBlocksRequests }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) ContentFilterBuiltins() GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) []GetGuardrailPolicyModerationConfigContentFilterBuiltin {
+		return v.ContentFilterBuiltins
+	}).(GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) ContentFilterPatterns() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) []string { return v.ContentFilterPatterns }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) ContentFilters() GetGuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) []GetGuardrailPolicyModerationConfigContentFilter {
+		return v.ContentFilters
+	}).(GetGuardrailPolicyModerationConfigContentFilterArrayOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) EnableModelArmorInjectionProtection() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) bool { return v.EnableModelArmorInjectionProtection }).(pulumi.BoolOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) LakeraInjectionProtectionMode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) string { return v.LakeraInjectionProtectionMode }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) ModelArmorInjectionConfidenceLevel() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) string { return v.ModelArmorInjectionConfidenceLevel }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) ModelArmorInjectionProtectionMode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) string { return v.ModelArmorInjectionProtectionMode }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) PiiFilters() GetGuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) []GetGuardrailPolicyModerationConfigPiiFilter {
+		return v.PiiFilters
+	}).(GetGuardrailPolicyModerationConfigPiiFilterArrayOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) PlatformImageModeratedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) []string { return v.PlatformImageModeratedProviders }).(pulumi.StringArrayOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigOutput) PlatformModeratedProviders() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfig) []string { return v.PlatformModeratedProviders }).(pulumi.StringArrayOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmor struct {
+	// The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+	ClassifierContext GetGuardrailPolicyModerationConfigArmorClassifierContext `pulumi:"classifierContext"`
+	// `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`.
+	Mode string `pulumi:"mode"`
+	// When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`.
+	OnError string `pulumi:"onError"`
+	// Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+	UseCcStyleDefaultRules bool `pulumi:"useCcStyleDefaultRules"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorArgs and GetGuardrailPolicyModerationConfigArmorOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorArgs{...}
+type GetGuardrailPolicyModerationConfigArmorInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorOutput() GetGuardrailPolicyModerationConfigArmorOutput
+	ToGetGuardrailPolicyModerationConfigArmorOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorArgs struct {
+	// The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+	ClassifierContext GetGuardrailPolicyModerationConfigArmorClassifierContextInput `pulumi:"classifierContext"`
+	// `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`.
+	Mode pulumi.StringInput `pulumi:"mode"`
+	// When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`.
+	OnError pulumi.StringInput `pulumi:"onError"`
+	// Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+	UseCcStyleDefaultRules pulumi.BoolInput `pulumi:"useCcStyleDefaultRules"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmor)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorArgs) ToGetGuardrailPolicyModerationConfigArmorOutput() GetGuardrailPolicyModerationConfigArmorOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorArgs) ToGetGuardrailPolicyModerationConfigArmorOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmor)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorOutput) ToGetGuardrailPolicyModerationConfigArmorOutput() GetGuardrailPolicyModerationConfigArmorOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorOutput) ToGetGuardrailPolicyModerationConfigArmorOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorOutput {
+	return o
+}
+
+// The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+func (o GetGuardrailPolicyModerationConfigArmorOutput) ClassifierContext() GetGuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmor) GetGuardrailPolicyModerationConfigArmorClassifierContext {
+		return v.ClassifierContext
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextOutput)
+}
+
+// `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`.
+func (o GetGuardrailPolicyModerationConfigArmorOutput) Mode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmor) string { return v.Mode }).(pulumi.StringOutput)
+}
+
+// When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`.
+func (o GetGuardrailPolicyModerationConfigArmorOutput) OnError() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmor) string { return v.OnError }).(pulumi.StringOutput)
+}
+
+// Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+func (o GetGuardrailPolicyModerationConfigArmorOutput) UseCcStyleDefaultRules() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmor) bool { return v.UseCcStyleDefaultRules }).(pulumi.BoolOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContext struct {
+	AdditionalProperties map[string]string                                                `pulumi:"additionalProperties"`
+	AutoMode             GetGuardrailPolicyModerationConfigArmorClassifierContextAutoMode `pulumi:"autoMode"`
+	V                    float64                                                          `pulumi:"v"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextArgs struct {
+	AdditionalProperties pulumi.StringMapInput                                                 `pulumi:"additionalProperties"`
+	AutoMode             GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeInput `pulumi:"autoMode"`
+	V                    pulumi.Float64Input                                                   `pulumi:"v"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContext)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContext)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextOutput) AdditionalProperties() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContext) map[string]string {
+		return v.AdditionalProperties
+	}).(pulumi.StringMapOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextOutput) AutoMode() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContext) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoMode {
+		return v.AutoMode
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextOutput) V() pulumi.Float64Output {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContext) float64 { return v.V }).(pulumi.Float64Output)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoMode struct {
+	Allows       []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow       `pulumi:"allows"`
+	Environments []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment `pulumi:"environments"`
+	HardDenies   []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny    `pulumi:"hardDenies"`
+	SoftDenies   []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny    `pulumi:"softDenies"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs struct {
+	Allows       GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput       `pulumi:"allows"`
+	Environments GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput `pulumi:"environments"`
+	HardDenies   GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput    `pulumi:"hardDenies"`
+	SoftDenies   GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput    `pulumi:"softDenies"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoMode)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoMode)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) Allows() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow {
+		return v.Allows
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) Environments() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment {
+		return v.Environments
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) HardDenies() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny {
+		return v.HardDenies
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput) SoftDenies() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoMode) []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny {
+		return v.SoftDenies
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow struct {
+	ArmorRule GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule `pulumi:"armorRule"`
+	Str       string                                                                         `pulumi:"str"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs struct {
+	ArmorRule GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleInput `pulumi:"armorRule"`
+	Str       pulumi.StringInput                                                                  `pulumi:"str"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput)
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray{ GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs{...} }
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) ArmorRule() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule {
+		return v.ArmorRule
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput) Str() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow) string { return v.Str }).(pulumi.StringOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput) Index(i pulumi.IntInput) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow {
+		return vs[0].([]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllow)[vs[1].(int)]
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires.
+	Id string `pulumi:"id"`
+	// What the rule matches, written for the classifier.
+	Instructions string `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name string `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold float64 `pulumi:"threshold"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires.
+	Id pulumi.StringInput `pulumi:"id"`
+	// What the rule matches, written for the classifier.
+	Instructions pulumi.StringInput `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold pulumi.Float64Input `pulumi:"threshold"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput {
+	return o
+}
+
+// Stable id, unique within its source; reported as the deciding rule when it fires.
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) string {
+		return v.Id
+	}).(pulumi.StringOutput)
+}
+
+// What the rule matches, written for the classifier.
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) Instructions() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) string {
+		return v.Instructions
+	}).(pulumi.StringOutput)
+}
+
+// Display name shown in verdict explanations; defaults to the id.
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) string {
+		return v.Name
+	}).(pulumi.StringOutput)
+}
+
+// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput) Threshold() pulumi.Float64Output {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRule) float64 {
+		return v.Threshold
+	}).(pulumi.Float64Output)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment struct {
+	ArmorEnvironmentEntry GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry `pulumi:"armorEnvironmentEntry"`
+	Str                   string                                                                                           `pulumi:"str"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs struct {
+	ArmorEnvironmentEntry GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryInput `pulumi:"armorEnvironmentEntry"`
+	Str                   pulumi.StringInput                                                                                    `pulumi:"str"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput)
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray{ GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs{...} }
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) ArmorEnvironmentEntry() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry {
+		return v.ArmorEnvironmentEntry
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput) Str() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment) string {
+		return v.Str
+	}).(pulumi.StringOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput) Index(i pulumi.IntInput) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment {
+		return vs[0].([]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironment)[vs[1].(int)]
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry struct {
+	Name  string `pulumi:"name"`
+	Value string `pulumi:"value"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs struct {
+	Name  pulumi.StringInput `pulumi:"name"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry) string {
+		return v.Name
+	}).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry) string {
+		return v.Value
+	}).(pulumi.StringOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny struct {
+	ArmorRule GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule `pulumi:"armorRule"`
+	Str       string                                                                            `pulumi:"str"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs struct {
+	ArmorRule GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleInput `pulumi:"armorRule"`
+	Str       pulumi.StringInput                                                                     `pulumi:"str"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput)
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray{ GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs{...} }
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) ArmorRule() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule {
+		return v.ArmorRule
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput) Str() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny) string { return v.Str }).(pulumi.StringOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput) Index(i pulumi.IntInput) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny {
+		return vs[0].([]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDeny)[vs[1].(int)]
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires.
+	Id string `pulumi:"id"`
+	// What the rule matches, written for the classifier.
+	Instructions string `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name string `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold float64 `pulumi:"threshold"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires.
+	Id pulumi.StringInput `pulumi:"id"`
+	// What the rule matches, written for the classifier.
+	Instructions pulumi.StringInput `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold pulumi.Float64Input `pulumi:"threshold"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput {
+	return o
+}
+
+// Stable id, unique within its source; reported as the deciding rule when it fires.
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) string {
+		return v.Id
+	}).(pulumi.StringOutput)
+}
+
+// What the rule matches, written for the classifier.
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) Instructions() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) string {
+		return v.Instructions
+	}).(pulumi.StringOutput)
+}
+
+// Display name shown in verdict explanations; defaults to the id.
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) string {
+		return v.Name
+	}).(pulumi.StringOutput)
+}
+
+// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput) Threshold() pulumi.Float64Output {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule) float64 {
+		return v.Threshold
+	}).(pulumi.Float64Output)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny struct {
+	ArmorRule GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule `pulumi:"armorRule"`
+	Str       string                                                                            `pulumi:"str"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs struct {
+	ArmorRule GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleInput `pulumi:"armorRule"`
+	Str       pulumi.StringInput                                                                     `pulumi:"str"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput)
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray{ GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs{...} }
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray []GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) ArmorRule() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule {
+		return v.ArmorRule
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput) Str() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny) string { return v.Str }).(pulumi.StringOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput) Index(i pulumi.IntInput) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny {
+		return vs[0].([]GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDeny)[vs[1].(int)]
+	}).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires.
+	Id string `pulumi:"id"`
+	// What the rule matches, written for the classifier.
+	Instructions string `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name string `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold float64 `pulumi:"threshold"`
+}
+
+// GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleInput is an input type that accepts GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs and GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleInput` via:
+//
+//	GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs{...}
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput
+	ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs struct {
+	// Stable id, unique within its source; reported as the deciding rule when it fires.
+	Id pulumi.StringInput `pulumi:"id"`
+	// What the rule matches, written for the classifier.
+	Instructions pulumi.StringInput `pulumi:"instructions"`
+	// Display name shown in verdict explanations; defaults to the id.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+	Threshold pulumi.Float64Input `pulumi:"threshold"`
+}
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return i.ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput)
+}
+
+type GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput() GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) ToGetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput {
+	return o
+}
+
+// Stable id, unique within its source; reported as the deciding rule when it fires.
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) string {
+		return v.Id
+	}).(pulumi.StringOutput)
+}
+
+// What the rule matches, written for the classifier.
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) Instructions() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) string {
+		return v.Instructions
+	}).(pulumi.StringOutput)
+}
+
+// Display name shown in verdict explanations; defaults to the id.
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) string {
+		return v.Name
+	}).(pulumi.StringOutput)
+}
+
+// Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+func (o GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput) Threshold() pulumi.Float64Output {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule) float64 {
+		return v.Threshold
+	}).(pulumi.Float64Output)
+}
+
+type GetGuardrailPolicyModerationConfigContentFilter struct {
+	Action  string `pulumi:"action"`
+	Label   string `pulumi:"label"`
+	Pattern string `pulumi:"pattern"`
+}
+
+// GetGuardrailPolicyModerationConfigContentFilterInput is an input type that accepts GetGuardrailPolicyModerationConfigContentFilterArgs and GetGuardrailPolicyModerationConfigContentFilterOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigContentFilterInput` via:
+//
+//	GetGuardrailPolicyModerationConfigContentFilterArgs{...}
+type GetGuardrailPolicyModerationConfigContentFilterInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigContentFilterOutput() GetGuardrailPolicyModerationConfigContentFilterOutput
+	ToGetGuardrailPolicyModerationConfigContentFilterOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigContentFilterOutput
+}
+
+type GetGuardrailPolicyModerationConfigContentFilterArgs struct {
+	Action  pulumi.StringInput `pulumi:"action"`
+	Label   pulumi.StringInput `pulumi:"label"`
+	Pattern pulumi.StringInput `pulumi:"pattern"`
+}
+
+func (GetGuardrailPolicyModerationConfigContentFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigContentFilter)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigContentFilterArgs) ToGetGuardrailPolicyModerationConfigContentFilterOutput() GetGuardrailPolicyModerationConfigContentFilterOutput {
+	return i.ToGetGuardrailPolicyModerationConfigContentFilterOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigContentFilterArgs) ToGetGuardrailPolicyModerationConfigContentFilterOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigContentFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigContentFilterOutput)
+}
+
+// GetGuardrailPolicyModerationConfigContentFilterArrayInput is an input type that accepts GetGuardrailPolicyModerationConfigContentFilterArray and GetGuardrailPolicyModerationConfigContentFilterArrayOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigContentFilterArrayInput` via:
+//
+//	GetGuardrailPolicyModerationConfigContentFilterArray{ GetGuardrailPolicyModerationConfigContentFilterArgs{...} }
+type GetGuardrailPolicyModerationConfigContentFilterArrayInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigContentFilterArrayOutput() GetGuardrailPolicyModerationConfigContentFilterArrayOutput
+	ToGetGuardrailPolicyModerationConfigContentFilterArrayOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigContentFilterArrayOutput
+}
+
+type GetGuardrailPolicyModerationConfigContentFilterArray []GetGuardrailPolicyModerationConfigContentFilterInput
+
+func (GetGuardrailPolicyModerationConfigContentFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigContentFilter)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigContentFilterArray) ToGetGuardrailPolicyModerationConfigContentFilterArrayOutput() GetGuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return i.ToGetGuardrailPolicyModerationConfigContentFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigContentFilterArray) ToGetGuardrailPolicyModerationConfigContentFilterArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigContentFilterArrayOutput)
+}
+
+type GetGuardrailPolicyModerationConfigContentFilterOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigContentFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigContentFilter)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterOutput) ToGetGuardrailPolicyModerationConfigContentFilterOutput() GetGuardrailPolicyModerationConfigContentFilterOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterOutput) ToGetGuardrailPolicyModerationConfigContentFilterOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigContentFilterOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigContentFilter) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterOutput) Label() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigContentFilter) string { return v.Label }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterOutput) Pattern() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigContentFilter) string { return v.Pattern }).(pulumi.StringOutput)
+}
+
+type GetGuardrailPolicyModerationConfigContentFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigContentFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigContentFilter)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterArrayOutput) ToGetGuardrailPolicyModerationConfigContentFilterArrayOutput() GetGuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterArrayOutput) ToGetGuardrailPolicyModerationConfigContentFilterArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigContentFilterArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterArrayOutput) Index(i pulumi.IntInput) GetGuardrailPolicyModerationConfigContentFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetGuardrailPolicyModerationConfigContentFilter {
+		return vs[0].([]GetGuardrailPolicyModerationConfigContentFilter)[vs[1].(int)]
+	}).(GetGuardrailPolicyModerationConfigContentFilterOutput)
+}
+
+type GetGuardrailPolicyModerationConfigContentFilterBuiltin struct {
+	Action    string `pulumi:"action"`
+	Label     string `pulumi:"label"`
+	ScanScope string `pulumi:"scanScope"`
+	Slug      string `pulumi:"slug"`
+}
+
+// GetGuardrailPolicyModerationConfigContentFilterBuiltinInput is an input type that accepts GetGuardrailPolicyModerationConfigContentFilterBuiltinArgs and GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigContentFilterBuiltinInput` via:
+//
+//	GetGuardrailPolicyModerationConfigContentFilterBuiltinArgs{...}
+type GetGuardrailPolicyModerationConfigContentFilterBuiltinInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigContentFilterBuiltinOutput() GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput
+	ToGetGuardrailPolicyModerationConfigContentFilterBuiltinOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput
+}
+
+type GetGuardrailPolicyModerationConfigContentFilterBuiltinArgs struct {
+	Action    pulumi.StringInput `pulumi:"action"`
+	Label     pulumi.StringInput `pulumi:"label"`
+	ScanScope pulumi.StringInput `pulumi:"scanScope"`
+	Slug      pulumi.StringInput `pulumi:"slug"`
+}
+
+func (GetGuardrailPolicyModerationConfigContentFilterBuiltinArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigContentFilterBuiltin)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigContentFilterBuiltinArgs) ToGetGuardrailPolicyModerationConfigContentFilterBuiltinOutput() GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return i.ToGetGuardrailPolicyModerationConfigContentFilterBuiltinOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigContentFilterBuiltinArgs) ToGetGuardrailPolicyModerationConfigContentFilterBuiltinOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput)
+}
+
+// GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayInput is an input type that accepts GetGuardrailPolicyModerationConfigContentFilterBuiltinArray and GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayInput` via:
+//
+//	GetGuardrailPolicyModerationConfigContentFilterBuiltinArray{ GetGuardrailPolicyModerationConfigContentFilterBuiltinArgs{...} }
+type GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput() GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput
+	ToGetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput
+}
+
+type GetGuardrailPolicyModerationConfigContentFilterBuiltinArray []GetGuardrailPolicyModerationConfigContentFilterBuiltinInput
+
+func (GetGuardrailPolicyModerationConfigContentFilterBuiltinArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigContentFilterBuiltin)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigContentFilterBuiltinArray) ToGetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput() GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return i.ToGetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigContentFilterBuiltinArray) ToGetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput)
+}
+
+type GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigContentFilterBuiltin)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput) ToGetGuardrailPolicyModerationConfigContentFilterBuiltinOutput() GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput) ToGetGuardrailPolicyModerationConfigContentFilterBuiltinOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigContentFilterBuiltin) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput) Label() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigContentFilterBuiltin) string { return v.Label }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput) ScanScope() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigContentFilterBuiltin) string { return v.ScanScope }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput) Slug() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigContentFilterBuiltin) string { return v.Slug }).(pulumi.StringOutput)
+}
+
+type GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigContentFilterBuiltin)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput) ToGetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput() GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput) ToGetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput) Index(i pulumi.IntInput) GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetGuardrailPolicyModerationConfigContentFilterBuiltin {
+		return vs[0].([]GetGuardrailPolicyModerationConfigContentFilterBuiltin)[vs[1].(int)]
+	}).(GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput)
+}
+
+type GetGuardrailPolicyModerationConfigPiiFilter struct {
+	Action         string  `pulumi:"action"`
+	EntityType     string  `pulumi:"entityType"`
+	ScoreThreshold float64 `pulumi:"scoreThreshold"`
+}
+
+// GetGuardrailPolicyModerationConfigPiiFilterInput is an input type that accepts GetGuardrailPolicyModerationConfigPiiFilterArgs and GetGuardrailPolicyModerationConfigPiiFilterOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigPiiFilterInput` via:
+//
+//	GetGuardrailPolicyModerationConfigPiiFilterArgs{...}
+type GetGuardrailPolicyModerationConfigPiiFilterInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigPiiFilterOutput() GetGuardrailPolicyModerationConfigPiiFilterOutput
+	ToGetGuardrailPolicyModerationConfigPiiFilterOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigPiiFilterOutput
+}
+
+type GetGuardrailPolicyModerationConfigPiiFilterArgs struct {
+	Action         pulumi.StringInput  `pulumi:"action"`
+	EntityType     pulumi.StringInput  `pulumi:"entityType"`
+	ScoreThreshold pulumi.Float64Input `pulumi:"scoreThreshold"`
+}
+
+func (GetGuardrailPolicyModerationConfigPiiFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigPiiFilter)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigPiiFilterArgs) ToGetGuardrailPolicyModerationConfigPiiFilterOutput() GetGuardrailPolicyModerationConfigPiiFilterOutput {
+	return i.ToGetGuardrailPolicyModerationConfigPiiFilterOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigPiiFilterArgs) ToGetGuardrailPolicyModerationConfigPiiFilterOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigPiiFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigPiiFilterOutput)
+}
+
+// GetGuardrailPolicyModerationConfigPiiFilterArrayInput is an input type that accepts GetGuardrailPolicyModerationConfigPiiFilterArray and GetGuardrailPolicyModerationConfigPiiFilterArrayOutput values.
+// You can construct a concrete instance of `GetGuardrailPolicyModerationConfigPiiFilterArrayInput` via:
+//
+//	GetGuardrailPolicyModerationConfigPiiFilterArray{ GetGuardrailPolicyModerationConfigPiiFilterArgs{...} }
+type GetGuardrailPolicyModerationConfigPiiFilterArrayInput interface {
+	pulumi.Input
+
+	ToGetGuardrailPolicyModerationConfigPiiFilterArrayOutput() GetGuardrailPolicyModerationConfigPiiFilterArrayOutput
+	ToGetGuardrailPolicyModerationConfigPiiFilterArrayOutputWithContext(context.Context) GetGuardrailPolicyModerationConfigPiiFilterArrayOutput
+}
+
+type GetGuardrailPolicyModerationConfigPiiFilterArray []GetGuardrailPolicyModerationConfigPiiFilterInput
+
+func (GetGuardrailPolicyModerationConfigPiiFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigPiiFilter)(nil)).Elem()
+}
+
+func (i GetGuardrailPolicyModerationConfigPiiFilterArray) ToGetGuardrailPolicyModerationConfigPiiFilterArrayOutput() GetGuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return i.ToGetGuardrailPolicyModerationConfigPiiFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GetGuardrailPolicyModerationConfigPiiFilterArray) ToGetGuardrailPolicyModerationConfigPiiFilterArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetGuardrailPolicyModerationConfigPiiFilterArrayOutput)
+}
+
+type GetGuardrailPolicyModerationConfigPiiFilterOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigPiiFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetGuardrailPolicyModerationConfigPiiFilter)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigPiiFilterOutput) ToGetGuardrailPolicyModerationConfigPiiFilterOutput() GetGuardrailPolicyModerationConfigPiiFilterOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigPiiFilterOutput) ToGetGuardrailPolicyModerationConfigPiiFilterOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigPiiFilterOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigPiiFilterOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigPiiFilter) string { return v.Action }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigPiiFilterOutput) EntityType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigPiiFilter) string { return v.EntityType }).(pulumi.StringOutput)
+}
+
+func (o GetGuardrailPolicyModerationConfigPiiFilterOutput) ScoreThreshold() pulumi.Float64Output {
+	return o.ApplyT(func(v GetGuardrailPolicyModerationConfigPiiFilter) float64 { return v.ScoreThreshold }).(pulumi.Float64Output)
+}
+
+type GetGuardrailPolicyModerationConfigPiiFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GetGuardrailPolicyModerationConfigPiiFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetGuardrailPolicyModerationConfigPiiFilter)(nil)).Elem()
+}
+
+func (o GetGuardrailPolicyModerationConfigPiiFilterArrayOutput) ToGetGuardrailPolicyModerationConfigPiiFilterArrayOutput() GetGuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigPiiFilterArrayOutput) ToGetGuardrailPolicyModerationConfigPiiFilterArrayOutputWithContext(ctx context.Context) GetGuardrailPolicyModerationConfigPiiFilterArrayOutput {
+	return o
+}
+
+func (o GetGuardrailPolicyModerationConfigPiiFilterArrayOutput) Index(i pulumi.IntInput) GetGuardrailPolicyModerationConfigPiiFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetGuardrailPolicyModerationConfigPiiFilter {
+		return vs[0].([]GetGuardrailPolicyModerationConfigPiiFilter)[vs[1].(int)]
+	}).(GetGuardrailPolicyModerationConfigPiiFilterOutput)
 }
 
 type GetGuardrailsData struct {
@@ -48172,6 +52824,40 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailContentFilterArrayInput)(nil)).Elem(), GuardrailContentFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailContentFilterBuiltinInput)(nil)).Elem(), GuardrailContentFilterBuiltinArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailContentFilterBuiltinArrayInput)(nil)).Elem(), GuardrailContentFilterBuiltinArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyBudgetConfigInput)(nil)).Elem(), GuardrailPolicyBudgetConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyBudgetConfigPtrInput)(nil)).Elem(), GuardrailPolicyBudgetConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModelAvailabilityConfigInput)(nil)).Elem(), GuardrailPolicyModelAvailabilityConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModelAvailabilityConfigPtrInput)(nil)).Elem(), GuardrailPolicyModelAvailabilityConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigInput)(nil)).Elem(), GuardrailPolicyModerationConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigPtrInput)(nil)).Elem(), GuardrailPolicyModerationConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorPtrInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextPtrInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrInput)(nil)).Elem(), GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigContentFilterInput)(nil)).Elem(), GuardrailPolicyModerationConfigContentFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigContentFilterArrayInput)(nil)).Elem(), GuardrailPolicyModerationConfigContentFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigContentFilterBuiltinInput)(nil)).Elem(), GuardrailPolicyModerationConfigContentFilterBuiltinArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigContentFilterBuiltinArrayInput)(nil)).Elem(), GuardrailPolicyModerationConfigContentFilterBuiltinArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigPiiFilterInput)(nil)).Elem(), GuardrailPolicyModerationConfigPiiFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuardrailPolicyModerationConfigPiiFilterArrayInput)(nil)).Elem(), GuardrailPolicyModerationConfigPiiFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ObservabilityDestinationArizeInput)(nil)).Elem(), ObservabilityDestinationArizeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ObservabilityDestinationArizePtrInput)(nil)).Elem(), ObservabilityDestinationArizeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ObservabilityDestinationArizeConfigInput)(nil)).Elem(), ObservabilityDestinationArizeConfigArgs{})
@@ -48415,6 +53101,30 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailKeyAssignmentsDataArrayInput)(nil)).Elem(), GetGuardrailKeyAssignmentsDataArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailMemberAssignmentsDataInput)(nil)).Elem(), GetGuardrailMemberAssignmentsDataArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailMemberAssignmentsDataArrayInput)(nil)).Elem(), GetGuardrailMemberAssignmentsDataArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyBudgetConfigInput)(nil)).Elem(), GetGuardrailPolicyBudgetConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModelAvailabilityConfigInput)(nil)).Elem(), GetGuardrailPolicyModelAvailabilityConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigContentFilterInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigContentFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigContentFilterArrayInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigContentFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigContentFilterBuiltinInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigContentFilterBuiltinArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigContentFilterBuiltinArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigPiiFilterInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigPiiFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailPolicyModerationConfigPiiFilterArrayInput)(nil)).Elem(), GetGuardrailPolicyModerationConfigPiiFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailsDataInput)(nil)).Elem(), GetGuardrailsDataArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailsDataArrayInput)(nil)).Elem(), GetGuardrailsDataArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetGuardrailsDataContentFilterInput)(nil)).Elem(), GetGuardrailsDataContentFilterArgs{})
@@ -48755,6 +53465,40 @@ func init() {
 	pulumi.RegisterOutputType(GuardrailContentFilterArrayOutput{})
 	pulumi.RegisterOutputType(GuardrailContentFilterBuiltinOutput{})
 	pulumi.RegisterOutputType(GuardrailContentFilterBuiltinArrayOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyBudgetConfigOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyBudgetConfigPtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModelAvailabilityConfigOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModelAvailabilityConfigPtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigPtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorPtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextPtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModePtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRulePtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryPtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRulePtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRulePtrOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigContentFilterOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigContentFilterArrayOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigContentFilterBuiltinOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigPiiFilterOutput{})
+	pulumi.RegisterOutputType(GuardrailPolicyModerationConfigPiiFilterArrayOutput{})
 	pulumi.RegisterOutputType(ObservabilityDestinationArizeOutput{})
 	pulumi.RegisterOutputType(ObservabilityDestinationArizePtrOutput{})
 	pulumi.RegisterOutputType(ObservabilityDestinationArizeConfigOutput{})
@@ -48998,6 +53742,30 @@ func init() {
 	pulumi.RegisterOutputType(GetGuardrailKeyAssignmentsDataArrayOutput{})
 	pulumi.RegisterOutputType(GetGuardrailMemberAssignmentsDataOutput{})
 	pulumi.RegisterOutputType(GetGuardrailMemberAssignmentsDataArrayOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyBudgetConfigOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModelAvailabilityConfigOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArrayOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeAllowArmorRuleOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArrayOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntryOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArrayOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeHardDenyArmorRuleOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArrayOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRuleOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigContentFilterOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigContentFilterArrayOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigContentFilterBuiltinOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigContentFilterBuiltinArrayOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigPiiFilterOutput{})
+	pulumi.RegisterOutputType(GetGuardrailPolicyModerationConfigPiiFilterArrayOutput{})
 	pulumi.RegisterOutputType(GetGuardrailsDataOutput{})
 	pulumi.RegisterOutputType(GetGuardrailsDataArrayOutput{})
 	pulumi.RegisterOutputType(GetGuardrailsDataContentFilterOutput{})
