@@ -1,6 +1,6 @@
 {
     "name": "@pulumi/openrouter",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "A Pulumi package for creating and managing openrouter resources.",
     "keywords": [
         "openrouter",
@@ -16,13 +16,13 @@
         "@pulumi/pulumi": "^3.269.0"
     },
     "devDependencies": {
-        "@types/node": "^26",
-        "typescript": "^7.0.2"
+        "@types/node": "^20",
+        "typescript": "^4.7.0"
     },
     "pulumi": {
         "resource": true,
         "name": "openrouter",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "server": "github://api.github.com/brokenpip3/pulumi-openrouter"
     }
 }
