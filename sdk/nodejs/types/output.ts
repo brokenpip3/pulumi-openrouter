@@ -5100,6 +5100,233 @@ export interface GuardrailContentFilterBuiltin {
     slug: string;
 }
 
+export interface GuardrailPolicyAccountBudgetConfig {
+    /**
+     * Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+     */
+    includeByokInBudgets: boolean;
+    /**
+     * Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+     */
+    limitUsd?: number;
+    /**
+     * Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+     */
+    resetInterval?: string;
+}
+
+export interface GuardrailPolicyAccountModelAvailabilityConfig {
+    allowSafetyRetentionGoogle: boolean;
+    allowSafetyRetentionOther: boolean;
+    allowedDataRegions: string[];
+    allowedModels: string[];
+    allowedProviders: string[];
+    enableFreeModelPublication: boolean;
+    enableFreeModelTraining: boolean;
+    enablePaidModelTraining: boolean;
+    enforceFirstPartyHarnessModels: boolean;
+    enforceZdr: boolean;
+    enforceZdrAnthropic: boolean;
+    enforceZdrGoogle: boolean;
+    enforceZdrOpenai: boolean;
+    enforceZdrOther: boolean;
+    enforceZdrXai: boolean;
+    ignoredModels: string[];
+    ignoredProviders: string[];
+    platformBannedAuthors: string[];
+    platformBannedModels: string[];
+    platformBannedProviders: string[];
+    requireEuDataRegion: boolean;
+}
+
+export interface GuardrailPolicyAccountModerationConfig {
+    armor?: outputs.GuardrailPolicyAccountModerationConfigArmor;
+    broadcastModelArmorFlaggedRequests: boolean;
+    contentFilterBlocksRequests: boolean;
+    contentFilterBuiltins: outputs.GuardrailPolicyAccountModerationConfigContentFilterBuiltin[];
+    contentFilterPatterns: string[];
+    contentFilters: outputs.GuardrailPolicyAccountModerationConfigContentFilter[];
+    enableModelArmorInjectionProtection: boolean;
+    /**
+     * must be one of ["block", "flag"]
+     */
+    lakeraInjectionProtectionMode: string;
+    /**
+     * must be one of ["low", "medium", "high"]
+     */
+    modelArmorInjectionConfidenceLevel: string;
+    /**
+     * must be one of ["block", "flag"]
+     */
+    modelArmorInjectionProtectionMode: string;
+    piiFilters: outputs.GuardrailPolicyAccountModerationConfigPiiFilter[];
+    platformImageModeratedProviders: string[];
+    platformModeratedProviders: string[];
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmor {
+    /**
+     * The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+     */
+    classifierContext: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContext;
+    /**
+     * `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`. must be one of ["enforce", "audit"]
+     */
+    mode: string;
+    /**
+     * When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+     */
+    onError: string;
+    /**
+     * Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+     */
+    useCcStyleDefaultRules: boolean;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContext {
+    additionalProperties: {[key: string]: string};
+    autoMode: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoMode;
+    /**
+     * Not Null
+     */
+    v: number;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoMode {
+    allows: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllow[];
+    environments: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironment[];
+    hardDenies: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDeny[];
+    softDenies: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDeny[];
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllow {
+    armorRule?: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllowArmorRule;
+    str?: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllowArmorRule {
+    /**
+     * Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+     */
+    id: string;
+    /**
+     * What the rule matches, written for the classifier. Not Null
+     */
+    instructions: string;
+    /**
+     * Display name shown in verdict explanations; defaults to the id.
+     */
+    name: string;
+    /**
+     * Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+     */
+    threshold: number;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironment {
+    armorEnvironmentEntry?: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry;
+    str?: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry {
+    /**
+     * Not Null
+     */
+    name: string;
+    /**
+     * Not Null
+     */
+    value: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDeny {
+    armorRule?: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule;
+    str?: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule {
+    /**
+     * Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+     */
+    id: string;
+    /**
+     * What the rule matches, written for the classifier. Not Null
+     */
+    instructions: string;
+    /**
+     * Display name shown in verdict explanations; defaults to the id.
+     */
+    name: string;
+    /**
+     * Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+     */
+    threshold: number;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDeny {
+    armorRule?: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule;
+    str?: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule {
+    /**
+     * Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+     */
+    id: string;
+    /**
+     * What the rule matches, written for the classifier. Not Null
+     */
+    instructions: string;
+    /**
+     * Display name shown in verdict explanations; defaults to the id.
+     */
+    name: string;
+    /**
+     * Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+     */
+    threshold: number;
+}
+
+export interface GuardrailPolicyAccountModerationConfigContentFilter {
+    /**
+     * Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action: string;
+    label: string;
+    /**
+     * Not Null
+     */
+    pattern: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigContentFilterBuiltin {
+    /**
+     * Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action: string;
+    label: string;
+    /**
+     * must be one of ["userOnly", "allMessages"]
+     */
+    scanScope: string;
+    /**
+     * Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+     */
+    slug: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigPiiFilter {
+    /**
+     * Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action: string;
+    /**
+     * Not Null
+     */
+    entityType: string;
+    scoreThreshold: number;
+}
+
 export interface GuardrailPolicyBudgetConfig {
     /**
      * Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
