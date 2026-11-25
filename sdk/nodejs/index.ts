@@ -175,6 +175,21 @@ export type GuardrailMemberAssignment = import("./guardrailMemberAssignment").Gu
 export const GuardrailMemberAssignment: typeof import("./guardrailMemberAssignment").GuardrailMemberAssignment = null as any;
 utilities.lazyLoad(exports, ["GuardrailMemberAssignment"], () => require("./guardrailMemberAssignment"));
 
+export { GuardrailPolicyAccountBudgetArgs, GuardrailPolicyAccountBudgetState } from "./guardrailPolicyAccountBudget";
+export type GuardrailPolicyAccountBudget = import("./guardrailPolicyAccountBudget").GuardrailPolicyAccountBudget;
+export const GuardrailPolicyAccountBudget: typeof import("./guardrailPolicyAccountBudget").GuardrailPolicyAccountBudget = null as any;
+utilities.lazyLoad(exports, ["GuardrailPolicyAccountBudget"], () => require("./guardrailPolicyAccountBudget"));
+
+export { GuardrailPolicyAccountModelAvailabilityArgs, GuardrailPolicyAccountModelAvailabilityState } from "./guardrailPolicyAccountModelAvailability";
+export type GuardrailPolicyAccountModelAvailability = import("./guardrailPolicyAccountModelAvailability").GuardrailPolicyAccountModelAvailability;
+export const GuardrailPolicyAccountModelAvailability: typeof import("./guardrailPolicyAccountModelAvailability").GuardrailPolicyAccountModelAvailability = null as any;
+utilities.lazyLoad(exports, ["GuardrailPolicyAccountModelAvailability"], () => require("./guardrailPolicyAccountModelAvailability"));
+
+export { GuardrailPolicyAccountModerationArgs, GuardrailPolicyAccountModerationState } from "./guardrailPolicyAccountModeration";
+export type GuardrailPolicyAccountModeration = import("./guardrailPolicyAccountModeration").GuardrailPolicyAccountModeration;
+export const GuardrailPolicyAccountModeration: typeof import("./guardrailPolicyAccountModeration").GuardrailPolicyAccountModeration = null as any;
+utilities.lazyLoad(exports, ["GuardrailPolicyAccountModeration"], () => require("./guardrailPolicyAccountModeration"));
+
 export { GuardrailPolicyBudgetArgs, GuardrailPolicyBudgetState } from "./guardrailPolicyBudget";
 export type GuardrailPolicyBudget = import("./guardrailPolicyBudget").GuardrailPolicyBudget;
 export const GuardrailPolicyBudget: typeof import("./guardrailPolicyBudget").GuardrailPolicyBudget = null as any;
@@ -257,6 +272,12 @@ const _module = {
                 return new GuardrailKeyAssignment(name, <any>undefined, { urn })
             case "openrouter:index/guardrailMemberAssignment:GuardrailMemberAssignment":
                 return new GuardrailMemberAssignment(name, <any>undefined, { urn })
+            case "openrouter:index/guardrailPolicyAccountBudget:GuardrailPolicyAccountBudget":
+                return new GuardrailPolicyAccountBudget(name, <any>undefined, { urn })
+            case "openrouter:index/guardrailPolicyAccountModelAvailability:GuardrailPolicyAccountModelAvailability":
+                return new GuardrailPolicyAccountModelAvailability(name, <any>undefined, { urn })
+            case "openrouter:index/guardrailPolicyAccountModeration:GuardrailPolicyAccountModeration":
+                return new GuardrailPolicyAccountModeration(name, <any>undefined, { urn })
             case "openrouter:index/guardrailPolicyBudget:GuardrailPolicyBudget":
                 return new GuardrailPolicyBudget(name, <any>undefined, { urn })
             case "openrouter:index/guardrailPolicyModelAvailability:GuardrailPolicyModelAvailability":
@@ -289,6 +310,9 @@ pulumi.runtime.registerResourceModule("openrouter", "index/byokKey", _module)
 pulumi.runtime.registerResourceModule("openrouter", "index/guardrail", _module)
 pulumi.runtime.registerResourceModule("openrouter", "index/guardrailKeyAssignment", _module)
 pulumi.runtime.registerResourceModule("openrouter", "index/guardrailMemberAssignment", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/guardrailPolicyAccountBudget", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/guardrailPolicyAccountModelAvailability", _module)
+pulumi.runtime.registerResourceModule("openrouter", "index/guardrailPolicyAccountModeration", _module)
 pulumi.runtime.registerResourceModule("openrouter", "index/guardrailPolicyBudget", _module)
 pulumi.runtime.registerResourceModule("openrouter", "index/guardrailPolicyModelAvailability", _module)
 pulumi.runtime.registerResourceModule("openrouter", "index/guardrailPolicyModeration", _module)

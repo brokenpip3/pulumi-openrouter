@@ -40,6 +40,9 @@ from .get_workspaces import *
 from .guardrail import *
 from .guardrail_key_assignment import *
 from .guardrail_member_assignment import *
+from .guardrail_policy_account_budget import *
+from .guardrail_policy_account_model_availability import *
+from .guardrail_policy_account_moderation import *
 from .guardrail_policy_budget import *
 from .guardrail_policy_model_availability import *
 from .guardrail_policy_moderation import *
@@ -103,6 +106,30 @@ _utilities.register(
   "fqn": "pulumi_openrouter",
   "classes": {
    "openrouter:index/guardrailMemberAssignment:GuardrailMemberAssignment": "GuardrailMemberAssignment"
+  }
+ },
+ {
+  "pkg": "openrouter",
+  "mod": "index/guardrailPolicyAccountBudget",
+  "fqn": "pulumi_openrouter",
+  "classes": {
+   "openrouter:index/guardrailPolicyAccountBudget:GuardrailPolicyAccountBudget": "GuardrailPolicyAccountBudget"
+  }
+ },
+ {
+  "pkg": "openrouter",
+  "mod": "index/guardrailPolicyAccountModelAvailability",
+  "fqn": "pulumi_openrouter",
+  "classes": {
+   "openrouter:index/guardrailPolicyAccountModelAvailability:GuardrailPolicyAccountModelAvailability": "GuardrailPolicyAccountModelAvailability"
+  }
+ },
+ {
+  "pkg": "openrouter",
+  "mod": "index/guardrailPolicyAccountModeration",
+  "fqn": "pulumi_openrouter",
+  "classes": {
+   "openrouter:index/guardrailPolicyAccountModeration:GuardrailPolicyAccountModeration": "GuardrailPolicyAccountModeration"
   }
  },
  {

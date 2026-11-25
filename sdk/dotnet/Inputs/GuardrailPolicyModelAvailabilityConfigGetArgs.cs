@@ -12,8 +12,14 @@ namespace Pulumi.Openrouter.Inputs
 
     public sealed class GuardrailPolicyModelAvailabilityConfigGetArgs : global::Pulumi.ResourceArgs
     {
+        [Input("allowProvisionalProviders")]
+        public Input<bool>? AllowProvisionalProviders { get; set; }
+
         [Input("allowSafetyRetentionGoogle")]
         public Input<bool>? AllowSafetyRetentionGoogle { get; set; }
+
+        [Input("allowSafetyRetentionOpenai")]
+        public Input<bool>? AllowSafetyRetentionOpenai { get; set; }
 
         [Input("allowSafetyRetentionOther")]
         public Input<bool>? AllowSafetyRetentionOther { get; set; }

@@ -46,9 +46,17 @@ export class WorkspaceDefaultGuardrail extends pulumi.CustomResource {
     }
 
     /**
+     * Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
+     */
+    declare public readonly allowProvisionalProviders: pulumi.Output<boolean>;
+    /**
      * Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
      */
     declare public readonly allowSafetyRetentionGoogle: pulumi.Output<boolean>;
+    /**
+     * Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allowSafetyRetentionOther applies. Follows allowSafetyRetentionOther when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
+     */
+    declare public readonly allowSafetyRetentionOpenai: pulumi.Output<boolean>;
     /**
      * Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
      */
@@ -169,7 +177,9 @@ export class WorkspaceDefaultGuardrail extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as WorkspaceDefaultGuardrailState | undefined;
+            resourceInputs["allowProvisionalProviders"] = state?.allowProvisionalProviders;
             resourceInputs["allowSafetyRetentionGoogle"] = state?.allowSafetyRetentionGoogle;
+            resourceInputs["allowSafetyRetentionOpenai"] = state?.allowSafetyRetentionOpenai;
             resourceInputs["allowSafetyRetentionOther"] = state?.allowSafetyRetentionOther;
             resourceInputs["allowedDataRegions"] = state?.allowedDataRegions;
             resourceInputs["allowedModels"] = state?.allowedModels;
@@ -201,7 +211,9 @@ export class WorkspaceDefaultGuardrail extends pulumi.CustomResource {
             if (args?.workspaceId === undefined && !opts.urn) {
                 throw new Error("Missing required property 'workspaceId'");
             }
+            resourceInputs["allowProvisionalProviders"] = args?.allowProvisionalProviders;
             resourceInputs["allowSafetyRetentionGoogle"] = args?.allowSafetyRetentionGoogle;
+            resourceInputs["allowSafetyRetentionOpenai"] = args?.allowSafetyRetentionOpenai;
             resourceInputs["allowSafetyRetentionOther"] = args?.allowSafetyRetentionOther;
             resourceInputs["allowedDataRegions"] = args?.allowedDataRegions;
             resourceInputs["allowedModels"] = args?.allowedModels;
@@ -239,9 +251,17 @@ export class WorkspaceDefaultGuardrail extends pulumi.CustomResource {
  */
 export interface WorkspaceDefaultGuardrailState {
     /**
+     * Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
+     */
+    allowProvisionalProviders?: pulumi.Input<boolean | undefined>;
+    /**
      * Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
      */
     allowSafetyRetentionGoogle?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allowSafetyRetentionOther applies. Follows allowSafetyRetentionOther when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
+     */
+    allowSafetyRetentionOpenai?: pulumi.Input<boolean | undefined>;
     /**
      * Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
      */
@@ -355,9 +375,17 @@ export interface WorkspaceDefaultGuardrailState {
  */
 export interface WorkspaceDefaultGuardrailArgs {
     /**
+     * Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
+     */
+    allowProvisionalProviders?: pulumi.Input<boolean | undefined>;
+    /**
      * Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
      */
     allowSafetyRetentionGoogle?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allowSafetyRetentionOther applies. Follows allowSafetyRetentionOther when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
+     */
+    allowSafetyRetentionOpenai?: pulumi.Input<boolean | undefined>;
     /**
      * Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
      */

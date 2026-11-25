@@ -31,6 +31,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &GuardrailKeyAssignment{}
 	case "openrouter:index/guardrailMemberAssignment:GuardrailMemberAssignment":
 		r = &GuardrailMemberAssignment{}
+	case "openrouter:index/guardrailPolicyAccountBudget:GuardrailPolicyAccountBudget":
+		r = &GuardrailPolicyAccountBudget{}
+	case "openrouter:index/guardrailPolicyAccountModelAvailability:GuardrailPolicyAccountModelAvailability":
+		r = &GuardrailPolicyAccountModelAvailability{}
+	case "openrouter:index/guardrailPolicyAccountModeration:GuardrailPolicyAccountModeration":
+		r = &GuardrailPolicyAccountModeration{}
 	case "openrouter:index/guardrailPolicyBudget:GuardrailPolicyBudget":
 		r = &GuardrailPolicyBudget{}
 	case "openrouter:index/guardrailPolicyModelAvailability:GuardrailPolicyModelAvailability":
@@ -107,6 +113,21 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"openrouter",
 		"index/guardrailMemberAssignment",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"openrouter",
+		"index/guardrailPolicyAccountBudget",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"openrouter",
+		"index/guardrailPolicyAccountModelAvailability",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"openrouter",
+		"index/guardrailPolicyAccountModeration",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
