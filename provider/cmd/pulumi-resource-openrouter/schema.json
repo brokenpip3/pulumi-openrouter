@@ -151,7 +151,7 @@
                 }
             }
         },
-        "openrouter:index/GuardrailPolicyBudgetConfig:GuardrailPolicyBudgetConfig": {
+        "openrouter:index/GuardrailPolicyAccountBudgetConfig:GuardrailPolicyAccountBudgetConfig": {
             "properties": {
                 "includeByokInBudgets": {
                     "type": "boolean",
@@ -171,9 +171,15 @@
                 "includeByokInBudgets"
             ]
         },
-        "openrouter:index/GuardrailPolicyModelAvailabilityConfig:GuardrailPolicyModelAvailabilityConfig": {
+        "openrouter:index/GuardrailPolicyAccountModelAvailabilityConfig:GuardrailPolicyAccountModelAvailabilityConfig": {
             "properties": {
+                "allowProvisionalProviders": {
+                    "type": "boolean"
+                },
                 "allowSafetyRetentionGoogle": {
+                    "type": "boolean"
+                },
+                "allowSafetyRetentionOpenai": {
                     "type": "boolean"
                 },
                 "allowSafetyRetentionOther": {
@@ -265,7 +271,531 @@
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
+                        "allowProvisionalProviders",
                         "allowSafetyRetentionGoogle",
+                        "allowSafetyRetentionOpenai",
+                        "allowSafetyRetentionOther",
+                        "allowedDataRegions",
+                        "allowedModels",
+                        "allowedProviders",
+                        "enableFreeModelPublication",
+                        "enableFreeModelTraining",
+                        "enablePaidModelTraining",
+                        "enforceFirstPartyHarnessModels",
+                        "enforceZdr",
+                        "enforceZdrAnthropic",
+                        "enforceZdrGoogle",
+                        "enforceZdrOpenai",
+                        "enforceZdrOther",
+                        "enforceZdrXai",
+                        "ignoredModels",
+                        "ignoredProviders",
+                        "platformBannedAuthors",
+                        "platformBannedModels",
+                        "platformBannedProviders",
+                        "requireEuDataRegion"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfig:GuardrailPolicyAccountModerationConfig": {
+            "properties": {
+                "armor": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmor:GuardrailPolicyAccountModerationConfigArmor"
+                },
+                "broadcastModelArmorFlaggedRequests": {
+                    "type": "boolean"
+                },
+                "contentFilterBuiltins": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigContentFilterBuiltin:GuardrailPolicyAccountModerationConfigContentFilterBuiltin"
+                    }
+                },
+                "contentFilters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigContentFilter:GuardrailPolicyAccountModerationConfigContentFilter"
+                    }
+                },
+                "enableModelArmorInjectionProtection": {
+                    "type": "boolean"
+                },
+                "lakeraInjectionProtectionMode": {
+                    "type": "string",
+                    "description": "must be one of [\"block\", \"flag\"]\n"
+                },
+                "modelArmorInjectionConfidenceLevel": {
+                    "type": "string",
+                    "description": "must be one of [\"low\", \"medium\", \"high\"]\n"
+                },
+                "modelArmorInjectionProtectionMode": {
+                    "type": "string",
+                    "description": "must be one of [\"block\", \"flag\"]\n"
+                },
+                "platformImageModeratedProviders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "platformModeratedProviders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "broadcastModelArmorFlaggedRequests",
+                        "contentFilterBuiltins",
+                        "contentFilters",
+                        "enableModelArmorInjectionProtection",
+                        "lakeraInjectionProtectionMode",
+                        "modelArmorInjectionConfidenceLevel",
+                        "modelArmorInjectionProtectionMode",
+                        "platformImageModeratedProviders",
+                        "platformModeratedProviders"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmor:GuardrailPolicyAccountModerationConfigArmor": {
+            "properties": {
+                "classifierContext": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContext:GuardrailPolicyAccountModerationConfigArmorClassifierContext",
+                    "description": "The Armor context: Claude Code's \u003cspan pulumi-lang-nodejs=\"`classifierContext`\" pulumi-lang-dotnet=\"`ClassifierContext`\" pulumi-lang-go=\"`classifierContext`\" pulumi-lang-python=\"`classifier_context`\" pulumi-lang-yaml=\"`classifierContext`\" pulumi-lang-java=\"`classifierContext`\" pulumi-lang-hcl=\"`classifier_context`\"\u003e`classifierContext`\u003c/span\u003e (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `\"Name: value\"` strings or `{ name, value }` objects. \u003cspan pulumi-lang-nodejs=\"`threshold`\" pulumi-lang-dotnet=\"`Threshold`\" pulumi-lang-go=\"`threshold`\" pulumi-lang-python=\"`threshold`\" pulumi-lang-yaml=\"`threshold`\" pulumi-lang-java=\"`threshold`\" pulumi-lang-hcl=\"`threshold`\"\u003e`threshold`\u003c/span\u003e applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.\n"
+                },
+                "mode": {
+                    "type": "string",
+                    "description": "\u003cspan pulumi-lang-nodejs=\"`enforce`\" pulumi-lang-dotnet=\"`Enforce`\" pulumi-lang-go=\"`enforce`\" pulumi-lang-python=\"`enforce`\" pulumi-lang-yaml=\"`enforce`\" pulumi-lang-java=\"`enforce`\" pulumi-lang-hcl=\"`enforce`\"\u003e`enforce`\u003c/span\u003e withholds blocked calls; \u003cspan pulumi-lang-nodejs=\"`audit`\" pulumi-lang-dotnet=\"`Audit`\" pulumi-lang-go=\"`audit`\" pulumi-lang-python=\"`audit`\" pulumi-lang-yaml=\"`audit`\" pulumi-lang-java=\"`audit`\" pulumi-lang-hcl=\"`audit`\"\u003e`audit`\u003c/span\u003e evaluates and reports the same verdicts without withholding any calls, regardless of \u003cspan pulumi-lang-nodejs=\"`onError`\" pulumi-lang-dotnet=\"`OnError`\" pulumi-lang-go=\"`onError`\" pulumi-lang-python=\"`on_error`\" pulumi-lang-yaml=\"`onError`\" pulumi-lang-java=\"`onError`\" pulumi-lang-hcl=\"`on_error`\"\u003e`onError`\u003c/span\u003e. Default \u003cspan pulumi-lang-nodejs=\"`enforce`\" pulumi-lang-dotnet=\"`Enforce`\" pulumi-lang-go=\"`enforce`\" pulumi-lang-python=\"`enforce`\" pulumi-lang-yaml=\"`enforce`\" pulumi-lang-java=\"`enforce`\" pulumi-lang-hcl=\"`enforce`\"\u003e`enforce`\u003c/span\u003e. must be one of [\"enforce\", \"audit\"]\n"
+                },
+                "onError": {
+                    "type": "string",
+                    "description": "When the classifier cannot answer (timeout, upstream error, context too long) the call is reported \u003cspan pulumi-lang-nodejs=\"`unavailable`\" pulumi-lang-dotnet=\"`Unavailable`\" pulumi-lang-go=\"`unavailable`\" pulumi-lang-python=\"`unavailable`\" pulumi-lang-yaml=\"`unavailable`\" pulumi-lang-java=\"`unavailable`\" pulumi-lang-hcl=\"`unavailable`\"\u003e`unavailable`\u003c/span\u003e; \u003cspan pulumi-lang-nodejs=\"`block`\" pulumi-lang-dotnet=\"`Block`\" pulumi-lang-go=\"`block`\" pulumi-lang-python=\"`block`\" pulumi-lang-yaml=\"`block`\" pulumi-lang-java=\"`block`\" pulumi-lang-hcl=\"`block`\"\u003e`block`\u003c/span\u003e rejects it and \u003cspan pulumi-lang-nodejs=\"`log`\" pulumi-lang-dotnet=\"`Log`\" pulumi-lang-go=\"`log`\" pulumi-lang-python=\"`log`\" pulumi-lang-yaml=\"`log`\" pulumi-lang-java=\"`log`\" pulumi-lang-hcl=\"`log`\"\u003e`log`\u003c/span\u003e releases it. Default \u003cspan pulumi-lang-nodejs=\"`block`\" pulumi-lang-dotnet=\"`Block`\" pulumi-lang-go=\"`block`\" pulumi-lang-python=\"`block`\" pulumi-lang-yaml=\"`block`\" pulumi-lang-java=\"`block`\" pulumi-lang-hcl=\"`block`\"\u003e`block`\u003c/span\u003e. must be one of [\"log\", \"block\"]\n"
+                },
+                "useCcStyleDefaultRules": {
+                    "type": "boolean",
+                    "description": "Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "classifierContext",
+                        "mode",
+                        "onError",
+                        "useCcStyleDefaultRules"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContext:GuardrailPolicyAccountModerationConfigArmorClassifierContext": {
+            "properties": {
+                "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "autoMode": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoMode:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoMode"
+                },
+                "v": {
+                    "type": "number",
+                    "description": "Not Null\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "additionalProperties",
+                        "autoMode",
+                        "v"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoMode:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoMode": {
+            "properties": {
+                "allows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllow:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllow"
+                    }
+                },
+                "environments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironment:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironment"
+                    }
+                },
+                "hardDenies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDeny:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDeny"
+                    }
+                },
+                "softDenies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDeny:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDeny"
+                    }
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "allows",
+                        "environments",
+                        "hardDenies",
+                        "softDenies"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllow:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllow": {
+            "properties": {
+                "armorRule": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllowArmorRule:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllowArmorRule"
+                },
+                "str": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllowArmorRule:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllowArmorRule": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Stable id, unique within its source; reported as the deciding rule when it fires. Not Null\n"
+                },
+                "instructions": {
+                    "type": "string",
+                    "description": "What the rule matches, written for the classifier. Not Null\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Display name shown in verdict explanations; defaults to the id.\n"
+                },
+                "threshold": {
+                    "type": "number",
+                    "description": "Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "id",
+                        "instructions",
+                        "name",
+                        "threshold"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironment:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironment": {
+            "properties": {
+                "armorEnvironmentEntry": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry"
+                },
+                "str": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Not Null\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "Not Null\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "name",
+                        "value"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDeny:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDeny": {
+            "properties": {
+                "armorRule": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule"
+                },
+                "str": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Stable id, unique within its source; reported as the deciding rule when it fires. Not Null\n"
+                },
+                "instructions": {
+                    "type": "string",
+                    "description": "What the rule matches, written for the classifier. Not Null\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Display name shown in verdict explanations; defaults to the id.\n"
+                },
+                "threshold": {
+                    "type": "number",
+                    "description": "Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "id",
+                        "instructions",
+                        "name",
+                        "threshold"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDeny:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDeny": {
+            "properties": {
+                "armorRule": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule"
+                },
+                "str": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule:GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Stable id, unique within its source; reported as the deciding rule when it fires. Not Null\n"
+                },
+                "instructions": {
+                    "type": "string",
+                    "description": "What the rule matches, written for the classifier. Not Null\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Display name shown in verdict explanations; defaults to the id.\n"
+                },
+                "threshold": {
+                    "type": "number",
+                    "description": "Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "id",
+                        "instructions",
+                        "name",
+                        "threshold"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigContentFilter:GuardrailPolicyAccountModerationConfigContentFilter": {
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "description": "Not Null; must be one of [\"redact\", \"block\", \"flag\"]\n"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "pattern": {
+                    "type": "string",
+                    "description": "Not Null\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "action",
+                        "label",
+                        "pattern"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyAccountModerationConfigContentFilterBuiltin:GuardrailPolicyAccountModerationConfigContentFilterBuiltin": {
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "description": "Not Null; must be one of [\"redact\", \"block\", \"flag\"]\n"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "scanScope": {
+                    "type": "string",
+                    "description": "must be one of [\u003cspan pulumi-lang-nodejs=\"\"userOnly\"\" pulumi-lang-dotnet=\"\"UserOnly\"\" pulumi-lang-go=\"\"userOnly\"\" pulumi-lang-python=\"\"user_only\"\" pulumi-lang-yaml=\"\"userOnly\"\" pulumi-lang-java=\"\"userOnly\"\" pulumi-lang-hcl=\"\"user_only\"\"\u003e\"userOnly\"\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"\"allMessages\"\" pulumi-lang-dotnet=\"\"AllMessages\"\" pulumi-lang-go=\"\"allMessages\"\" pulumi-lang-python=\"\"all_messages\"\" pulumi-lang-yaml=\"\"allMessages\"\" pulumi-lang-java=\"\"allMessages\"\" pulumi-lang-hcl=\"\"all_messages\"\"\u003e\"allMessages\"\u003c/span\u003e]\n"
+                },
+                "slug": {
+                    "type": "string",
+                    "description": "Not Null; must be one of [\"email\", \"phone\", \"ssn\", \"credit-card\", \"ip-address\", \"secrets\", \"person-name\", \"address\", \"regex-prompt-injection\"]\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "action",
+                        "label",
+                        "scanScope",
+                        "slug"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/GuardrailPolicyBudgetConfig:GuardrailPolicyBudgetConfig": {
+            "properties": {
+                "includeByokInBudgets": {
+                    "type": "boolean",
+                    "description": "Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.\n"
+                },
+                "limitUsd": {
+                    "type": "number",
+                    "description": "Spending limit in USD. Must be provided together with \u003cspan pulumi-lang-nodejs=\"`resetInterval`\" pulumi-lang-dotnet=\"`ResetInterval`\" pulumi-lang-go=\"`resetInterval`\" pulumi-lang-python=\"`reset_interval`\" pulumi-lang-yaml=\"`resetInterval`\" pulumi-lang-java=\"`resetInterval`\" pulumi-lang-hcl=\"`reset_interval`\"\u003e`resetInterval`\u003c/span\u003e: a request that sets only one of the two is rejected with a 400.\n"
+                },
+                "resetInterval": {
+                    "type": "string",
+                    "description": "Interval at which the limit resets (daily, weekly, monthly). must be one of [\"daily\", \"weekly\", \"monthly\"]\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "includeByokInBudgets"
+            ]
+        },
+        "openrouter:index/GuardrailPolicyModelAvailabilityConfig:GuardrailPolicyModelAvailabilityConfig": {
+            "properties": {
+                "allowProvisionalProviders": {
+                    "type": "boolean"
+                },
+                "allowSafetyRetentionGoogle": {
+                    "type": "boolean"
+                },
+                "allowSafetyRetentionOpenai": {
+                    "type": "boolean"
+                },
+                "allowSafetyRetentionOther": {
+                    "type": "boolean"
+                },
+                "allowedDataRegions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "allowedModels": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "allowedProviders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "enableFreeModelPublication": {
+                    "type": "boolean"
+                },
+                "enableFreeModelTraining": {
+                    "type": "boolean"
+                },
+                "enablePaidModelTraining": {
+                    "type": "boolean"
+                },
+                "enforceFirstPartyHarnessModels": {
+                    "type": "boolean"
+                },
+                "enforceZdr": {
+                    "type": "boolean"
+                },
+                "enforceZdrAnthropic": {
+                    "type": "boolean"
+                },
+                "enforceZdrGoogle": {
+                    "type": "boolean"
+                },
+                "enforceZdrOpenai": {
+                    "type": "boolean"
+                },
+                "enforceZdrOther": {
+                    "type": "boolean"
+                },
+                "enforceZdrXai": {
+                    "type": "boolean"
+                },
+                "ignoredModels": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "ignoredProviders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "platformBannedAuthors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "platformBannedModels": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "platformBannedProviders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "requireEuDataRegion": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "allowProvisionalProviders",
+                        "allowSafetyRetentionGoogle",
+                        "allowSafetyRetentionOpenai",
                         "allowSafetyRetentionOther",
                         "allowedDataRegions",
                         "allowedModels",
@@ -298,19 +828,10 @@
                 "broadcastModelArmorFlaggedRequests": {
                     "type": "boolean"
                 },
-                "contentFilterBlocksRequests": {
-                    "type": "boolean"
-                },
                 "contentFilterBuiltins": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/openrouter:index/GuardrailPolicyModerationConfigContentFilterBuiltin:GuardrailPolicyModerationConfigContentFilterBuiltin"
-                    }
-                },
-                "contentFilterPatterns": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
                     }
                 },
                 "contentFilters": {
@@ -334,12 +855,6 @@
                     "type": "string",
                     "description": "must be one of [\"block\", \"flag\"]\n"
                 },
-                "piiFilters": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/openrouter:index/GuardrailPolicyModerationConfigPiiFilter:GuardrailPolicyModerationConfigPiiFilter"
-                    }
-                },
                 "platformImageModeratedProviders": {
                     "type": "array",
                     "items": {
@@ -358,15 +873,12 @@
                 "nodejs": {
                     "requiredOutputs": [
                         "broadcastModelArmorFlaggedRequests",
-                        "contentFilterBlocksRequests",
                         "contentFilterBuiltins",
-                        "contentFilterPatterns",
                         "contentFilters",
                         "enableModelArmorInjectionProtection",
                         "lakeraInjectionProtectionMode",
                         "modelArmorInjectionConfidenceLevel",
                         "modelArmorInjectionProtectionMode",
-                        "piiFilters",
                         "platformImageModeratedProviders",
                         "platformModeratedProviders"
                     ]
@@ -679,31 +1191,6 @@
                         "label",
                         "scanScope",
                         "slug"
-                    ]
-                }
-            }
-        },
-        "openrouter:index/GuardrailPolicyModerationConfigPiiFilter:GuardrailPolicyModerationConfigPiiFilter": {
-            "properties": {
-                "action": {
-                    "type": "string",
-                    "description": "Not Null; must be one of [\"redact\", \"block\", \"flag\"]\n"
-                },
-                "entityType": {
-                    "type": "string",
-                    "description": "Not Null\n"
-                },
-                "scoreThreshold": {
-                    "type": "number"
-                }
-            },
-            "type": "object",
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "action",
-                        "entityType",
-                        "scoreThreshold"
                     ]
                 }
             }
@@ -4575,6 +5062,10 @@
                     "type": "integer",
                     "description": "Longest prompt, in tokens. \u003cspan pulumi-lang-nodejs=\"`null`\" pulumi-lang-dotnet=\"`Null`\" pulumi-lang-go=\"`null`\" pulumi-lang-python=\"`null`\" pulumi-lang-yaml=\"`null`\" pulumi-lang-java=\"`null`\" pulumi-lang-hcl=\"`null`\"\u003e`null`\u003c/span\u003e means no cap below the context length. Cannot exceed \u003cspan pulumi-lang-nodejs=\"`contextLength`\" pulumi-lang-dotnet=\"`ContextLength`\" pulumi-lang-go=\"`contextLength`\" pulumi-lang-python=\"`context_length`\" pulumi-lang-yaml=\"`contextLength`\" pulumi-lang-java=\"`contextLength`\" pulumi-lang-hcl=\"`context_length`\"\u003e`contextLength`\u003c/span\u003e, or the model context length while \u003cspan pulumi-lang-nodejs=\"`contextLength`\" pulumi-lang-dotnet=\"`ContextLength`\" pulumi-lang-go=\"`contextLength`\" pulumi-lang-python=\"`context_length`\" pulumi-lang-yaml=\"`contextLength`\" pulumi-lang-java=\"`contextLength`\" pulumi-lang-hcl=\"`context_length`\"\u003e`contextLength`\u003c/span\u003e is \u003cspan pulumi-lang-nodejs=\"`null`\" pulumi-lang-dotnet=\"`Null`\" pulumi-lang-go=\"`null`\" pulumi-lang-python=\"`null`\" pulumi-lang-yaml=\"`null`\" pulumi-lang-java=\"`null`\" pulumi-lang-hcl=\"`null`\"\u003e`null`\u003c/span\u003e.\n"
                 },
+                "promptCaching": {
+                    "$ref": "#/types/openrouter:index/PrivateEndpointSettingsPromptCaching:PrivateEndpointSettingsPromptCaching",
+                    "description": "Change only the named prompt-caching flags; omitted flags keep their stored value.\n"
+                },
                 "quantization": {
                     "type": "string",
                     "description": "Weight precision the deployment runs at; \u003cspan pulumi-lang-nodejs=\"`unknown`\" pulumi-lang-dotnet=\"`Unknown`\" pulumi-lang-go=\"`unknown`\" pulumi-lang-python=\"`unknown`\" pulumi-lang-yaml=\"`unknown`\" pulumi-lang-java=\"`unknown`\" pulumi-lang-hcl=\"`unknown`\"\u003e`unknown`\u003c/span\u003e when not stated. must be one of [\"int4\", \"int8\", \"fp4\", \"mxfp4\", \"nvfp4\", \"fp6\", \"fp8\", \"mxfp8\", \"fp16\", \"bf16\", \"fp32\", \"unknown\"]\n"
@@ -4596,6 +5087,7 @@
                         "inputs",
                         "maxCompletionTokens",
                         "maxPromptTokens",
+                        "promptCaching",
                         "quantization",
                         "reasoning",
                         "toolChoice"
@@ -4656,6 +5148,27 @@
                         "base64Images",
                         "fileUrls",
                         "imageUrls"
+                    ]
+                }
+            }
+        },
+        "openrouter:index/PrivateEndpointSettingsPromptCaching:PrivateEndpointSettingsPromptCaching": {
+            "properties": {
+                "cacheControl": {
+                    "type": "boolean",
+                    "description": "Forward top-level, message, and tool\u003cspan pulumi-lang-nodejs=\" cacheControl \" pulumi-lang-dotnet=\" CacheControl \" pulumi-lang-go=\" cacheControl \" pulumi-lang-python=\" cache_control \" pulumi-lang-yaml=\" cacheControl \" pulumi-lang-java=\" cacheControl \" pulumi-lang-hcl=\" cache_control \"\u003e cacheControl \u003c/span\u003emarkers. Defaults on after endpoint validation accepts these fields; otherwise off. Set false to opt out, or true to declare support explicitly.\n"
+                },
+                "promptCacheKey": {
+                    "type": "boolean",
+                    "description": "Send an OpenRouter-derived, customer-isolated prompt_cache_key, not the caller-supplied key. Defaults on after endpoint validation accepts the field; otherwise off. Set false to opt out, or true to declare support explicitly. HIPAA and unknown workspace posture withhold OpenRouter caching directives and the derived key; this does not control upstream retention.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "cacheControl",
+                        "promptCacheKey"
                     ]
                 }
             }
@@ -4949,6 +5462,10 @@
                     "type": "boolean",
                     "description": "Whether OpenRouter's shared endpoints on this provider are removed for every model, including models outside \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e and after all of your keys for the provider fail. The provider is skipped instead of spending OpenRouter credits. Only valid on non-fallback credentials.\n"
                 },
+                "isExclusive": {
+                    "type": "boolean",
+                    "description": "Whether requests for the models this credential covers run only on exclusive credentials covering that model: never on another provider, a non-exclusive key, or OpenRouter's shared capacity. Every exclusive credential that covers the model and is eligible for the request may serve it, so two exclusive credentials with overlapping models share those models. Only credentials eligible for the request (its API key and member restrictions) count, so a request no exclusive credential is eligible for uses normal routing. A request for a model that an eligible exclusive credential covers returns a 404 when none of those credentials can serve it. The covered models are \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e when non-empty; with no or an empty \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e, an OpenAI, Anthropic, or Google credential covers every closed-weight model by that lab (for example every `openai/*` model except open-weight models such as `openai/gpt-oss-120b`, which stay on normal routing unless listed), and other providers must set a non-empty \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e. Only valid on non-fallback credentials.\n"
+                },
                 "isFallback": {
                     "type": "boolean",
                     "description": "Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried. Cannot be combined with \u003cspan pulumi-lang-nodejs=\"`isByokOnly`\" pulumi-lang-dotnet=\"`IsByokOnly`\" pulumi-lang-go=\"`isByokOnly`\" pulumi-lang-python=\"`is_byok_only`\" pulumi-lang-yaml=\"`isByokOnly`\" pulumi-lang-java=\"`isByokOnly`\" pulumi-lang-hcl=\"`is_byok_only`\"\u003e`isByokOnly`\u003c/span\u003e.\n"
@@ -4989,6 +5506,7 @@
                 "disabled",
                 "id",
                 "isByokOnly",
+                "isExclusive",
                 "isFallback",
                 "isRequired",
                 "label",
@@ -5207,7 +5725,13 @@
         },
         "openrouter:index/getGuardrailPolicyModelAvailabilityConfig:getGuardrailPolicyModelAvailabilityConfig": {
             "properties": {
+                "allowProvisionalProviders": {
+                    "type": "boolean"
+                },
                 "allowSafetyRetentionGoogle": {
+                    "type": "boolean"
+                },
+                "allowSafetyRetentionOpenai": {
                     "type": "boolean"
                 },
                 "allowSafetyRetentionOther": {
@@ -5297,7 +5821,9 @@
             },
             "type": "object",
             "required": [
+                "allowProvisionalProviders",
                 "allowSafetyRetentionGoogle",
+                "allowSafetyRetentionOpenai",
                 "allowSafetyRetentionOther",
                 "allowedDataRegions",
                 "allowedModels",
@@ -5333,19 +5859,10 @@
                 "broadcastModelArmorFlaggedRequests": {
                     "type": "boolean"
                 },
-                "contentFilterBlocksRequests": {
-                    "type": "boolean"
-                },
                 "contentFilterBuiltins": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/openrouter:index/getGuardrailPolicyModerationConfigContentFilterBuiltin:getGuardrailPolicyModerationConfigContentFilterBuiltin"
-                    }
-                },
-                "contentFilterPatterns": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
                     }
                 },
                 "contentFilters": {
@@ -5366,12 +5883,6 @@
                 "modelArmorInjectionProtectionMode": {
                     "type": "string"
                 },
-                "piiFilters": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/openrouter:index/getGuardrailPolicyModerationConfigPiiFilter:getGuardrailPolicyModerationConfigPiiFilter"
-                    }
-                },
                 "platformImageModeratedProviders": {
                     "type": "array",
                     "items": {
@@ -5389,15 +5900,12 @@
             "required": [
                 "armor",
                 "broadcastModelArmorFlaggedRequests",
-                "contentFilterBlocksRequests",
                 "contentFilterBuiltins",
-                "contentFilterPatterns",
                 "contentFilters",
                 "enableModelArmorInjectionProtection",
                 "lakeraInjectionProtectionMode",
                 "modelArmorInjectionConfidenceLevel",
                 "modelArmorInjectionProtectionMode",
-                "piiFilters",
                 "platformImageModeratedProviders",
                 "platformModeratedProviders"
             ],
@@ -5754,35 +6262,19 @@
                 }
             }
         },
-        "openrouter:index/getGuardrailPolicyModerationConfigPiiFilter:getGuardrailPolicyModerationConfigPiiFilter": {
-            "properties": {
-                "action": {
-                    "type": "string"
-                },
-                "entityType": {
-                    "type": "string"
-                },
-                "scoreThreshold": {
-                    "type": "number"
-                }
-            },
-            "type": "object",
-            "required": [
-                "action",
-                "entityType",
-                "scoreThreshold"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
-        },
         "openrouter:index/getGuardrailsData:getGuardrailsData": {
             "properties": {
+                "allowProvisionalProviders": {
+                    "type": "boolean",
+                    "description": "Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.\n"
+                },
                 "allowSafetyRetentionGoogle": {
                     "type": "boolean",
                     "description": "Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.\n"
+                },
+                "allowSafetyRetentionOpenai": {
+                    "type": "boolean",
+                    "description": "Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003eapplies. Follows\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003ewhen null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.\n"
                 },
                 "allowSafetyRetentionOther": {
                     "type": "boolean",
@@ -5917,7 +6409,9 @@
             },
             "type": "object",
             "required": [
+                "allowProvisionalProviders",
                 "allowSafetyRetentionGoogle",
+                "allowSafetyRetentionOpenai",
                 "allowSafetyRetentionOther",
                 "allowedDataRegions",
                 "allowedModels",
@@ -6211,7 +6705,7 @@
             "properties": {
                 "artificialAnalysis": {
                     "$ref": "#/types/openrouter:index/getModelDataBenchmarksArtificialAnalysis:getModelDataBenchmarksArtificialAnalysis",
-                    "description": "Artificial Analysis benchmark index scores.\n"
+                    "description": "Benchmark index scores published by Artificial Analysis (artificialanalysis.ai), one field per index. Each score is the model's best on that index across the configurations Artificial Analysis evaluated (for example reasoning levels), so two indexes of one model can come from different configurations. The deprecated Coding Index and Agentic Index fields are null for every model: Artificial Analysis has retired those indexes. Attribute Artificial Analysis when you republish them. Omitted when Artificial Analysis has scored the model on none of them.\n"
                 },
                 "designArenas": {
                     "type": "array",
@@ -6236,22 +6730,74 @@
             "properties": {
                 "agenticIndex": {
                     "type": "number",
-                    "description": "Artificial Analysis Agentic Index score\n"
+                    "description": "Deprecated: Artificial Analysis has retired its Agentic Index and no longer publishes it. Always null.\n",
+                    "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible"
                 },
                 "codingIndex": {
                     "type": "number",
-                    "description": "Artificial Analysis Coding Index score\n"
+                    "description": "Deprecated: Artificial Analysis has retired its Coding Index and no longer publishes it. Always null.\n",
+                    "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible"
+                },
+                "cyberIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Cyber Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "decisionIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Decision Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Published for decision models and for the language models Artificial Analysis evaluates on decision tasks. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "economicsIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Economics Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "engineeringIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Engineering Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "financeAndAccountingIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Finance \u0026 Accounting Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "healthcareAndMedicalIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Healthcare \u0026 Medical Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
                 },
                 "intelligenceIndex": {
                     "type": "number",
-                    "description": "Artificial Analysis Intelligence Index score\n"
+                    "description": "Artificial Analysis Intelligence Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "legalIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Legal Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "multilingualIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Multilingual Index score, as a fraction from 0 to 1: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "opennessIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Openness Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "strategyAndOpsIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Strategy \u0026 Ops Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
                 }
             },
             "type": "object",
             "required": [
                 "agenticIndex",
                 "codingIndex",
-                "intelligenceIndex"
+                "cyberIndex",
+                "decisionIndex",
+                "economicsIndex",
+                "engineeringIndex",
+                "financeAndAccountingIndex",
+                "healthcareAndMedicalIndex",
+                "intelligenceIndex",
+                "legalIndex",
+                "multilingualIndex",
+                "opennessIndex",
+                "strategyAndOpsIndex"
             ],
             "language": {
                 "nodejs": {
@@ -6797,7 +7343,7 @@
             "properties": {
                 "artificialAnalysis": {
                     "$ref": "#/types/openrouter:index/getModelsDataBenchmarksArtificialAnalysis:getModelsDataBenchmarksArtificialAnalysis",
-                    "description": "Artificial Analysis benchmark index scores.\n"
+                    "description": "Benchmark index scores published by Artificial Analysis (artificialanalysis.ai), one field per index. Each score is the model's best on that index across the configurations Artificial Analysis evaluated (for example reasoning levels), so two indexes of one model can come from different configurations. The deprecated Coding Index and Agentic Index fields are null for every model: Artificial Analysis has retired those indexes. Attribute Artificial Analysis when you republish them. Omitted when Artificial Analysis has scored the model on none of them.\n"
                 },
                 "designArenas": {
                     "type": "array",
@@ -6822,22 +7368,74 @@
             "properties": {
                 "agenticIndex": {
                     "type": "number",
-                    "description": "Artificial Analysis Agentic Index score\n"
+                    "description": "Deprecated: Artificial Analysis has retired its Agentic Index and no longer publishes it. Always null.\n",
+                    "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible"
                 },
                 "codingIndex": {
                     "type": "number",
-                    "description": "Artificial Analysis Coding Index score\n"
+                    "description": "Deprecated: Artificial Analysis has retired its Coding Index and no longer publishes it. Always null.\n",
+                    "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible"
+                },
+                "cyberIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Cyber Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "decisionIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Decision Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Published for decision models and for the language models Artificial Analysis evaluates on decision tasks. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "economicsIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Economics Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "engineeringIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Engineering Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "financeAndAccountingIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Finance \u0026 Accounting Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "healthcareAndMedicalIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Healthcare \u0026 Medical Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
                 },
                 "intelligenceIndex": {
                     "type": "number",
-                    "description": "Artificial Analysis Intelligence Index score\n"
+                    "description": "Artificial Analysis Intelligence Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "legalIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Legal Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "multilingualIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Multilingual Index score, as a fraction from 0 to 1: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "opennessIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Openness Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.\n"
+                },
+                "strategyAndOpsIndex": {
+                    "type": "number",
+                    "description": "Artificial Analysis Strategy \u0026 Ops Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.\n"
                 }
             },
             "type": "object",
             "required": [
                 "agenticIndex",
                 "codingIndex",
-                "intelligenceIndex"
+                "cyberIndex",
+                "decisionIndex",
+                "economicsIndex",
+                "engineeringIndex",
+                "financeAndAccountingIndex",
+                "healthcareAndMedicalIndex",
+                "intelligenceIndex",
+                "legalIndex",
+                "multilingualIndex",
+                "opennessIndex",
+                "strategyAndOpsIndex"
             ],
             "language": {
                 "nodejs": {
@@ -15179,6 +15777,10 @@
                     "type": "integer",
                     "description": "Longest prompt, in tokens, or \u003cspan pulumi-lang-nodejs=\"`null`\" pulumi-lang-dotnet=\"`Null`\" pulumi-lang-go=\"`null`\" pulumi-lang-python=\"`null`\" pulumi-lang-yaml=\"`null`\" pulumi-lang-java=\"`null`\" pulumi-lang-hcl=\"`null`\"\u003e`null`\u003c/span\u003e for no cap below the context length. Cannot exceed \u003cspan pulumi-lang-nodejs=\"`contextLength`\" pulumi-lang-dotnet=\"`ContextLength`\" pulumi-lang-go=\"`contextLength`\" pulumi-lang-python=\"`context_length`\" pulumi-lang-yaml=\"`contextLength`\" pulumi-lang-java=\"`contextLength`\" pulumi-lang-hcl=\"`context_length`\"\u003e`contextLength`\u003c/span\u003e, or the model context length while \u003cspan pulumi-lang-nodejs=\"`contextLength`\" pulumi-lang-dotnet=\"`ContextLength`\" pulumi-lang-go=\"`contextLength`\" pulumi-lang-python=\"`context_length`\" pulumi-lang-yaml=\"`contextLength`\" pulumi-lang-java=\"`contextLength`\" pulumi-lang-hcl=\"`context_length`\"\u003e`contextLength`\u003c/span\u003e is \u003cspan pulumi-lang-nodejs=\"`null`\" pulumi-lang-dotnet=\"`Null`\" pulumi-lang-go=\"`null`\" pulumi-lang-python=\"`null`\" pulumi-lang-yaml=\"`null`\" pulumi-lang-java=\"`null`\" pulumi-lang-hcl=\"`null`\"\u003e`null`\u003c/span\u003e.\n"
                 },
+                "promptCaching": {
+                    "$ref": "#/types/openrouter:index/getPrivateEndpointSettingsPromptCaching:getPrivateEndpointSettingsPromptCaching",
+                    "description": "Prompt-caching controls for an OpenAI-compatible private endpoint. Accepted fields default on after validation; explicit owner settings override the defaults.\n"
+                },
                 "quantization": {
                     "type": "string",
                     "description": "Weight precision the deployment runs at; \u003cspan pulumi-lang-nodejs=\"`unknown`\" pulumi-lang-dotnet=\"`Unknown`\" pulumi-lang-go=\"`unknown`\" pulumi-lang-python=\"`unknown`\" pulumi-lang-yaml=\"`unknown`\" pulumi-lang-java=\"`unknown`\" pulumi-lang-hcl=\"`unknown`\"\u003e`unknown`\u003c/span\u003e when not stated.\n"
@@ -15198,6 +15800,7 @@
                 "inputs",
                 "maxCompletionTokens",
                 "maxPromptTokens",
+                "promptCaching",
                 "quantization",
                 "reasoning",
                 "toolChoice"
@@ -15260,6 +15863,28 @@
                 "base64Images",
                 "fileUrls",
                 "imageUrls"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "openrouter:index/getPrivateEndpointSettingsPromptCaching:getPrivateEndpointSettingsPromptCaching": {
+            "properties": {
+                "cacheControl": {
+                    "type": "boolean",
+                    "description": "Forward top-level, message, and tool\u003cspan pulumi-lang-nodejs=\" cacheControl \" pulumi-lang-dotnet=\" CacheControl \" pulumi-lang-go=\" cacheControl \" pulumi-lang-python=\" cache_control \" pulumi-lang-yaml=\" cacheControl \" pulumi-lang-java=\" cacheControl \" pulumi-lang-hcl=\" cache_control \"\u003e cacheControl \u003c/span\u003emarkers. Defaults on after endpoint validation accepts these fields; otherwise off. Set false to opt out, or true to declare support explicitly.\n"
+                },
+                "promptCacheKey": {
+                    "type": "boolean",
+                    "description": "Send an OpenRouter-derived, customer-isolated prompt_cache_key, not the caller-supplied key. Defaults on after endpoint validation accepts the field; otherwise off. Set false to opt out, or true to declare support explicitly. HIPAA and unknown workspace posture withhold OpenRouter caching directives and the derived key; this does not control upstream retention.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "cacheControl",
+                "promptCacheKey"
             ],
             "language": {
                 "nodejs": {
@@ -15529,14 +16154,14 @@
                 },
                 "includeByokInBudgets": {
                     "type": "boolean",
-                    "description": "Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.\n"
+                    "description": "Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.\n"
                 },
                 "ioLoggingApiKeyIds": {
                     "type": "array",
                     "items": {
                         "type": "integer"
                     },
-                    "description": "Optional array of API key IDs to filter I/O logging. Null means all keys are logged.\n"
+                    "description": "API key IDs used to filter I/O logging. Null means all keys are logged. Omitted without access to workspace settings and API key identifiers.\n"
                 },
                 "ioLoggingSamplingRate": {
                     "type": "number",
@@ -15969,6 +16594,10 @@
                     "type": "boolean",
                     "description": "Whether OpenRouter's shared endpoints on this provider are removed for every model, including models outside \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e and after all of your keys for the provider fail. The provider is skipped instead of spending OpenRouter credits. Only valid on non-fallback credentials. Defaults to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e."
                 },
+                "isExclusive": {
+                    "type": "boolean",
+                    "description": "Whether requests for the models this credential covers run only on exclusive credentials covering that model: never on another provider, a non-exclusive key, or OpenRouter's shared capacity. Every exclusive credential that covers the model and is eligible for the request may serve it, so two exclusive credentials with overlapping models share those models. Only credentials eligible for the request (its API key and member restrictions) count, so a request no exclusive credential is eligible for uses normal routing. A request for a model that an eligible exclusive credential covers returns a 404 when none of those credentials can serve it. The covered models are \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e when non-empty; with no or an empty \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e, an OpenAI, Anthropic, or Google credential covers every closed-weight model by that lab (for example every `openai/*` model except open-weight models such as `openai/gpt-oss-120b`, which stay on normal routing unless listed), and other providers must set a non-empty \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e. Only valid on non-fallback credentials. Defaults to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e."
+                },
                 "isFallback": {
                     "type": "boolean",
                     "description": "Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried. Cannot be combined with \u003cspan pulumi-lang-nodejs=\"`isByokOnly`\" pulumi-lang-dotnet=\"`IsByokOnly`\" pulumi-lang-go=\"`isByokOnly`\" pulumi-lang-python=\"`is_byok_only`\" pulumi-lang-yaml=\"`isByokOnly`\" pulumi-lang-java=\"`isByokOnly`\" pulumi-lang-hcl=\"`is_byok_only`\"\u003e`isByokOnly`\u003c/span\u003e."
@@ -16001,7 +16630,7 @@
                 },
                 "providerSlug": {
                     "type": "string",
-                    "description": "The upstream provider this credential authenticates against, as a lowercase slug (e.g. \u003cspan pulumi-lang-nodejs=\"`openai`\" pulumi-lang-dotnet=\"`Openai`\" pulumi-lang-go=\"`openai`\" pulumi-lang-python=\"`openai`\" pulumi-lang-yaml=\"`openai`\" pulumi-lang-java=\"`openai`\" pulumi-lang-hcl=\"`openai`\"\u003e`openai`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`anthropic`\" pulumi-lang-dotnet=\"`Anthropic`\" pulumi-lang-go=\"`anthropic`\" pulumi-lang-python=\"`anthropic`\" pulumi-lang-yaml=\"`anthropic`\" pulumi-lang-java=\"`anthropic`\" pulumi-lang-hcl=\"`anthropic`\"\u003e`anthropic`\u003c/span\u003e, `amazon-bedrock`). must be one of [\"ai21\", \"aion-labs\", \"akashml\", \"alibaba\", \"amazon-bedrock\", \"amazon-bedrock/claude-on-aws\", \"amazon-nova\", \"ambient\", \"antdigital\", \"anthropic\", \"anthropic/2\", \"arcee-ai\", \"assemblyai\", \"atlas-cloud\", \"avian\", \"azure\", \"baidu\", \"baseten\", \"black-forest-labs\", \"byteplus\", \"cerebras\", \"chutes\", \"cirrascale\", \"clarifai\", \"claude-on-aws\", \"cloudflare\", \"cohere\", \"coreweave\", \"cosine\", \"crusoe\", \"darkbloom\", \"databricks\", \"decart\", \"deepgram\", \"deepinfra\", \"deepseek\", \"dekallm\", \"digitalocean\", \"doubleword\", \"elevenlabs\", \"featherless\", \"fireworks\", \"fish-audio\", \"friendli\", \"gmicloud\", \"google-ai-studio\", \"google-vertex\", \"groq\", \"heygen\", \"inception\", \"inceptron\", \"inferact-vllm\", \"inference-net\", \"infermatic\", \"inflection\", \"io-net\", \"ionstream\", \"krea\", \"kt\", \"liquid\", \"makora\", \"mancer\", \"mara\", \"meta\", \"minimax\", \"mistral\", \"modal\", \"modelrun\", \"modular\", \"moonshotai\", \"morph\", \"near-ai\", \"nebius\", \"nex-agi\", \"nextbit\", \"novita\", \"nvidia\", \"ollama\", \"open-inference\", \"openai\", \"parallel\", \"parasail\", \"pareto-alpha\", \"particle-ai\", \"pearl-research\", \"perceptron\", \"perplexity\", \"phala\", \"poolside\", \"primalabs\", \"primeintellect\", \"quiver\", \"recraft\", \"recursive\", \"reka\", \"relace\", \"respan\", \"river\", \"runway\", \"sail-research\", \"sakana\", \"sakana-ai\", \"sambanova\", \"scaledown\", \"seed\", \"siliconflow\", \"sourceful\", \"speechify\", \"stepfun\", \"streamlake\", \"switchpoint\", \"tencent\", \"tenstorrent\", \"thinkingmachines\", \"together\", \"typesafe\", \"unbiased\", \"upstage\", \"venice\", \"voyageai\", \"wafer\", \"wandb\", \"wandb-legacy\", \"xai\", \"xiaomi\", \"z-ai\"]; Requires replacement if changed."
+                    "description": "The upstream provider this credential authenticates against, as a lowercase slug (e.g. \u003cspan pulumi-lang-nodejs=\"`openai`\" pulumi-lang-dotnet=\"`Openai`\" pulumi-lang-go=\"`openai`\" pulumi-lang-python=\"`openai`\" pulumi-lang-yaml=\"`openai`\" pulumi-lang-java=\"`openai`\" pulumi-lang-hcl=\"`openai`\"\u003e`openai`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`anthropic`\" pulumi-lang-dotnet=\"`Anthropic`\" pulumi-lang-go=\"`anthropic`\" pulumi-lang-python=\"`anthropic`\" pulumi-lang-yaml=\"`anthropic`\" pulumi-lang-java=\"`anthropic`\" pulumi-lang-hcl=\"`anthropic`\"\u003e`anthropic`\u003c/span\u003e, `amazon-bedrock`). must be one of [\"ai21\", \"aion-labs\", \"akashml\", \"alibaba\", \"amazon-bedrock\", \"amazon-bedrock/claude-on-aws\", \"amazon-nova\", \"ambient\", \"antdigital\", \"anthropic\", \"anthropic/2\", \"arcee-ai\", \"assemblyai\", \"atlas-cloud\", \"avian\", \"azure\", \"baidu\", \"baseten\", \"black-forest-labs\", \"byteplus\", \"cerebras\", \"chutes\", \"cirrascale\", \"clarifai\", \"claude-on-aws\", \"cloudflare\", \"cohere\", \"coreweave\", \"cosine\", \"crusoe\", \"darkbloom\", \"databricks\", \"decart\", \"deepgram\", \"deepinfra\", \"deepseek\", \"dekallm\", \"digitalocean\", \"doubleword\", \"elevenlabs\", \"featherless\", \"fireworks\", \"fish-audio\", \"friendli\", \"gmicloud\", \"google-ai-studio\", \"google-vertex\", \"groq\", \"heygen\", \"inception\", \"inceptron\", \"inferact-vllm\", \"inference-net\", \"infermatic\", \"inflection\", \"io-net\", \"ionstream\", \"krea\", \"kt\", \"liquid\", \"makora\", \"mancer\", \"mara\", \"meta\", \"minimax\", \"mistral\", \"modal\", \"modelrun\", \"modular\", \"moonshotai\", \"morph\", \"near-ai\", \"nebius\", \"nex-agi\", \"nextbit\", \"novita\", \"nvidia\", \"ollama\", \"open-inference\", \"openai\", \"parallel\", \"parasail\", \"pareto-alpha\", \"pareto-inference\", \"particle-ai\", \"pearl-research\", \"perceptron\", \"perplexity\", \"phala\", \"poolside\", \"primalabs\", \"primeintellect\", \"quiver\", \"recraft\", \"recursive\", \"reka\", \"relace\", \"respan\", \"river\", \"runway\", \"sail-research\", \"sakana\", \"sakana-ai\", \"sambanova\", \"scaledown\", \"seed\", \"siliconflow\", \"sourceful\", \"speechify\", \"stepfun\", \"streamlake\", \"switchpoint\", \"tencent\", \"tenstorrent\", \"thinkingmachines\", \"together\", \"typesafe\", \"unbiased\", \"upstage\", \"venice\", \"voyageai\", \"wafer\", \"wandb\", \"wandb-legacy\", \"xai\", \"xiaomi\", \"z-ai\"]; Requires replacement if changed."
                 },
                 "sortOrder": {
                     "type": "integer",
@@ -16021,6 +16650,7 @@
                 "declaredZdr",
                 "disabled",
                 "isByokOnly",
+                "isExclusive",
                 "isFallback",
                 "isRequired",
                 "label",
@@ -16067,6 +16697,10 @@
                     "type": "boolean",
                     "description": "Whether OpenRouter's shared endpoints on this provider are removed for every model, including models outside \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e and after all of your keys for the provider fail. The provider is skipped instead of spending OpenRouter credits. Only valid on non-fallback credentials. Defaults to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e."
                 },
+                "isExclusive": {
+                    "type": "boolean",
+                    "description": "Whether requests for the models this credential covers run only on exclusive credentials covering that model: never on another provider, a non-exclusive key, or OpenRouter's shared capacity. Every exclusive credential that covers the model and is eligible for the request may serve it, so two exclusive credentials with overlapping models share those models. Only credentials eligible for the request (its API key and member restrictions) count, so a request no exclusive credential is eligible for uses normal routing. A request for a model that an eligible exclusive credential covers returns a 404 when none of those credentials can serve it. The covered models are \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e when non-empty; with no or an empty \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e, an OpenAI, Anthropic, or Google credential covers every closed-weight model by that lab (for example every `openai/*` model except open-weight models such as `openai/gpt-oss-120b`, which stay on normal routing unless listed), and other providers must set a non-empty \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e. Only valid on non-fallback credentials. Defaults to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e."
+                },
                 "isFallback": {
                     "type": "boolean",
                     "description": "Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried. Cannot be combined with \u003cspan pulumi-lang-nodejs=\"`isByokOnly`\" pulumi-lang-dotnet=\"`IsByokOnly`\" pulumi-lang-go=\"`isByokOnly`\" pulumi-lang-python=\"`is_byok_only`\" pulumi-lang-yaml=\"`isByokOnly`\" pulumi-lang-java=\"`isByokOnly`\" pulumi-lang-hcl=\"`is_byok_only`\"\u003e`isByokOnly`\u003c/span\u003e."
@@ -16095,7 +16729,7 @@
                 },
                 "providerSlug": {
                     "type": "string",
-                    "description": "The upstream provider this credential authenticates against, as a lowercase slug (e.g. \u003cspan pulumi-lang-nodejs=\"`openai`\" pulumi-lang-dotnet=\"`Openai`\" pulumi-lang-go=\"`openai`\" pulumi-lang-python=\"`openai`\" pulumi-lang-yaml=\"`openai`\" pulumi-lang-java=\"`openai`\" pulumi-lang-hcl=\"`openai`\"\u003e`openai`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`anthropic`\" pulumi-lang-dotnet=\"`Anthropic`\" pulumi-lang-go=\"`anthropic`\" pulumi-lang-python=\"`anthropic`\" pulumi-lang-yaml=\"`anthropic`\" pulumi-lang-java=\"`anthropic`\" pulumi-lang-hcl=\"`anthropic`\"\u003e`anthropic`\u003c/span\u003e, `amazon-bedrock`). must be one of [\"ai21\", \"aion-labs\", \"akashml\", \"alibaba\", \"amazon-bedrock\", \"amazon-bedrock/claude-on-aws\", \"amazon-nova\", \"ambient\", \"antdigital\", \"anthropic\", \"anthropic/2\", \"arcee-ai\", \"assemblyai\", \"atlas-cloud\", \"avian\", \"azure\", \"baidu\", \"baseten\", \"black-forest-labs\", \"byteplus\", \"cerebras\", \"chutes\", \"cirrascale\", \"clarifai\", \"claude-on-aws\", \"cloudflare\", \"cohere\", \"coreweave\", \"cosine\", \"crusoe\", \"darkbloom\", \"databricks\", \"decart\", \"deepgram\", \"deepinfra\", \"deepseek\", \"dekallm\", \"digitalocean\", \"doubleword\", \"elevenlabs\", \"featherless\", \"fireworks\", \"fish-audio\", \"friendli\", \"gmicloud\", \"google-ai-studio\", \"google-vertex\", \"groq\", \"heygen\", \"inception\", \"inceptron\", \"inferact-vllm\", \"inference-net\", \"infermatic\", \"inflection\", \"io-net\", \"ionstream\", \"krea\", \"kt\", \"liquid\", \"makora\", \"mancer\", \"mara\", \"meta\", \"minimax\", \"mistral\", \"modal\", \"modelrun\", \"modular\", \"moonshotai\", \"morph\", \"near-ai\", \"nebius\", \"nex-agi\", \"nextbit\", \"novita\", \"nvidia\", \"ollama\", \"open-inference\", \"openai\", \"parallel\", \"parasail\", \"pareto-alpha\", \"particle-ai\", \"pearl-research\", \"perceptron\", \"perplexity\", \"phala\", \"poolside\", \"primalabs\", \"primeintellect\", \"quiver\", \"recraft\", \"recursive\", \"reka\", \"relace\", \"respan\", \"river\", \"runway\", \"sail-research\", \"sakana\", \"sakana-ai\", \"sambanova\", \"scaledown\", \"seed\", \"siliconflow\", \"sourceful\", \"speechify\", \"stepfun\", \"streamlake\", \"switchpoint\", \"tencent\", \"tenstorrent\", \"thinkingmachines\", \"together\", \"typesafe\", \"unbiased\", \"upstage\", \"venice\", \"voyageai\", \"wafer\", \"wandb\", \"wandb-legacy\", \"xai\", \"xiaomi\", \"z-ai\"]; Requires replacement if changed."
+                    "description": "The upstream provider this credential authenticates against, as a lowercase slug (e.g. \u003cspan pulumi-lang-nodejs=\"`openai`\" pulumi-lang-dotnet=\"`Openai`\" pulumi-lang-go=\"`openai`\" pulumi-lang-python=\"`openai`\" pulumi-lang-yaml=\"`openai`\" pulumi-lang-java=\"`openai`\" pulumi-lang-hcl=\"`openai`\"\u003e`openai`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`anthropic`\" pulumi-lang-dotnet=\"`Anthropic`\" pulumi-lang-go=\"`anthropic`\" pulumi-lang-python=\"`anthropic`\" pulumi-lang-yaml=\"`anthropic`\" pulumi-lang-java=\"`anthropic`\" pulumi-lang-hcl=\"`anthropic`\"\u003e`anthropic`\u003c/span\u003e, `amazon-bedrock`). must be one of [\"ai21\", \"aion-labs\", \"akashml\", \"alibaba\", \"amazon-bedrock\", \"amazon-bedrock/claude-on-aws\", \"amazon-nova\", \"ambient\", \"antdigital\", \"anthropic\", \"anthropic/2\", \"arcee-ai\", \"assemblyai\", \"atlas-cloud\", \"avian\", \"azure\", \"baidu\", \"baseten\", \"black-forest-labs\", \"byteplus\", \"cerebras\", \"chutes\", \"cirrascale\", \"clarifai\", \"claude-on-aws\", \"cloudflare\", \"cohere\", \"coreweave\", \"cosine\", \"crusoe\", \"darkbloom\", \"databricks\", \"decart\", \"deepgram\", \"deepinfra\", \"deepseek\", \"dekallm\", \"digitalocean\", \"doubleword\", \"elevenlabs\", \"featherless\", \"fireworks\", \"fish-audio\", \"friendli\", \"gmicloud\", \"google-ai-studio\", \"google-vertex\", \"groq\", \"heygen\", \"inception\", \"inceptron\", \"inferact-vllm\", \"inference-net\", \"infermatic\", \"inflection\", \"io-net\", \"ionstream\", \"krea\", \"kt\", \"liquid\", \"makora\", \"mancer\", \"mara\", \"meta\", \"minimax\", \"mistral\", \"modal\", \"modelrun\", \"modular\", \"moonshotai\", \"morph\", \"near-ai\", \"nebius\", \"nex-agi\", \"nextbit\", \"novita\", \"nvidia\", \"ollama\", \"open-inference\", \"openai\", \"parallel\", \"parasail\", \"pareto-alpha\", \"pareto-inference\", \"particle-ai\", \"pearl-research\", \"perceptron\", \"perplexity\", \"phala\", \"poolside\", \"primalabs\", \"primeintellect\", \"quiver\", \"recraft\", \"recursive\", \"reka\", \"relace\", \"respan\", \"river\", \"runway\", \"sail-research\", \"sakana\", \"sakana-ai\", \"sambanova\", \"scaledown\", \"seed\", \"siliconflow\", \"sourceful\", \"speechify\", \"stepfun\", \"streamlake\", \"switchpoint\", \"tencent\", \"tenstorrent\", \"thinkingmachines\", \"together\", \"typesafe\", \"unbiased\", \"upstage\", \"venice\", \"voyageai\", \"wafer\", \"wandb\", \"wandb-legacy\", \"xai\", \"xiaomi\", \"z-ai\"]; Requires replacement if changed."
                 },
                 "workspaceId": {
                     "type": "string",
@@ -16149,6 +16783,10 @@
                         "type": "boolean",
                         "description": "Whether OpenRouter's shared endpoints on this provider are removed for every model, including models outside \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e and after all of your keys for the provider fail. The provider is skipped instead of spending OpenRouter credits. Only valid on non-fallback credentials. Defaults to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e."
                     },
+                    "isExclusive": {
+                        "type": "boolean",
+                        "description": "Whether requests for the models this credential covers run only on exclusive credentials covering that model: never on another provider, a non-exclusive key, or OpenRouter's shared capacity. Every exclusive credential that covers the model and is eligible for the request may serve it, so two exclusive credentials with overlapping models share those models. Only credentials eligible for the request (its API key and member restrictions) count, so a request no exclusive credential is eligible for uses normal routing. A request for a model that an eligible exclusive credential covers returns a 404 when none of those credentials can serve it. The covered models are \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e when non-empty; with no or an empty \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e, an OpenAI, Anthropic, or Google credential covers every closed-weight model by that lab (for example every `openai/*` model except open-weight models such as `openai/gpt-oss-120b`, which stay on normal routing unless listed), and other providers must set a non-empty \u003cspan pulumi-lang-nodejs=\"`allowedModels`\" pulumi-lang-dotnet=\"`AllowedModels`\" pulumi-lang-go=\"`allowedModels`\" pulumi-lang-python=\"`allowed_models`\" pulumi-lang-yaml=\"`allowedModels`\" pulumi-lang-java=\"`allowedModels`\" pulumi-lang-hcl=\"`allowed_models`\"\u003e`allowedModels`\u003c/span\u003e. Only valid on non-fallback credentials. Defaults to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e."
+                    },
                     "isFallback": {
                         "type": "boolean",
                         "description": "Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried. Cannot be combined with \u003cspan pulumi-lang-nodejs=\"`isByokOnly`\" pulumi-lang-dotnet=\"`IsByokOnly`\" pulumi-lang-go=\"`isByokOnly`\" pulumi-lang-python=\"`is_byok_only`\" pulumi-lang-yaml=\"`isByokOnly`\" pulumi-lang-java=\"`isByokOnly`\" pulumi-lang-hcl=\"`is_byok_only`\"\u003e`isByokOnly`\u003c/span\u003e."
@@ -16181,7 +16819,7 @@
                     },
                     "providerSlug": {
                         "type": "string",
-                        "description": "The upstream provider this credential authenticates against, as a lowercase slug (e.g. \u003cspan pulumi-lang-nodejs=\"`openai`\" pulumi-lang-dotnet=\"`Openai`\" pulumi-lang-go=\"`openai`\" pulumi-lang-python=\"`openai`\" pulumi-lang-yaml=\"`openai`\" pulumi-lang-java=\"`openai`\" pulumi-lang-hcl=\"`openai`\"\u003e`openai`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`anthropic`\" pulumi-lang-dotnet=\"`Anthropic`\" pulumi-lang-go=\"`anthropic`\" pulumi-lang-python=\"`anthropic`\" pulumi-lang-yaml=\"`anthropic`\" pulumi-lang-java=\"`anthropic`\" pulumi-lang-hcl=\"`anthropic`\"\u003e`anthropic`\u003c/span\u003e, `amazon-bedrock`). must be one of [\"ai21\", \"aion-labs\", \"akashml\", \"alibaba\", \"amazon-bedrock\", \"amazon-bedrock/claude-on-aws\", \"amazon-nova\", \"ambient\", \"antdigital\", \"anthropic\", \"anthropic/2\", \"arcee-ai\", \"assemblyai\", \"atlas-cloud\", \"avian\", \"azure\", \"baidu\", \"baseten\", \"black-forest-labs\", \"byteplus\", \"cerebras\", \"chutes\", \"cirrascale\", \"clarifai\", \"claude-on-aws\", \"cloudflare\", \"cohere\", \"coreweave\", \"cosine\", \"crusoe\", \"darkbloom\", \"databricks\", \"decart\", \"deepgram\", \"deepinfra\", \"deepseek\", \"dekallm\", \"digitalocean\", \"doubleword\", \"elevenlabs\", \"featherless\", \"fireworks\", \"fish-audio\", \"friendli\", \"gmicloud\", \"google-ai-studio\", \"google-vertex\", \"groq\", \"heygen\", \"inception\", \"inceptron\", \"inferact-vllm\", \"inference-net\", \"infermatic\", \"inflection\", \"io-net\", \"ionstream\", \"krea\", \"kt\", \"liquid\", \"makora\", \"mancer\", \"mara\", \"meta\", \"minimax\", \"mistral\", \"modal\", \"modelrun\", \"modular\", \"moonshotai\", \"morph\", \"near-ai\", \"nebius\", \"nex-agi\", \"nextbit\", \"novita\", \"nvidia\", \"ollama\", \"open-inference\", \"openai\", \"parallel\", \"parasail\", \"pareto-alpha\", \"particle-ai\", \"pearl-research\", \"perceptron\", \"perplexity\", \"phala\", \"poolside\", \"primalabs\", \"primeintellect\", \"quiver\", \"recraft\", \"recursive\", \"reka\", \"relace\", \"respan\", \"river\", \"runway\", \"sail-research\", \"sakana\", \"sakana-ai\", \"sambanova\", \"scaledown\", \"seed\", \"siliconflow\", \"sourceful\", \"speechify\", \"stepfun\", \"streamlake\", \"switchpoint\", \"tencent\", \"tenstorrent\", \"thinkingmachines\", \"together\", \"typesafe\", \"unbiased\", \"upstage\", \"venice\", \"voyageai\", \"wafer\", \"wandb\", \"wandb-legacy\", \"xai\", \"xiaomi\", \"z-ai\"]; Requires replacement if changed."
+                        "description": "The upstream provider this credential authenticates against, as a lowercase slug (e.g. \u003cspan pulumi-lang-nodejs=\"`openai`\" pulumi-lang-dotnet=\"`Openai`\" pulumi-lang-go=\"`openai`\" pulumi-lang-python=\"`openai`\" pulumi-lang-yaml=\"`openai`\" pulumi-lang-java=\"`openai`\" pulumi-lang-hcl=\"`openai`\"\u003e`openai`\u003c/span\u003e, \u003cspan pulumi-lang-nodejs=\"`anthropic`\" pulumi-lang-dotnet=\"`Anthropic`\" pulumi-lang-go=\"`anthropic`\" pulumi-lang-python=\"`anthropic`\" pulumi-lang-yaml=\"`anthropic`\" pulumi-lang-java=\"`anthropic`\" pulumi-lang-hcl=\"`anthropic`\"\u003e`anthropic`\u003c/span\u003e, `amazon-bedrock`). must be one of [\"ai21\", \"aion-labs\", \"akashml\", \"alibaba\", \"amazon-bedrock\", \"amazon-bedrock/claude-on-aws\", \"amazon-nova\", \"ambient\", \"antdigital\", \"anthropic\", \"anthropic/2\", \"arcee-ai\", \"assemblyai\", \"atlas-cloud\", \"avian\", \"azure\", \"baidu\", \"baseten\", \"black-forest-labs\", \"byteplus\", \"cerebras\", \"chutes\", \"cirrascale\", \"clarifai\", \"claude-on-aws\", \"cloudflare\", \"cohere\", \"coreweave\", \"cosine\", \"crusoe\", \"darkbloom\", \"databricks\", \"decart\", \"deepgram\", \"deepinfra\", \"deepseek\", \"dekallm\", \"digitalocean\", \"doubleword\", \"elevenlabs\", \"featherless\", \"fireworks\", \"fish-audio\", \"friendli\", \"gmicloud\", \"google-ai-studio\", \"google-vertex\", \"groq\", \"heygen\", \"inception\", \"inceptron\", \"inferact-vllm\", \"inference-net\", \"infermatic\", \"inflection\", \"io-net\", \"ionstream\", \"krea\", \"kt\", \"liquid\", \"makora\", \"mancer\", \"mara\", \"meta\", \"minimax\", \"mistral\", \"modal\", \"modelrun\", \"modular\", \"moonshotai\", \"morph\", \"near-ai\", \"nebius\", \"nex-agi\", \"nextbit\", \"novita\", \"nvidia\", \"ollama\", \"open-inference\", \"openai\", \"parallel\", \"parasail\", \"pareto-alpha\", \"pareto-inference\", \"particle-ai\", \"pearl-research\", \"perceptron\", \"perplexity\", \"phala\", \"poolside\", \"primalabs\", \"primeintellect\", \"quiver\", \"recraft\", \"recursive\", \"reka\", \"relace\", \"respan\", \"river\", \"runway\", \"sail-research\", \"sakana\", \"sakana-ai\", \"sambanova\", \"scaledown\", \"seed\", \"siliconflow\", \"sourceful\", \"speechify\", \"stepfun\", \"streamlake\", \"switchpoint\", \"tencent\", \"tenstorrent\", \"thinkingmachines\", \"together\", \"typesafe\", \"unbiased\", \"upstage\", \"venice\", \"voyageai\", \"wafer\", \"wandb\", \"wandb-legacy\", \"xai\", \"xiaomi\", \"z-ai\"]; Requires replacement if changed."
                     },
                     "sortOrder": {
                         "type": "integer",
@@ -16197,9 +16835,17 @@
         },
         "openrouter:index/guardrail:Guardrail": {
             "properties": {
+                "allowProvisionalProviders": {
+                    "type": "boolean",
+                    "description": "Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided."
+                },
                 "allowSafetyRetentionGoogle": {
                     "type": "boolean",
                     "description": "Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided."
+                },
+                "allowSafetyRetentionOpenai": {
+                    "type": "boolean",
+                    "description": "Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003eapplies. Follows\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003ewhen null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting."
                 },
                 "allowSafetyRetentionOther": {
                     "type": "boolean",
@@ -16329,7 +16975,9 @@
                 }
             },
             "required": [
+                "allowProvisionalProviders",
                 "allowSafetyRetentionGoogle",
+                "allowSafetyRetentionOpenai",
                 "allowSafetyRetentionOther",
                 "allowedDataRegions",
                 "allowedModels",
@@ -16358,9 +17006,17 @@
                 "workspaceId"
             ],
             "inputProperties": {
+                "allowProvisionalProviders": {
+                    "type": "boolean",
+                    "description": "Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided."
+                },
                 "allowSafetyRetentionGoogle": {
                     "type": "boolean",
                     "description": "Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided."
+                },
+                "allowSafetyRetentionOpenai": {
+                    "type": "boolean",
+                    "description": "Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003eapplies. Follows\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003ewhen null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting."
                 },
                 "allowSafetyRetentionOther": {
                     "type": "boolean",
@@ -16484,9 +17140,17 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Guardrail resources.\n",
                 "properties": {
+                    "allowProvisionalProviders": {
+                        "type": "boolean",
+                        "description": "Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided."
+                    },
                     "allowSafetyRetentionGoogle": {
                         "type": "boolean",
                         "description": "Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided."
+                    },
+                    "allowSafetyRetentionOpenai": {
+                        "type": "boolean",
+                        "description": "Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003eapplies. Follows\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003ewhen null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting."
                     },
                     "allowSafetyRetentionOther": {
                         "type": "boolean",
@@ -16715,6 +17379,372 @@
                     "workspaceId": {
                         "type": "string",
                         "description": "ID (UUID) of the workspace the guardrail belongs to. Slugs are rejected. Requires replacement if changed."
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openrouter:index/guardrailPolicyAccountBudget:GuardrailPolicyAccountBudget": {
+            "properties": {
+                "config": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountBudgetConfig:GuardrailPolicyAccountBudgetConfig"
+                },
+                "isDefault": {
+                    "type": "boolean",
+                    "description": "Cover every workspace in the account except \u003cspan pulumi-lang-nodejs=\"`optedOutWorkspaceIds`\" pulumi-lang-dotnet=\"`OptedOutWorkspaceIds`\" pulumi-lang-go=\"`optedOutWorkspaceIds`\" pulumi-lang-python=\"`opted_out_workspace_ids`\" pulumi-lang-yaml=\"`optedOutWorkspaceIds`\" pulumi-lang-java=\"`optedOutWorkspaceIds`\" pulumi-lang-hcl=\"`opted_out_workspace_ids`\"\u003e`optedOutWorkspaceIds`\u003c/span\u003e. Set it to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e to unset that status. Only one policy of a type can be the account default: declaring it on a second policy of the same type unsets it on the first and clears its coverage, so two policies that both declare it change on every run. Destroying a policy that holds this status is refused: the route deletes the account default with no complaint and cannot restore it, so a destroy fails and names the two ways forward."
+                },
+                "isSynced": {
+                    "type": "boolean",
+                    "description": "Kept in sync with a v1 guardrail; saving changes creates an account copy"
+                },
+                "isWorkspaceDefaultSynced": {
+                    "type": "boolean",
+                    "description": "Synced from a v1 workspace default guardrail"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Policy name"
+                },
+                "optedOutWorkspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces left out of a default policy. Only the account default accepts these, and the API answers a policy that is not the default with 400 when it carries them, so flipping \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e off drops them: these require an effective \u003cspan pulumi-lang-nodejs=\"`isDefault \" pulumi-lang-dotnet=\"`IsDefault \" pulumi-lang-go=\"`isDefault \" pulumi-lang-python=\"`is_default \" pulumi-lang-yaml=\"`isDefault \" pulumi-lang-java=\"`isDefault \" pulumi-lang-hcl=\"`is_default \"\u003e`isDefault \u003c/span\u003e= true`, and a write that carries them while the flag is false or unset is refused."
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "workspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces a policy covers when it is not the default. For the account default this attribute reads back the workspaces currently resolving to it, which is more than what was configured, and the provider does not send it while \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e is true."
+                }
+            },
+            "required": [
+                "config",
+                "isDefault",
+                "isSynced",
+                "isWorkspaceDefaultSynced",
+                "name",
+                "optedOutWorkspaceIds",
+                "updatedAt",
+                "workspaceIds"
+            ],
+            "inputProperties": {
+                "config": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountBudgetConfig:GuardrailPolicyAccountBudgetConfig"
+                },
+                "isDefault": {
+                    "type": "boolean",
+                    "description": "Cover every workspace in the account except \u003cspan pulumi-lang-nodejs=\"`optedOutWorkspaceIds`\" pulumi-lang-dotnet=\"`OptedOutWorkspaceIds`\" pulumi-lang-go=\"`optedOutWorkspaceIds`\" pulumi-lang-python=\"`opted_out_workspace_ids`\" pulumi-lang-yaml=\"`optedOutWorkspaceIds`\" pulumi-lang-java=\"`optedOutWorkspaceIds`\" pulumi-lang-hcl=\"`opted_out_workspace_ids`\"\u003e`optedOutWorkspaceIds`\u003c/span\u003e. Set it to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e to unset that status. Only one policy of a type can be the account default: declaring it on a second policy of the same type unsets it on the first and clears its coverage, so two policies that both declare it change on every run. Destroying a policy that holds this status is refused: the route deletes the account default with no complaint and cannot restore it, so a destroy fails and names the two ways forward."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Policy name"
+                },
+                "optedOutWorkspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces left out of a default policy. Only the account default accepts these, and the API answers a policy that is not the default with 400 when it carries them, so flipping \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e off drops them: these require an effective \u003cspan pulumi-lang-nodejs=\"`isDefault \" pulumi-lang-dotnet=\"`IsDefault \" pulumi-lang-go=\"`isDefault \" pulumi-lang-python=\"`is_default \" pulumi-lang-yaml=\"`isDefault \" pulumi-lang-java=\"`isDefault \" pulumi-lang-hcl=\"`is_default \"\u003e`isDefault \u003c/span\u003e= true`, and a write that carries them while the flag is false or unset is refused."
+                },
+                "workspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces a policy covers when it is not the default. For the account default this attribute reads back the workspaces currently resolving to it, which is more than what was configured, and the provider does not send it while \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e is true."
+                }
+            },
+            "requiredInputs": [
+                "config"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering GuardrailPolicyAccountBudget resources.\n",
+                "properties": {
+                    "config": {
+                        "$ref": "#/types/openrouter:index/GuardrailPolicyAccountBudgetConfig:GuardrailPolicyAccountBudgetConfig"
+                    },
+                    "isDefault": {
+                        "type": "boolean",
+                        "description": "Cover every workspace in the account except \u003cspan pulumi-lang-nodejs=\"`optedOutWorkspaceIds`\" pulumi-lang-dotnet=\"`OptedOutWorkspaceIds`\" pulumi-lang-go=\"`optedOutWorkspaceIds`\" pulumi-lang-python=\"`opted_out_workspace_ids`\" pulumi-lang-yaml=\"`optedOutWorkspaceIds`\" pulumi-lang-java=\"`optedOutWorkspaceIds`\" pulumi-lang-hcl=\"`opted_out_workspace_ids`\"\u003e`optedOutWorkspaceIds`\u003c/span\u003e. Set it to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e to unset that status. Only one policy of a type can be the account default: declaring it on a second policy of the same type unsets it on the first and clears its coverage, so two policies that both declare it change on every run. Destroying a policy that holds this status is refused: the route deletes the account default with no complaint and cannot restore it, so a destroy fails and names the two ways forward."
+                    },
+                    "isSynced": {
+                        "type": "boolean",
+                        "description": "Kept in sync with a v1 guardrail; saving changes creates an account copy"
+                    },
+                    "isWorkspaceDefaultSynced": {
+                        "type": "boolean",
+                        "description": "Synced from a v1 workspace default guardrail"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Policy name"
+                    },
+                    "optedOutWorkspaceIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Workspaces left out of a default policy. Only the account default accepts these, and the API answers a policy that is not the default with 400 when it carries them, so flipping \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e off drops them: these require an effective \u003cspan pulumi-lang-nodejs=\"`isDefault \" pulumi-lang-dotnet=\"`IsDefault \" pulumi-lang-go=\"`isDefault \" pulumi-lang-python=\"`is_default \" pulumi-lang-yaml=\"`isDefault \" pulumi-lang-java=\"`isDefault \" pulumi-lang-hcl=\"`is_default \"\u003e`isDefault \u003c/span\u003e= true`, and a write that carries them while the flag is false or unset is refused."
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    },
+                    "workspaceIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Workspaces a policy covers when it is not the default. For the account default this attribute reads back the workspaces currently resolving to it, which is more than what was configured, and the provider does not send it while \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e is true."
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openrouter:index/guardrailPolicyAccountModelAvailability:GuardrailPolicyAccountModelAvailability": {
+            "properties": {
+                "config": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModelAvailabilityConfig:GuardrailPolicyAccountModelAvailabilityConfig"
+                },
+                "isDefault": {
+                    "type": "boolean",
+                    "description": "Cover every workspace in the account except \u003cspan pulumi-lang-nodejs=\"`optedOutWorkspaceIds`\" pulumi-lang-dotnet=\"`OptedOutWorkspaceIds`\" pulumi-lang-go=\"`optedOutWorkspaceIds`\" pulumi-lang-python=\"`opted_out_workspace_ids`\" pulumi-lang-yaml=\"`optedOutWorkspaceIds`\" pulumi-lang-java=\"`optedOutWorkspaceIds`\" pulumi-lang-hcl=\"`opted_out_workspace_ids`\"\u003e`optedOutWorkspaceIds`\u003c/span\u003e. Set it to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e to unset that status. Only one policy of a type can be the account default: declaring it on a second policy of the same type unsets it on the first and clears its coverage, so two policies that both declare it change on every run. Destroying a policy that holds this status is refused: the route deletes the account default with no complaint and cannot restore it, so a destroy fails and names the two ways forward."
+                },
+                "isSynced": {
+                    "type": "boolean",
+                    "description": "Kept in sync with a v1 guardrail; saving changes creates an account copy"
+                },
+                "isWorkspaceDefaultSynced": {
+                    "type": "boolean",
+                    "description": "Synced from a v1 workspace default guardrail"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Policy name"
+                },
+                "optedOutWorkspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces left out of a default policy. Only the account default accepts these, and the API answers a policy that is not the default with 400 when it carries them, so flipping \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e off drops them: these require an effective \u003cspan pulumi-lang-nodejs=\"`isDefault \" pulumi-lang-dotnet=\"`IsDefault \" pulumi-lang-go=\"`isDefault \" pulumi-lang-python=\"`is_default \" pulumi-lang-yaml=\"`isDefault \" pulumi-lang-java=\"`isDefault \" pulumi-lang-hcl=\"`is_default \"\u003e`isDefault \u003c/span\u003e= true`, and a write that carries them while the flag is false or unset is refused."
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "workspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces a policy covers when it is not the default. For the account default this attribute reads back the workspaces currently resolving to it, which is more than what was configured, and the provider does not send it while \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e is true."
+                }
+            },
+            "required": [
+                "config",
+                "isDefault",
+                "isSynced",
+                "isWorkspaceDefaultSynced",
+                "name",
+                "optedOutWorkspaceIds",
+                "updatedAt",
+                "workspaceIds"
+            ],
+            "inputProperties": {
+                "config": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModelAvailabilityConfig:GuardrailPolicyAccountModelAvailabilityConfig"
+                },
+                "isDefault": {
+                    "type": "boolean",
+                    "description": "Cover every workspace in the account except \u003cspan pulumi-lang-nodejs=\"`optedOutWorkspaceIds`\" pulumi-lang-dotnet=\"`OptedOutWorkspaceIds`\" pulumi-lang-go=\"`optedOutWorkspaceIds`\" pulumi-lang-python=\"`opted_out_workspace_ids`\" pulumi-lang-yaml=\"`optedOutWorkspaceIds`\" pulumi-lang-java=\"`optedOutWorkspaceIds`\" pulumi-lang-hcl=\"`opted_out_workspace_ids`\"\u003e`optedOutWorkspaceIds`\u003c/span\u003e. Set it to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e to unset that status. Only one policy of a type can be the account default: declaring it on a second policy of the same type unsets it on the first and clears its coverage, so two policies that both declare it change on every run. Destroying a policy that holds this status is refused: the route deletes the account default with no complaint and cannot restore it, so a destroy fails and names the two ways forward."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Policy name"
+                },
+                "optedOutWorkspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces left out of a default policy. Only the account default accepts these, and the API answers a policy that is not the default with 400 when it carries them, so flipping \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e off drops them: these require an effective \u003cspan pulumi-lang-nodejs=\"`isDefault \" pulumi-lang-dotnet=\"`IsDefault \" pulumi-lang-go=\"`isDefault \" pulumi-lang-python=\"`is_default \" pulumi-lang-yaml=\"`isDefault \" pulumi-lang-java=\"`isDefault \" pulumi-lang-hcl=\"`is_default \"\u003e`isDefault \u003c/span\u003e= true`, and a write that carries them while the flag is false or unset is refused."
+                },
+                "workspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces a policy covers when it is not the default. For the account default this attribute reads back the workspaces currently resolving to it, which is more than what was configured, and the provider does not send it while \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e is true."
+                }
+            },
+            "requiredInputs": [
+                "config"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering GuardrailPolicyAccountModelAvailability resources.\n",
+                "properties": {
+                    "config": {
+                        "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModelAvailabilityConfig:GuardrailPolicyAccountModelAvailabilityConfig"
+                    },
+                    "isDefault": {
+                        "type": "boolean",
+                        "description": "Cover every workspace in the account except \u003cspan pulumi-lang-nodejs=\"`optedOutWorkspaceIds`\" pulumi-lang-dotnet=\"`OptedOutWorkspaceIds`\" pulumi-lang-go=\"`optedOutWorkspaceIds`\" pulumi-lang-python=\"`opted_out_workspace_ids`\" pulumi-lang-yaml=\"`optedOutWorkspaceIds`\" pulumi-lang-java=\"`optedOutWorkspaceIds`\" pulumi-lang-hcl=\"`opted_out_workspace_ids`\"\u003e`optedOutWorkspaceIds`\u003c/span\u003e. Set it to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e to unset that status. Only one policy of a type can be the account default: declaring it on a second policy of the same type unsets it on the first and clears its coverage, so two policies that both declare it change on every run. Destroying a policy that holds this status is refused: the route deletes the account default with no complaint and cannot restore it, so a destroy fails and names the two ways forward."
+                    },
+                    "isSynced": {
+                        "type": "boolean",
+                        "description": "Kept in sync with a v1 guardrail; saving changes creates an account copy"
+                    },
+                    "isWorkspaceDefaultSynced": {
+                        "type": "boolean",
+                        "description": "Synced from a v1 workspace default guardrail"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Policy name"
+                    },
+                    "optedOutWorkspaceIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Workspaces left out of a default policy. Only the account default accepts these, and the API answers a policy that is not the default with 400 when it carries them, so flipping \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e off drops them: these require an effective \u003cspan pulumi-lang-nodejs=\"`isDefault \" pulumi-lang-dotnet=\"`IsDefault \" pulumi-lang-go=\"`isDefault \" pulumi-lang-python=\"`is_default \" pulumi-lang-yaml=\"`isDefault \" pulumi-lang-java=\"`isDefault \" pulumi-lang-hcl=\"`is_default \"\u003e`isDefault \u003c/span\u003e= true`, and a write that carries them while the flag is false or unset is refused."
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    },
+                    "workspaceIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Workspaces a policy covers when it is not the default. For the account default this attribute reads back the workspaces currently resolving to it, which is more than what was configured, and the provider does not send it while \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e is true."
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "openrouter:index/guardrailPolicyAccountModeration:GuardrailPolicyAccountModeration": {
+            "properties": {
+                "config": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfig:GuardrailPolicyAccountModerationConfig"
+                },
+                "isDefault": {
+                    "type": "boolean",
+                    "description": "Cover every workspace in the account except \u003cspan pulumi-lang-nodejs=\"`optedOutWorkspaceIds`\" pulumi-lang-dotnet=\"`OptedOutWorkspaceIds`\" pulumi-lang-go=\"`optedOutWorkspaceIds`\" pulumi-lang-python=\"`opted_out_workspace_ids`\" pulumi-lang-yaml=\"`optedOutWorkspaceIds`\" pulumi-lang-java=\"`optedOutWorkspaceIds`\" pulumi-lang-hcl=\"`opted_out_workspace_ids`\"\u003e`optedOutWorkspaceIds`\u003c/span\u003e. Set it to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e to unset that status. Only one policy of a type can be the account default: declaring it on a second policy of the same type unsets it on the first and clears its coverage, so two policies that both declare it change on every run. Destroying a policy that holds this status is refused: the route deletes the account default with no complaint and cannot restore it, so a destroy fails and names the two ways forward."
+                },
+                "isSynced": {
+                    "type": "boolean",
+                    "description": "Kept in sync with a v1 guardrail; saving changes creates an account copy"
+                },
+                "isWorkspaceDefaultSynced": {
+                    "type": "boolean",
+                    "description": "Synced from a v1 workspace default guardrail"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Policy name"
+                },
+                "optedOutWorkspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces left out of a default policy. Only the account default accepts these, and the API answers a policy that is not the default with 400 when it carries them, so flipping \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e off drops them: these require an effective \u003cspan pulumi-lang-nodejs=\"`isDefault \" pulumi-lang-dotnet=\"`IsDefault \" pulumi-lang-go=\"`isDefault \" pulumi-lang-python=\"`is_default \" pulumi-lang-yaml=\"`isDefault \" pulumi-lang-java=\"`isDefault \" pulumi-lang-hcl=\"`is_default \"\u003e`isDefault \u003c/span\u003e= true`, and a write that carries them while the flag is false or unset is refused."
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "workspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces a policy covers when it is not the default. For the account default this attribute reads back the workspaces currently resolving to it, which is more than what was configured, and the provider does not send it while \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e is true."
+                }
+            },
+            "required": [
+                "config",
+                "isDefault",
+                "isSynced",
+                "isWorkspaceDefaultSynced",
+                "name",
+                "optedOutWorkspaceIds",
+                "updatedAt",
+                "workspaceIds"
+            ],
+            "inputProperties": {
+                "config": {
+                    "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfig:GuardrailPolicyAccountModerationConfig"
+                },
+                "isDefault": {
+                    "type": "boolean",
+                    "description": "Cover every workspace in the account except \u003cspan pulumi-lang-nodejs=\"`optedOutWorkspaceIds`\" pulumi-lang-dotnet=\"`OptedOutWorkspaceIds`\" pulumi-lang-go=\"`optedOutWorkspaceIds`\" pulumi-lang-python=\"`opted_out_workspace_ids`\" pulumi-lang-yaml=\"`optedOutWorkspaceIds`\" pulumi-lang-java=\"`optedOutWorkspaceIds`\" pulumi-lang-hcl=\"`opted_out_workspace_ids`\"\u003e`optedOutWorkspaceIds`\u003c/span\u003e. Set it to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e to unset that status. Only one policy of a type can be the account default: declaring it on a second policy of the same type unsets it on the first and clears its coverage, so two policies that both declare it change on every run. Destroying a policy that holds this status is refused: the route deletes the account default with no complaint and cannot restore it, so a destroy fails and names the two ways forward."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Policy name"
+                },
+                "optedOutWorkspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces left out of a default policy. Only the account default accepts these, and the API answers a policy that is not the default with 400 when it carries them, so flipping \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e off drops them: these require an effective \u003cspan pulumi-lang-nodejs=\"`isDefault \" pulumi-lang-dotnet=\"`IsDefault \" pulumi-lang-go=\"`isDefault \" pulumi-lang-python=\"`is_default \" pulumi-lang-yaml=\"`isDefault \" pulumi-lang-java=\"`isDefault \" pulumi-lang-hcl=\"`is_default \"\u003e`isDefault \u003c/span\u003e= true`, and a write that carries them while the flag is false or unset is refused."
+                },
+                "workspaceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Workspaces a policy covers when it is not the default. For the account default this attribute reads back the workspaces currently resolving to it, which is more than what was configured, and the provider does not send it while \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e is true."
+                }
+            },
+            "requiredInputs": [
+                "config"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering GuardrailPolicyAccountModeration resources.\n",
+                "properties": {
+                    "config": {
+                        "$ref": "#/types/openrouter:index/GuardrailPolicyAccountModerationConfig:GuardrailPolicyAccountModerationConfig"
+                    },
+                    "isDefault": {
+                        "type": "boolean",
+                        "description": "Cover every workspace in the account except \u003cspan pulumi-lang-nodejs=\"`optedOutWorkspaceIds`\" pulumi-lang-dotnet=\"`OptedOutWorkspaceIds`\" pulumi-lang-go=\"`optedOutWorkspaceIds`\" pulumi-lang-python=\"`opted_out_workspace_ids`\" pulumi-lang-yaml=\"`optedOutWorkspaceIds`\" pulumi-lang-java=\"`optedOutWorkspaceIds`\" pulumi-lang-hcl=\"`opted_out_workspace_ids`\"\u003e`optedOutWorkspaceIds`\u003c/span\u003e. Set it to \u003cspan pulumi-lang-nodejs=\"`false`\" pulumi-lang-dotnet=\"`False`\" pulumi-lang-go=\"`false`\" pulumi-lang-python=\"`false`\" pulumi-lang-yaml=\"`false`\" pulumi-lang-java=\"`false`\" pulumi-lang-hcl=\"`false`\"\u003e`false`\u003c/span\u003e to unset that status. Only one policy of a type can be the account default: declaring it on a second policy of the same type unsets it on the first and clears its coverage, so two policies that both declare it change on every run. Destroying a policy that holds this status is refused: the route deletes the account default with no complaint and cannot restore it, so a destroy fails and names the two ways forward."
+                    },
+                    "isSynced": {
+                        "type": "boolean",
+                        "description": "Kept in sync with a v1 guardrail; saving changes creates an account copy"
+                    },
+                    "isWorkspaceDefaultSynced": {
+                        "type": "boolean",
+                        "description": "Synced from a v1 workspace default guardrail"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Policy name"
+                    },
+                    "optedOutWorkspaceIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Workspaces left out of a default policy. Only the account default accepts these, and the API answers a policy that is not the default with 400 when it carries them, so flipping \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e off drops them: these require an effective \u003cspan pulumi-lang-nodejs=\"`isDefault \" pulumi-lang-dotnet=\"`IsDefault \" pulumi-lang-go=\"`isDefault \" pulumi-lang-python=\"`is_default \" pulumi-lang-yaml=\"`isDefault \" pulumi-lang-java=\"`isDefault \" pulumi-lang-hcl=\"`is_default \"\u003e`isDefault \u003c/span\u003e= true`, and a write that carries them while the flag is false or unset is refused."
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    },
+                    "workspaceIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Workspaces a policy covers when it is not the default. For the account default this attribute reads back the workspaces currently resolving to it, which is more than what was configured, and the provider does not send it while \u003cspan pulumi-lang-nodejs=\"`isDefault`\" pulumi-lang-dotnet=\"`IsDefault`\" pulumi-lang-go=\"`isDefault`\" pulumi-lang-python=\"`is_default`\" pulumi-lang-yaml=\"`isDefault`\" pulumi-lang-java=\"`isDefault`\" pulumi-lang-hcl=\"`is_default`\"\u003e`isDefault`\u003c/span\u003e is true."
                     }
                 },
                 "type": "object"
@@ -18199,22 +19229,22 @@
                 },
                 "includeByokInBudgets": {
                     "type": "boolean",
-                    "description": "Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints."
+                    "description": "Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints."
                 },
                 "ioLoggingApiKeyIds": {
                     "type": "array",
                     "items": {
                         "type": "integer"
                     },
-                    "description": "Optional array of API key IDs to filter I/O logging"
+                    "description": "Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                 },
                 "ioLoggingSamplingRate": {
                     "type": "number",
-                    "description": "Sampling rate for I/O logging (0.0001-1)"
+                    "description": "Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                 },
                 "isDataDiscountLoggingEnabled": {
                     "type": "boolean",
-                    "description": "Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403."
+                    "description": "Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                 },
                 "isObservabilityBroadcastEnabled": {
                     "type": "boolean",
@@ -18222,7 +19252,7 @@
                 },
                 "isObservabilityIoLoggingEnabled": {
                     "type": "boolean",
-                    "description": "Whether private logging is enabled"
+                    "description": "Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                 },
                 "name": {
                     "type": "string",
@@ -18289,15 +19319,15 @@
                     "items": {
                         "type": "integer"
                     },
-                    "description": "Optional array of API key IDs to filter I/O logging"
+                    "description": "Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                 },
                 "ioLoggingSamplingRate": {
                     "type": "number",
-                    "description": "Sampling rate for I/O logging (0.0001-1)"
+                    "description": "Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                 },
                 "isDataDiscountLoggingEnabled": {
                     "type": "boolean",
-                    "description": "Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403."
+                    "description": "Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                 },
                 "isObservabilityBroadcastEnabled": {
                     "type": "boolean",
@@ -18305,7 +19335,7 @@
                 },
                 "isObservabilityIoLoggingEnabled": {
                     "type": "boolean",
-                    "description": "Whether private logging is enabled"
+                    "description": "Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                 },
                 "name": {
                     "type": "string",
@@ -18363,22 +19393,22 @@
                     },
                     "includeByokInBudgets": {
                         "type": "boolean",
-                        "description": "Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints."
+                        "description": "Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints."
                     },
                     "ioLoggingApiKeyIds": {
                         "type": "array",
                         "items": {
                             "type": "integer"
                         },
-                        "description": "Optional array of API key IDs to filter I/O logging"
+                        "description": "Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                     },
                     "ioLoggingSamplingRate": {
                         "type": "number",
-                        "description": "Sampling rate for I/O logging (0.0001-1)"
+                        "description": "Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                     },
                     "isDataDiscountLoggingEnabled": {
                         "type": "boolean",
-                        "description": "Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403."
+                        "description": "Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                     },
                     "isObservabilityBroadcastEnabled": {
                         "type": "boolean",
@@ -18386,7 +19416,7 @@
                     },
                     "isObservabilityIoLoggingEnabled": {
                         "type": "boolean",
-                        "description": "Whether private logging is enabled"
+                        "description": "Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard."
                     },
                     "name": {
                         "type": "string",
@@ -18513,9 +19543,17 @@
         },
         "openrouter:index/workspaceDefaultGuardrail:WorkspaceDefaultGuardrail": {
             "properties": {
+                "allowProvisionalProviders": {
+                    "type": "boolean",
+                    "description": "Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided."
+                },
                 "allowSafetyRetentionGoogle": {
                     "type": "boolean",
                     "description": "Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided."
+                },
+                "allowSafetyRetentionOpenai": {
+                    "type": "boolean",
+                    "description": "Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003eapplies. Follows\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003ewhen null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting."
                 },
                 "allowSafetyRetentionOther": {
                     "type": "boolean",
@@ -18645,7 +19683,9 @@
                 }
             },
             "required": [
+                "allowProvisionalProviders",
                 "allowSafetyRetentionGoogle",
+                "allowSafetyRetentionOpenai",
                 "allowSafetyRetentionOther",
                 "createdAt",
                 "description",
@@ -18667,9 +19707,17 @@
                 "workspaceId"
             ],
             "inputProperties": {
+                "allowProvisionalProviders": {
+                    "type": "boolean",
+                    "description": "Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided."
+                },
                 "allowSafetyRetentionGoogle": {
                     "type": "boolean",
                     "description": "Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided."
+                },
+                "allowSafetyRetentionOpenai": {
+                    "type": "boolean",
+                    "description": "Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003eapplies. Follows\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003ewhen null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting."
                 },
                 "allowSafetyRetentionOther": {
                     "type": "boolean",
@@ -18792,9 +19840,17 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering WorkspaceDefaultGuardrail resources.\n",
                 "properties": {
+                    "allowProvisionalProviders": {
+                        "type": "boolean",
+                        "description": "Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided."
+                    },
                     "allowSafetyRetentionGoogle": {
                         "type": "boolean",
                         "description": "Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided."
+                    },
+                    "allowSafetyRetentionOpenai": {
+                        "type": "boolean",
+                        "description": "Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003eapplies. Follows\u003cspan pulumi-lang-nodejs=\" allowSafetyRetentionOther \" pulumi-lang-dotnet=\" AllowSafetyRetentionOther \" pulumi-lang-go=\" allowSafetyRetentionOther \" pulumi-lang-python=\" allow_safety_retention_other \" pulumi-lang-yaml=\" allowSafetyRetentionOther \" pulumi-lang-java=\" allowSafetyRetentionOther \" pulumi-lang-hcl=\" allow_safety_retention_other \"\u003e allowSafetyRetentionOther \u003c/span\u003ewhen null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting."
                     },
                     "allowSafetyRetentionOther": {
                         "type": "boolean",
@@ -19197,6 +20253,9 @@
                     "isByokOnly": {
                         "type": "boolean"
                     },
+                    "isExclusive": {
+                        "type": "boolean"
+                    },
                     "isFallback": {
                         "type": "boolean"
                     },
@@ -19229,6 +20288,7 @@
                     "disabled",
                     "id",
                     "isByokOnly",
+                    "isExclusive",
                     "isFallback",
                     "isRequired",
                     "label",
@@ -19309,7 +20369,13 @@
             "outputs": {
                 "description": "A collection of values returned by getGuardrail.\n",
                 "properties": {
+                    "allowProvisionalProviders": {
+                        "type": "boolean"
+                    },
                     "allowSafetyRetentionGoogle": {
+                        "type": "boolean"
+                    },
+                    "allowSafetyRetentionOpenai": {
                         "type": "boolean"
                     },
                     "allowSafetyRetentionOther": {
@@ -19417,7 +20483,9 @@
                     }
                 },
                 "required": [
+                    "allowProvisionalProviders",
                     "allowSafetyRetentionGoogle",
+                    "allowSafetyRetentionOpenai",
                     "allowSafetyRetentionOther",
                     "allowedDataRegions",
                     "allowedModels",
@@ -19922,18 +20990,50 @@
                         "type": "integer"
                     },
                     "maxAgenticIndex": {
-                        "type": "number"
+                        "type": "number",
+                        "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible"
                     },
                     "maxCodingIndex": {
+                        "type": "number",
+                        "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible"
+                    },
+                    "maxCyberIndex": {
+                        "type": "number"
+                    },
+                    "maxDecisionIndex": {
+                        "type": "number"
+                    },
+                    "maxEconomicsIndex": {
+                        "type": "number"
+                    },
+                    "maxEngineeringIndex": {
+                        "type": "number"
+                    },
+                    "maxFinanceAndAccountingIndex": {
+                        "type": "number"
+                    },
+                    "maxHealthcareAndMedicalIndex": {
                         "type": "number"
                     },
                     "maxIntelligenceIndex": {
+                        "type": "number"
+                    },
+                    "maxLegalIndex": {
+                        "type": "number"
+                    },
+                    "maxMultilingualIndex": {
+                        "type": "number"
+                    },
+                    "maxOpennessIndex": {
                         "type": "number"
                     },
                     "maxOutputPrice": {
                         "type": "number"
                     },
                     "maxPrice": {
+                        "type": "number"
+                    },
+                    "maxStrategyAndOpsIndex": {
                         "type": "number"
                     },
                     "maxToolSuccessRate": {
@@ -19943,18 +21043,50 @@
                         "type": "integer"
                     },
                     "minAgenticIndex": {
-                        "type": "number"
+                        "type": "number",
+                        "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible"
                     },
                     "minCodingIndex": {
+                        "type": "number",
+                        "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible"
+                    },
+                    "minCyberIndex": {
+                        "type": "number"
+                    },
+                    "minDecisionIndex": {
+                        "type": "number"
+                    },
+                    "minEconomicsIndex": {
+                        "type": "number"
+                    },
+                    "minEngineeringIndex": {
+                        "type": "number"
+                    },
+                    "minFinanceAndAccountingIndex": {
+                        "type": "number"
+                    },
+                    "minHealthcareAndMedicalIndex": {
                         "type": "number"
                     },
                     "minIntelligenceIndex": {
+                        "type": "number"
+                    },
+                    "minLegalIndex": {
+                        "type": "number"
+                    },
+                    "minMultilingualIndex": {
+                        "type": "number"
+                    },
+                    "minOpennessIndex": {
                         "type": "number"
                     },
                     "minOutputPrice": {
                         "type": "number"
                     },
                     "minPrice": {
+                        "type": "number"
+                    },
+                    "minStrategyAndOpsIndex": {
                         "type": "number"
                     },
                     "minToolSuccessRate": {
@@ -20027,18 +21159,50 @@
                         "type": "integer"
                     },
                     "maxAgenticIndex": {
+                        "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible",
                         "type": "number"
                     },
                     "maxCodingIndex": {
+                        "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible",
+                        "type": "number"
+                    },
+                    "maxCyberIndex": {
+                        "type": "number"
+                    },
+                    "maxDecisionIndex": {
+                        "type": "number"
+                    },
+                    "maxEconomicsIndex": {
+                        "type": "number"
+                    },
+                    "maxEngineeringIndex": {
+                        "type": "number"
+                    },
+                    "maxFinanceAndAccountingIndex": {
+                        "type": "number"
+                    },
+                    "maxHealthcareAndMedicalIndex": {
                         "type": "number"
                     },
                     "maxIntelligenceIndex": {
+                        "type": "number"
+                    },
+                    "maxLegalIndex": {
+                        "type": "number"
+                    },
+                    "maxMultilingualIndex": {
+                        "type": "number"
+                    },
+                    "maxOpennessIndex": {
                         "type": "number"
                     },
                     "maxOutputPrice": {
                         "type": "number"
                     },
                     "maxPrice": {
+                        "type": "number"
+                    },
+                    "maxStrategyAndOpsIndex": {
                         "type": "number"
                     },
                     "maxToolSuccessRate": {
@@ -20048,18 +21212,50 @@
                         "type": "integer"
                     },
                     "minAgenticIndex": {
+                        "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible",
                         "type": "number"
                     },
                     "minCodingIndex": {
+                        "deprecationMessage": "This will be removed in a future release, please migrate away from it as soon as possible",
+                        "type": "number"
+                    },
+                    "minCyberIndex": {
+                        "type": "number"
+                    },
+                    "minDecisionIndex": {
+                        "type": "number"
+                    },
+                    "minEconomicsIndex": {
+                        "type": "number"
+                    },
+                    "minEngineeringIndex": {
+                        "type": "number"
+                    },
+                    "minFinanceAndAccountingIndex": {
+                        "type": "number"
+                    },
+                    "minHealthcareAndMedicalIndex": {
                         "type": "number"
                     },
                     "minIntelligenceIndex": {
+                        "type": "number"
+                    },
+                    "minLegalIndex": {
+                        "type": "number"
+                    },
+                    "minMultilingualIndex": {
+                        "type": "number"
+                    },
+                    "minOpennessIndex": {
                         "type": "number"
                     },
                     "minOutputPrice": {
                         "type": "number"
                     },
                     "minPrice": {
+                        "type": "number"
+                    },
+                    "minStrategyAndOpsIndex": {
                         "type": "number"
                     },
                     "minToolSuccessRate": {
