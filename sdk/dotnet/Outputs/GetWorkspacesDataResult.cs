@@ -50,11 +50,11 @@ namespace Pulumi.Openrouter.Outputs
         /// </summary>
         public readonly string Id;
         /// <summary>
-        /// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+        /// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
         /// </summary>
         public readonly bool IncludeByokInBudgets;
         /// <summary>
-        /// Optional array of API key IDs to filter I/O logging. Null means all keys are logged.
+        /// API key IDs used to filter I/O logging. Null means all keys are logged. Omitted without access to workspace settings and API key identifiers.
         /// </summary>
         public readonly ImmutableArray<int> IoLoggingApiKeyIds;
         /// <summary>

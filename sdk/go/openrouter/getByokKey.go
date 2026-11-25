@@ -37,6 +37,7 @@ type LookupByokKeyResult struct {
 	Disabled            bool     `pulumi:"disabled"`
 	Id                  string   `pulumi:"id"`
 	IsByokOnly          bool     `pulumi:"isByokOnly"`
+	IsExclusive         bool     `pulumi:"isExclusive"`
 	IsFallback          bool     `pulumi:"isFallback"`
 	IsRequired          bool     `pulumi:"isRequired"`
 	Label               string   `pulumi:"label"`
@@ -109,6 +110,10 @@ func (o LookupByokKeyResultOutput) Id() pulumi.StringOutput {
 
 func (o LookupByokKeyResultOutput) IsByokOnly() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupByokKeyResult) bool { return v.IsByokOnly }).(pulumi.BoolOutput)
+}
+
+func (o LookupByokKeyResultOutput) IsExclusive() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupByokKeyResult) bool { return v.IsExclusive }).(pulumi.BoolOutput)
 }
 
 func (o LookupByokKeyResultOutput) IsFallback() pulumi.BoolOutput {

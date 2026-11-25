@@ -27,7 +27,7 @@ class GetModelsResult:
     """
     A collection of values returned by getModels.
     """
-    def __init__(__self__, arch=None, category=None, context=None, datas=None, distillable=None, endpoints=None, input_modalities=None, links=None, max_age_days=None, max_agentic_index=None, max_coding_index=None, max_intelligence_index=None, max_output_price=None, max_price=None, max_tool_success_rate=None, min_age_days=None, min_agentic_index=None, min_coding_index=None, min_intelligence_index=None, min_output_price=None, min_price=None, min_tool_success_rate=None, model_authors=None, output_modalities=None, providers=None, q=None, region=None, sort=None, supported_parameters=None, total_count=None, use_rss=None, use_rss_chat_links=None, zdr=None):
+    def __init__(__self__, arch=None, category=None, context=None, datas=None, distillable=None, endpoints=None, input_modalities=None, links=None, max_age_days=None, max_agentic_index=None, max_coding_index=None, max_cyber_index=None, max_decision_index=None, max_economics_index=None, max_engineering_index=None, max_finance_and_accounting_index=None, max_healthcare_and_medical_index=None, max_intelligence_index=None, max_legal_index=None, max_multilingual_index=None, max_openness_index=None, max_output_price=None, max_price=None, max_strategy_and_ops_index=None, max_tool_success_rate=None, min_age_days=None, min_agentic_index=None, min_coding_index=None, min_cyber_index=None, min_decision_index=None, min_economics_index=None, min_engineering_index=None, min_finance_and_accounting_index=None, min_healthcare_and_medical_index=None, min_intelligence_index=None, min_legal_index=None, min_multilingual_index=None, min_openness_index=None, min_output_price=None, min_price=None, min_strategy_and_ops_index=None, min_tool_success_rate=None, model_authors=None, output_modalities=None, providers=None, q=None, region=None, sort=None, supported_parameters=None, total_count=None, use_rss=None, use_rss_chat_links=None, zdr=None):
         if arch and not isinstance(arch, str):
             raise TypeError("Expected argument 'arch' to be a str")
         pulumi.set(__self__, "arch", arch)
@@ -61,15 +61,45 @@ class GetModelsResult:
         if max_coding_index and not isinstance(max_coding_index, float):
             raise TypeError("Expected argument 'max_coding_index' to be a float")
         pulumi.set(__self__, "max_coding_index", max_coding_index)
+        if max_cyber_index and not isinstance(max_cyber_index, float):
+            raise TypeError("Expected argument 'max_cyber_index' to be a float")
+        pulumi.set(__self__, "max_cyber_index", max_cyber_index)
+        if max_decision_index and not isinstance(max_decision_index, float):
+            raise TypeError("Expected argument 'max_decision_index' to be a float")
+        pulumi.set(__self__, "max_decision_index", max_decision_index)
+        if max_economics_index and not isinstance(max_economics_index, float):
+            raise TypeError("Expected argument 'max_economics_index' to be a float")
+        pulumi.set(__self__, "max_economics_index", max_economics_index)
+        if max_engineering_index and not isinstance(max_engineering_index, float):
+            raise TypeError("Expected argument 'max_engineering_index' to be a float")
+        pulumi.set(__self__, "max_engineering_index", max_engineering_index)
+        if max_finance_and_accounting_index and not isinstance(max_finance_and_accounting_index, float):
+            raise TypeError("Expected argument 'max_finance_and_accounting_index' to be a float")
+        pulumi.set(__self__, "max_finance_and_accounting_index", max_finance_and_accounting_index)
+        if max_healthcare_and_medical_index and not isinstance(max_healthcare_and_medical_index, float):
+            raise TypeError("Expected argument 'max_healthcare_and_medical_index' to be a float")
+        pulumi.set(__self__, "max_healthcare_and_medical_index", max_healthcare_and_medical_index)
         if max_intelligence_index and not isinstance(max_intelligence_index, float):
             raise TypeError("Expected argument 'max_intelligence_index' to be a float")
         pulumi.set(__self__, "max_intelligence_index", max_intelligence_index)
+        if max_legal_index and not isinstance(max_legal_index, float):
+            raise TypeError("Expected argument 'max_legal_index' to be a float")
+        pulumi.set(__self__, "max_legal_index", max_legal_index)
+        if max_multilingual_index and not isinstance(max_multilingual_index, float):
+            raise TypeError("Expected argument 'max_multilingual_index' to be a float")
+        pulumi.set(__self__, "max_multilingual_index", max_multilingual_index)
+        if max_openness_index and not isinstance(max_openness_index, float):
+            raise TypeError("Expected argument 'max_openness_index' to be a float")
+        pulumi.set(__self__, "max_openness_index", max_openness_index)
         if max_output_price and not isinstance(max_output_price, float):
             raise TypeError("Expected argument 'max_output_price' to be a float")
         pulumi.set(__self__, "max_output_price", max_output_price)
         if max_price and not isinstance(max_price, float):
             raise TypeError("Expected argument 'max_price' to be a float")
         pulumi.set(__self__, "max_price", max_price)
+        if max_strategy_and_ops_index and not isinstance(max_strategy_and_ops_index, float):
+            raise TypeError("Expected argument 'max_strategy_and_ops_index' to be a float")
+        pulumi.set(__self__, "max_strategy_and_ops_index", max_strategy_and_ops_index)
         if max_tool_success_rate and not isinstance(max_tool_success_rate, float):
             raise TypeError("Expected argument 'max_tool_success_rate' to be a float")
         pulumi.set(__self__, "max_tool_success_rate", max_tool_success_rate)
@@ -82,15 +112,45 @@ class GetModelsResult:
         if min_coding_index and not isinstance(min_coding_index, float):
             raise TypeError("Expected argument 'min_coding_index' to be a float")
         pulumi.set(__self__, "min_coding_index", min_coding_index)
+        if min_cyber_index and not isinstance(min_cyber_index, float):
+            raise TypeError("Expected argument 'min_cyber_index' to be a float")
+        pulumi.set(__self__, "min_cyber_index", min_cyber_index)
+        if min_decision_index and not isinstance(min_decision_index, float):
+            raise TypeError("Expected argument 'min_decision_index' to be a float")
+        pulumi.set(__self__, "min_decision_index", min_decision_index)
+        if min_economics_index and not isinstance(min_economics_index, float):
+            raise TypeError("Expected argument 'min_economics_index' to be a float")
+        pulumi.set(__self__, "min_economics_index", min_economics_index)
+        if min_engineering_index and not isinstance(min_engineering_index, float):
+            raise TypeError("Expected argument 'min_engineering_index' to be a float")
+        pulumi.set(__self__, "min_engineering_index", min_engineering_index)
+        if min_finance_and_accounting_index and not isinstance(min_finance_and_accounting_index, float):
+            raise TypeError("Expected argument 'min_finance_and_accounting_index' to be a float")
+        pulumi.set(__self__, "min_finance_and_accounting_index", min_finance_and_accounting_index)
+        if min_healthcare_and_medical_index and not isinstance(min_healthcare_and_medical_index, float):
+            raise TypeError("Expected argument 'min_healthcare_and_medical_index' to be a float")
+        pulumi.set(__self__, "min_healthcare_and_medical_index", min_healthcare_and_medical_index)
         if min_intelligence_index and not isinstance(min_intelligence_index, float):
             raise TypeError("Expected argument 'min_intelligence_index' to be a float")
         pulumi.set(__self__, "min_intelligence_index", min_intelligence_index)
+        if min_legal_index and not isinstance(min_legal_index, float):
+            raise TypeError("Expected argument 'min_legal_index' to be a float")
+        pulumi.set(__self__, "min_legal_index", min_legal_index)
+        if min_multilingual_index and not isinstance(min_multilingual_index, float):
+            raise TypeError("Expected argument 'min_multilingual_index' to be a float")
+        pulumi.set(__self__, "min_multilingual_index", min_multilingual_index)
+        if min_openness_index and not isinstance(min_openness_index, float):
+            raise TypeError("Expected argument 'min_openness_index' to be a float")
+        pulumi.set(__self__, "min_openness_index", min_openness_index)
         if min_output_price and not isinstance(min_output_price, float):
             raise TypeError("Expected argument 'min_output_price' to be a float")
         pulumi.set(__self__, "min_output_price", min_output_price)
         if min_price and not isinstance(min_price, float):
             raise TypeError("Expected argument 'min_price' to be a float")
         pulumi.set(__self__, "min_price", min_price)
+        if min_strategy_and_ops_index and not isinstance(min_strategy_and_ops_index, float):
+            raise TypeError("Expected argument 'min_strategy_and_ops_index' to be a float")
+        pulumi.set(__self__, "min_strategy_and_ops_index", min_strategy_and_ops_index)
         if min_tool_success_rate and not isinstance(min_tool_success_rate, float):
             raise TypeError("Expected argument 'min_tool_success_rate' to be a float")
         pulumi.set(__self__, "min_tool_success_rate", min_tool_success_rate)
@@ -175,18 +235,65 @@ class GetModelsResult:
 
     @_builtins.property
     @pulumi.getter(name="maxAgenticIndex")
+    @_utilities.deprecated("""This will be removed in a future release, please migrate away from it as soon as possible""")
     def max_agentic_index(self) -> Optional[_builtins.float]:
         return pulumi.get(self, "max_agentic_index")
 
     @_builtins.property
     @pulumi.getter(name="maxCodingIndex")
+    @_utilities.deprecated("""This will be removed in a future release, please migrate away from it as soon as possible""")
     def max_coding_index(self) -> Optional[_builtins.float]:
         return pulumi.get(self, "max_coding_index")
+
+    @_builtins.property
+    @pulumi.getter(name="maxCyberIndex")
+    def max_cyber_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_cyber_index")
+
+    @_builtins.property
+    @pulumi.getter(name="maxDecisionIndex")
+    def max_decision_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_decision_index")
+
+    @_builtins.property
+    @pulumi.getter(name="maxEconomicsIndex")
+    def max_economics_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_economics_index")
+
+    @_builtins.property
+    @pulumi.getter(name="maxEngineeringIndex")
+    def max_engineering_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_engineering_index")
+
+    @_builtins.property
+    @pulumi.getter(name="maxFinanceAndAccountingIndex")
+    def max_finance_and_accounting_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_finance_and_accounting_index")
+
+    @_builtins.property
+    @pulumi.getter(name="maxHealthcareAndMedicalIndex")
+    def max_healthcare_and_medical_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_healthcare_and_medical_index")
 
     @_builtins.property
     @pulumi.getter(name="maxIntelligenceIndex")
     def max_intelligence_index(self) -> Optional[_builtins.float]:
         return pulumi.get(self, "max_intelligence_index")
+
+    @_builtins.property
+    @pulumi.getter(name="maxLegalIndex")
+    def max_legal_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_legal_index")
+
+    @_builtins.property
+    @pulumi.getter(name="maxMultilingualIndex")
+    def max_multilingual_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_multilingual_index")
+
+    @_builtins.property
+    @pulumi.getter(name="maxOpennessIndex")
+    def max_openness_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_openness_index")
 
     @_builtins.property
     @pulumi.getter(name="maxOutputPrice")
@@ -197,6 +304,11 @@ class GetModelsResult:
     @pulumi.getter(name="maxPrice")
     def max_price(self) -> Optional[_builtins.float]:
         return pulumi.get(self, "max_price")
+
+    @_builtins.property
+    @pulumi.getter(name="maxStrategyAndOpsIndex")
+    def max_strategy_and_ops_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "max_strategy_and_ops_index")
 
     @_builtins.property
     @pulumi.getter(name="maxToolSuccessRate")
@@ -210,18 +322,65 @@ class GetModelsResult:
 
     @_builtins.property
     @pulumi.getter(name="minAgenticIndex")
+    @_utilities.deprecated("""This will be removed in a future release, please migrate away from it as soon as possible""")
     def min_agentic_index(self) -> Optional[_builtins.float]:
         return pulumi.get(self, "min_agentic_index")
 
     @_builtins.property
     @pulumi.getter(name="minCodingIndex")
+    @_utilities.deprecated("""This will be removed in a future release, please migrate away from it as soon as possible""")
     def min_coding_index(self) -> Optional[_builtins.float]:
         return pulumi.get(self, "min_coding_index")
+
+    @_builtins.property
+    @pulumi.getter(name="minCyberIndex")
+    def min_cyber_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_cyber_index")
+
+    @_builtins.property
+    @pulumi.getter(name="minDecisionIndex")
+    def min_decision_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_decision_index")
+
+    @_builtins.property
+    @pulumi.getter(name="minEconomicsIndex")
+    def min_economics_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_economics_index")
+
+    @_builtins.property
+    @pulumi.getter(name="minEngineeringIndex")
+    def min_engineering_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_engineering_index")
+
+    @_builtins.property
+    @pulumi.getter(name="minFinanceAndAccountingIndex")
+    def min_finance_and_accounting_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_finance_and_accounting_index")
+
+    @_builtins.property
+    @pulumi.getter(name="minHealthcareAndMedicalIndex")
+    def min_healthcare_and_medical_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_healthcare_and_medical_index")
 
     @_builtins.property
     @pulumi.getter(name="minIntelligenceIndex")
     def min_intelligence_index(self) -> Optional[_builtins.float]:
         return pulumi.get(self, "min_intelligence_index")
+
+    @_builtins.property
+    @pulumi.getter(name="minLegalIndex")
+    def min_legal_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_legal_index")
+
+    @_builtins.property
+    @pulumi.getter(name="minMultilingualIndex")
+    def min_multilingual_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_multilingual_index")
+
+    @_builtins.property
+    @pulumi.getter(name="minOpennessIndex")
+    def min_openness_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_openness_index")
 
     @_builtins.property
     @pulumi.getter(name="minOutputPrice")
@@ -232,6 +391,11 @@ class GetModelsResult:
     @pulumi.getter(name="minPrice")
     def min_price(self) -> Optional[_builtins.float]:
         return pulumi.get(self, "min_price")
+
+    @_builtins.property
+    @pulumi.getter(name="minStrategyAndOpsIndex")
+    def min_strategy_and_ops_index(self) -> Optional[_builtins.float]:
+        return pulumi.get(self, "min_strategy_and_ops_index")
 
     @_builtins.property
     @pulumi.getter(name="minToolSuccessRate")
@@ -311,16 +475,36 @@ class AwaitableGetModelsResult(GetModelsResult):
             max_age_days=self.max_age_days,
             max_agentic_index=self.max_agentic_index,
             max_coding_index=self.max_coding_index,
+            max_cyber_index=self.max_cyber_index,
+            max_decision_index=self.max_decision_index,
+            max_economics_index=self.max_economics_index,
+            max_engineering_index=self.max_engineering_index,
+            max_finance_and_accounting_index=self.max_finance_and_accounting_index,
+            max_healthcare_and_medical_index=self.max_healthcare_and_medical_index,
             max_intelligence_index=self.max_intelligence_index,
+            max_legal_index=self.max_legal_index,
+            max_multilingual_index=self.max_multilingual_index,
+            max_openness_index=self.max_openness_index,
             max_output_price=self.max_output_price,
             max_price=self.max_price,
+            max_strategy_and_ops_index=self.max_strategy_and_ops_index,
             max_tool_success_rate=self.max_tool_success_rate,
             min_age_days=self.min_age_days,
             min_agentic_index=self.min_agentic_index,
             min_coding_index=self.min_coding_index,
+            min_cyber_index=self.min_cyber_index,
+            min_decision_index=self.min_decision_index,
+            min_economics_index=self.min_economics_index,
+            min_engineering_index=self.min_engineering_index,
+            min_finance_and_accounting_index=self.min_finance_and_accounting_index,
+            min_healthcare_and_medical_index=self.min_healthcare_and_medical_index,
             min_intelligence_index=self.min_intelligence_index,
+            min_legal_index=self.min_legal_index,
+            min_multilingual_index=self.min_multilingual_index,
+            min_openness_index=self.min_openness_index,
             min_output_price=self.min_output_price,
             min_price=self.min_price,
+            min_strategy_and_ops_index=self.min_strategy_and_ops_index,
             min_tool_success_rate=self.min_tool_success_rate,
             model_authors=self.model_authors,
             output_modalities=self.output_modalities,
@@ -344,16 +528,36 @@ def get_models(arch: Optional[_builtins.str] = None,
                max_age_days: Optional[_builtins.int] = None,
                max_agentic_index: Optional[_builtins.float] = None,
                max_coding_index: Optional[_builtins.float] = None,
+               max_cyber_index: Optional[_builtins.float] = None,
+               max_decision_index: Optional[_builtins.float] = None,
+               max_economics_index: Optional[_builtins.float] = None,
+               max_engineering_index: Optional[_builtins.float] = None,
+               max_finance_and_accounting_index: Optional[_builtins.float] = None,
+               max_healthcare_and_medical_index: Optional[_builtins.float] = None,
                max_intelligence_index: Optional[_builtins.float] = None,
+               max_legal_index: Optional[_builtins.float] = None,
+               max_multilingual_index: Optional[_builtins.float] = None,
+               max_openness_index: Optional[_builtins.float] = None,
                max_output_price: Optional[_builtins.float] = None,
                max_price: Optional[_builtins.float] = None,
+               max_strategy_and_ops_index: Optional[_builtins.float] = None,
                max_tool_success_rate: Optional[_builtins.float] = None,
                min_age_days: Optional[_builtins.int] = None,
                min_agentic_index: Optional[_builtins.float] = None,
                min_coding_index: Optional[_builtins.float] = None,
+               min_cyber_index: Optional[_builtins.float] = None,
+               min_decision_index: Optional[_builtins.float] = None,
+               min_economics_index: Optional[_builtins.float] = None,
+               min_engineering_index: Optional[_builtins.float] = None,
+               min_finance_and_accounting_index: Optional[_builtins.float] = None,
+               min_healthcare_and_medical_index: Optional[_builtins.float] = None,
                min_intelligence_index: Optional[_builtins.float] = None,
+               min_legal_index: Optional[_builtins.float] = None,
+               min_multilingual_index: Optional[_builtins.float] = None,
+               min_openness_index: Optional[_builtins.float] = None,
                min_output_price: Optional[_builtins.float] = None,
                min_price: Optional[_builtins.float] = None,
+               min_strategy_and_ops_index: Optional[_builtins.float] = None,
                min_tool_success_rate: Optional[_builtins.float] = None,
                model_authors: Optional[_builtins.str] = None,
                output_modalities: Optional[_builtins.str] = None,
@@ -379,16 +583,36 @@ def get_models(arch: Optional[_builtins.str] = None,
     __args__['maxAgeDays'] = max_age_days
     __args__['maxAgenticIndex'] = max_agentic_index
     __args__['maxCodingIndex'] = max_coding_index
+    __args__['maxCyberIndex'] = max_cyber_index
+    __args__['maxDecisionIndex'] = max_decision_index
+    __args__['maxEconomicsIndex'] = max_economics_index
+    __args__['maxEngineeringIndex'] = max_engineering_index
+    __args__['maxFinanceAndAccountingIndex'] = max_finance_and_accounting_index
+    __args__['maxHealthcareAndMedicalIndex'] = max_healthcare_and_medical_index
     __args__['maxIntelligenceIndex'] = max_intelligence_index
+    __args__['maxLegalIndex'] = max_legal_index
+    __args__['maxMultilingualIndex'] = max_multilingual_index
+    __args__['maxOpennessIndex'] = max_openness_index
     __args__['maxOutputPrice'] = max_output_price
     __args__['maxPrice'] = max_price
+    __args__['maxStrategyAndOpsIndex'] = max_strategy_and_ops_index
     __args__['maxToolSuccessRate'] = max_tool_success_rate
     __args__['minAgeDays'] = min_age_days
     __args__['minAgenticIndex'] = min_agentic_index
     __args__['minCodingIndex'] = min_coding_index
+    __args__['minCyberIndex'] = min_cyber_index
+    __args__['minDecisionIndex'] = min_decision_index
+    __args__['minEconomicsIndex'] = min_economics_index
+    __args__['minEngineeringIndex'] = min_engineering_index
+    __args__['minFinanceAndAccountingIndex'] = min_finance_and_accounting_index
+    __args__['minHealthcareAndMedicalIndex'] = min_healthcare_and_medical_index
     __args__['minIntelligenceIndex'] = min_intelligence_index
+    __args__['minLegalIndex'] = min_legal_index
+    __args__['minMultilingualIndex'] = min_multilingual_index
+    __args__['minOpennessIndex'] = min_openness_index
     __args__['minOutputPrice'] = min_output_price
     __args__['minPrice'] = min_price
+    __args__['minStrategyAndOpsIndex'] = min_strategy_and_ops_index
     __args__['minToolSuccessRate'] = min_tool_success_rate
     __args__['modelAuthors'] = model_authors
     __args__['outputModalities'] = output_modalities
@@ -415,16 +639,36 @@ def get_models(arch: Optional[_builtins.str] = None,
         max_age_days=pulumi.get(__ret__, 'max_age_days'),
         max_agentic_index=pulumi.get(__ret__, 'max_agentic_index'),
         max_coding_index=pulumi.get(__ret__, 'max_coding_index'),
+        max_cyber_index=pulumi.get(__ret__, 'max_cyber_index'),
+        max_decision_index=pulumi.get(__ret__, 'max_decision_index'),
+        max_economics_index=pulumi.get(__ret__, 'max_economics_index'),
+        max_engineering_index=pulumi.get(__ret__, 'max_engineering_index'),
+        max_finance_and_accounting_index=pulumi.get(__ret__, 'max_finance_and_accounting_index'),
+        max_healthcare_and_medical_index=pulumi.get(__ret__, 'max_healthcare_and_medical_index'),
         max_intelligence_index=pulumi.get(__ret__, 'max_intelligence_index'),
+        max_legal_index=pulumi.get(__ret__, 'max_legal_index'),
+        max_multilingual_index=pulumi.get(__ret__, 'max_multilingual_index'),
+        max_openness_index=pulumi.get(__ret__, 'max_openness_index'),
         max_output_price=pulumi.get(__ret__, 'max_output_price'),
         max_price=pulumi.get(__ret__, 'max_price'),
+        max_strategy_and_ops_index=pulumi.get(__ret__, 'max_strategy_and_ops_index'),
         max_tool_success_rate=pulumi.get(__ret__, 'max_tool_success_rate'),
         min_age_days=pulumi.get(__ret__, 'min_age_days'),
         min_agentic_index=pulumi.get(__ret__, 'min_agentic_index'),
         min_coding_index=pulumi.get(__ret__, 'min_coding_index'),
+        min_cyber_index=pulumi.get(__ret__, 'min_cyber_index'),
+        min_decision_index=pulumi.get(__ret__, 'min_decision_index'),
+        min_economics_index=pulumi.get(__ret__, 'min_economics_index'),
+        min_engineering_index=pulumi.get(__ret__, 'min_engineering_index'),
+        min_finance_and_accounting_index=pulumi.get(__ret__, 'min_finance_and_accounting_index'),
+        min_healthcare_and_medical_index=pulumi.get(__ret__, 'min_healthcare_and_medical_index'),
         min_intelligence_index=pulumi.get(__ret__, 'min_intelligence_index'),
+        min_legal_index=pulumi.get(__ret__, 'min_legal_index'),
+        min_multilingual_index=pulumi.get(__ret__, 'min_multilingual_index'),
+        min_openness_index=pulumi.get(__ret__, 'min_openness_index'),
         min_output_price=pulumi.get(__ret__, 'min_output_price'),
         min_price=pulumi.get(__ret__, 'min_price'),
+        min_strategy_and_ops_index=pulumi.get(__ret__, 'min_strategy_and_ops_index'),
         min_tool_success_rate=pulumi.get(__ret__, 'min_tool_success_rate'),
         model_authors=pulumi.get(__ret__, 'model_authors'),
         output_modalities=pulumi.get(__ret__, 'output_modalities'),
@@ -446,16 +690,36 @@ def get_models_output(arch: pulumi.Input[Optional[Optional[_builtins.str]]] = No
                       max_age_days: pulumi.Input[Optional[Optional[_builtins.int]]] = None,
                       max_agentic_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       max_coding_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_cyber_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_decision_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_economics_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_engineering_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_finance_and_accounting_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_healthcare_and_medical_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       max_intelligence_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_legal_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_multilingual_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_openness_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       max_output_price: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       max_price: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      max_strategy_and_ops_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       max_tool_success_rate: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       min_age_days: pulumi.Input[Optional[Optional[_builtins.int]]] = None,
                       min_agentic_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       min_coding_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_cyber_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_decision_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_economics_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_engineering_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_finance_and_accounting_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_healthcare_and_medical_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       min_intelligence_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_legal_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_multilingual_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_openness_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       min_output_price: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       min_price: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
+                      min_strategy_and_ops_index: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       min_tool_success_rate: pulumi.Input[Optional[Optional[_builtins.float]]] = None,
                       model_authors: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                       output_modalities: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
@@ -481,16 +745,36 @@ def get_models_output(arch: pulumi.Input[Optional[Optional[_builtins.str]]] = No
     __args__['maxAgeDays'] = max_age_days
     __args__['maxAgenticIndex'] = max_agentic_index
     __args__['maxCodingIndex'] = max_coding_index
+    __args__['maxCyberIndex'] = max_cyber_index
+    __args__['maxDecisionIndex'] = max_decision_index
+    __args__['maxEconomicsIndex'] = max_economics_index
+    __args__['maxEngineeringIndex'] = max_engineering_index
+    __args__['maxFinanceAndAccountingIndex'] = max_finance_and_accounting_index
+    __args__['maxHealthcareAndMedicalIndex'] = max_healthcare_and_medical_index
     __args__['maxIntelligenceIndex'] = max_intelligence_index
+    __args__['maxLegalIndex'] = max_legal_index
+    __args__['maxMultilingualIndex'] = max_multilingual_index
+    __args__['maxOpennessIndex'] = max_openness_index
     __args__['maxOutputPrice'] = max_output_price
     __args__['maxPrice'] = max_price
+    __args__['maxStrategyAndOpsIndex'] = max_strategy_and_ops_index
     __args__['maxToolSuccessRate'] = max_tool_success_rate
     __args__['minAgeDays'] = min_age_days
     __args__['minAgenticIndex'] = min_agentic_index
     __args__['minCodingIndex'] = min_coding_index
+    __args__['minCyberIndex'] = min_cyber_index
+    __args__['minDecisionIndex'] = min_decision_index
+    __args__['minEconomicsIndex'] = min_economics_index
+    __args__['minEngineeringIndex'] = min_engineering_index
+    __args__['minFinanceAndAccountingIndex'] = min_finance_and_accounting_index
+    __args__['minHealthcareAndMedicalIndex'] = min_healthcare_and_medical_index
     __args__['minIntelligenceIndex'] = min_intelligence_index
+    __args__['minLegalIndex'] = min_legal_index
+    __args__['minMultilingualIndex'] = min_multilingual_index
+    __args__['minOpennessIndex'] = min_openness_index
     __args__['minOutputPrice'] = min_output_price
     __args__['minPrice'] = min_price
+    __args__['minStrategyAndOpsIndex'] = min_strategy_and_ops_index
     __args__['minToolSuccessRate'] = min_tool_success_rate
     __args__['modelAuthors'] = model_authors
     __args__['outputModalities'] = output_modalities
@@ -516,16 +800,36 @@ def get_models_output(arch: pulumi.Input[Optional[Optional[_builtins.str]]] = No
         max_age_days=pulumi.get(__response__, 'max_age_days'),
         max_agentic_index=pulumi.get(__response__, 'max_agentic_index'),
         max_coding_index=pulumi.get(__response__, 'max_coding_index'),
+        max_cyber_index=pulumi.get(__response__, 'max_cyber_index'),
+        max_decision_index=pulumi.get(__response__, 'max_decision_index'),
+        max_economics_index=pulumi.get(__response__, 'max_economics_index'),
+        max_engineering_index=pulumi.get(__response__, 'max_engineering_index'),
+        max_finance_and_accounting_index=pulumi.get(__response__, 'max_finance_and_accounting_index'),
+        max_healthcare_and_medical_index=pulumi.get(__response__, 'max_healthcare_and_medical_index'),
         max_intelligence_index=pulumi.get(__response__, 'max_intelligence_index'),
+        max_legal_index=pulumi.get(__response__, 'max_legal_index'),
+        max_multilingual_index=pulumi.get(__response__, 'max_multilingual_index'),
+        max_openness_index=pulumi.get(__response__, 'max_openness_index'),
         max_output_price=pulumi.get(__response__, 'max_output_price'),
         max_price=pulumi.get(__response__, 'max_price'),
+        max_strategy_and_ops_index=pulumi.get(__response__, 'max_strategy_and_ops_index'),
         max_tool_success_rate=pulumi.get(__response__, 'max_tool_success_rate'),
         min_age_days=pulumi.get(__response__, 'min_age_days'),
         min_agentic_index=pulumi.get(__response__, 'min_agentic_index'),
         min_coding_index=pulumi.get(__response__, 'min_coding_index'),
+        min_cyber_index=pulumi.get(__response__, 'min_cyber_index'),
+        min_decision_index=pulumi.get(__response__, 'min_decision_index'),
+        min_economics_index=pulumi.get(__response__, 'min_economics_index'),
+        min_engineering_index=pulumi.get(__response__, 'min_engineering_index'),
+        min_finance_and_accounting_index=pulumi.get(__response__, 'min_finance_and_accounting_index'),
+        min_healthcare_and_medical_index=pulumi.get(__response__, 'min_healthcare_and_medical_index'),
         min_intelligence_index=pulumi.get(__response__, 'min_intelligence_index'),
+        min_legal_index=pulumi.get(__response__, 'min_legal_index'),
+        min_multilingual_index=pulumi.get(__response__, 'min_multilingual_index'),
+        min_openness_index=pulumi.get(__response__, 'min_openness_index'),
         min_output_price=pulumi.get(__response__, 'min_output_price'),
         min_price=pulumi.get(__response__, 'min_price'),
+        min_strategy_and_ops_index=pulumi.get(__response__, 'min_strategy_and_ops_index'),
         min_tool_success_rate=pulumi.get(__response__, 'min_tool_success_rate'),
         model_authors=pulumi.get(__response__, 'model_authors'),
         output_modalities=pulumi.get(__response__, 'output_modalities'),

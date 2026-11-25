@@ -11,29 +11,29 @@ namespace Pulumi.Openrouter.Outputs
 {
 
     [OutputType]
-    public sealed class GuardrailPolicyModerationConfigPiiFilter
+    public sealed class GuardrailPolicyAccountModerationConfigContentFilter
     {
         /// <summary>
         /// Not Null; must be one of ["redact", "block", "flag"]
         /// </summary>
         public readonly string? Action;
+        public readonly string? Label;
         /// <summary>
         /// Not Null
         /// </summary>
-        public readonly string? EntityType;
-        public readonly double? ScoreThreshold;
+        public readonly string? Pattern;
 
         [OutputConstructor]
-        private GuardrailPolicyModerationConfigPiiFilter(
+        private GuardrailPolicyAccountModerationConfigContentFilter(
             string? action,
 
-            string? entityType,
+            string? label,
 
-            double? scoreThreshold)
+            string? pattern)
         {
             Action = action;
-            EntityType = entityType;
-            ScoreThreshold = scoreThreshold;
+            Label = label;
+            Pattern = pattern;
         }
     }
 }

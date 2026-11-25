@@ -51,14 +51,44 @@ namespace Pulumi.Openrouter
         [Input("maxCodingIndex")]
         public double? MaxCodingIndex { get; set; }
 
+        [Input("maxCyberIndex")]
+        public double? MaxCyberIndex { get; set; }
+
+        [Input("maxDecisionIndex")]
+        public double? MaxDecisionIndex { get; set; }
+
+        [Input("maxEconomicsIndex")]
+        public double? MaxEconomicsIndex { get; set; }
+
+        [Input("maxEngineeringIndex")]
+        public double? MaxEngineeringIndex { get; set; }
+
+        [Input("maxFinanceAndAccountingIndex")]
+        public double? MaxFinanceAndAccountingIndex { get; set; }
+
+        [Input("maxHealthcareAndMedicalIndex")]
+        public double? MaxHealthcareAndMedicalIndex { get; set; }
+
         [Input("maxIntelligenceIndex")]
         public double? MaxIntelligenceIndex { get; set; }
+
+        [Input("maxLegalIndex")]
+        public double? MaxLegalIndex { get; set; }
+
+        [Input("maxMultilingualIndex")]
+        public double? MaxMultilingualIndex { get; set; }
+
+        [Input("maxOpennessIndex")]
+        public double? MaxOpennessIndex { get; set; }
 
         [Input("maxOutputPrice")]
         public double? MaxOutputPrice { get; set; }
 
         [Input("maxPrice")]
         public double? MaxPrice { get; set; }
+
+        [Input("maxStrategyAndOpsIndex")]
+        public double? MaxStrategyAndOpsIndex { get; set; }
 
         [Input("maxToolSuccessRate")]
         public double? MaxToolSuccessRate { get; set; }
@@ -72,14 +102,44 @@ namespace Pulumi.Openrouter
         [Input("minCodingIndex")]
         public double? MinCodingIndex { get; set; }
 
+        [Input("minCyberIndex")]
+        public double? MinCyberIndex { get; set; }
+
+        [Input("minDecisionIndex")]
+        public double? MinDecisionIndex { get; set; }
+
+        [Input("minEconomicsIndex")]
+        public double? MinEconomicsIndex { get; set; }
+
+        [Input("minEngineeringIndex")]
+        public double? MinEngineeringIndex { get; set; }
+
+        [Input("minFinanceAndAccountingIndex")]
+        public double? MinFinanceAndAccountingIndex { get; set; }
+
+        [Input("minHealthcareAndMedicalIndex")]
+        public double? MinHealthcareAndMedicalIndex { get; set; }
+
         [Input("minIntelligenceIndex")]
         public double? MinIntelligenceIndex { get; set; }
+
+        [Input("minLegalIndex")]
+        public double? MinLegalIndex { get; set; }
+
+        [Input("minMultilingualIndex")]
+        public double? MinMultilingualIndex { get; set; }
+
+        [Input("minOpennessIndex")]
+        public double? MinOpennessIndex { get; set; }
 
         [Input("minOutputPrice")]
         public double? MinOutputPrice { get; set; }
 
         [Input("minPrice")]
         public double? MinPrice { get; set; }
+
+        [Input("minStrategyAndOpsIndex")]
+        public double? MinStrategyAndOpsIndex { get; set; }
 
         [Input("minToolSuccessRate")]
         public double? MinToolSuccessRate { get; set; }
@@ -149,14 +209,44 @@ namespace Pulumi.Openrouter
         [Input("maxCodingIndex")]
         public Input<double>? MaxCodingIndex { get; set; }
 
+        [Input("maxCyberIndex")]
+        public Input<double>? MaxCyberIndex { get; set; }
+
+        [Input("maxDecisionIndex")]
+        public Input<double>? MaxDecisionIndex { get; set; }
+
+        [Input("maxEconomicsIndex")]
+        public Input<double>? MaxEconomicsIndex { get; set; }
+
+        [Input("maxEngineeringIndex")]
+        public Input<double>? MaxEngineeringIndex { get; set; }
+
+        [Input("maxFinanceAndAccountingIndex")]
+        public Input<double>? MaxFinanceAndAccountingIndex { get; set; }
+
+        [Input("maxHealthcareAndMedicalIndex")]
+        public Input<double>? MaxHealthcareAndMedicalIndex { get; set; }
+
         [Input("maxIntelligenceIndex")]
         public Input<double>? MaxIntelligenceIndex { get; set; }
+
+        [Input("maxLegalIndex")]
+        public Input<double>? MaxLegalIndex { get; set; }
+
+        [Input("maxMultilingualIndex")]
+        public Input<double>? MaxMultilingualIndex { get; set; }
+
+        [Input("maxOpennessIndex")]
+        public Input<double>? MaxOpennessIndex { get; set; }
 
         [Input("maxOutputPrice")]
         public Input<double>? MaxOutputPrice { get; set; }
 
         [Input("maxPrice")]
         public Input<double>? MaxPrice { get; set; }
+
+        [Input("maxStrategyAndOpsIndex")]
+        public Input<double>? MaxStrategyAndOpsIndex { get; set; }
 
         [Input("maxToolSuccessRate")]
         public Input<double>? MaxToolSuccessRate { get; set; }
@@ -170,14 +260,44 @@ namespace Pulumi.Openrouter
         [Input("minCodingIndex")]
         public Input<double>? MinCodingIndex { get; set; }
 
+        [Input("minCyberIndex")]
+        public Input<double>? MinCyberIndex { get; set; }
+
+        [Input("minDecisionIndex")]
+        public Input<double>? MinDecisionIndex { get; set; }
+
+        [Input("minEconomicsIndex")]
+        public Input<double>? MinEconomicsIndex { get; set; }
+
+        [Input("minEngineeringIndex")]
+        public Input<double>? MinEngineeringIndex { get; set; }
+
+        [Input("minFinanceAndAccountingIndex")]
+        public Input<double>? MinFinanceAndAccountingIndex { get; set; }
+
+        [Input("minHealthcareAndMedicalIndex")]
+        public Input<double>? MinHealthcareAndMedicalIndex { get; set; }
+
         [Input("minIntelligenceIndex")]
         public Input<double>? MinIntelligenceIndex { get; set; }
+
+        [Input("minLegalIndex")]
+        public Input<double>? MinLegalIndex { get; set; }
+
+        [Input("minMultilingualIndex")]
+        public Input<double>? MinMultilingualIndex { get; set; }
+
+        [Input("minOpennessIndex")]
+        public Input<double>? MinOpennessIndex { get; set; }
 
         [Input("minOutputPrice")]
         public Input<double>? MinOutputPrice { get; set; }
 
         [Input("minPrice")]
         public Input<double>? MinPrice { get; set; }
+
+        [Input("minStrategyAndOpsIndex")]
+        public Input<double>? MinStrategyAndOpsIndex { get; set; }
 
         [Input("minToolSuccessRate")]
         public Input<double>? MinToolSuccessRate { get; set; }
@@ -233,16 +353,36 @@ namespace Pulumi.Openrouter
         public readonly int? MaxAgeDays;
         public readonly double? MaxAgenticIndex;
         public readonly double? MaxCodingIndex;
+        public readonly double? MaxCyberIndex;
+        public readonly double? MaxDecisionIndex;
+        public readonly double? MaxEconomicsIndex;
+        public readonly double? MaxEngineeringIndex;
+        public readonly double? MaxFinanceAndAccountingIndex;
+        public readonly double? MaxHealthcareAndMedicalIndex;
         public readonly double? MaxIntelligenceIndex;
+        public readonly double? MaxLegalIndex;
+        public readonly double? MaxMultilingualIndex;
+        public readonly double? MaxOpennessIndex;
         public readonly double? MaxOutputPrice;
         public readonly double? MaxPrice;
+        public readonly double? MaxStrategyAndOpsIndex;
         public readonly double? MaxToolSuccessRate;
         public readonly int? MinAgeDays;
         public readonly double? MinAgenticIndex;
         public readonly double? MinCodingIndex;
+        public readonly double? MinCyberIndex;
+        public readonly double? MinDecisionIndex;
+        public readonly double? MinEconomicsIndex;
+        public readonly double? MinEngineeringIndex;
+        public readonly double? MinFinanceAndAccountingIndex;
+        public readonly double? MinHealthcareAndMedicalIndex;
         public readonly double? MinIntelligenceIndex;
+        public readonly double? MinLegalIndex;
+        public readonly double? MinMultilingualIndex;
+        public readonly double? MinOpennessIndex;
         public readonly double? MinOutputPrice;
         public readonly double? MinPrice;
+        public readonly double? MinStrategyAndOpsIndex;
         public readonly double? MinToolSuccessRate;
         public readonly string? ModelAuthors;
         public readonly string? OutputModalities;
@@ -280,11 +420,31 @@ namespace Pulumi.Openrouter
 
             double? maxCodingIndex,
 
+            double? maxCyberIndex,
+
+            double? maxDecisionIndex,
+
+            double? maxEconomicsIndex,
+
+            double? maxEngineeringIndex,
+
+            double? maxFinanceAndAccountingIndex,
+
+            double? maxHealthcareAndMedicalIndex,
+
             double? maxIntelligenceIndex,
+
+            double? maxLegalIndex,
+
+            double? maxMultilingualIndex,
+
+            double? maxOpennessIndex,
 
             double? maxOutputPrice,
 
             double? maxPrice,
+
+            double? maxStrategyAndOpsIndex,
 
             double? maxToolSuccessRate,
 
@@ -294,11 +454,31 @@ namespace Pulumi.Openrouter
 
             double? minCodingIndex,
 
+            double? minCyberIndex,
+
+            double? minDecisionIndex,
+
+            double? minEconomicsIndex,
+
+            double? minEngineeringIndex,
+
+            double? minFinanceAndAccountingIndex,
+
+            double? minHealthcareAndMedicalIndex,
+
             double? minIntelligenceIndex,
+
+            double? minLegalIndex,
+
+            double? minMultilingualIndex,
+
+            double? minOpennessIndex,
 
             double? minOutputPrice,
 
             double? minPrice,
+
+            double? minStrategyAndOpsIndex,
 
             double? minToolSuccessRate,
 
@@ -335,16 +515,36 @@ namespace Pulumi.Openrouter
             MaxAgeDays = maxAgeDays;
             MaxAgenticIndex = maxAgenticIndex;
             MaxCodingIndex = maxCodingIndex;
+            MaxCyberIndex = maxCyberIndex;
+            MaxDecisionIndex = maxDecisionIndex;
+            MaxEconomicsIndex = maxEconomicsIndex;
+            MaxEngineeringIndex = maxEngineeringIndex;
+            MaxFinanceAndAccountingIndex = maxFinanceAndAccountingIndex;
+            MaxHealthcareAndMedicalIndex = maxHealthcareAndMedicalIndex;
             MaxIntelligenceIndex = maxIntelligenceIndex;
+            MaxLegalIndex = maxLegalIndex;
+            MaxMultilingualIndex = maxMultilingualIndex;
+            MaxOpennessIndex = maxOpennessIndex;
             MaxOutputPrice = maxOutputPrice;
             MaxPrice = maxPrice;
+            MaxStrategyAndOpsIndex = maxStrategyAndOpsIndex;
             MaxToolSuccessRate = maxToolSuccessRate;
             MinAgeDays = minAgeDays;
             MinAgenticIndex = minAgenticIndex;
             MinCodingIndex = minCodingIndex;
+            MinCyberIndex = minCyberIndex;
+            MinDecisionIndex = minDecisionIndex;
+            MinEconomicsIndex = minEconomicsIndex;
+            MinEngineeringIndex = minEngineeringIndex;
+            MinFinanceAndAccountingIndex = minFinanceAndAccountingIndex;
+            MinHealthcareAndMedicalIndex = minHealthcareAndMedicalIndex;
             MinIntelligenceIndex = minIntelligenceIndex;
+            MinLegalIndex = minLegalIndex;
+            MinMultilingualIndex = minMultilingualIndex;
+            MinOpennessIndex = minOpennessIndex;
             MinOutputPrice = minOutputPrice;
             MinPrice = minPrice;
+            MinStrategyAndOpsIndex = minStrategyAndOpsIndex;
             MinToolSuccessRate = minToolSuccessRate;
             ModelAuthors = modelAuthors;
             OutputModalities = outputModalities;

@@ -22,7 +22,9 @@ __all__ = ['WorkspaceDefaultGuardrailArgs', 'WorkspaceDefaultGuardrail']
 class WorkspaceDefaultGuardrailArgs:
     def __init__(__self__, *,
                  workspace_id: pulumi.Input[_builtins.str],
+                 allow_provisional_providers: pulumi.Input[Optional[_builtins.bool]] = None,
                  allow_safety_retention_google: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allow_safety_retention_openai: pulumi.Input[Optional[_builtins.bool]] = None,
                  allow_safety_retention_other: pulumi.Input[Optional[_builtins.bool]] = None,
                  allowed_data_regions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  allowed_models: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
@@ -49,7 +51,9 @@ class WorkspaceDefaultGuardrailArgs:
         The set of arguments for constructing a WorkspaceDefaultGuardrail resource.
 
         :param pulumi.Input[_builtins.str] workspace_id: The workspace whose default guardrail is managed. The default guardrail applies to all traffic in the workspace. Member and API key guardrails combine with it and can only narrow it, never bypass it. Exactly one of these resources should exist per workspace. Requires replacement if changed.
+        :param pulumi.Input[_builtins.bool] allow_provisional_providers: Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
         :param pulumi.Input[_builtins.bool] allow_safety_retention_google: Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
+        :param pulumi.Input[_builtins.bool] allow_safety_retention_openai: Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allow_safety_retention_other applies. Follows allow_safety_retention_other when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
         :param pulumi.Input[_builtins.bool] allow_safety_retention_other: Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_data_regions: Data regions through which requests governed by this guardrail must arrive. `global` is https://openrouter.ai, `europe` is https://eu.openrouter.ai, and `us` is https://us.openrouter.ai. Requests arriving through any other region are rejected. `null` leaves the ingress region unrestricted. When several guardrails apply (workspace default, member, API key), the effective regions are the intersection of every non-null value. An empty array is rejected. Omit or set to null to remove the restriction.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_models: Array of model identifiers (slug or canonical_slug accepted) Omit or set to null to remove the restriction.
@@ -74,8 +78,12 @@ class WorkspaceDefaultGuardrailArgs:
         :param pulumi.Input[_builtins.str] reset_interval: Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
         """
         pulumi.set(__self__, "workspace_id", workspace_id)
+        if allow_provisional_providers is not None:
+            pulumi.set(__self__, "allow_provisional_providers", allow_provisional_providers)
         if allow_safety_retention_google is not None:
             pulumi.set(__self__, "allow_safety_retention_google", allow_safety_retention_google)
+        if allow_safety_retention_openai is not None:
+            pulumi.set(__self__, "allow_safety_retention_openai", allow_safety_retention_openai)
         if allow_safety_retention_other is not None:
             pulumi.set(__self__, "allow_safety_retention_other", allow_safety_retention_other)
         if allowed_data_regions is not None:
@@ -137,6 +145,18 @@ class WorkspaceDefaultGuardrailArgs:
         pulumi.set(self, "workspace_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="allowProvisionalProviders")
+    def allow_provisional_providers(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
+        """
+        return pulumi.get(self, "allow_provisional_providers")
+
+    @allow_provisional_providers.setter
+    def allow_provisional_providers(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "allow_provisional_providers", value)
+
+    @_builtins.property
     @pulumi.getter(name="allowSafetyRetentionGoogle")
     def allow_safety_retention_google(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
@@ -147,6 +167,18 @@ class WorkspaceDefaultGuardrailArgs:
     @allow_safety_retention_google.setter
     def allow_safety_retention_google(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_safety_retention_google", value)
+
+    @_builtins.property
+    @pulumi.getter(name="allowSafetyRetentionOpenai")
+    def allow_safety_retention_openai(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allow_safety_retention_other applies. Follows allow_safety_retention_other when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
+        """
+        return pulumi.get(self, "allow_safety_retention_openai")
+
+    @allow_safety_retention_openai.setter
+    def allow_safety_retention_openai(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "allow_safety_retention_openai", value)
 
     @_builtins.property
     @pulumi.getter(name="allowSafetyRetentionOther")
@@ -417,7 +449,9 @@ class WorkspaceDefaultGuardrailArgs:
 @pulumi.input_type
 class _WorkspaceDefaultGuardrailState:
     def __init__(__self__, *,
+                 allow_provisional_providers: pulumi.Input[Optional[_builtins.bool]] = None,
                  allow_safety_retention_google: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allow_safety_retention_openai: pulumi.Input[Optional[_builtins.bool]] = None,
                  allow_safety_retention_other: pulumi.Input[Optional[_builtins.bool]] = None,
                  allowed_data_regions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  allowed_models: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
@@ -447,7 +481,9 @@ class _WorkspaceDefaultGuardrailState:
         """
         Input properties used for looking up and filtering WorkspaceDefaultGuardrail resources.
 
+        :param pulumi.Input[_builtins.bool] allow_provisional_providers: Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
         :param pulumi.Input[_builtins.bool] allow_safety_retention_google: Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
+        :param pulumi.Input[_builtins.bool] allow_safety_retention_openai: Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allow_safety_retention_other applies. Follows allow_safety_retention_other when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
         :param pulumi.Input[_builtins.bool] allow_safety_retention_other: Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_data_regions: Data regions through which requests governed by this guardrail must arrive. `global` is https://openrouter.ai, `europe` is https://eu.openrouter.ai, and `us` is https://us.openrouter.ai. Requests arriving through any other region are rejected. `null` leaves the ingress region unrestricted. When several guardrails apply (workspace default, member, API key), the effective regions are the intersection of every non-null value. An empty array is rejected. Omit or set to null to remove the restriction.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_models: Array of model identifiers (slug or canonical_slug accepted) Omit or set to null to remove the restriction.
@@ -475,8 +511,12 @@ class _WorkspaceDefaultGuardrailState:
         :param pulumi.Input[_builtins.str] updated_at: ISO 8601 timestamp of when the guardrail was last updated
         :param pulumi.Input[_builtins.str] workspace_id: The workspace whose default guardrail is managed. The default guardrail applies to all traffic in the workspace. Member and API key guardrails combine with it and can only narrow it, never bypass it. Exactly one of these resources should exist per workspace. Requires replacement if changed.
         """
+        if allow_provisional_providers is not None:
+            pulumi.set(__self__, "allow_provisional_providers", allow_provisional_providers)
         if allow_safety_retention_google is not None:
             pulumi.set(__self__, "allow_safety_retention_google", allow_safety_retention_google)
+        if allow_safety_retention_openai is not None:
+            pulumi.set(__self__, "allow_safety_retention_openai", allow_safety_retention_openai)
         if allow_safety_retention_other is not None:
             pulumi.set(__self__, "allow_safety_retention_other", allow_safety_retention_other)
         if allowed_data_regions is not None:
@@ -534,6 +574,18 @@ class _WorkspaceDefaultGuardrailState:
             pulumi.set(__self__, "workspace_id", workspace_id)
 
     @_builtins.property
+    @pulumi.getter(name="allowProvisionalProviders")
+    def allow_provisional_providers(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
+        """
+        return pulumi.get(self, "allow_provisional_providers")
+
+    @allow_provisional_providers.setter
+    def allow_provisional_providers(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "allow_provisional_providers", value)
+
+    @_builtins.property
     @pulumi.getter(name="allowSafetyRetentionGoogle")
     def allow_safety_retention_google(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
@@ -544,6 +596,18 @@ class _WorkspaceDefaultGuardrailState:
     @allow_safety_retention_google.setter
     def allow_safety_retention_google(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_safety_retention_google", value)
+
+    @_builtins.property
+    @pulumi.getter(name="allowSafetyRetentionOpenai")
+    def allow_safety_retention_openai(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allow_safety_retention_other applies. Follows allow_safety_retention_other when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
+        """
+        return pulumi.get(self, "allow_safety_retention_openai")
+
+    @allow_safety_retention_openai.setter
+    def allow_safety_retention_openai(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "allow_safety_retention_openai", value)
 
     @_builtins.property
     @pulumi.getter(name="allowSafetyRetentionOther")
@@ -865,7 +929,9 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allow_provisional_providers: pulumi.Input[Optional[_builtins.bool]] = None,
                  allow_safety_retention_google: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allow_safety_retention_openai: pulumi.Input[Optional[_builtins.bool]] = None,
                  allow_safety_retention_other: pulumi.Input[Optional[_builtins.bool]] = None,
                  allowed_data_regions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  allowed_models: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
@@ -895,7 +961,9 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.bool] allow_provisional_providers: Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
         :param pulumi.Input[_builtins.bool] allow_safety_retention_google: Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
+        :param pulumi.Input[_builtins.bool] allow_safety_retention_openai: Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allow_safety_retention_other applies. Follows allow_safety_retention_other when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
         :param pulumi.Input[_builtins.bool] allow_safety_retention_other: Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_data_regions: Data regions through which requests governed by this guardrail must arrive. `global` is https://openrouter.ai, `europe` is https://eu.openrouter.ai, and `us` is https://us.openrouter.ai. Requests arriving through any other region are rejected. `null` leaves the ingress region unrestricted. When several guardrails apply (workspace default, member, API key), the effective regions are the intersection of every non-null value. An empty array is rejected. Omit or set to null to remove the restriction.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_models: Array of model identifiers (slug or canonical_slug accepted) Omit or set to null to remove the restriction.
@@ -944,7 +1012,9 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allow_provisional_providers: pulumi.Input[Optional[_builtins.bool]] = None,
                  allow_safety_retention_google: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allow_safety_retention_openai: pulumi.Input[Optional[_builtins.bool]] = None,
                  allow_safety_retention_other: pulumi.Input[Optional[_builtins.bool]] = None,
                  allowed_data_regions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  allowed_models: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
@@ -977,7 +1047,9 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = WorkspaceDefaultGuardrailArgs.__new__(WorkspaceDefaultGuardrailArgs)
 
+            __props__.__dict__["allow_provisional_providers"] = allow_provisional_providers
             __props__.__dict__["allow_safety_retention_google"] = allow_safety_retention_google
+            __props__.__dict__["allow_safety_retention_openai"] = allow_safety_retention_openai
             __props__.__dict__["allow_safety_retention_other"] = allow_safety_retention_other
             __props__.__dict__["allowed_data_regions"] = allowed_data_regions
             __props__.__dict__["allowed_models"] = allowed_models
@@ -1016,7 +1088,9 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            allow_provisional_providers: pulumi.Input[Optional[_builtins.bool]] = None,
             allow_safety_retention_google: pulumi.Input[Optional[_builtins.bool]] = None,
+            allow_safety_retention_openai: pulumi.Input[Optional[_builtins.bool]] = None,
             allow_safety_retention_other: pulumi.Input[Optional[_builtins.bool]] = None,
             allowed_data_regions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
             allowed_models: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
@@ -1050,7 +1124,9 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.bool] allow_provisional_providers: Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
         :param pulumi.Input[_builtins.bool] allow_safety_retention_google: Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
+        :param pulumi.Input[_builtins.bool] allow_safety_retention_openai: Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allow_safety_retention_other applies. Follows allow_safety_retention_other when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
         :param pulumi.Input[_builtins.bool] allow_safety_retention_other: Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_data_regions: Data regions through which requests governed by this guardrail must arrive. `global` is https://openrouter.ai, `europe` is https://eu.openrouter.ai, and `us` is https://us.openrouter.ai. Requests arriving through any other region are rejected. `null` leaves the ingress region unrestricted. When several guardrails apply (workspace default, member, API key), the effective regions are the intersection of every non-null value. An empty array is rejected. Omit or set to null to remove the restriction.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_models: Array of model identifiers (slug or canonical_slug accepted) Omit or set to null to remove the restriction.
@@ -1082,7 +1158,9 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
 
         __props__ = _WorkspaceDefaultGuardrailState.__new__(_WorkspaceDefaultGuardrailState)
 
+        __props__.__dict__["allow_provisional_providers"] = allow_provisional_providers
         __props__.__dict__["allow_safety_retention_google"] = allow_safety_retention_google
+        __props__.__dict__["allow_safety_retention_openai"] = allow_safety_retention_openai
         __props__.__dict__["allow_safety_retention_other"] = allow_safety_retention_other
         __props__.__dict__["allowed_data_regions"] = allowed_data_regions
         __props__.__dict__["allowed_models"] = allowed_models
@@ -1114,7 +1192,9 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
     @staticmethod
     def exists(id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            allow_provisional_providers: pulumi.Input[Optional[_builtins.bool]] = None,
             allow_safety_retention_google: pulumi.Input[Optional[_builtins.bool]] = None,
+            allow_safety_retention_openai: pulumi.Input[Optional[_builtins.bool]] = None,
             allow_safety_retention_other: pulumi.Input[Optional[_builtins.bool]] = None,
             allowed_data_regions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
             allowed_models: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
@@ -1142,7 +1222,9 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
             updated_at: pulumi.Input[Optional[_builtins.str]] = None,
             workspace_id: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
         __props__: dict = {}
+        __props__["allowProvisionalProviders"] = allow_provisional_providers
         __props__["allowSafetyRetentionGoogle"] = allow_safety_retention_google
+        __props__["allowSafetyRetentionOpenai"] = allow_safety_retention_openai
         __props__["allowSafetyRetentionOther"] = allow_safety_retention_other
         __props__["allowedDataRegions"] = allowed_data_regions
         __props__["allowedModels"] = allowed_models
@@ -1172,12 +1254,28 @@ class WorkspaceDefaultGuardrail(pulumi.CustomResource):
         return pulumi.runtime.exists_resource(None, 'openrouter:index/workspaceDefaultGuardrail:WorkspaceDefaultGuardrail', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
+    @pulumi.getter(name="allowProvisionalProviders")
+    def allow_provisional_providers(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
+        """
+        return pulumi.get(self, "allow_provisional_providers")
+
+    @_builtins.property
     @pulumi.getter(name="allowSafetyRetentionGoogle")
     def allow_safety_retention_google(self) -> pulumi.Output[_builtins.bool]:
         """
         Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
         """
         return pulumi.get(self, "allow_safety_retention_google")
+
+    @_builtins.property
+    @pulumi.getter(name="allowSafetyRetentionOpenai")
+    def allow_safety_retention_openai(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allow_safety_retention_other applies. Follows allow_safety_retention_other when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
+        """
+        return pulumi.get(self, "allow_safety_retention_openai")
 
     @_builtins.property
     @pulumi.getter(name="allowSafetyRetentionOther")

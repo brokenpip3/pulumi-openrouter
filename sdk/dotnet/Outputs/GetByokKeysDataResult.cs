@@ -50,6 +50,10 @@ namespace Pulumi.Openrouter.Outputs
         /// </summary>
         public readonly bool IsByokOnly;
         /// <summary>
+        /// Whether requests for the models this credential covers run only on exclusive credentials covering that model: never on another provider, a non-exclusive key, or OpenRouter's shared capacity. Every exclusive credential that covers the model and is eligible for the request may serve it, so two exclusive credentials with overlapping models share those models. Only credentials eligible for the request (its API key and member restrictions) count, so a request no exclusive credential is eligible for uses normal routing. A request for a model that an eligible exclusive credential covers returns a 404 when none of those credentials can serve it. The covered models are `AllowedModels` when non-empty; with no or an empty `AllowedModels`, an OpenAI, Anthropic, or Google credential covers every closed-weight model by that lab (for example every `openai/*` model except open-weight models such as `openai/gpt-oss-120b`, which stay on normal routing unless listed), and other providers must set a non-empty `AllowedModels`. Only valid on non-fallback credentials.
+        /// </summary>
+        public readonly bool IsExclusive;
+        /// <summary>
         /// Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried. Cannot be combined with `IsByokOnly`.
         /// </summary>
         public readonly bool IsFallback;
@@ -98,6 +102,8 @@ namespace Pulumi.Openrouter.Outputs
 
             bool isByokOnly,
 
+            bool isExclusive,
+
             bool isFallback,
 
             bool isRequired,
@@ -121,6 +127,7 @@ namespace Pulumi.Openrouter.Outputs
             Disabled = disabled;
             Id = id;
             IsByokOnly = isByokOnly;
+            IsExclusive = isExclusive;
             IsFallback = isFallback;
             IsRequired = isRequired;
             Label = label;
