@@ -26,7 +26,7 @@ class GetByokKeyResult:
     """
     A collection of values returned by getByokKey.
     """
-    def __init__(__self__, allowed_api_key_hashes=None, allowed_models=None, allowed_user_ids=None, created_at=None, declared_region=None, declared_zdr=None, disabled=None, id=None, is_byok_only=None, is_fallback=None, is_required=None, label=None, name=None, provider_slug=None, sort_order=None, workspace_id=None):
+    def __init__(__self__, allowed_api_key_hashes=None, allowed_models=None, allowed_user_ids=None, created_at=None, declared_region=None, declared_zdr=None, disabled=None, id=None, is_byok_only=None, is_exclusive=None, is_fallback=None, is_required=None, label=None, name=None, provider_slug=None, sort_order=None, workspace_id=None):
         if allowed_api_key_hashes and not isinstance(allowed_api_key_hashes, list):
             raise TypeError("Expected argument 'allowed_api_key_hashes' to be a list")
         pulumi.set(__self__, "allowed_api_key_hashes", allowed_api_key_hashes)
@@ -54,6 +54,9 @@ class GetByokKeyResult:
         if is_byok_only and not isinstance(is_byok_only, bool):
             raise TypeError("Expected argument 'is_byok_only' to be a bool")
         pulumi.set(__self__, "is_byok_only", is_byok_only)
+        if is_exclusive and not isinstance(is_exclusive, bool):
+            raise TypeError("Expected argument 'is_exclusive' to be a bool")
+        pulumi.set(__self__, "is_exclusive", is_exclusive)
         if is_fallback and not isinstance(is_fallback, bool):
             raise TypeError("Expected argument 'is_fallback' to be a bool")
         pulumi.set(__self__, "is_fallback", is_fallback)
@@ -122,6 +125,11 @@ class GetByokKeyResult:
         return pulumi.get(self, "is_byok_only")
 
     @_builtins.property
+    @pulumi.getter(name="isExclusive")
+    def is_exclusive(self) -> _builtins.bool:
+        return pulumi.get(self, "is_exclusive")
+
+    @_builtins.property
     @pulumi.getter(name="isFallback")
     def is_fallback(self) -> _builtins.bool:
         return pulumi.get(self, "is_fallback")
@@ -172,6 +180,7 @@ class AwaitableGetByokKeyResult(GetByokKeyResult):
             disabled=self.disabled,
             id=self.id,
             is_byok_only=self.is_byok_only,
+            is_exclusive=self.is_exclusive,
             is_fallback=self.is_fallback,
             is_required=self.is_required,
             label=self.label,
@@ -201,6 +210,7 @@ def get_byok_key(id: Optional[_builtins.str] = None,
         disabled=pulumi.get(__ret__, 'disabled'),
         id=pulumi.get(__ret__, 'id'),
         is_byok_only=pulumi.get(__ret__, 'is_byok_only'),
+        is_exclusive=pulumi.get(__ret__, 'is_exclusive'),
         is_fallback=pulumi.get(__ret__, 'is_fallback'),
         is_required=pulumi.get(__ret__, 'is_required'),
         label=pulumi.get(__ret__, 'label'),
@@ -227,6 +237,7 @@ def get_byok_key_output(id: pulumi.Input[Optional[_builtins.str]] = None,
         disabled=pulumi.get(__response__, 'disabled'),
         id=pulumi.get(__response__, 'id'),
         is_byok_only=pulumi.get(__response__, 'is_byok_only'),
+        is_exclusive=pulumi.get(__response__, 'is_exclusive'),
         is_fallback=pulumi.get(__response__, 'is_fallback'),
         is_required=pulumi.get(__response__, 'is_required'),
         label=pulumi.get(__response__, 'label'),

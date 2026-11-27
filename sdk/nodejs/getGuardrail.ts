@@ -24,7 +24,9 @@ export interface GetGuardrailArgs {
  * A collection of values returned by getGuardrail.
  */
 export interface GetGuardrailResult {
+    readonly allowProvisionalProviders: boolean;
     readonly allowSafetyRetentionGoogle: boolean;
+    readonly allowSafetyRetentionOpenai: boolean;
     readonly allowSafetyRetentionOther: boolean;
     readonly allowedDataRegions: string[];
     readonly allowedModels: string[];

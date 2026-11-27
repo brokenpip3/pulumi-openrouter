@@ -10,6 +10,7 @@ export function getApiKeys(args?: GetApiKeysArgs, opts?: pulumi.InvokeOptions): 
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("openrouter:index/getApiKeys:getApiKeys", {
+        "creatorUserId": args.creatorUserId,
         "includeDisabled": args.includeDisabled,
         "includeExpired": args.includeExpired,
         "workspaceId": args.workspaceId,
@@ -20,6 +21,7 @@ export function getApiKeys(args?: GetApiKeysArgs, opts?: pulumi.InvokeOptions): 
  * A collection of arguments for invoking getApiKeys.
  */
 export interface GetApiKeysArgs {
+    creatorUserId?: string;
     includeDisabled?: string;
     includeExpired?: string;
     workspaceId?: string;
@@ -29,6 +31,7 @@ export interface GetApiKeysArgs {
  * A collection of values returned by getApiKeys.
  */
 export interface GetApiKeysResult {
+    readonly creatorUserId?: string;
     readonly datas: outputs.GetApiKeysData[];
     readonly includeDisabled?: string;
     readonly includeExpired?: string;
@@ -38,6 +41,7 @@ export function getApiKeysOutput(args?: GetApiKeysOutputArgs, opts?: pulumi.Invo
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("openrouter:index/getApiKeys:getApiKeys", {
+        "creatorUserId": args.creatorUserId,
         "includeDisabled": args.includeDisabled,
         "includeExpired": args.includeExpired,
         "workspaceId": args.workspaceId,
@@ -48,6 +52,7 @@ export function getApiKeysOutput(args?: GetApiKeysOutputArgs, opts?: pulumi.Invo
  * A collection of arguments for invoking getApiKeys.
  */
 export interface GetApiKeysOutputArgs {
+    creatorUserId?: pulumi.Input<string | undefined>;
     includeDisabled?: pulumi.Input<string | undefined>;
     includeExpired?: pulumi.Input<string | undefined>;
     workspaceId?: pulumi.Input<string | undefined>;

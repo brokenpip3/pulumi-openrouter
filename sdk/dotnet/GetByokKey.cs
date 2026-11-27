@@ -57,6 +57,7 @@ namespace Pulumi.Openrouter
         public readonly bool Disabled;
         public readonly string Id;
         public readonly bool IsByokOnly;
+        public readonly bool IsExclusive;
         public readonly bool IsFallback;
         public readonly bool IsRequired;
         public readonly string Label;
@@ -85,6 +86,8 @@ namespace Pulumi.Openrouter
 
             bool isByokOnly,
 
+            bool isExclusive,
+
             bool isFallback,
 
             bool isRequired,
@@ -108,6 +111,7 @@ namespace Pulumi.Openrouter
             Disabled = disabled;
             Id = id;
             IsByokOnly = isByokOnly;
+            IsExclusive = isExclusive;
             IsFallback = isFallback;
             IsRequired = isRequired;
             Label = label;

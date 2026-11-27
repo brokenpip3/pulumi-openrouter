@@ -14,9 +14,17 @@ namespace Pulumi.Openrouter.Outputs
     public sealed class GetGuardrailsDataResult
     {
         /// <summary>
+        /// Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
+        /// </summary>
+        public readonly bool AllowProvisionalProviders;
+        /// <summary>
         /// Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
         /// </summary>
         public readonly bool AllowSafetyRetentionGoogle;
+        /// <summary>
+        /// Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise AllowSafetyRetentionOther applies. Follows AllowSafetyRetentionOther when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
+        /// </summary>
+        public readonly bool AllowSafetyRetentionOpenai;
         /// <summary>
         /// Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
         /// </summary>
@@ -128,7 +136,11 @@ namespace Pulumi.Openrouter.Outputs
 
         [OutputConstructor]
         private GetGuardrailsDataResult(
+            bool allowProvisionalProviders,
+
             bool allowSafetyRetentionGoogle,
+
+            bool allowSafetyRetentionOpenai,
 
             bool allowSafetyRetentionOther,
 
@@ -184,7 +196,9 @@ namespace Pulumi.Openrouter.Outputs
 
             string workspaceId)
         {
+            AllowProvisionalProviders = allowProvisionalProviders;
             AllowSafetyRetentionGoogle = allowSafetyRetentionGoogle;
+            AllowSafetyRetentionOpenai = allowSafetyRetentionOpenai;
             AllowSafetyRetentionOther = allowSafetyRetentionOther;
             AllowedDataRegions = allowedDataRegions;
             AllowedModels = allowedModels;

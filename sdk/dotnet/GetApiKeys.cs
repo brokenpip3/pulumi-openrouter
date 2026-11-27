@@ -24,6 +24,9 @@ namespace Pulumi.Openrouter
 
     public sealed class GetApiKeysArgs : global::Pulumi.InvokeArgs
     {
+        [Input("creatorUserId")]
+        public string? CreatorUserId { get; set; }
+
         [Input("includeDisabled")]
         public string? IncludeDisabled { get; set; }
 
@@ -41,6 +44,9 @@ namespace Pulumi.Openrouter
 
     public sealed class GetApiKeysInvokeArgs : global::Pulumi.InvokeArgs
     {
+        [Input("creatorUserId")]
+        public Input<string>? CreatorUserId { get; set; }
+
         [Input("includeDisabled")]
         public Input<string>? IncludeDisabled { get; set; }
 
@@ -60,6 +66,7 @@ namespace Pulumi.Openrouter
     [OutputType]
     public sealed class GetApiKeysResult
     {
+        public readonly string? CreatorUserId;
         public readonly ImmutableArray<Outputs.GetApiKeysDataResult> Datas;
         public readonly string? IncludeDisabled;
         public readonly string? IncludeExpired;
@@ -67,6 +74,8 @@ namespace Pulumi.Openrouter
 
         [OutputConstructor]
         private GetApiKeysResult(
+            string? creatorUserId,
+
             ImmutableArray<Outputs.GetApiKeysDataResult> datas,
 
             string? includeDisabled,
@@ -75,6 +84,7 @@ namespace Pulumi.Openrouter
 
             string? workspaceId)
         {
+            CreatorUserId = creatorUserId;
             Datas = datas;
             IncludeDisabled = includeDisabled;
             IncludeExpired = includeExpired;

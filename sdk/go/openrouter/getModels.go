@@ -23,73 +23,121 @@ func GetModels(ctx *pulumi.Context, args *GetModelsArgs, opts ...pulumi.InvokeOp
 
 // A collection of arguments for invoking getModels.
 type GetModelsArgs struct {
-	Arch                 *string  `pulumi:"arch"`
-	Category             *string  `pulumi:"category"`
-	Context              *int     `pulumi:"context"`
-	Distillable          *string  `pulumi:"distillable"`
-	Endpoints            *string  `pulumi:"endpoints"`
-	InputModalities      *string  `pulumi:"inputModalities"`
-	MaxAgeDays           *int     `pulumi:"maxAgeDays"`
-	MaxAgenticIndex      *float64 `pulumi:"maxAgenticIndex"`
-	MaxCodingIndex       *float64 `pulumi:"maxCodingIndex"`
-	MaxIntelligenceIndex *float64 `pulumi:"maxIntelligenceIndex"`
-	MaxOutputPrice       *float64 `pulumi:"maxOutputPrice"`
-	MaxPrice             *float64 `pulumi:"maxPrice"`
-	MaxToolSuccessRate   *float64 `pulumi:"maxToolSuccessRate"`
-	MinAgeDays           *int     `pulumi:"minAgeDays"`
-	MinAgenticIndex      *float64 `pulumi:"minAgenticIndex"`
-	MinCodingIndex       *float64 `pulumi:"minCodingIndex"`
-	MinIntelligenceIndex *float64 `pulumi:"minIntelligenceIndex"`
-	MinOutputPrice       *float64 `pulumi:"minOutputPrice"`
-	MinPrice             *float64 `pulumi:"minPrice"`
-	MinToolSuccessRate   *float64 `pulumi:"minToolSuccessRate"`
-	ModelAuthors         *string  `pulumi:"modelAuthors"`
-	OutputModalities     *string  `pulumi:"outputModalities"`
-	Providers            *string  `pulumi:"providers"`
-	Q                    *string  `pulumi:"q"`
-	Region               *string  `pulumi:"region"`
-	Sort                 *string  `pulumi:"sort"`
-	SupportedParameters  *string  `pulumi:"supportedParameters"`
-	UseRss               *string  `pulumi:"useRss"`
-	UseRssChatLinks      *string  `pulumi:"useRssChatLinks"`
-	Zdr                  *string  `pulumi:"zdr"`
+	Arch            *string `pulumi:"arch"`
+	Category        *string `pulumi:"category"`
+	Context         *int    `pulumi:"context"`
+	Distillable     *string `pulumi:"distillable"`
+	Endpoints       *string `pulumi:"endpoints"`
+	InputModalities *string `pulumi:"inputModalities"`
+	MaxAgeDays      *int    `pulumi:"maxAgeDays"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MaxAgenticIndex *float64 `pulumi:"maxAgenticIndex"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MaxCodingIndex               *float64 `pulumi:"maxCodingIndex"`
+	MaxCyberIndex                *float64 `pulumi:"maxCyberIndex"`
+	MaxDecisionIndex             *float64 `pulumi:"maxDecisionIndex"`
+	MaxEconomicsIndex            *float64 `pulumi:"maxEconomicsIndex"`
+	MaxEngineeringIndex          *float64 `pulumi:"maxEngineeringIndex"`
+	MaxFinanceAndAccountingIndex *float64 `pulumi:"maxFinanceAndAccountingIndex"`
+	MaxHealthcareAndMedicalIndex *float64 `pulumi:"maxHealthcareAndMedicalIndex"`
+	MaxIntelligenceIndex         *float64 `pulumi:"maxIntelligenceIndex"`
+	MaxLegalIndex                *float64 `pulumi:"maxLegalIndex"`
+	MaxMultilingualIndex         *float64 `pulumi:"maxMultilingualIndex"`
+	MaxOpennessIndex             *float64 `pulumi:"maxOpennessIndex"`
+	MaxOutputPrice               *float64 `pulumi:"maxOutputPrice"`
+	MaxPrice                     *float64 `pulumi:"maxPrice"`
+	MaxStrategyAndOpsIndex       *float64 `pulumi:"maxStrategyAndOpsIndex"`
+	MaxToolSuccessRate           *float64 `pulumi:"maxToolSuccessRate"`
+	MinAgeDays                   *int     `pulumi:"minAgeDays"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MinAgenticIndex *float64 `pulumi:"minAgenticIndex"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MinCodingIndex               *float64 `pulumi:"minCodingIndex"`
+	MinCyberIndex                *float64 `pulumi:"minCyberIndex"`
+	MinDecisionIndex             *float64 `pulumi:"minDecisionIndex"`
+	MinEconomicsIndex            *float64 `pulumi:"minEconomicsIndex"`
+	MinEngineeringIndex          *float64 `pulumi:"minEngineeringIndex"`
+	MinFinanceAndAccountingIndex *float64 `pulumi:"minFinanceAndAccountingIndex"`
+	MinHealthcareAndMedicalIndex *float64 `pulumi:"minHealthcareAndMedicalIndex"`
+	MinIntelligenceIndex         *float64 `pulumi:"minIntelligenceIndex"`
+	MinLegalIndex                *float64 `pulumi:"minLegalIndex"`
+	MinMultilingualIndex         *float64 `pulumi:"minMultilingualIndex"`
+	MinOpennessIndex             *float64 `pulumi:"minOpennessIndex"`
+	MinOutputPrice               *float64 `pulumi:"minOutputPrice"`
+	MinPrice                     *float64 `pulumi:"minPrice"`
+	MinStrategyAndOpsIndex       *float64 `pulumi:"minStrategyAndOpsIndex"`
+	MinToolSuccessRate           *float64 `pulumi:"minToolSuccessRate"`
+	ModelAuthors                 *string  `pulumi:"modelAuthors"`
+	OutputModalities             *string  `pulumi:"outputModalities"`
+	Providers                    *string  `pulumi:"providers"`
+	Q                            *string  `pulumi:"q"`
+	Region                       *string  `pulumi:"region"`
+	Sort                         *string  `pulumi:"sort"`
+	SupportedParameters          *string  `pulumi:"supportedParameters"`
+	UseRss                       *string  `pulumi:"useRss"`
+	UseRssChatLinks              *string  `pulumi:"useRssChatLinks"`
+	Zdr                          *string  `pulumi:"zdr"`
 }
 
 // A collection of values returned by getModels.
 type GetModelsResult struct {
-	Arch                 *string         `pulumi:"arch"`
-	Category             *string         `pulumi:"category"`
-	Context              *int            `pulumi:"context"`
-	Datas                []GetModelsData `pulumi:"datas"`
-	Distillable          *string         `pulumi:"distillable"`
-	Endpoints            *string         `pulumi:"endpoints"`
-	InputModalities      *string         `pulumi:"inputModalities"`
-	Links                GetModelsLinks  `pulumi:"links"`
-	MaxAgeDays           *int            `pulumi:"maxAgeDays"`
-	MaxAgenticIndex      *float64        `pulumi:"maxAgenticIndex"`
-	MaxCodingIndex       *float64        `pulumi:"maxCodingIndex"`
-	MaxIntelligenceIndex *float64        `pulumi:"maxIntelligenceIndex"`
-	MaxOutputPrice       *float64        `pulumi:"maxOutputPrice"`
-	MaxPrice             *float64        `pulumi:"maxPrice"`
-	MaxToolSuccessRate   *float64        `pulumi:"maxToolSuccessRate"`
-	MinAgeDays           *int            `pulumi:"minAgeDays"`
-	MinAgenticIndex      *float64        `pulumi:"minAgenticIndex"`
-	MinCodingIndex       *float64        `pulumi:"minCodingIndex"`
-	MinIntelligenceIndex *float64        `pulumi:"minIntelligenceIndex"`
-	MinOutputPrice       *float64        `pulumi:"minOutputPrice"`
-	MinPrice             *float64        `pulumi:"minPrice"`
-	MinToolSuccessRate   *float64        `pulumi:"minToolSuccessRate"`
-	ModelAuthors         *string         `pulumi:"modelAuthors"`
-	OutputModalities     *string         `pulumi:"outputModalities"`
-	Providers            *string         `pulumi:"providers"`
-	Q                    *string         `pulumi:"q"`
-	Region               *string         `pulumi:"region"`
-	Sort                 *string         `pulumi:"sort"`
-	SupportedParameters  *string         `pulumi:"supportedParameters"`
-	TotalCount           int             `pulumi:"totalCount"`
-	UseRss               *string         `pulumi:"useRss"`
-	UseRssChatLinks      *string         `pulumi:"useRssChatLinks"`
-	Zdr                  *string         `pulumi:"zdr"`
+	Arch            *string         `pulumi:"arch"`
+	Category        *string         `pulumi:"category"`
+	Context         *int            `pulumi:"context"`
+	Datas           []GetModelsData `pulumi:"datas"`
+	Distillable     *string         `pulumi:"distillable"`
+	Endpoints       *string         `pulumi:"endpoints"`
+	InputModalities *string         `pulumi:"inputModalities"`
+	Links           GetModelsLinks  `pulumi:"links"`
+	MaxAgeDays      *int            `pulumi:"maxAgeDays"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MaxAgenticIndex *float64 `pulumi:"maxAgenticIndex"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MaxCodingIndex               *float64 `pulumi:"maxCodingIndex"`
+	MaxCyberIndex                *float64 `pulumi:"maxCyberIndex"`
+	MaxDecisionIndex             *float64 `pulumi:"maxDecisionIndex"`
+	MaxEconomicsIndex            *float64 `pulumi:"maxEconomicsIndex"`
+	MaxEngineeringIndex          *float64 `pulumi:"maxEngineeringIndex"`
+	MaxFinanceAndAccountingIndex *float64 `pulumi:"maxFinanceAndAccountingIndex"`
+	MaxHealthcareAndMedicalIndex *float64 `pulumi:"maxHealthcareAndMedicalIndex"`
+	MaxIntelligenceIndex         *float64 `pulumi:"maxIntelligenceIndex"`
+	MaxLegalIndex                *float64 `pulumi:"maxLegalIndex"`
+	MaxMultilingualIndex         *float64 `pulumi:"maxMultilingualIndex"`
+	MaxOpennessIndex             *float64 `pulumi:"maxOpennessIndex"`
+	MaxOutputPrice               *float64 `pulumi:"maxOutputPrice"`
+	MaxPrice                     *float64 `pulumi:"maxPrice"`
+	MaxStrategyAndOpsIndex       *float64 `pulumi:"maxStrategyAndOpsIndex"`
+	MaxToolSuccessRate           *float64 `pulumi:"maxToolSuccessRate"`
+	MinAgeDays                   *int     `pulumi:"minAgeDays"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MinAgenticIndex *float64 `pulumi:"minAgenticIndex"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MinCodingIndex               *float64 `pulumi:"minCodingIndex"`
+	MinCyberIndex                *float64 `pulumi:"minCyberIndex"`
+	MinDecisionIndex             *float64 `pulumi:"minDecisionIndex"`
+	MinEconomicsIndex            *float64 `pulumi:"minEconomicsIndex"`
+	MinEngineeringIndex          *float64 `pulumi:"minEngineeringIndex"`
+	MinFinanceAndAccountingIndex *float64 `pulumi:"minFinanceAndAccountingIndex"`
+	MinHealthcareAndMedicalIndex *float64 `pulumi:"minHealthcareAndMedicalIndex"`
+	MinIntelligenceIndex         *float64 `pulumi:"minIntelligenceIndex"`
+	MinLegalIndex                *float64 `pulumi:"minLegalIndex"`
+	MinMultilingualIndex         *float64 `pulumi:"minMultilingualIndex"`
+	MinOpennessIndex             *float64 `pulumi:"minOpennessIndex"`
+	MinOutputPrice               *float64 `pulumi:"minOutputPrice"`
+	MinPrice                     *float64 `pulumi:"minPrice"`
+	MinStrategyAndOpsIndex       *float64 `pulumi:"minStrategyAndOpsIndex"`
+	MinToolSuccessRate           *float64 `pulumi:"minToolSuccessRate"`
+	ModelAuthors                 *string  `pulumi:"modelAuthors"`
+	OutputModalities             *string  `pulumi:"outputModalities"`
+	Providers                    *string  `pulumi:"providers"`
+	Q                            *string  `pulumi:"q"`
+	Region                       *string  `pulumi:"region"`
+	Sort                         *string  `pulumi:"sort"`
+	SupportedParameters          *string  `pulumi:"supportedParameters"`
+	TotalCount                   int      `pulumi:"totalCount"`
+	UseRss                       *string  `pulumi:"useRss"`
+	UseRssChatLinks              *string  `pulumi:"useRssChatLinks"`
+	Zdr                          *string  `pulumi:"zdr"`
 }
 
 func GetModelsOutput(ctx *pulumi.Context, args GetModelsOutputArgs, opts ...pulumi.InvokeOption) GetModelsResultOutput {
@@ -99,36 +147,60 @@ func GetModelsOutput(ctx *pulumi.Context, args GetModelsOutputArgs, opts ...pulu
 
 // A collection of arguments for invoking getModels.
 type GetModelsOutputArgs struct {
-	Arch                 pulumi.StringPtrInput  `pulumi:"arch"`
-	Category             pulumi.StringPtrInput  `pulumi:"category"`
-	Context              pulumi.IntPtrInput     `pulumi:"context"`
-	Distillable          pulumi.StringPtrInput  `pulumi:"distillable"`
-	Endpoints            pulumi.StringPtrInput  `pulumi:"endpoints"`
-	InputModalities      pulumi.StringPtrInput  `pulumi:"inputModalities"`
-	MaxAgeDays           pulumi.IntPtrInput     `pulumi:"maxAgeDays"`
-	MaxAgenticIndex      pulumi.Float64PtrInput `pulumi:"maxAgenticIndex"`
-	MaxCodingIndex       pulumi.Float64PtrInput `pulumi:"maxCodingIndex"`
-	MaxIntelligenceIndex pulumi.Float64PtrInput `pulumi:"maxIntelligenceIndex"`
-	MaxOutputPrice       pulumi.Float64PtrInput `pulumi:"maxOutputPrice"`
-	MaxPrice             pulumi.Float64PtrInput `pulumi:"maxPrice"`
-	MaxToolSuccessRate   pulumi.Float64PtrInput `pulumi:"maxToolSuccessRate"`
-	MinAgeDays           pulumi.IntPtrInput     `pulumi:"minAgeDays"`
-	MinAgenticIndex      pulumi.Float64PtrInput `pulumi:"minAgenticIndex"`
-	MinCodingIndex       pulumi.Float64PtrInput `pulumi:"minCodingIndex"`
-	MinIntelligenceIndex pulumi.Float64PtrInput `pulumi:"minIntelligenceIndex"`
-	MinOutputPrice       pulumi.Float64PtrInput `pulumi:"minOutputPrice"`
-	MinPrice             pulumi.Float64PtrInput `pulumi:"minPrice"`
-	MinToolSuccessRate   pulumi.Float64PtrInput `pulumi:"minToolSuccessRate"`
-	ModelAuthors         pulumi.StringPtrInput  `pulumi:"modelAuthors"`
-	OutputModalities     pulumi.StringPtrInput  `pulumi:"outputModalities"`
-	Providers            pulumi.StringPtrInput  `pulumi:"providers"`
-	Q                    pulumi.StringPtrInput  `pulumi:"q"`
-	Region               pulumi.StringPtrInput  `pulumi:"region"`
-	Sort                 pulumi.StringPtrInput  `pulumi:"sort"`
-	SupportedParameters  pulumi.StringPtrInput  `pulumi:"supportedParameters"`
-	UseRss               pulumi.StringPtrInput  `pulumi:"useRss"`
-	UseRssChatLinks      pulumi.StringPtrInput  `pulumi:"useRssChatLinks"`
-	Zdr                  pulumi.StringPtrInput  `pulumi:"zdr"`
+	Arch            pulumi.StringPtrInput `pulumi:"arch"`
+	Category        pulumi.StringPtrInput `pulumi:"category"`
+	Context         pulumi.IntPtrInput    `pulumi:"context"`
+	Distillable     pulumi.StringPtrInput `pulumi:"distillable"`
+	Endpoints       pulumi.StringPtrInput `pulumi:"endpoints"`
+	InputModalities pulumi.StringPtrInput `pulumi:"inputModalities"`
+	MaxAgeDays      pulumi.IntPtrInput    `pulumi:"maxAgeDays"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MaxAgenticIndex pulumi.Float64PtrInput `pulumi:"maxAgenticIndex"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MaxCodingIndex               pulumi.Float64PtrInput `pulumi:"maxCodingIndex"`
+	MaxCyberIndex                pulumi.Float64PtrInput `pulumi:"maxCyberIndex"`
+	MaxDecisionIndex             pulumi.Float64PtrInput `pulumi:"maxDecisionIndex"`
+	MaxEconomicsIndex            pulumi.Float64PtrInput `pulumi:"maxEconomicsIndex"`
+	MaxEngineeringIndex          pulumi.Float64PtrInput `pulumi:"maxEngineeringIndex"`
+	MaxFinanceAndAccountingIndex pulumi.Float64PtrInput `pulumi:"maxFinanceAndAccountingIndex"`
+	MaxHealthcareAndMedicalIndex pulumi.Float64PtrInput `pulumi:"maxHealthcareAndMedicalIndex"`
+	MaxIntelligenceIndex         pulumi.Float64PtrInput `pulumi:"maxIntelligenceIndex"`
+	MaxLegalIndex                pulumi.Float64PtrInput `pulumi:"maxLegalIndex"`
+	MaxMultilingualIndex         pulumi.Float64PtrInput `pulumi:"maxMultilingualIndex"`
+	MaxOpennessIndex             pulumi.Float64PtrInput `pulumi:"maxOpennessIndex"`
+	MaxOutputPrice               pulumi.Float64PtrInput `pulumi:"maxOutputPrice"`
+	MaxPrice                     pulumi.Float64PtrInput `pulumi:"maxPrice"`
+	MaxStrategyAndOpsIndex       pulumi.Float64PtrInput `pulumi:"maxStrategyAndOpsIndex"`
+	MaxToolSuccessRate           pulumi.Float64PtrInput `pulumi:"maxToolSuccessRate"`
+	MinAgeDays                   pulumi.IntPtrInput     `pulumi:"minAgeDays"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MinAgenticIndex pulumi.Float64PtrInput `pulumi:"minAgenticIndex"`
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
+	MinCodingIndex               pulumi.Float64PtrInput `pulumi:"minCodingIndex"`
+	MinCyberIndex                pulumi.Float64PtrInput `pulumi:"minCyberIndex"`
+	MinDecisionIndex             pulumi.Float64PtrInput `pulumi:"minDecisionIndex"`
+	MinEconomicsIndex            pulumi.Float64PtrInput `pulumi:"minEconomicsIndex"`
+	MinEngineeringIndex          pulumi.Float64PtrInput `pulumi:"minEngineeringIndex"`
+	MinFinanceAndAccountingIndex pulumi.Float64PtrInput `pulumi:"minFinanceAndAccountingIndex"`
+	MinHealthcareAndMedicalIndex pulumi.Float64PtrInput `pulumi:"minHealthcareAndMedicalIndex"`
+	MinIntelligenceIndex         pulumi.Float64PtrInput `pulumi:"minIntelligenceIndex"`
+	MinLegalIndex                pulumi.Float64PtrInput `pulumi:"minLegalIndex"`
+	MinMultilingualIndex         pulumi.Float64PtrInput `pulumi:"minMultilingualIndex"`
+	MinOpennessIndex             pulumi.Float64PtrInput `pulumi:"minOpennessIndex"`
+	MinOutputPrice               pulumi.Float64PtrInput `pulumi:"minOutputPrice"`
+	MinPrice                     pulumi.Float64PtrInput `pulumi:"minPrice"`
+	MinStrategyAndOpsIndex       pulumi.Float64PtrInput `pulumi:"minStrategyAndOpsIndex"`
+	MinToolSuccessRate           pulumi.Float64PtrInput `pulumi:"minToolSuccessRate"`
+	ModelAuthors                 pulumi.StringPtrInput  `pulumi:"modelAuthors"`
+	OutputModalities             pulumi.StringPtrInput  `pulumi:"outputModalities"`
+	Providers                    pulumi.StringPtrInput  `pulumi:"providers"`
+	Q                            pulumi.StringPtrInput  `pulumi:"q"`
+	Region                       pulumi.StringPtrInput  `pulumi:"region"`
+	Sort                         pulumi.StringPtrInput  `pulumi:"sort"`
+	SupportedParameters          pulumi.StringPtrInput  `pulumi:"supportedParameters"`
+	UseRss                       pulumi.StringPtrInput  `pulumi:"useRss"`
+	UseRssChatLinks              pulumi.StringPtrInput  `pulumi:"useRssChatLinks"`
+	Zdr                          pulumi.StringPtrInput  `pulumi:"zdr"`
 }
 
 func (GetModelsOutputArgs) ElementType() reflect.Type {
@@ -186,16 +258,54 @@ func (o GetModelsResultOutput) MaxAgeDays() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *int { return v.MaxAgeDays }).(pulumi.IntPtrOutput)
 }
 
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
 func (o GetModelsResultOutput) MaxAgenticIndex() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxAgenticIndex }).(pulumi.Float64PtrOutput)
 }
 
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
 func (o GetModelsResultOutput) MaxCodingIndex() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxCodingIndex }).(pulumi.Float64PtrOutput)
 }
 
+func (o GetModelsResultOutput) MaxCyberIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxCyberIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MaxDecisionIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxDecisionIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MaxEconomicsIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxEconomicsIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MaxEngineeringIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxEngineeringIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MaxFinanceAndAccountingIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxFinanceAndAccountingIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MaxHealthcareAndMedicalIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxHealthcareAndMedicalIndex }).(pulumi.Float64PtrOutput)
+}
+
 func (o GetModelsResultOutput) MaxIntelligenceIndex() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxIntelligenceIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MaxLegalIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxLegalIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MaxMultilingualIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxMultilingualIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MaxOpennessIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxOpennessIndex }).(pulumi.Float64PtrOutput)
 }
 
 func (o GetModelsResultOutput) MaxOutputPrice() pulumi.Float64PtrOutput {
@@ -206,6 +316,10 @@ func (o GetModelsResultOutput) MaxPrice() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxPrice }).(pulumi.Float64PtrOutput)
 }
 
+func (o GetModelsResultOutput) MaxStrategyAndOpsIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxStrategyAndOpsIndex }).(pulumi.Float64PtrOutput)
+}
+
 func (o GetModelsResultOutput) MaxToolSuccessRate() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MaxToolSuccessRate }).(pulumi.Float64PtrOutput)
 }
@@ -214,16 +328,54 @@ func (o GetModelsResultOutput) MinAgeDays() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *int { return v.MinAgeDays }).(pulumi.IntPtrOutput)
 }
 
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
 func (o GetModelsResultOutput) MinAgenticIndex() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinAgenticIndex }).(pulumi.Float64PtrOutput)
 }
 
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible
 func (o GetModelsResultOutput) MinCodingIndex() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinCodingIndex }).(pulumi.Float64PtrOutput)
 }
 
+func (o GetModelsResultOutput) MinCyberIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinCyberIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MinDecisionIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinDecisionIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MinEconomicsIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinEconomicsIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MinEngineeringIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinEngineeringIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MinFinanceAndAccountingIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinFinanceAndAccountingIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MinHealthcareAndMedicalIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinHealthcareAndMedicalIndex }).(pulumi.Float64PtrOutput)
+}
+
 func (o GetModelsResultOutput) MinIntelligenceIndex() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinIntelligenceIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MinLegalIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinLegalIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MinMultilingualIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinMultilingualIndex }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MinOpennessIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinOpennessIndex }).(pulumi.Float64PtrOutput)
 }
 
 func (o GetModelsResultOutput) MinOutputPrice() pulumi.Float64PtrOutput {
@@ -232,6 +384,10 @@ func (o GetModelsResultOutput) MinOutputPrice() pulumi.Float64PtrOutput {
 
 func (o GetModelsResultOutput) MinPrice() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinPrice }).(pulumi.Float64PtrOutput)
+}
+
+func (o GetModelsResultOutput) MinStrategyAndOpsIndex() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v GetModelsResult) *float64 { return v.MinStrategyAndOpsIndex }).(pulumi.Float64PtrOutput)
 }
 
 func (o GetModelsResultOutput) MinToolSuccessRate() pulumi.Float64PtrOutput {
