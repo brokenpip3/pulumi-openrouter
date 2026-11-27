@@ -33,17 +33,17 @@ type Workspace struct {
 	Description pulumi.StringOutput `pulumi:"description"`
 	// OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
 	DisabledServerTools pulumi.StringArrayOutput `pulumi:"disabledServerTools"`
-	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
 	IncludeByokInBudgets pulumi.BoolOutput `pulumi:"includeByokInBudgets"`
-	// Optional array of API key IDs to filter I/O logging
+	// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingApiKeyIds pulumi.IntArrayOutput `pulumi:"ioLoggingApiKeyIds"`
-	// Sampling rate for I/O logging (0.0001-1)
+	// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingSamplingRate pulumi.Float64Output `pulumi:"ioLoggingSamplingRate"`
-	// Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+	// Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsDataDiscountLoggingEnabled pulumi.BoolOutput `pulumi:"isDataDiscountLoggingEnabled"`
 	// Whether broadcast is enabled
 	IsObservabilityBroadcastEnabled pulumi.BoolOutput `pulumi:"isObservabilityBroadcastEnabled"`
-	// Whether private logging is enabled
+	// Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsObservabilityIoLoggingEnabled pulumi.BoolOutput `pulumi:"isObservabilityIoLoggingEnabled"`
 	// Name for the new workspace
 	Name pulumi.StringOutput `pulumi:"name"`
@@ -104,17 +104,17 @@ type workspaceState struct {
 	Description *string `pulumi:"description"`
 	// OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
 	DisabledServerTools []string `pulumi:"disabledServerTools"`
-	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
 	IncludeByokInBudgets *bool `pulumi:"includeByokInBudgets"`
-	// Optional array of API key IDs to filter I/O logging
+	// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingApiKeyIds []int `pulumi:"ioLoggingApiKeyIds"`
-	// Sampling rate for I/O logging (0.0001-1)
+	// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingSamplingRate *float64 `pulumi:"ioLoggingSamplingRate"`
-	// Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+	// Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsDataDiscountLoggingEnabled *bool `pulumi:"isDataDiscountLoggingEnabled"`
 	// Whether broadcast is enabled
 	IsObservabilityBroadcastEnabled *bool `pulumi:"isObservabilityBroadcastEnabled"`
-	// Whether private logging is enabled
+	// Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsObservabilityIoLoggingEnabled *bool `pulumi:"isObservabilityIoLoggingEnabled"`
 	// Name for the new workspace
 	Name *string `pulumi:"name"`
@@ -143,17 +143,17 @@ type WorkspaceState struct {
 	Description pulumi.StringPtrInput
 	// OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
 	DisabledServerTools pulumi.StringArrayInput
-	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
 	IncludeByokInBudgets pulumi.BoolPtrInput
-	// Optional array of API key IDs to filter I/O logging
+	// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingApiKeyIds pulumi.IntArrayInput
-	// Sampling rate for I/O logging (0.0001-1)
+	// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingSamplingRate pulumi.Float64PtrInput
-	// Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+	// Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsDataDiscountLoggingEnabled pulumi.BoolPtrInput
 	// Whether broadcast is enabled
 	IsObservabilityBroadcastEnabled pulumi.BoolPtrInput
-	// Whether private logging is enabled
+	// Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsObservabilityIoLoggingEnabled pulumi.BoolPtrInput
 	// Name for the new workspace
 	Name pulumi.StringPtrInput
@@ -186,15 +186,15 @@ type workspaceArgs struct {
 	Description *string `pulumi:"description"`
 	// OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
 	DisabledServerTools []string `pulumi:"disabledServerTools"`
-	// Optional array of API key IDs to filter I/O logging
+	// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingApiKeyIds []int `pulumi:"ioLoggingApiKeyIds"`
-	// Sampling rate for I/O logging (0.0001-1)
+	// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingSamplingRate *float64 `pulumi:"ioLoggingSamplingRate"`
-	// Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+	// Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsDataDiscountLoggingEnabled *bool `pulumi:"isDataDiscountLoggingEnabled"`
 	// Whether broadcast is enabled
 	IsObservabilityBroadcastEnabled *bool `pulumi:"isObservabilityBroadcastEnabled"`
-	// Whether private logging is enabled
+	// Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsObservabilityIoLoggingEnabled *bool `pulumi:"isObservabilityIoLoggingEnabled"`
 	// Name for the new workspace
 	Name *string `pulumi:"name"`
@@ -216,15 +216,15 @@ type WorkspaceArgs struct {
 	Description pulumi.StringPtrInput
 	// OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
 	DisabledServerTools pulumi.StringArrayInput
-	// Optional array of API key IDs to filter I/O logging
+	// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingApiKeyIds pulumi.IntArrayInput
-	// Sampling rate for I/O logging (0.0001-1)
+	// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingSamplingRate pulumi.Float64PtrInput
-	// Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+	// Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsDataDiscountLoggingEnabled pulumi.BoolPtrInput
 	// Whether broadcast is enabled
 	IsObservabilityBroadcastEnabled pulumi.BoolPtrInput
-	// Whether private logging is enabled
+	// Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 	IsObservabilityIoLoggingEnabled pulumi.BoolPtrInput
 	// Name for the new workspace
 	Name pulumi.StringPtrInput
@@ -364,22 +364,22 @@ func (o WorkspaceOutput) DisabledServerTools() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Workspace) pulumi.StringArrayOutput { return v.DisabledServerTools }).(pulumi.StringArrayOutput)
 }
 
-// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
 func (o WorkspaceOutput) IncludeByokInBudgets() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Workspace) pulumi.BoolOutput { return v.IncludeByokInBudgets }).(pulumi.BoolOutput)
 }
 
-// Optional array of API key IDs to filter I/O logging
+// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 func (o WorkspaceOutput) IoLoggingApiKeyIds() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *Workspace) pulumi.IntArrayOutput { return v.IoLoggingApiKeyIds }).(pulumi.IntArrayOutput)
 }
 
-// Sampling rate for I/O logging (0.0001-1)
+// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 func (o WorkspaceOutput) IoLoggingSamplingRate() pulumi.Float64Output {
 	return o.ApplyT(func(v *Workspace) pulumi.Float64Output { return v.IoLoggingSamplingRate }).(pulumi.Float64Output)
 }
 
-// Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+// Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 func (o WorkspaceOutput) IsDataDiscountLoggingEnabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Workspace) pulumi.BoolOutput { return v.IsDataDiscountLoggingEnabled }).(pulumi.BoolOutput)
 }
@@ -389,7 +389,7 @@ func (o WorkspaceOutput) IsObservabilityBroadcastEnabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Workspace) pulumi.BoolOutput { return v.IsObservabilityBroadcastEnabled }).(pulumi.BoolOutput)
 }
 
-// Whether private logging is enabled
+// Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
 func (o WorkspaceOutput) IsObservabilityIoLoggingEnabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Workspace) pulumi.BoolOutput { return v.IsObservabilityIoLoggingEnabled }).(pulumi.BoolOutput)
 }

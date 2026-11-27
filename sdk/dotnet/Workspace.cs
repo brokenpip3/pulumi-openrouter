@@ -67,25 +67,25 @@ namespace Pulumi.Openrouter
         public Output<ImmutableArray<string>> DisabledServerTools { get; private set; } = null!;
 
         /// <summary>
-        /// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+        /// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
         /// </summary>
         [Output("includeByokInBudgets")]
         public Output<bool> IncludeByokInBudgets { get; private set; } = null!;
 
         /// <summary>
-        /// Optional array of API key IDs to filter I/O logging
+        /// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Output("ioLoggingApiKeyIds")]
         public Output<ImmutableArray<int>> IoLoggingApiKeyIds { get; private set; } = null!;
 
         /// <summary>
-        /// Sampling rate for I/O logging (0.0001-1)
+        /// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Output("ioLoggingSamplingRate")]
         public Output<double> IoLoggingSamplingRate { get; private set; } = null!;
 
         /// <summary>
-        /// Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        /// Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Output("isDataDiscountLoggingEnabled")]
         public Output<bool> IsDataDiscountLoggingEnabled { get; private set; } = null!;
@@ -97,7 +97,7 @@ namespace Pulumi.Openrouter
         public Output<bool> IsObservabilityBroadcastEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Whether private logging is enabled
+        /// Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Output("isObservabilityIoLoggingEnabled")]
         public Output<bool> IsObservabilityIoLoggingEnabled { get; private set; } = null!;
@@ -213,7 +213,7 @@ namespace Pulumi.Openrouter
         private InputList<int>? _ioLoggingApiKeyIds;
 
         /// <summary>
-        /// Optional array of API key IDs to filter I/O logging
+        /// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         public InputList<int> IoLoggingApiKeyIds
         {
@@ -222,13 +222,13 @@ namespace Pulumi.Openrouter
         }
 
         /// <summary>
-        /// Sampling rate for I/O logging (0.0001-1)
+        /// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Input("ioLoggingSamplingRate")]
         public Input<double>? IoLoggingSamplingRate { get; set; }
 
         /// <summary>
-        /// Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        /// Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Input("isDataDiscountLoggingEnabled")]
         public Input<bool>? IsDataDiscountLoggingEnabled { get; set; }
@@ -240,7 +240,7 @@ namespace Pulumi.Openrouter
         public Input<bool>? IsObservabilityBroadcastEnabled { get; set; }
 
         /// <summary>
-        /// Whether private logging is enabled
+        /// Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Input("isObservabilityIoLoggingEnabled")]
         public Input<bool>? IsObservabilityIoLoggingEnabled { get; set; }
@@ -326,7 +326,7 @@ namespace Pulumi.Openrouter
         }
 
         /// <summary>
-        /// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+        /// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
         /// </summary>
         [Input("includeByokInBudgets")]
         public Input<bool>? IncludeByokInBudgets { get; set; }
@@ -335,7 +335,7 @@ namespace Pulumi.Openrouter
         private InputList<int>? _ioLoggingApiKeyIds;
 
         /// <summary>
-        /// Optional array of API key IDs to filter I/O logging
+        /// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         public InputList<int> IoLoggingApiKeyIds
         {
@@ -344,13 +344,13 @@ namespace Pulumi.Openrouter
         }
 
         /// <summary>
-        /// Sampling rate for I/O logging (0.0001-1)
+        /// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Input("ioLoggingSamplingRate")]
         public Input<double>? IoLoggingSamplingRate { get; set; }
 
         /// <summary>
-        /// Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        /// Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Input("isDataDiscountLoggingEnabled")]
         public Input<bool>? IsDataDiscountLoggingEnabled { get; set; }
@@ -362,7 +362,7 @@ namespace Pulumi.Openrouter
         public Input<bool>? IsObservabilityBroadcastEnabled { get; set; }
 
         /// <summary>
-        /// Whether private logging is enabled
+        /// Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         /// </summary>
         [Input("isObservabilityIoLoggingEnabled")]
         public Input<bool>? IsObservabilityIoLoggingEnabled { get; set; }

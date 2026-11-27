@@ -32,6 +32,10 @@ namespace Pulumi.Openrouter.Outputs
         /// </summary>
         public readonly int MaxPromptTokens;
         /// <summary>
+        /// Prompt-caching controls for an OpenAI-compatible private endpoint. Accepted fields default on after validation; explicit owner settings override the defaults.
+        /// </summary>
+        public readonly Outputs.GetPrivateEndpointSettingsPromptCachingResult PromptCaching;
+        /// <summary>
         /// Weight precision the deployment runs at; `Unknown` when not stated.
         /// </summary>
         public readonly string Quantization;
@@ -52,6 +56,8 @@ namespace Pulumi.Openrouter.Outputs
 
             int maxPromptTokens,
 
+            Outputs.GetPrivateEndpointSettingsPromptCachingResult promptCaching,
+
             string quantization,
 
             Outputs.GetPrivateEndpointSettingsReasoningResult reasoning,
@@ -64,6 +70,7 @@ namespace Pulumi.Openrouter.Outputs
             Inputs = inputs;
             MaxCompletionTokens = maxCompletionTokens;
             MaxPromptTokens = maxPromptTokens;
+            PromptCaching = promptCaching;
             Quantization = quantization;
             Reasoning = reasoning;
             ToolChoice = toolChoice;

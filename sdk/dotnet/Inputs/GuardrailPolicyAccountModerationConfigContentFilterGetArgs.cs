@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Openrouter.Inputs
 {
 
-    public sealed class GuardrailPolicyModerationConfigPiiFilterGetArgs : global::Pulumi.ResourceArgs
+    public sealed class GuardrailPolicyAccountModerationConfigContentFilterGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Not Null; must be one of ["redact", "block", "flag"]
@@ -18,18 +18,18 @@ namespace Pulumi.Openrouter.Inputs
         [Input("action")]
         public Input<string>? Action { get; set; }
 
+        [Input("label")]
+        public Input<string>? Label { get; set; }
+
         /// <summary>
         /// Not Null
         /// </summary>
-        [Input("entityType")]
-        public Input<string>? EntityType { get; set; }
+        [Input("pattern")]
+        public Input<string>? Pattern { get; set; }
 
-        [Input("scoreThreshold")]
-        public Input<double>? ScoreThreshold { get; set; }
-
-        public GuardrailPolicyModerationConfigPiiFilterGetArgs()
+        public GuardrailPolicyAccountModerationConfigContentFilterGetArgs()
         {
         }
-        public static new GuardrailPolicyModerationConfigPiiFilterGetArgs Empty => new GuardrailPolicyModerationConfigPiiFilterGetArgs();
+        public static new GuardrailPolicyAccountModerationConfigContentFilterGetArgs Empty => new GuardrailPolicyAccountModerationConfigContentFilterGetArgs();
     }
 }

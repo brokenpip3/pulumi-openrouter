@@ -31,6 +31,7 @@ export interface GetByokKeyResult {
     readonly disabled: boolean;
     readonly id: string;
     readonly isByokOnly: boolean;
+    readonly isExclusive: boolean;
     readonly isFallback: boolean;
     readonly isRequired: boolean;
     readonly label: string;

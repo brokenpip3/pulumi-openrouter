@@ -42,11 +42,11 @@ class WorkspaceArgs:
         :param pulumi.Input[_builtins.str] default_text_model: Default text model for this workspace
         :param pulumi.Input[_builtins.str] description: Description of the workspace
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] disabled_server_tools: OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] io_logging_api_key_ids: Optional array of API key IDs to filter I/O logging
-        :param pulumi.Input[_builtins.float] io_logging_sampling_rate: Sampling rate for I/O logging (0.0001-1)
-        :param pulumi.Input[_builtins.bool] is_data_discount_logging_enabled: Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] io_logging_api_key_ids: Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
+        :param pulumi.Input[_builtins.float] io_logging_sampling_rate: Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
+        :param pulumi.Input[_builtins.bool] is_data_discount_logging_enabled: Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         :param pulumi.Input[_builtins.bool] is_observability_broadcast_enabled: Whether broadcast is enabled
-        :param pulumi.Input[_builtins.bool] is_observability_io_logging_enabled: Whether private logging is enabled
+        :param pulumi.Input[_builtins.bool] is_observability_io_logging_enabled: Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         :param pulumi.Input[_builtins.str] name: Name for the new workspace
         """
         pulumi.set(__self__, "slug", slug)
@@ -163,7 +163,7 @@ class WorkspaceArgs:
     @pulumi.getter(name="ioLoggingApiKeyIds")
     def io_logging_api_key_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]:
         """
-        Optional array of API key IDs to filter I/O logging
+        Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "io_logging_api_key_ids")
 
@@ -175,7 +175,7 @@ class WorkspaceArgs:
     @pulumi.getter(name="ioLoggingSamplingRate")
     def io_logging_sampling_rate(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
-        Sampling rate for I/O logging (0.0001-1)
+        Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "io_logging_sampling_rate")
 
@@ -187,7 +187,7 @@ class WorkspaceArgs:
     @pulumi.getter(name="isDataDiscountLoggingEnabled")
     def is_data_discount_logging_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "is_data_discount_logging_enabled")
 
@@ -211,7 +211,7 @@ class WorkspaceArgs:
     @pulumi.getter(name="isObservabilityIoLoggingEnabled")
     def is_observability_io_logging_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Whether private logging is enabled
+        Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "is_observability_io_logging_enabled")
 
@@ -265,12 +265,12 @@ class _WorkspaceState:
         :param pulumi.Input[_builtins.str] default_text_model: Default text model for this workspace
         :param pulumi.Input[_builtins.str] description: Description of the workspace
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] disabled_server_tools: OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
-        :param pulumi.Input[_builtins.bool] include_byok_in_budgets: Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] io_logging_api_key_ids: Optional array of API key IDs to filter I/O logging
-        :param pulumi.Input[_builtins.float] io_logging_sampling_rate: Sampling rate for I/O logging (0.0001-1)
-        :param pulumi.Input[_builtins.bool] is_data_discount_logging_enabled: Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        :param pulumi.Input[_builtins.bool] include_byok_in_budgets: Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] io_logging_api_key_ids: Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
+        :param pulumi.Input[_builtins.float] io_logging_sampling_rate: Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
+        :param pulumi.Input[_builtins.bool] is_data_discount_logging_enabled: Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         :param pulumi.Input[_builtins.bool] is_observability_broadcast_enabled: Whether broadcast is enabled
-        :param pulumi.Input[_builtins.bool] is_observability_io_logging_enabled: Whether private logging is enabled
+        :param pulumi.Input[_builtins.bool] is_observability_io_logging_enabled: Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         :param pulumi.Input[_builtins.str] name: Name for the new workspace
         :param pulumi.Input[_builtins.str] slug: URL-friendly slug (lowercase alphanumeric segments separated by single hyphens, no leading/trailing hyphens)
         :param pulumi.Input[_builtins.str] updated_at: ISO 8601 timestamp of when the workspace was last updated
@@ -424,7 +424,7 @@ class _WorkspaceState:
     @pulumi.getter(name="includeByokInBudgets")
     def include_byok_in_budgets(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+        Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
         """
         return pulumi.get(self, "include_byok_in_budgets")
 
@@ -436,7 +436,7 @@ class _WorkspaceState:
     @pulumi.getter(name="ioLoggingApiKeyIds")
     def io_logging_api_key_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]:
         """
-        Optional array of API key IDs to filter I/O logging
+        Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "io_logging_api_key_ids")
 
@@ -448,7 +448,7 @@ class _WorkspaceState:
     @pulumi.getter(name="ioLoggingSamplingRate")
     def io_logging_sampling_rate(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
-        Sampling rate for I/O logging (0.0001-1)
+        Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "io_logging_sampling_rate")
 
@@ -460,7 +460,7 @@ class _WorkspaceState:
     @pulumi.getter(name="isDataDiscountLoggingEnabled")
     def is_data_discount_logging_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "is_data_discount_logging_enabled")
 
@@ -484,7 +484,7 @@ class _WorkspaceState:
     @pulumi.getter(name="isObservabilityIoLoggingEnabled")
     def is_observability_io_logging_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Whether private logging is enabled
+        Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "is_observability_io_logging_enabled")
 
@@ -560,11 +560,11 @@ class Workspace(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] default_text_model: Default text model for this workspace
         :param pulumi.Input[_builtins.str] description: Description of the workspace
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] disabled_server_tools: OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] io_logging_api_key_ids: Optional array of API key IDs to filter I/O logging
-        :param pulumi.Input[_builtins.float] io_logging_sampling_rate: Sampling rate for I/O logging (0.0001-1)
-        :param pulumi.Input[_builtins.bool] is_data_discount_logging_enabled: Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] io_logging_api_key_ids: Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
+        :param pulumi.Input[_builtins.float] io_logging_sampling_rate: Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
+        :param pulumi.Input[_builtins.bool] is_data_discount_logging_enabled: Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         :param pulumi.Input[_builtins.bool] is_observability_broadcast_enabled: Whether broadcast is enabled
-        :param pulumi.Input[_builtins.bool] is_observability_io_logging_enabled: Whether private logging is enabled
+        :param pulumi.Input[_builtins.bool] is_observability_io_logging_enabled: Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         :param pulumi.Input[_builtins.str] name: Name for the new workspace
         :param pulumi.Input[_builtins.str] slug: URL-friendly slug (lowercase alphanumeric segments separated by single hyphens, no leading/trailing hyphens)
         """
@@ -678,12 +678,12 @@ class Workspace(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] default_text_model: Default text model for this workspace
         :param pulumi.Input[_builtins.str] description: Description of the workspace
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] disabled_server_tools: OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
-        :param pulumi.Input[_builtins.bool] include_byok_in_budgets: Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] io_logging_api_key_ids: Optional array of API key IDs to filter I/O logging
-        :param pulumi.Input[_builtins.float] io_logging_sampling_rate: Sampling rate for I/O logging (0.0001-1)
-        :param pulumi.Input[_builtins.bool] is_data_discount_logging_enabled: Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        :param pulumi.Input[_builtins.bool] include_byok_in_budgets: Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] io_logging_api_key_ids: Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
+        :param pulumi.Input[_builtins.float] io_logging_sampling_rate: Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
+        :param pulumi.Input[_builtins.bool] is_data_discount_logging_enabled: Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         :param pulumi.Input[_builtins.bool] is_observability_broadcast_enabled: Whether broadcast is enabled
-        :param pulumi.Input[_builtins.bool] is_observability_io_logging_enabled: Whether private logging is enabled
+        :param pulumi.Input[_builtins.bool] is_observability_io_logging_enabled: Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         :param pulumi.Input[_builtins.str] name: Name for the new workspace
         :param pulumi.Input[_builtins.str] slug: URL-friendly slug (lowercase alphanumeric segments separated by single hyphens, no leading/trailing hyphens)
         :param pulumi.Input[_builtins.str] updated_at: ISO 8601 timestamp of when the workspace was last updated
@@ -830,7 +830,7 @@ class Workspace(pulumi.CustomResource):
     @pulumi.getter(name="includeByokInBudgets")
     def include_byok_in_budgets(self) -> pulumi.Output[_builtins.bool]:
         """
-        Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+        Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
         """
         return pulumi.get(self, "include_byok_in_budgets")
 
@@ -838,7 +838,7 @@ class Workspace(pulumi.CustomResource):
     @pulumi.getter(name="ioLoggingApiKeyIds")
     def io_logging_api_key_ids(self) -> pulumi.Output[Sequence[_builtins.int]]:
         """
-        Optional array of API key IDs to filter I/O logging
+        Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "io_logging_api_key_ids")
 
@@ -846,7 +846,7 @@ class Workspace(pulumi.CustomResource):
     @pulumi.getter(name="ioLoggingSamplingRate")
     def io_logging_sampling_rate(self) -> pulumi.Output[_builtins.float]:
         """
-        Sampling rate for I/O logging (0.0001-1)
+        Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "io_logging_sampling_rate")
 
@@ -854,7 +854,7 @@ class Workspace(pulumi.CustomResource):
     @pulumi.getter(name="isDataDiscountLoggingEnabled")
     def is_data_discount_logging_enabled(self) -> pulumi.Output[_builtins.bool]:
         """
-        Whether data discount logging is enabled. Enabling it requires the account to allow workspace data-discount logging; otherwise the request returns 403.
+        Whether data discount logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "is_data_discount_logging_enabled")
 
@@ -870,7 +870,7 @@ class Workspace(pulumi.CustomResource):
     @pulumi.getter(name="isObservabilityIoLoggingEnabled")
     def is_observability_io_logging_enabled(self) -> pulumi.Output[_builtins.bool]:
         """
-        Whether private logging is enabled
+        Whether private logging is enabled. Read-only for management keys: any value other than the default returns 403. Change it in the OpenRouter dashboard.
         """
         return pulumi.get(self, "is_observability_io_logging_enabled")
 

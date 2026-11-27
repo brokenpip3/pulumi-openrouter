@@ -49,6 +49,12 @@ namespace Pulumi.Openrouter.Inputs
         public Input<int>? MaxPromptTokens { get; set; }
 
         /// <summary>
+        /// Change only the named prompt-caching flags; omitted flags keep their stored value.
+        /// </summary>
+        [Input("promptCaching")]
+        public Input<Inputs.PrivateEndpointSettingsPromptCachingArgs>? PromptCaching { get; set; }
+
+        /// <summary>
         /// Weight precision the deployment runs at; `Unknown` when not stated. must be one of ["int4", "int8", "fp4", "mxfp4", "nvfp4", "fp6", "fp8", "mxfp8", "fp16", "bf16", "fp32", "unknown"]
         /// </summary>
         [Input("quantization")]

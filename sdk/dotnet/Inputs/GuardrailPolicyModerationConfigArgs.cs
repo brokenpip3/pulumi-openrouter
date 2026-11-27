@@ -18,23 +18,12 @@ namespace Pulumi.Openrouter.Inputs
         [Input("broadcastModelArmorFlaggedRequests")]
         public Input<bool>? BroadcastModelArmorFlaggedRequests { get; set; }
 
-        [Input("contentFilterBlocksRequests")]
-        public Input<bool>? ContentFilterBlocksRequests { get; set; }
-
         [Input("contentFilterBuiltins")]
         private InputList<Inputs.GuardrailPolicyModerationConfigContentFilterBuiltinArgs>? _contentFilterBuiltins;
         public InputList<Inputs.GuardrailPolicyModerationConfigContentFilterBuiltinArgs> ContentFilterBuiltins
         {
             get => _contentFilterBuiltins ?? (_contentFilterBuiltins = new InputList<Inputs.GuardrailPolicyModerationConfigContentFilterBuiltinArgs>());
             set => _contentFilterBuiltins = value;
-        }
-
-        [Input("contentFilterPatterns")]
-        private InputList<string>? _contentFilterPatterns;
-        public InputList<string> ContentFilterPatterns
-        {
-            get => _contentFilterPatterns ?? (_contentFilterPatterns = new InputList<string>());
-            set => _contentFilterPatterns = value;
         }
 
         [Input("contentFilters")]
@@ -65,14 +54,6 @@ namespace Pulumi.Openrouter.Inputs
         /// </summary>
         [Input("modelArmorInjectionProtectionMode")]
         public Input<string>? ModelArmorInjectionProtectionMode { get; set; }
-
-        [Input("piiFilters")]
-        private InputList<Inputs.GuardrailPolicyModerationConfigPiiFilterArgs>? _piiFilters;
-        public InputList<Inputs.GuardrailPolicyModerationConfigPiiFilterArgs> PiiFilters
-        {
-            get => _piiFilters ?? (_piiFilters = new InputList<Inputs.GuardrailPolicyModerationConfigPiiFilterArgs>());
-            set => _piiFilters = value;
-        }
 
         [Input("platformImageModeratedProviders")]
         private InputList<string>? _platformImageModeratedProviders;

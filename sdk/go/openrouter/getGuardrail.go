@@ -28,7 +28,9 @@ type LookupGuardrailArgs struct {
 
 // A collection of values returned by getGuardrail.
 type LookupGuardrailResult struct {
+	AllowProvisionalProviders      bool                               `pulumi:"allowProvisionalProviders"`
 	AllowSafetyRetentionGoogle     bool                               `pulumi:"allowSafetyRetentionGoogle"`
+	AllowSafetyRetentionOpenai     bool                               `pulumi:"allowSafetyRetentionOpenai"`
 	AllowSafetyRetentionOther      bool                               `pulumi:"allowSafetyRetentionOther"`
 	AllowedDataRegions             []string                           `pulumi:"allowedDataRegions"`
 	AllowedModels                  []string                           `pulumi:"allowedModels"`
@@ -88,8 +90,16 @@ func (o LookupGuardrailResultOutput) ToLookupGuardrailResultOutputWithContext(ct
 	return o
 }
 
+func (o LookupGuardrailResultOutput) AllowProvisionalProviders() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupGuardrailResult) bool { return v.AllowProvisionalProviders }).(pulumi.BoolOutput)
+}
+
 func (o LookupGuardrailResultOutput) AllowSafetyRetentionGoogle() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupGuardrailResult) bool { return v.AllowSafetyRetentionGoogle }).(pulumi.BoolOutput)
+}
+
+func (o LookupGuardrailResultOutput) AllowSafetyRetentionOpenai() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupGuardrailResult) bool { return v.AllowSafetyRetentionOpenai }).(pulumi.BoolOutput)
 }
 
 func (o LookupGuardrailResultOutput) AllowSafetyRetentionOther() pulumi.BoolOutput {
