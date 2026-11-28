@@ -149,6 +149,10 @@ export interface GetByokKeysData {
      */
     isByokOnly: boolean;
     /**
+     * Whether requests for the models this credential covers run only on exclusive credentials covering that model: never on another provider, a non-exclusive key, or OpenRouter's shared capacity. Every exclusive credential that covers the model and is eligible for the request may serve it, so two exclusive credentials with overlapping models share those models. Only credentials eligible for the request (its API key and member restrictions) count, so a request no exclusive credential is eligible for uses normal routing. A request for a model that an eligible exclusive credential covers returns a 404 when none of those credentials can serve it. The covered models are `allowedModels` when non-empty; with no or an empty `allowedModels`, an OpenAI, Anthropic, or Google credential covers every closed-weight model by that lab (for example every `openai/*` model except open-weight models such as `openai/gpt-oss-120b`, which stay on normal routing unless listed), and other providers must set a non-empty `allowedModels`. Only valid on non-fallback credentials.
+     */
+    isExclusive: boolean;
+    /**
      * Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried. Cannot be combined with `isByokOnly`.
      */
     isFallback: boolean;
@@ -301,7 +305,9 @@ export interface GetGuardrailPolicyBudgetConfig {
 }
 
 export interface GetGuardrailPolicyModelAvailabilityConfig {
+    allowProvisionalProviders: boolean;
     allowSafetyRetentionGoogle: boolean;
+    allowSafetyRetentionOpenai: boolean;
     allowSafetyRetentionOther: boolean;
     allowedDataRegions: string[];
     allowedModels: string[];
@@ -327,15 +333,12 @@ export interface GetGuardrailPolicyModelAvailabilityConfig {
 export interface GetGuardrailPolicyModerationConfig {
     armor: outputs.GetGuardrailPolicyModerationConfigArmor;
     broadcastModelArmorFlaggedRequests: boolean;
-    contentFilterBlocksRequests: boolean;
     contentFilterBuiltins: outputs.GetGuardrailPolicyModerationConfigContentFilterBuiltin[];
-    contentFilterPatterns: string[];
     contentFilters: outputs.GetGuardrailPolicyModerationConfigContentFilter[];
     enableModelArmorInjectionProtection: boolean;
     lakeraInjectionProtectionMode: string;
     modelArmorInjectionConfidenceLevel: string;
     modelArmorInjectionProtectionMode: string;
-    piiFilters: outputs.GetGuardrailPolicyModerationConfigPiiFilter[];
     platformImageModeratedProviders: string[];
     platformModeratedProviders: string[];
 }
@@ -467,17 +470,19 @@ export interface GetGuardrailPolicyModerationConfigContentFilterBuiltin {
     slug: string;
 }
 
-export interface GetGuardrailPolicyModerationConfigPiiFilter {
-    action: string;
-    entityType: string;
-    scoreThreshold: number;
-}
-
 export interface GetGuardrailsData {
+    /**
+     * Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
+     */
+    allowProvisionalProviders: boolean;
     /**
      * Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
      */
     allowSafetyRetentionGoogle: boolean;
+    /**
+     * Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allowSafetyRetentionOther applies. Follows allowSafetyRetentionOther when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
+     */
+    allowSafetyRetentionOpenai: boolean;
     /**
      * Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
      */
@@ -751,7 +756,7 @@ export interface GetModelDataArchitecture {
 
 export interface GetModelDataBenchmarks {
     /**
-     * Artificial Analysis benchmark index scores.
+     * Benchmark index scores published by Artificial Analysis (artificialanalysis.ai), one field per index. Each score is the model's best on that index across the configurations Artificial Analysis evaluated (for example reasoning levels), so two indexes of one model can come from different configurations. The deprecated Coding Index and Agentic Index fields are null for every model: Artificial Analysis has retired those indexes. Attribute Artificial Analysis when you republish them. Omitted when Artificial Analysis has scored the model on none of them.
      */
     artificialAnalysis: outputs.GetModelDataBenchmarksArtificialAnalysis;
     /**
@@ -762,17 +767,61 @@ export interface GetModelDataBenchmarks {
 
 export interface GetModelDataBenchmarksArtificialAnalysis {
     /**
-     * Artificial Analysis Agentic Index score
+     * Deprecated: Artificial Analysis has retired its Agentic Index and no longer publishes it. Always null.
+     *
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
      */
     agenticIndex: number;
     /**
-     * Artificial Analysis Coding Index score
+     * Deprecated: Artificial Analysis has retired its Coding Index and no longer publishes it. Always null.
+     *
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
      */
     codingIndex: number;
     /**
-     * Artificial Analysis Intelligence Index score
+     * Artificial Analysis Cyber Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+     */
+    cyberIndex: number;
+    /**
+     * Artificial Analysis Decision Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Published for decision models and for the language models Artificial Analysis evaluates on decision tasks. Null when Artificial Analysis has not published a score for the model.
+     */
+    decisionIndex: number;
+    /**
+     * Artificial Analysis Economics Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    economicsIndex: number;
+    /**
+     * Artificial Analysis Engineering Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    engineeringIndex: number;
+    /**
+     * Artificial Analysis Finance & Accounting Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    financeAndAccountingIndex: number;
+    /**
+     * Artificial Analysis Healthcare & Medical Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    healthcareAndMedicalIndex: number;
+    /**
+     * Artificial Analysis Intelligence Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
      */
     intelligenceIndex: number;
+    /**
+     * Artificial Analysis Legal Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    legalIndex: number;
+    /**
+     * Artificial Analysis Multilingual Index score, as a fraction from 0 to 1: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+     */
+    multilingualIndex: number;
+    /**
+     * Artificial Analysis Openness Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+     */
+    opennessIndex: number;
+    /**
+     * Artificial Analysis Strategy & Ops Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    strategyAndOpsIndex: number;
 }
 
 export interface GetModelDataBenchmarksDesignArena {
@@ -1097,7 +1146,7 @@ export interface GetModelsDataArchitecture {
 
 export interface GetModelsDataBenchmarks {
     /**
-     * Artificial Analysis benchmark index scores.
+     * Benchmark index scores published by Artificial Analysis (artificialanalysis.ai), one field per index. Each score is the model's best on that index across the configurations Artificial Analysis evaluated (for example reasoning levels), so two indexes of one model can come from different configurations. The deprecated Coding Index and Agentic Index fields are null for every model: Artificial Analysis has retired those indexes. Attribute Artificial Analysis when you republish them. Omitted when Artificial Analysis has scored the model on none of them.
      */
     artificialAnalysis: outputs.GetModelsDataBenchmarksArtificialAnalysis;
     /**
@@ -1108,17 +1157,61 @@ export interface GetModelsDataBenchmarks {
 
 export interface GetModelsDataBenchmarksArtificialAnalysis {
     /**
-     * Artificial Analysis Agentic Index score
+     * Deprecated: Artificial Analysis has retired its Agentic Index and no longer publishes it. Always null.
+     *
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
      */
     agenticIndex: number;
     /**
-     * Artificial Analysis Coding Index score
+     * Deprecated: Artificial Analysis has retired its Coding Index and no longer publishes it. Always null.
+     *
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
      */
     codingIndex: number;
     /**
-     * Artificial Analysis Intelligence Index score
+     * Artificial Analysis Cyber Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+     */
+    cyberIndex: number;
+    /**
+     * Artificial Analysis Decision Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Published for decision models and for the language models Artificial Analysis evaluates on decision tasks. Null when Artificial Analysis has not published a score for the model.
+     */
+    decisionIndex: number;
+    /**
+     * Artificial Analysis Economics Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    economicsIndex: number;
+    /**
+     * Artificial Analysis Engineering Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    engineeringIndex: number;
+    /**
+     * Artificial Analysis Finance & Accounting Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    financeAndAccountingIndex: number;
+    /**
+     * Artificial Analysis Healthcare & Medical Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    healthcareAndMedicalIndex: number;
+    /**
+     * Artificial Analysis Intelligence Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
      */
     intelligenceIndex: number;
+    /**
+     * Artificial Analysis Legal Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    legalIndex: number;
+    /**
+     * Artificial Analysis Multilingual Index score, as a fraction from 0 to 1: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+     */
+    multilingualIndex: number;
+    /**
+     * Artificial Analysis Openness Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+     */
+    opennessIndex: number;
+    /**
+     * Artificial Analysis Strategy & Ops Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+     */
+    strategyAndOpsIndex: number;
 }
 
 export interface GetModelsDataBenchmarksDesignArena {
@@ -4824,6 +4917,10 @@ export interface GetPrivateEndpointSettings {
      */
     maxPromptTokens: number;
     /**
+     * Prompt-caching controls for an OpenAI-compatible private endpoint. Accepted fields default on after validation; explicit owner settings override the defaults.
+     */
+    promptCaching: outputs.GetPrivateEndpointSettingsPromptCaching;
+    /**
      * Weight precision the deployment runs at; `unknown` when not stated.
      */
     quantization: string;
@@ -4863,6 +4960,17 @@ export interface GetPrivateEndpointSettingsInputs {
      * Accepts image URLs. `null` keeps the provider default.
      */
     imageUrls: boolean;
+}
+
+export interface GetPrivateEndpointSettingsPromptCaching {
+    /**
+     * Forward top-level, message, and tool cacheControl markers. Defaults on after endpoint validation accepts these fields; otherwise off. Set false to opt out, or true to declare support explicitly.
+     */
+    cacheControl: boolean;
+    /**
+     * Send an OpenRouter-derived, customer-isolated prompt_cache_key, not the caller-supplied key. Defaults on after endpoint validation accepts the field; otherwise off. Set false to opt out, or true to declare support explicitly. HIPAA and unknown workspace posture withhold OpenRouter caching directives and the derived key; this does not control upstream retention.
+     */
+    promptCacheKey: boolean;
 }
 
 export interface GetPrivateEndpointSettingsReasoning {
@@ -5023,11 +5131,11 @@ export interface GetWorkspacesData {
      */
     id: string;
     /**
-     * Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+     * Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
      */
     includeByokInBudgets: boolean;
     /**
-     * Optional array of API key IDs to filter I/O logging. Null means all keys are logged.
+     * API key IDs used to filter I/O logging. Null means all keys are logged. Omitted without access to workspace settings and API key identifiers.
      */
     ioLoggingApiKeyIds: number[];
     /**
@@ -5100,6 +5208,220 @@ export interface GuardrailContentFilterBuiltin {
     slug: string;
 }
 
+export interface GuardrailPolicyAccountBudgetConfig {
+    /**
+     * Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+     */
+    includeByokInBudgets: boolean;
+    /**
+     * Spending limit in USD. Must be provided together with `resetInterval`: a request that sets only one of the two is rejected with a 400.
+     */
+    limitUsd?: number;
+    /**
+     * Interval at which the limit resets (daily, weekly, monthly). must be one of ["daily", "weekly", "monthly"]
+     */
+    resetInterval?: string;
+}
+
+export interface GuardrailPolicyAccountModelAvailabilityConfig {
+    allowProvisionalProviders: boolean;
+    allowSafetyRetentionGoogle: boolean;
+    allowSafetyRetentionOpenai: boolean;
+    allowSafetyRetentionOther: boolean;
+    allowedDataRegions: string[];
+    allowedModels: string[];
+    allowedProviders: string[];
+    enableFreeModelPublication: boolean;
+    enableFreeModelTraining: boolean;
+    enablePaidModelTraining: boolean;
+    enforceFirstPartyHarnessModels: boolean;
+    enforceZdr: boolean;
+    enforceZdrAnthropic: boolean;
+    enforceZdrGoogle: boolean;
+    enforceZdrOpenai: boolean;
+    enforceZdrOther: boolean;
+    enforceZdrXai: boolean;
+    ignoredModels: string[];
+    ignoredProviders: string[];
+    platformBannedAuthors: string[];
+    platformBannedModels: string[];
+    platformBannedProviders: string[];
+    requireEuDataRegion: boolean;
+}
+
+export interface GuardrailPolicyAccountModerationConfig {
+    armor?: outputs.GuardrailPolicyAccountModerationConfigArmor;
+    broadcastModelArmorFlaggedRequests: boolean;
+    contentFilterBuiltins: outputs.GuardrailPolicyAccountModerationConfigContentFilterBuiltin[];
+    contentFilters: outputs.GuardrailPolicyAccountModerationConfigContentFilter[];
+    enableModelArmorInjectionProtection: boolean;
+    /**
+     * must be one of ["block", "flag"]
+     */
+    lakeraInjectionProtectionMode: string;
+    /**
+     * must be one of ["low", "medium", "high"]
+     */
+    modelArmorInjectionConfidenceLevel: string;
+    /**
+     * must be one of ["block", "flag"]
+     */
+    modelArmorInjectionProtectionMode: string;
+    platformImageModeratedProviders: string[];
+    platformModeratedProviders: string[];
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmor {
+    /**
+     * The Armor context: Claude Code's `classifierContext` (v1), with `auto_mode.{hard_deny,soft_deny,allow}` rules as strings or `{ id, instructions, threshold? }` objects and `auto_mode.environment` entries as `"Name: value"` strings or `{ name, value }` objects. `threshold` applies when Armor evaluates; when the provider evaluates natively (Anthropic dangerous-tool-use beta) rules are judged at the provider's own boundary.
+     */
+    classifierContext: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContext;
+    /**
+     * `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `onError`. Default `enforce`. must be one of ["enforce", "audit"]
+     */
+    mode: string;
+    /**
+     * When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`. must be one of ["log", "block"]
+     */
+    onError: string;
+    /**
+     * Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
+     */
+    useCcStyleDefaultRules: boolean;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContext {
+    additionalProperties: {[key: string]: string};
+    autoMode: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoMode;
+    /**
+     * Not Null
+     */
+    v: number;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoMode {
+    allows: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllow[];
+    environments: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironment[];
+    hardDenies: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDeny[];
+    softDenies: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDeny[];
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllow {
+    armorRule?: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllowArmorRule;
+    str?: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeAllowArmorRule {
+    /**
+     * Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+     */
+    id: string;
+    /**
+     * What the rule matches, written for the classifier. Not Null
+     */
+    instructions: string;
+    /**
+     * Display name shown in verdict explanations; defaults to the id.
+     */
+    name: string;
+    /**
+     * Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+     */
+    threshold: number;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironment {
+    armorEnvironmentEntry?: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry;
+    str?: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeEnvironmentArmorEnvironmentEntry {
+    /**
+     * Not Null
+     */
+    name: string;
+    /**
+     * Not Null
+     */
+    value: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDeny {
+    armorRule?: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule;
+    str?: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeHardDenyArmorRule {
+    /**
+     * Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+     */
+    id: string;
+    /**
+     * What the rule matches, written for the classifier. Not Null
+     */
+    instructions: string;
+    /**
+     * Display name shown in verdict explanations; defaults to the id.
+     */
+    name: string;
+    /**
+     * Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+     */
+    threshold: number;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDeny {
+    armorRule?: outputs.GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule;
+    str?: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigArmorClassifierContextAutoModeSoftDenyArmorRule {
+    /**
+     * Stable id, unique within its source; reported as the deciding rule when it fires. Not Null
+     */
+    id: string;
+    /**
+     * What the rule matches, written for the classifier. Not Null
+     */
+    instructions: string;
+    /**
+     * Display name shown in verdict explanations; defaults to the id.
+     */
+    name: string;
+    /**
+     * Probability at or above which the rule counts as matched. Defaults to 0.6 for hard-deny and soft-deny rules and 0.7 for allow rules (an exception needs stronger evidence to clear a matched soft deny).
+     */
+    threshold: number;
+}
+
+export interface GuardrailPolicyAccountModerationConfigContentFilter {
+    /**
+     * Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action: string;
+    label: string;
+    /**
+     * Not Null
+     */
+    pattern: string;
+}
+
+export interface GuardrailPolicyAccountModerationConfigContentFilterBuiltin {
+    /**
+     * Not Null; must be one of ["redact", "block", "flag"]
+     */
+    action: string;
+    label: string;
+    /**
+     * must be one of ["userOnly", "allMessages"]
+     */
+    scanScope: string;
+    /**
+     * Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
+     */
+    slug: string;
+}
+
 export interface GuardrailPolicyBudgetConfig {
     /**
      * Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
@@ -5116,7 +5438,9 @@ export interface GuardrailPolicyBudgetConfig {
 }
 
 export interface GuardrailPolicyModelAvailabilityConfig {
+    allowProvisionalProviders: boolean;
     allowSafetyRetentionGoogle: boolean;
+    allowSafetyRetentionOpenai: boolean;
     allowSafetyRetentionOther: boolean;
     allowedDataRegions: string[];
     allowedModels: string[];
@@ -5142,9 +5466,7 @@ export interface GuardrailPolicyModelAvailabilityConfig {
 export interface GuardrailPolicyModerationConfig {
     armor?: outputs.GuardrailPolicyModerationConfigArmor;
     broadcastModelArmorFlaggedRequests: boolean;
-    contentFilterBlocksRequests: boolean;
     contentFilterBuiltins: outputs.GuardrailPolicyModerationConfigContentFilterBuiltin[];
-    contentFilterPatterns: string[];
     contentFilters: outputs.GuardrailPolicyModerationConfigContentFilter[];
     enableModelArmorInjectionProtection: boolean;
     /**
@@ -5159,7 +5481,6 @@ export interface GuardrailPolicyModerationConfig {
      * must be one of ["block", "flag"]
      */
     modelArmorInjectionProtectionMode: string;
-    piiFilters: outputs.GuardrailPolicyModerationConfigPiiFilter[];
     platformImageModeratedProviders: string[];
     platformModeratedProviders: string[];
 }
@@ -5313,18 +5634,6 @@ export interface GuardrailPolicyModerationConfigContentFilterBuiltin {
      * Not Null; must be one of ["email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection"]
      */
     slug: string;
-}
-
-export interface GuardrailPolicyModerationConfigPiiFilter {
-    /**
-     * Not Null; must be one of ["redact", "block", "flag"]
-     */
-    action: string;
-    /**
-     * Not Null
-     */
-    entityType: string;
-    scoreThreshold: number;
 }
 
 export interface ObservabilityDestinationArize {
@@ -7089,6 +7398,10 @@ export interface PrivateEndpointSettings {
      */
     maxPromptTokens: number;
     /**
+     * Change only the named prompt-caching flags; omitted flags keep their stored value.
+     */
+    promptCaching: outputs.PrivateEndpointSettingsPromptCaching;
+    /**
      * Weight precision the deployment runs at; `unknown` when not stated. must be one of ["int4", "int8", "fp4", "mxfp4", "nvfp4", "fp6", "fp8", "mxfp8", "fp16", "bf16", "fp32", "unknown"]
      */
     quantization: string;
@@ -7128,6 +7441,17 @@ export interface PrivateEndpointSettingsInputs {
      * Accepts image URLs. `null` means the endpoint uses the provider default.
      */
     imageUrls: boolean;
+}
+
+export interface PrivateEndpointSettingsPromptCaching {
+    /**
+     * Forward top-level, message, and tool cacheControl markers. Defaults on after endpoint validation accepts these fields; otherwise off. Set false to opt out, or true to declare support explicitly.
+     */
+    cacheControl: boolean;
+    /**
+     * Send an OpenRouter-derived, customer-isolated prompt_cache_key, not the caller-supplied key. Defaults on after endpoint validation accepts the field; otherwise off. Set false to opt out, or true to declare support explicitly. HIPAA and unknown workspace posture withhold OpenRouter caching directives and the derived key; this does not control upstream retention.
+     */
+    promptCacheKey: boolean;
 }
 
 export interface PrivateEndpointSettingsReasoning {

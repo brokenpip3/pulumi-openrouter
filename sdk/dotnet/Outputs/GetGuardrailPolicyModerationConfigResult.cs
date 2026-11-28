@@ -15,15 +15,12 @@ namespace Pulumi.Openrouter.Outputs
     {
         public readonly Outputs.GetGuardrailPolicyModerationConfigArmorResult Armor;
         public readonly bool BroadcastModelArmorFlaggedRequests;
-        public readonly bool ContentFilterBlocksRequests;
         public readonly ImmutableArray<Outputs.GetGuardrailPolicyModerationConfigContentFilterBuiltinResult> ContentFilterBuiltins;
-        public readonly ImmutableArray<string> ContentFilterPatterns;
         public readonly ImmutableArray<Outputs.GetGuardrailPolicyModerationConfigContentFilterResult> ContentFilters;
         public readonly bool EnableModelArmorInjectionProtection;
         public readonly string LakeraInjectionProtectionMode;
         public readonly string ModelArmorInjectionConfidenceLevel;
         public readonly string ModelArmorInjectionProtectionMode;
-        public readonly ImmutableArray<Outputs.GetGuardrailPolicyModerationConfigPiiFilterResult> PiiFilters;
         public readonly ImmutableArray<string> PlatformImageModeratedProviders;
         public readonly ImmutableArray<string> PlatformModeratedProviders;
 
@@ -33,11 +30,7 @@ namespace Pulumi.Openrouter.Outputs
 
             bool broadcastModelArmorFlaggedRequests,
 
-            bool contentFilterBlocksRequests,
-
             ImmutableArray<Outputs.GetGuardrailPolicyModerationConfigContentFilterBuiltinResult> contentFilterBuiltins,
-
-            ImmutableArray<string> contentFilterPatterns,
 
             ImmutableArray<Outputs.GetGuardrailPolicyModerationConfigContentFilterResult> contentFilters,
 
@@ -49,23 +42,18 @@ namespace Pulumi.Openrouter.Outputs
 
             string modelArmorInjectionProtectionMode,
 
-            ImmutableArray<Outputs.GetGuardrailPolicyModerationConfigPiiFilterResult> piiFilters,
-
             ImmutableArray<string> platformImageModeratedProviders,
 
             ImmutableArray<string> platformModeratedProviders)
         {
             Armor = armor;
             BroadcastModelArmorFlaggedRequests = broadcastModelArmorFlaggedRequests;
-            ContentFilterBlocksRequests = contentFilterBlocksRequests;
             ContentFilterBuiltins = contentFilterBuiltins;
-            ContentFilterPatterns = contentFilterPatterns;
             ContentFilters = contentFilters;
             EnableModelArmorInjectionProtection = enableModelArmorInjectionProtection;
             LakeraInjectionProtectionMode = lakeraInjectionProtectionMode;
             ModelArmorInjectionConfidenceLevel = modelArmorInjectionConfidenceLevel;
             ModelArmorInjectionProtectionMode = modelArmorInjectionProtectionMode;
-            PiiFilters = piiFilters;
             PlatformImageModeratedProviders = platformImageModeratedProviders;
             PlatformModeratedProviders = platformModeratedProviders;
         }

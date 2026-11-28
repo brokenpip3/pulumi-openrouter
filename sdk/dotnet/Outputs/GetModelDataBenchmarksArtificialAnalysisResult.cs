@@ -14,17 +14,57 @@ namespace Pulumi.Openrouter.Outputs
     public sealed class GetModelDataBenchmarksArtificialAnalysisResult
     {
         /// <summary>
-        /// Artificial Analysis Agentic Index score
+        /// Deprecated: Artificial Analysis has retired its Agentic Index and no longer publishes it. Always null.
         /// </summary>
         public readonly double AgenticIndex;
         /// <summary>
-        /// Artificial Analysis Coding Index score
+        /// Deprecated: Artificial Analysis has retired its Coding Index and no longer publishes it. Always null.
         /// </summary>
         public readonly double CodingIndex;
         /// <summary>
-        /// Artificial Analysis Intelligence Index score
+        /// Artificial Analysis Cyber Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double CyberIndex;
+        /// <summary>
+        /// Artificial Analysis Decision Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Published for decision models and for the language models Artificial Analysis evaluates on decision tasks. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double DecisionIndex;
+        /// <summary>
+        /// Artificial Analysis Economics Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double EconomicsIndex;
+        /// <summary>
+        /// Artificial Analysis Engineering Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double EngineeringIndex;
+        /// <summary>
+        /// Artificial Analysis Finance &amp; Accounting Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double FinanceAndAccountingIndex;
+        /// <summary>
+        /// Artificial Analysis Healthcare &amp; Medical Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double HealthcareAndMedicalIndex;
+        /// <summary>
+        /// Artificial Analysis Intelligence Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
         /// </summary>
         public readonly double IntelligenceIndex;
+        /// <summary>
+        /// Artificial Analysis Legal Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double LegalIndex;
+        /// <summary>
+        /// Artificial Analysis Multilingual Index score, as a fraction from 0 to 1: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double MultilingualIndex;
+        /// <summary>
+        /// Artificial Analysis Openness Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double OpennessIndex;
+        /// <summary>
+        /// Artificial Analysis Strategy &amp; Ops Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+        /// </summary>
+        public readonly double StrategyAndOpsIndex;
 
         [OutputConstructor]
         private GetModelDataBenchmarksArtificialAnalysisResult(
@@ -32,11 +72,41 @@ namespace Pulumi.Openrouter.Outputs
 
             double codingIndex,
 
-            double intelligenceIndex)
+            double cyberIndex,
+
+            double decisionIndex,
+
+            double economicsIndex,
+
+            double engineeringIndex,
+
+            double financeAndAccountingIndex,
+
+            double healthcareAndMedicalIndex,
+
+            double intelligenceIndex,
+
+            double legalIndex,
+
+            double multilingualIndex,
+
+            double opennessIndex,
+
+            double strategyAndOpsIndex)
         {
             AgenticIndex = agenticIndex;
             CodingIndex = codingIndex;
+            CyberIndex = cyberIndex;
+            DecisionIndex = decisionIndex;
+            EconomicsIndex = economicsIndex;
+            EngineeringIndex = engineeringIndex;
+            FinanceAndAccountingIndex = financeAndAccountingIndex;
+            HealthcareAndMedicalIndex = healthcareAndMedicalIndex;
             IntelligenceIndex = intelligenceIndex;
+            LegalIndex = legalIndex;
+            MultilingualIndex = multilingualIndex;
+            OpennessIndex = opennessIndex;
+            StrategyAndOpsIndex = strategyAndOpsIndex;
         }
     }
 }

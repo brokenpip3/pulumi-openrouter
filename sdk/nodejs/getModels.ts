@@ -19,16 +19,36 @@ export function getModels(args?: GetModelsArgs, opts?: pulumi.InvokeOptions): Pr
         "maxAgeDays": args.maxAgeDays,
         "maxAgenticIndex": args.maxAgenticIndex,
         "maxCodingIndex": args.maxCodingIndex,
+        "maxCyberIndex": args.maxCyberIndex,
+        "maxDecisionIndex": args.maxDecisionIndex,
+        "maxEconomicsIndex": args.maxEconomicsIndex,
+        "maxEngineeringIndex": args.maxEngineeringIndex,
+        "maxFinanceAndAccountingIndex": args.maxFinanceAndAccountingIndex,
+        "maxHealthcareAndMedicalIndex": args.maxHealthcareAndMedicalIndex,
         "maxIntelligenceIndex": args.maxIntelligenceIndex,
+        "maxLegalIndex": args.maxLegalIndex,
+        "maxMultilingualIndex": args.maxMultilingualIndex,
+        "maxOpennessIndex": args.maxOpennessIndex,
         "maxOutputPrice": args.maxOutputPrice,
         "maxPrice": args.maxPrice,
+        "maxStrategyAndOpsIndex": args.maxStrategyAndOpsIndex,
         "maxToolSuccessRate": args.maxToolSuccessRate,
         "minAgeDays": args.minAgeDays,
         "minAgenticIndex": args.minAgenticIndex,
         "minCodingIndex": args.minCodingIndex,
+        "minCyberIndex": args.minCyberIndex,
+        "minDecisionIndex": args.minDecisionIndex,
+        "minEconomicsIndex": args.minEconomicsIndex,
+        "minEngineeringIndex": args.minEngineeringIndex,
+        "minFinanceAndAccountingIndex": args.minFinanceAndAccountingIndex,
+        "minHealthcareAndMedicalIndex": args.minHealthcareAndMedicalIndex,
         "minIntelligenceIndex": args.minIntelligenceIndex,
+        "minLegalIndex": args.minLegalIndex,
+        "minMultilingualIndex": args.minMultilingualIndex,
+        "minOpennessIndex": args.minOpennessIndex,
         "minOutputPrice": args.minOutputPrice,
         "minPrice": args.minPrice,
+        "minStrategyAndOpsIndex": args.minStrategyAndOpsIndex,
         "minToolSuccessRate": args.minToolSuccessRate,
         "modelAuthors": args.modelAuthors,
         "outputModalities": args.outputModalities,
@@ -54,18 +74,50 @@ export interface GetModelsArgs {
     endpoints?: string;
     inputModalities?: string;
     maxAgeDays?: number;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     maxAgenticIndex?: number;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     maxCodingIndex?: number;
+    maxCyberIndex?: number;
+    maxDecisionIndex?: number;
+    maxEconomicsIndex?: number;
+    maxEngineeringIndex?: number;
+    maxFinanceAndAccountingIndex?: number;
+    maxHealthcareAndMedicalIndex?: number;
     maxIntelligenceIndex?: number;
+    maxLegalIndex?: number;
+    maxMultilingualIndex?: number;
+    maxOpennessIndex?: number;
     maxOutputPrice?: number;
     maxPrice?: number;
+    maxStrategyAndOpsIndex?: number;
     maxToolSuccessRate?: number;
     minAgeDays?: number;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     minAgenticIndex?: number;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     minCodingIndex?: number;
+    minCyberIndex?: number;
+    minDecisionIndex?: number;
+    minEconomicsIndex?: number;
+    minEngineeringIndex?: number;
+    minFinanceAndAccountingIndex?: number;
+    minHealthcareAndMedicalIndex?: number;
     minIntelligenceIndex?: number;
+    minLegalIndex?: number;
+    minMultilingualIndex?: number;
+    minOpennessIndex?: number;
     minOutputPrice?: number;
     minPrice?: number;
+    minStrategyAndOpsIndex?: number;
     minToolSuccessRate?: number;
     modelAuthors?: string;
     outputModalities?: string;
@@ -92,18 +144,50 @@ export interface GetModelsResult {
     readonly inputModalities?: string;
     readonly links: outputs.GetModelsLinks;
     readonly maxAgeDays?: number;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     readonly maxAgenticIndex?: number;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     readonly maxCodingIndex?: number;
+    readonly maxCyberIndex?: number;
+    readonly maxDecisionIndex?: number;
+    readonly maxEconomicsIndex?: number;
+    readonly maxEngineeringIndex?: number;
+    readonly maxFinanceAndAccountingIndex?: number;
+    readonly maxHealthcareAndMedicalIndex?: number;
     readonly maxIntelligenceIndex?: number;
+    readonly maxLegalIndex?: number;
+    readonly maxMultilingualIndex?: number;
+    readonly maxOpennessIndex?: number;
     readonly maxOutputPrice?: number;
     readonly maxPrice?: number;
+    readonly maxStrategyAndOpsIndex?: number;
     readonly maxToolSuccessRate?: number;
     readonly minAgeDays?: number;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     readonly minAgenticIndex?: number;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     readonly minCodingIndex?: number;
+    readonly minCyberIndex?: number;
+    readonly minDecisionIndex?: number;
+    readonly minEconomicsIndex?: number;
+    readonly minEngineeringIndex?: number;
+    readonly minFinanceAndAccountingIndex?: number;
+    readonly minHealthcareAndMedicalIndex?: number;
     readonly minIntelligenceIndex?: number;
+    readonly minLegalIndex?: number;
+    readonly minMultilingualIndex?: number;
+    readonly minOpennessIndex?: number;
     readonly minOutputPrice?: number;
     readonly minPrice?: number;
+    readonly minStrategyAndOpsIndex?: number;
     readonly minToolSuccessRate?: number;
     readonly modelAuthors?: string;
     readonly outputModalities?: string;
@@ -130,16 +214,36 @@ export function getModelsOutput(args?: GetModelsOutputArgs, opts?: pulumi.Invoke
         "maxAgeDays": args.maxAgeDays,
         "maxAgenticIndex": args.maxAgenticIndex,
         "maxCodingIndex": args.maxCodingIndex,
+        "maxCyberIndex": args.maxCyberIndex,
+        "maxDecisionIndex": args.maxDecisionIndex,
+        "maxEconomicsIndex": args.maxEconomicsIndex,
+        "maxEngineeringIndex": args.maxEngineeringIndex,
+        "maxFinanceAndAccountingIndex": args.maxFinanceAndAccountingIndex,
+        "maxHealthcareAndMedicalIndex": args.maxHealthcareAndMedicalIndex,
         "maxIntelligenceIndex": args.maxIntelligenceIndex,
+        "maxLegalIndex": args.maxLegalIndex,
+        "maxMultilingualIndex": args.maxMultilingualIndex,
+        "maxOpennessIndex": args.maxOpennessIndex,
         "maxOutputPrice": args.maxOutputPrice,
         "maxPrice": args.maxPrice,
+        "maxStrategyAndOpsIndex": args.maxStrategyAndOpsIndex,
         "maxToolSuccessRate": args.maxToolSuccessRate,
         "minAgeDays": args.minAgeDays,
         "minAgenticIndex": args.minAgenticIndex,
         "minCodingIndex": args.minCodingIndex,
+        "minCyberIndex": args.minCyberIndex,
+        "minDecisionIndex": args.minDecisionIndex,
+        "minEconomicsIndex": args.minEconomicsIndex,
+        "minEngineeringIndex": args.minEngineeringIndex,
+        "minFinanceAndAccountingIndex": args.minFinanceAndAccountingIndex,
+        "minHealthcareAndMedicalIndex": args.minHealthcareAndMedicalIndex,
         "minIntelligenceIndex": args.minIntelligenceIndex,
+        "minLegalIndex": args.minLegalIndex,
+        "minMultilingualIndex": args.minMultilingualIndex,
+        "minOpennessIndex": args.minOpennessIndex,
         "minOutputPrice": args.minOutputPrice,
         "minPrice": args.minPrice,
+        "minStrategyAndOpsIndex": args.minStrategyAndOpsIndex,
         "minToolSuccessRate": args.minToolSuccessRate,
         "modelAuthors": args.modelAuthors,
         "outputModalities": args.outputModalities,
@@ -165,18 +269,50 @@ export interface GetModelsOutputArgs {
     endpoints?: pulumi.Input<string | undefined>;
     inputModalities?: pulumi.Input<string | undefined>;
     maxAgeDays?: pulumi.Input<number | undefined>;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     maxAgenticIndex?: pulumi.Input<number | undefined>;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     maxCodingIndex?: pulumi.Input<number | undefined>;
+    maxCyberIndex?: pulumi.Input<number | undefined>;
+    maxDecisionIndex?: pulumi.Input<number | undefined>;
+    maxEconomicsIndex?: pulumi.Input<number | undefined>;
+    maxEngineeringIndex?: pulumi.Input<number | undefined>;
+    maxFinanceAndAccountingIndex?: pulumi.Input<number | undefined>;
+    maxHealthcareAndMedicalIndex?: pulumi.Input<number | undefined>;
     maxIntelligenceIndex?: pulumi.Input<number | undefined>;
+    maxLegalIndex?: pulumi.Input<number | undefined>;
+    maxMultilingualIndex?: pulumi.Input<number | undefined>;
+    maxOpennessIndex?: pulumi.Input<number | undefined>;
     maxOutputPrice?: pulumi.Input<number | undefined>;
     maxPrice?: pulumi.Input<number | undefined>;
+    maxStrategyAndOpsIndex?: pulumi.Input<number | undefined>;
     maxToolSuccessRate?: pulumi.Input<number | undefined>;
     minAgeDays?: pulumi.Input<number | undefined>;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     minAgenticIndex?: pulumi.Input<number | undefined>;
+    /**
+     * @deprecated This will be removed in a future release, please migrate away from it as soon as possible
+     */
     minCodingIndex?: pulumi.Input<number | undefined>;
+    minCyberIndex?: pulumi.Input<number | undefined>;
+    minDecisionIndex?: pulumi.Input<number | undefined>;
+    minEconomicsIndex?: pulumi.Input<number | undefined>;
+    minEngineeringIndex?: pulumi.Input<number | undefined>;
+    minFinanceAndAccountingIndex?: pulumi.Input<number | undefined>;
+    minHealthcareAndMedicalIndex?: pulumi.Input<number | undefined>;
     minIntelligenceIndex?: pulumi.Input<number | undefined>;
+    minLegalIndex?: pulumi.Input<number | undefined>;
+    minMultilingualIndex?: pulumi.Input<number | undefined>;
+    minOpennessIndex?: pulumi.Input<number | undefined>;
     minOutputPrice?: pulumi.Input<number | undefined>;
     minPrice?: pulumi.Input<number | undefined>;
+    minStrategyAndOpsIndex?: pulumi.Input<number | undefined>;
     minToolSuccessRate?: pulumi.Input<number | undefined>;
     modelAuthors?: pulumi.Input<string | undefined>;
     outputModalities?: pulumi.Input<string | undefined>;

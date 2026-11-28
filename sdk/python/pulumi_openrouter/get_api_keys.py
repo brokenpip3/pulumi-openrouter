@@ -27,7 +27,10 @@ class GetApiKeysResult:
     """
     A collection of values returned by getApiKeys.
     """
-    def __init__(__self__, datas=None, include_disabled=None, include_expired=None, workspace_id=None):
+    def __init__(__self__, creator_user_id=None, datas=None, include_disabled=None, include_expired=None, workspace_id=None):
+        if creator_user_id and not isinstance(creator_user_id, str):
+            raise TypeError("Expected argument 'creator_user_id' to be a str")
+        pulumi.set(__self__, "creator_user_id", creator_user_id)
         if datas and not isinstance(datas, list):
             raise TypeError("Expected argument 'datas' to be a list")
         pulumi.set(__self__, "datas", datas)
@@ -40,6 +43,11 @@ class GetApiKeysResult:
         if workspace_id and not isinstance(workspace_id, str):
             raise TypeError("Expected argument 'workspace_id' to be a str")
         pulumi.set(__self__, "workspace_id", workspace_id)
+
+    @_builtins.property
+    @pulumi.getter(name="creatorUserId")
+    def creator_user_id(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "creator_user_id")
 
     @_builtins.property
     @pulumi.getter
@@ -68,13 +76,15 @@ class AwaitableGetApiKeysResult(GetApiKeysResult):
         if False:
             yield self
         return GetApiKeysResult(
+            creator_user_id=self.creator_user_id,
             datas=self.datas,
             include_disabled=self.include_disabled,
             include_expired=self.include_expired,
             workspace_id=self.workspace_id)
 
 
-def get_api_keys(include_disabled: Optional[_builtins.str] = None,
+def get_api_keys(creator_user_id: Optional[_builtins.str] = None,
+                 include_disabled: Optional[_builtins.str] = None,
                  include_expired: Optional[_builtins.str] = None,
                  workspace_id: Optional[_builtins.str] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetApiKeysResult:
@@ -82,6 +92,7 @@ def get_api_keys(include_disabled: Optional[_builtins.str] = None,
     Use this data source to access information about an existing resource.
     """
     __args__ = dict()
+    __args__['creatorUserId'] = creator_user_id
     __args__['includeDisabled'] = include_disabled
     __args__['includeExpired'] = include_expired
     __args__['workspaceId'] = workspace_id
@@ -89,11 +100,13 @@ def get_api_keys(include_disabled: Optional[_builtins.str] = None,
     __ret__ = pulumi.runtime.invoke('openrouter:index/getApiKeys:getApiKeys', __args__, opts=opts, typ=GetApiKeysResult).value
 
     return AwaitableGetApiKeysResult(
+        creator_user_id=pulumi.get(__ret__, 'creator_user_id'),
         datas=pulumi.get(__ret__, 'datas'),
         include_disabled=pulumi.get(__ret__, 'include_disabled'),
         include_expired=pulumi.get(__ret__, 'include_expired'),
         workspace_id=pulumi.get(__ret__, 'workspace_id'))
-def get_api_keys_output(include_disabled: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+def get_api_keys_output(creator_user_id: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                        include_disabled: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                         include_expired: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                         workspace_id: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                         opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetApiKeysResult]:
@@ -101,12 +114,14 @@ def get_api_keys_output(include_disabled: pulumi.Input[Optional[Optional[_builti
     Use this data source to access information about an existing resource.
     """
     __args__ = dict()
+    __args__['creatorUserId'] = creator_user_id
     __args__['includeDisabled'] = include_disabled
     __args__['includeExpired'] = include_expired
     __args__['workspaceId'] = workspace_id
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('openrouter:index/getApiKeys:getApiKeys', __args__, opts=opts, typ=GetApiKeysResult)
     return __ret__.apply(lambda __response__: GetApiKeysResult(
+        creator_user_id=pulumi.get(__response__, 'creator_user_id'),
         datas=pulumi.get(__response__, 'datas'),
         include_disabled=pulumi.get(__response__, 'include_disabled'),
         include_expired=pulumi.get(__response__, 'include_expired'),
