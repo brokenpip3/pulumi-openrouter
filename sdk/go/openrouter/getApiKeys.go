@@ -23,6 +23,7 @@ func GetApiKeys(ctx *pulumi.Context, args *GetApiKeysArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getApiKeys.
 type GetApiKeysArgs struct {
+	CreatorUserId   *string `pulumi:"creatorUserId"`
 	IncludeDisabled *string `pulumi:"includeDisabled"`
 	IncludeExpired  *string `pulumi:"includeExpired"`
 	WorkspaceId     *string `pulumi:"workspaceId"`
@@ -30,6 +31,7 @@ type GetApiKeysArgs struct {
 
 // A collection of values returned by getApiKeys.
 type GetApiKeysResult struct {
+	CreatorUserId   *string          `pulumi:"creatorUserId"`
 	Datas           []GetApiKeysData `pulumi:"datas"`
 	IncludeDisabled *string          `pulumi:"includeDisabled"`
 	IncludeExpired  *string          `pulumi:"includeExpired"`
@@ -43,6 +45,7 @@ func GetApiKeysOutput(ctx *pulumi.Context, args GetApiKeysOutputArgs, opts ...pu
 
 // A collection of arguments for invoking getApiKeys.
 type GetApiKeysOutputArgs struct {
+	CreatorUserId   pulumi.StringPtrInput `pulumi:"creatorUserId"`
 	IncludeDisabled pulumi.StringPtrInput `pulumi:"includeDisabled"`
 	IncludeExpired  pulumi.StringPtrInput `pulumi:"includeExpired"`
 	WorkspaceId     pulumi.StringPtrInput `pulumi:"workspaceId"`
@@ -65,6 +68,10 @@ func (o GetApiKeysResultOutput) ToGetApiKeysResultOutput() GetApiKeysResultOutpu
 
 func (o GetApiKeysResultOutput) ToGetApiKeysResultOutputWithContext(ctx context.Context) GetApiKeysResultOutput {
 	return o
+}
+
+func (o GetApiKeysResultOutput) CreatorUserId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetApiKeysResult) *string { return v.CreatorUserId }).(pulumi.StringPtrOutput)
 }
 
 func (o GetApiKeysResultOutput) Datas() GetApiKeysDataArrayOutput {

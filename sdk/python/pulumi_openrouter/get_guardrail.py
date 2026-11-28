@@ -27,10 +27,16 @@ class GetGuardrailResult:
     """
     A collection of values returned by getGuardrail.
     """
-    def __init__(__self__, allow_safety_retention_google=None, allow_safety_retention_other=None, allowed_data_regions=None, allowed_models=None, allowed_providers=None, content_filter_builtins=None, content_filters=None, created_at=None, description=None, enable_free_model_publication=None, enable_free_model_training=None, enable_paid_model_training=None, enforce_first_party_harness_models=None, enforce_zdr=None, enforce_zdr_anthropic=None, enforce_zdr_google=None, enforce_zdr_openai=None, enforce_zdr_other=None, enforce_zdr_xai=None, id=None, ignored_models=None, ignored_providers=None, include_byok_in_budgets=None, limit_usd=None, name=None, reset_interval=None, updated_at=None, workspace_id=None):
+    def __init__(__self__, allow_provisional_providers=None, allow_safety_retention_google=None, allow_safety_retention_openai=None, allow_safety_retention_other=None, allowed_data_regions=None, allowed_models=None, allowed_providers=None, content_filter_builtins=None, content_filters=None, created_at=None, description=None, enable_free_model_publication=None, enable_free_model_training=None, enable_paid_model_training=None, enforce_first_party_harness_models=None, enforce_zdr=None, enforce_zdr_anthropic=None, enforce_zdr_google=None, enforce_zdr_openai=None, enforce_zdr_other=None, enforce_zdr_xai=None, id=None, ignored_models=None, ignored_providers=None, include_byok_in_budgets=None, limit_usd=None, name=None, reset_interval=None, updated_at=None, workspace_id=None):
+        if allow_provisional_providers and not isinstance(allow_provisional_providers, bool):
+            raise TypeError("Expected argument 'allow_provisional_providers' to be a bool")
+        pulumi.set(__self__, "allow_provisional_providers", allow_provisional_providers)
         if allow_safety_retention_google and not isinstance(allow_safety_retention_google, bool):
             raise TypeError("Expected argument 'allow_safety_retention_google' to be a bool")
         pulumi.set(__self__, "allow_safety_retention_google", allow_safety_retention_google)
+        if allow_safety_retention_openai and not isinstance(allow_safety_retention_openai, bool):
+            raise TypeError("Expected argument 'allow_safety_retention_openai' to be a bool")
+        pulumi.set(__self__, "allow_safety_retention_openai", allow_safety_retention_openai)
         if allow_safety_retention_other and not isinstance(allow_safety_retention_other, bool):
             raise TypeError("Expected argument 'allow_safety_retention_other' to be a bool")
         pulumi.set(__self__, "allow_safety_retention_other", allow_safety_retention_other)
@@ -114,9 +120,19 @@ class GetGuardrailResult:
         pulumi.set(__self__, "workspace_id", workspace_id)
 
     @_builtins.property
+    @pulumi.getter(name="allowProvisionalProviders")
+    def allow_provisional_providers(self) -> _builtins.bool:
+        return pulumi.get(self, "allow_provisional_providers")
+
+    @_builtins.property
     @pulumi.getter(name="allowSafetyRetentionGoogle")
     def allow_safety_retention_google(self) -> _builtins.bool:
         return pulumi.get(self, "allow_safety_retention_google")
+
+    @_builtins.property
+    @pulumi.getter(name="allowSafetyRetentionOpenai")
+    def allow_safety_retention_openai(self) -> _builtins.bool:
+        return pulumi.get(self, "allow_safety_retention_openai")
 
     @_builtins.property
     @pulumi.getter(name="allowSafetyRetentionOther")
@@ -261,7 +277,9 @@ class AwaitableGetGuardrailResult(GetGuardrailResult):
         if False:
             yield self
         return GetGuardrailResult(
+            allow_provisional_providers=self.allow_provisional_providers,
             allow_safety_retention_google=self.allow_safety_retention_google,
+            allow_safety_retention_openai=self.allow_safety_retention_openai,
             allow_safety_retention_other=self.allow_safety_retention_other,
             allowed_data_regions=self.allowed_data_regions,
             allowed_models=self.allowed_models,
@@ -302,7 +320,9 @@ def get_guardrail(id: Optional[_builtins.str] = None,
     __ret__ = pulumi.runtime.invoke('openrouter:index/getGuardrail:getGuardrail', __args__, opts=opts, typ=GetGuardrailResult).value
 
     return AwaitableGetGuardrailResult(
+        allow_provisional_providers=pulumi.get(__ret__, 'allow_provisional_providers'),
         allow_safety_retention_google=pulumi.get(__ret__, 'allow_safety_retention_google'),
+        allow_safety_retention_openai=pulumi.get(__ret__, 'allow_safety_retention_openai'),
         allow_safety_retention_other=pulumi.get(__ret__, 'allow_safety_retention_other'),
         allowed_data_regions=pulumi.get(__ret__, 'allowed_data_regions'),
         allowed_models=pulumi.get(__ret__, 'allowed_models'),
@@ -340,7 +360,9 @@ def get_guardrail_output(id: pulumi.Input[Optional[_builtins.str]] = None,
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('openrouter:index/getGuardrail:getGuardrail', __args__, opts=opts, typ=GetGuardrailResult)
     return __ret__.apply(lambda __response__: GetGuardrailResult(
+        allow_provisional_providers=pulumi.get(__response__, 'allow_provisional_providers'),
         allow_safety_retention_google=pulumi.get(__response__, 'allow_safety_retention_google'),
+        allow_safety_retention_openai=pulumi.get(__response__, 'allow_safety_retention_openai'),
         allow_safety_retention_other=pulumi.get(__response__, 'allow_safety_retention_other'),
         allowed_data_regions=pulumi.get(__response__, 'allowed_data_regions'),
         allowed_models=pulumi.get(__response__, 'allowed_models'),

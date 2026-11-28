@@ -32,6 +32,10 @@ namespace Pulumi.Openrouter.Outputs
         /// </summary>
         public readonly int? MaxPromptTokens;
         /// <summary>
+        /// Change only the named prompt-caching flags; omitted flags keep their stored value.
+        /// </summary>
+        public readonly Outputs.PrivateEndpointSettingsPromptCaching? PromptCaching;
+        /// <summary>
         /// Weight precision the deployment runs at; `Unknown` when not stated. must be one of ["int4", "int8", "fp4", "mxfp4", "nvfp4", "fp6", "fp8", "mxfp8", "fp16", "bf16", "fp32", "unknown"]
         /// </summary>
         public readonly string? Quantization;
@@ -52,6 +56,8 @@ namespace Pulumi.Openrouter.Outputs
 
             int? maxPromptTokens,
 
+            Outputs.PrivateEndpointSettingsPromptCaching? promptCaching,
+
             string? quantization,
 
             Outputs.PrivateEndpointSettingsReasoning? reasoning,
@@ -64,6 +70,7 @@ namespace Pulumi.Openrouter.Outputs
             Inputs = inputs;
             MaxCompletionTokens = maxCompletionTokens;
             MaxPromptTokens = maxPromptTokens;
+            PromptCaching = promptCaching;
             Quantization = quantization;
             Reasoning = reasoning;
             ToolChoice = toolChoice;

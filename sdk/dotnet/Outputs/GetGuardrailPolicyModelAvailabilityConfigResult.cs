@@ -13,7 +13,9 @@ namespace Pulumi.Openrouter.Outputs
     [OutputType]
     public sealed class GetGuardrailPolicyModelAvailabilityConfigResult
     {
+        public readonly bool AllowProvisionalProviders;
         public readonly bool AllowSafetyRetentionGoogle;
+        public readonly bool AllowSafetyRetentionOpenai;
         public readonly bool AllowSafetyRetentionOther;
         public readonly ImmutableArray<string> AllowedDataRegions;
         public readonly ImmutableArray<string> AllowedModels;
@@ -37,7 +39,11 @@ namespace Pulumi.Openrouter.Outputs
 
         [OutputConstructor]
         private GetGuardrailPolicyModelAvailabilityConfigResult(
+            bool allowProvisionalProviders,
+
             bool allowSafetyRetentionGoogle,
+
+            bool allowSafetyRetentionOpenai,
 
             bool allowSafetyRetentionOther,
 
@@ -79,7 +85,9 @@ namespace Pulumi.Openrouter.Outputs
 
             bool requireEuDataRegion)
         {
+            AllowProvisionalProviders = allowProvisionalProviders;
             AllowSafetyRetentionGoogle = allowSafetyRetentionGoogle;
+            AllowSafetyRetentionOpenai = allowSafetyRetentionOpenai;
             AllowSafetyRetentionOther = allowSafetyRetentionOther;
             AllowedDataRegions = allowedDataRegions;
             AllowedModels = allowedModels;

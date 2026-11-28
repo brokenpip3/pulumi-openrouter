@@ -15,9 +15,7 @@ namespace Pulumi.Openrouter.Outputs
     {
         public readonly Outputs.GuardrailPolicyModerationConfigArmor? Armor;
         public readonly bool? BroadcastModelArmorFlaggedRequests;
-        public readonly bool? ContentFilterBlocksRequests;
         public readonly ImmutableArray<Outputs.GuardrailPolicyModerationConfigContentFilterBuiltin> ContentFilterBuiltins;
-        public readonly ImmutableArray<string> ContentFilterPatterns;
         public readonly ImmutableArray<Outputs.GuardrailPolicyModerationConfigContentFilter> ContentFilters;
         public readonly bool? EnableModelArmorInjectionProtection;
         /// <summary>
@@ -32,7 +30,6 @@ namespace Pulumi.Openrouter.Outputs
         /// must be one of ["block", "flag"]
         /// </summary>
         public readonly string? ModelArmorInjectionProtectionMode;
-        public readonly ImmutableArray<Outputs.GuardrailPolicyModerationConfigPiiFilter> PiiFilters;
         public readonly ImmutableArray<string> PlatformImageModeratedProviders;
         public readonly ImmutableArray<string> PlatformModeratedProviders;
 
@@ -42,11 +39,7 @@ namespace Pulumi.Openrouter.Outputs
 
             bool? broadcastModelArmorFlaggedRequests,
 
-            bool? contentFilterBlocksRequests,
-
             ImmutableArray<Outputs.GuardrailPolicyModerationConfigContentFilterBuiltin> contentFilterBuiltins,
-
-            ImmutableArray<string> contentFilterPatterns,
 
             ImmutableArray<Outputs.GuardrailPolicyModerationConfigContentFilter> contentFilters,
 
@@ -58,23 +51,18 @@ namespace Pulumi.Openrouter.Outputs
 
             string? modelArmorInjectionProtectionMode,
 
-            ImmutableArray<Outputs.GuardrailPolicyModerationConfigPiiFilter> piiFilters,
-
             ImmutableArray<string> platformImageModeratedProviders,
 
             ImmutableArray<string> platformModeratedProviders)
         {
             Armor = armor;
             BroadcastModelArmorFlaggedRequests = broadcastModelArmorFlaggedRequests;
-            ContentFilterBlocksRequests = contentFilterBlocksRequests;
             ContentFilterBuiltins = contentFilterBuiltins;
-            ContentFilterPatterns = contentFilterPatterns;
             ContentFilters = contentFilters;
             EnableModelArmorInjectionProtection = enableModelArmorInjectionProtection;
             LakeraInjectionProtectionMode = lakeraInjectionProtectionMode;
             ModelArmorInjectionConfidenceLevel = modelArmorInjectionConfidenceLevel;
             ModelArmorInjectionProtectionMode = modelArmorInjectionProtectionMode;
-            PiiFilters = piiFilters;
             PlatformImageModeratedProviders = platformImageModeratedProviders;
             PlatformModeratedProviders = platformModeratedProviders;
         }
